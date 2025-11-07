@@ -1,0 +1,81 @@
+{
+	// ═══════════ TAILWIND CSS ═══════════
+	"tailwindCSS.experimental.configFile": "packages/ui/src/styles/globals.css",
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+	],
+
+	// ═══════════ FORMATAÇÃO ═══════════
+
+	// Formato ao salvar usando ESLint (não Prettier)
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+
+	// Configurações do editor (TAB = 4 espaços)
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false, // Usar TAB real, não espaços
+	"editor.detectIndentation": false, // Não detectar indentação automaticamente
+
+	// ═══════════ ESLINT ═══════════
+
+	// Validar TypeScript, JavaScript, React
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+
+	// Usar flat config (ESLint 9+)
+	"eslint.useFlatConfig": true,
+
+	// ESLint como formatter
+	"[javascript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
+
+	// ═══════════ PRETTIER (DESABILITADO) ═══════════
+
+	// Não usar Prettier (apenas ESLint)
+	"prettier.enable": false,
+
+	// ═══════════ TYPESCRIPT ═══════════
+
+	// Usar versão do workspace do TypeScript
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+
+	// ═══════════ ARQUIVOS ═══════════
+
+	// Excluir da busca
+	"files.exclude": {
+		"**/.git": true,
+		"**/.next": true,
+		"**/node_modules": true,
+		"**/.turbo": true,
+		"**/dist": true,
+		"**/build": true
+	},
+
+	// Tipo de quebra de linha (Unix LF)
+	"files.eol": "\n",
+
+	// Trim trailing whitespace
+	"files.trimTrailingWhitespace": true,
+
+	// Insert final newline
+	"files.insertFinalNewline": true
+}

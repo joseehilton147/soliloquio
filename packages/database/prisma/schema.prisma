@@ -1,0 +1,45 @@
+// Solilóquio - Database Schema
+// Caminho espiritual através dos dados
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")        // Transaction Mode (pooled)
+  directUrl = env("DIRECT_URL")          // Session Mode (for migrations)
+}
+
+// ═══════════════════════════════════════════════════════
+// TAROT - Arcanos e suas interpretações
+// ═══════════════════════════════════════════════════════
+
+model TarotCard {
+  id              String        @id @default(uuid())
+  name            String        @unique
+  slug            String?       @unique // URL-friendly version of name (e.g., "o-mago")
+  summary         String
+  description     String
+  imageUrl        String?       // Image path for the card
+  verticalMeaning Json          // Array of strings
+  invertedMeaning Json          // Array of strings
+  numerology      String
+  astrology       String?
+  typesOfReading  ReadingType[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("tarot_cards")
+}
+
+model ReadingType {
+  id     String    @id @default(uuid())
+  type   String    // 'general', 'love-relationship', 'career-money', 'personal-spiritual', 'inverted'
+  read   String
+  cardId String
+  card   TarotCard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@map("reading_types")
+}

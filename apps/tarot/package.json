@@ -1,0 +1,40 @@
+{
+  "name": "tarot",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 3002",
+    "build": "next build",
+    "start": "next start --port 3002",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "@tanstack/react-query": "^5.68.0",
+    "@trpc/client": "^11.0.3",
+    "@trpc/next": "^11.0.3",
+    "@trpc/react-query": "^11.0.3",
+    "@trpc/server": "^11.0.3",
+    "@workspace/api": "workspace:*",
+    "@workspace/core": "workspace:*",
+    "@workspace/ui": "workspace:*",
+    "lucide-react": "^0.475.0",
+    "next": "^15.4.5",
+    "next-themes": "^0.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "superjson": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.9",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@workspace/eslint-config": "workspace:^",
+    "@workspace/typescript-config": "workspace:*",
+    "tailwindcss": "4.1.11",
+    "typescript": "^5.9.2"
+  }
+}
