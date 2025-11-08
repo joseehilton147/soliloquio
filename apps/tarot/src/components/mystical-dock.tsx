@@ -185,98 +185,127 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
       )
     }
 
-    // Link button
+    // Link button - com Stack expandível inline
     return (
       <div
         key={item.id}
-        className={cn(
-          'relative',
-          // Adiciona padding quando tem submenu para criar "ponte" entre botão e submenu
-          hasSubmenu && isHorizontal && 'pb-3',
-          hasSubmenu && !isHorizontal && 'pr-3'
-        )}
+        className="relative"
         onMouseEnter={() => setHoveredItem(item.id)}
         onMouseLeave={() => setHoveredItem(null)}
       >
-        <Link
-          href={item.href!}
-          className={cn(
-            'group relative flex items-center justify-center',
-            'size-14 rounded-xl',
-            'border transition-all duration-200',
-            'shadow-lg',
-            isActive
-              ? 'bg-gradient-to-br from-purple-500/30 to-indigo-500/30 border-purple-500/60 shadow-purple-500/30'
-              : 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/20 shadow-purple-500/0',
-            !isActive && 'hover:border-purple-500/40 hover:from-purple-500/20 hover:to-indigo-500/20 hover:scale-110 hover:-translate-y-2 hover:shadow-purple-500/25'
-          )}
-        >
-          <item.icon className={cn(
-            'size-6 transition-colors',
-            isActive ? 'text-purple-500 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400'
-          )} />
+        {/* Stack expandida - borda gradiente envolvendo tudo */}
+        {hasSubmenu && isHovered ? (
+          <div className={cn(
+            'relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy',
+            'animate-in fade-in zoom-in-95 duration-300'
+          )}>
+            <div className={cn(
+              'relative rounded-2xl overflow-hidden',
+              'bg-background/98 backdrop-blur-2xl',
+              'shadow-2xl shadow-purple-500/30',
+              'flex items-center gap-2 p-2',
+              isHorizontal ? 'flex-row' : 'flex-col'
+            )}>
+              {/* Glow interno místico */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none" />
 
-          {/* Active indicator */}
-          {isActive && (
-            <div className="absolute -top-1 -right-1 size-3 rounded-full bg-purple-500 border-2 border-background animate-pulse" />
-          )}
-        </Link>
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
 
-        {/* Submenu místico - aparece no hover */}
-        {hasSubmenu && isHovered && (
-          <div
-            className={cn(
-              'absolute z-50',
-              'animate-in fade-in slide-in-from-bottom-2 duration-300',
-              // Mais espaçamento elegante entre botão e submenu
-              isHorizontal ? 'bottom-full mb-4 left-1/2 -translate-x-1/2' : 'left-full ml-4 top-0'
-            )}
-          >
-            {/* Borda gradiente animada "viva" */}
-            <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-              {/* Background interno com blur */}
+              {/* Ícone principal + label */}
+              <Link
+                href={item.href!}
+                className={cn(
+                  'relative flex items-center gap-2.5 px-3 py-2.5 rounded-xl',
+                  'border transition-all duration-200',
+                  'shadow-lg shrink-0',
+                  isActive
+                    ? 'bg-gradient-to-br from-purple-500/30 to-indigo-500/30 border-purple-500/60 shadow-purple-500/30'
+                    : 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/20 shadow-purple-500/0',
+                  'hover:border-purple-500/40 hover:scale-[1.02]'
+                )}
+              >
+                <item.icon className={cn(
+                  'size-5 transition-colors shrink-0',
+                  isActive ? 'text-purple-500 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400'
+                )} />
+
+                <span className="text-sm font-medium whitespace-nowrap">
+                  {item.label}
+                </span>
+
+                {/* Active indicator */}
+                {isActive && (
+                  <div className="absolute -top-1 -right-1 size-3 rounded-full bg-purple-500 border-2 border-background animate-pulse" />
+                )}
+              </Link>
+
+              {/* Divider místico */}
               <div className={cn(
-                'rounded-2xl p-3',
-                'bg-background/98 backdrop-blur-2xl',
-                'shadow-2xl shadow-purple-500/30',
-                'min-w-[200px]',
-                'relative overflow-hidden'
+                'bg-gradient-to-br from-purple-500/30 via-violet-500/30 to-indigo-500/30 shrink-0',
+                isHorizontal ? 'w-px h-10' : 'h-px w-10'
+              )} />
+
+              {/* Subitens inline */}
+              <div className={cn(
+                'relative flex gap-2',
+                isHorizontal ? 'flex-row' : 'flex-col'
               )}>
-                {/* Glow interno místico */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none" />
+                {item.submenu!.map((subitem) => {
+                  const SubIcon = subitem.icon || Plus
+                  return (
+                    <Link
+                      key={subitem.href}
+                      href={subitem.href}
+                      className={cn(
+                        'relative flex items-center gap-2.5 px-3 py-2.5 rounded-xl',
+                        'text-sm font-medium whitespace-nowrap',
+                        'bg-gradient-to-br from-purple-500/5 to-indigo-500/5',
+                        'border border-purple-500/20',
+                        'hover:from-purple-500/20 hover:via-violet-500/20 hover:to-indigo-500/20',
+                        'hover:border-purple-500/40',
+                        'hover:text-purple-600 dark:hover:text-purple-400',
+                        'hover:scale-[1.05] hover:shadow-lg hover:shadow-purple-500/20',
+                        'transition-all duration-200',
+                        'group/sub overflow-hidden'
+                      )}
+                    >
+                      {/* Hover glow effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
-
-                <div className="relative space-y-1">
-                  {item.submenu!.map((subitem) => {
-                    const SubIcon = subitem.icon || Plus
-                    return (
-                      <Link
-                        key={subitem.href}
-                        href={subitem.href}
-                        className={cn(
-                          'flex items-center gap-3 px-4 py-3 rounded-xl',
-                          'text-sm font-medium',
-                          'hover:bg-gradient-to-r hover:from-purple-500/20 hover:via-violet-500/20 hover:to-indigo-500/20',
-                          'hover:text-purple-600 dark:hover:text-purple-400',
-                          'hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/20',
-                          'transition-all duration-200',
-                          'group/sub relative overflow-hidden'
-                        )}
-                      >
-                        {/* Hover glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
-
-                        <SubIcon className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />
-                        <span className="relative">{subitem.label}</span>
-                      </Link>
-                    )
-                  })}
-                </div>
+                      <SubIcon className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200 shrink-0" />
+                      <span className="relative">{subitem.label}</span>
+                    </Link>
+                  )
+                })}
               </div>
             </div>
           </div>
+        ) : (
+          // Estado normal (não expandido)
+          <Link
+            href={item.href!}
+            className={cn(
+              'group relative flex items-center justify-center',
+              'size-14 rounded-xl',
+              'border transition-all duration-200',
+              'shadow-lg',
+              isActive
+                ? 'bg-gradient-to-br from-purple-500/30 to-indigo-500/30 border-purple-500/60 shadow-purple-500/30'
+                : 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/20 shadow-purple-500/0',
+              !isActive && 'hover:border-purple-500/40 hover:from-purple-500/20 hover:to-indigo-500/20 hover:scale-110 hover:-translate-y-2 hover:shadow-purple-500/25'
+            )}
+          >
+            <item.icon className={cn(
+              'size-6 transition-colors',
+              isActive ? 'text-purple-500 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400'
+            )} />
+
+            {/* Active indicator */}
+            {isActive && (
+              <div className="absolute -top-1 -right-1 size-3 rounded-full bg-purple-500 border-2 border-background animate-pulse" />
+            )}
+          </Link>
         )}
       </div>
     )
