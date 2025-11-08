@@ -77,6 +77,9 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 			{/* Dropdown Menu */}
 			{isOpen && (
 				<div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200">
+					{/* Seta de conexão */}
+					<div className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-background border-t border-l border-purple-500/50" />
+
 					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 min-w-[280px] shadow-2xl shadow-purple-500/30">
