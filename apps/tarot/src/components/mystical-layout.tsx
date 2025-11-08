@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
-import { MysticalHeader } from '@workspace/ui'
+import { MysticalHeader } from '@workspace/ui/components/organisms/mystical-header'
 import { GlobalSearch } from './global-search'
 import { useDockSettings } from '../contexts/dock-settings-context'
 import { createDockItems } from '../config/dock-items'
