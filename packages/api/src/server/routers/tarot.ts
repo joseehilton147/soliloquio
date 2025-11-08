@@ -251,4 +251,110 @@ export const tarotRouter = router({
 
     return decks;
   }),
+
+  /**
+   * Buscar deck por slug
+   */
+  getDeckBySlug: publicProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const deck = await ctx.prisma.tarotDeck.findUnique({
+        where: { slug: input },
+        include: {
+          cards: {
+            include: {
+              typesOfReading: true,
+            },
+            orderBy: {
+              numerology: 'asc',
+            },
+          },
+          _count: {
+            select: {
+              cards: true,
+              tags: true,
+            },
+          },
+        },
+      });
+
+      if (!deck) {
+        throw new Error('Baralho não encontrado');
+      }
+
+      return deck;
+    }),
+
+  /**
+   * Criar novo deck
+   */
+  createDeck: publicProcedure
+    .input(
+      z.object({
+        name: z.string().min(1),
+        description: z.string().optional(),
+        publisher: z.string().optional(),
+        year: z.number().optional(),
+        tradition: z.string().optional(),
+        imageUrl: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const slug = generateSlug(input.name);
+
+      const deck = await ctx.prisma.tarotDeck.create({
+        data: {
+          ...input,
+          slug,
+        },
+      });
+
+      return deck;
+    }),
+
+  /**
+   * Atualizar deck
+   */
+  updateDeck: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: z.object({
+          name: z.string().min(1).optional(),
+          description: z.string().optional(),
+          publisher: z.string().optional(),
+          year: z.number().optional(),
+          tradition: z.string().optional(),
+          imageUrl: z.string().optional(),
+        }),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const updateData: any = { ...input.data };
+
+      // Se o nome mudou, gera novo slug
+      if (input.data.name) {
+        updateData.slug = generateSlug(input.data.name);
+      }
+
+      const deck = await ctx.prisma.tarotDeck.update({
+        where: { id: input.id },
+        data: updateData,
+      });
+
+      return deck;
+    }),
+
+  /**
+   * Deletar deck
+   */
+  deleteDeck: publicProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.tarotDeck.delete({
+        where: { id: input },
+      });
+
+      return { success: true };
+    }),
 });
