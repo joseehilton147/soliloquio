@@ -226,7 +226,13 @@ export const Disabled: Story = {
 }
 
 export const LoadingSkeleton: Story = {
-  render: () => <Skeleton className="h-9 w-24 rounded-lg" />,
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <Skeleton className="h-9 w-24 rounded-lg bg-gradient-to-r from-purple-500/20 via-violet-500/20 to-purple-500/20 animate-pulse" />
+      <Skeleton className="h-9 w-32 rounded-lg bg-gradient-to-r from-purple-500/20 via-violet-500/20 to-purple-500/20 animate-pulse" />
+      <Skeleton className="size-9 rounded-lg bg-gradient-to-r from-purple-500/20 via-violet-500/20 to-purple-500/20 animate-pulse" />
+    </div>
+  ),
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -397,7 +403,7 @@ export const MysticalShowcase: Story = {
           <Button loading>Salvando...</Button>
           <Button variant="gradient" loading loadingText="Processando...">Salvar</Button>
           <Button variant="glow" loading>Carregando</Button>
-          <Skeleton className="h-9 w-24 rounded-lg" />
+          <Skeleton className="h-9 w-24 rounded-lg bg-gradient-to-r from-purple-500/20 via-violet-500/20 to-purple-500/20 animate-pulse" />
         </div>
       </section>
 

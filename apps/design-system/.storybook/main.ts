@@ -21,6 +21,23 @@ const config: StorybookConfig = {
   "framework": {
     "name": getAbsolutePath('@storybook/react-vite'),
     "options": {}
+  },
+  async viteFinal(config) {
+    // Define process.env para compatibilidade com Next.js Image
+    config.define = {
+      ...config.define,
+      'process.env': {},
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    }
+
+    // Alias para mockar next/image no Storybook
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'next/image': join(__dirname, 'next-image-mock.tsx'),
+    }
+
+    return config
   }
 };
 export default config;

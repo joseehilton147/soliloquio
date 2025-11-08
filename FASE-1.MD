@@ -4,7 +4,6 @@
 
   soliloquio/
   ├── apps/
-  │   ├── web/              # Portal/Hub - interliga todos os apps
   │   ├── tarot/            # App do Tarot (Next.js 15)
   │   └── api/              # API centralizada (Next.js API Routes)
   │
@@ -21,7 +20,6 @@
   - packages/core - Tipos TypeScript compartilhados entre API e frontends
   - apps/api - Endpoints REST ou tRPC (recomendo tRPC para type-safety)
   - apps/tarot - Interface do usuário focada em Tarot
-  - apps/web - Portal que conecta todos os apps (links, navegação)
 
   2. Escalabilidade para Mobile:
   - API separada permite consumir de qualquer cliente (React Native, Expo)
@@ -155,9 +153,6 @@
     - tRPC client configurado
     - Páginas: / (lista), /cartas/[id] (detalhe)
     - Componentes: CardGrid, CardDetail
-  5. Atualizar apps/web
-    - Portal com links para /tarot
-    - Navegação entre apps
 
   💡 Decisões Arquiteturais
 
@@ -178,7 +173,7 @@
   - Depois: PostgreSQL = produção, Supabase/Vercel Postgres, mesma API Prisma (só trocar connection
   string)
 
-  Por que apps separados (/tarot, /web)?
+  Por que apps separados?
 
   - Isolamento: Cada app tem bundle, rotas, deploy independente
   - Performance: Não carrega código do Grimório quando usar Tarot
@@ -186,11 +181,6 @@
   - Escalabilidade: Time pode trabalhar em apps diferentes sem conflito
 
   🎨 Fluxo de Dados Proposto
-
-  ┌─────────────┐
-  │  apps/web   │  ← Portal/Hub (links para apps)
-  │  (Next.js)  │
-  └─────────────┘
 
   ┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
   │ apps/tarot  │────▶│   apps/api   │────▶│ packages/       │

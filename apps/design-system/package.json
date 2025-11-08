@@ -28,7 +28,9 @@
     "@storybook/react-vite": "^8.6.14",
     "@storybook/test": "^8.6.14",
     "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^20.19.9",
     "eslint-plugin-storybook": "^0.11.1",
+    "next": "^15.4.5",
     "storybook": "^8.6.14",
     "tailwindcss": "^4.1.17",
     "vite": "^6.4.1"
