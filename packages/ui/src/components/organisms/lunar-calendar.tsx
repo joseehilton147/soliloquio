@@ -170,7 +170,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 					</div>
 
 					{/* Seta indicadora - lógica da dock para dropdown que abre para baixo */}
-					<div className="absolute bottom-full -mb-[2px] right-8">
+					<div className="absolute bottom-full -mb-[3px] right-8">
 						<div className="border-8 border-transparent border-b-purple-500" />
 					</div>
 				</div>
