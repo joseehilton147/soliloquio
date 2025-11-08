@@ -14,3 +14,6 @@
 export * from './atoms';
 export * from './molecules';
 export * from './organisms';
+
+// Re-export specialized components
+export * from './dock/mystical-dock';

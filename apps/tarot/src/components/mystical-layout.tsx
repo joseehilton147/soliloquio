@@ -1,36 +1,32 @@
 'use client'
 
-import { Sparkles, Layers, Home, Search as SearchIcon, Settings } from 'lucide-react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { cn } from '@workspace/ui/lib/utils'
+import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
 import { GlobalSearch } from './global-search'
-import { MysticalDock } from './mystical-dock'
 import { MysticalHeader } from './mystical-header'
+import { useDockSettings } from '../contexts/dock-settings-context'
+import { createDockItems } from '../config/dock-items'
 
 interface MysticalLayoutProps {
   children: React.ReactNode
 }
 
-const navItems = [
-  { title: 'Início', href: '/', icon: Home },
-  { title: 'Cartas', href: '/cartas', icon: Sparkles },
-  { title: 'Baralhos', href: '/decks', icon: Layers },
-  { title: 'Configurações', href: '/configuracoes', icon: Settings },
-]
-
 /**
  * Layout místico inspirado em Vercel/Superhuman
  * Design minimalista e espiritual
  *
- * Homepage: Apenas conteúdo (3 pilares de navegação)
- * Outras páginas: Sidebar com navegação e busca
+ * Homepage: Header + conteúdo + Dock
+ * Outras páginas: Header + conteúdo + Dock
  */
 export function MysticalLayout({ children }: MysticalLayoutProps) {
   const pathname = usePathname()
   const [searchOpen, setSearchOpen] = useState(false)
   const isHomePage = pathname === '/'
+  const { settings } = useDockSettings()
+
+  // Criar dock items com callback de busca
+  const dockItems = createDockItems(() => setSearchOpen(true))
 
   // Keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
@@ -45,7 +41,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Homepage: sem sidebar, sem header, apenas conteúdo
+  // Homepage: Header + conteúdo + Dock
   if (isHomePage) {
     return (
       <>
@@ -53,7 +49,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         <main className="min-h-screen pt-12">
           {children}
         </main>
-        <MysticalDock onSearchOpen={() => setSearchOpen(true)} />
+        <MysticalDock items={dockItems} settings={settings} />
         <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       </>
     )
@@ -68,7 +64,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
       </main>
 
       {/* Mystical Dock */}
-      <MysticalDock onSearchOpen={() => setSearchOpen(true)} />
+      <MysticalDock items={dockItems} settings={settings} />
 
       {/* Global Search Modal */}
       <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />

@@ -3,94 +3,54 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useDockSettings } from '../contexts/dock-settings-context'
-import { cn } from '@workspace/ui/lib/utils'
-import { Home, BookOpen, Layers, Settings, Search, Plus, User } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { Plus } from 'lucide-react'
+import { cn } from '../../lib/utils'
 
-interface DockItem {
+/**
+ * Dock Item Configuration Types
+ * Esses tipos devem ser implementados no app que usa a dock
+ */
+export interface DockSubitem {
+  label: string
+  href: string
+  icon?: LucideIcon
+}
+
+export interface DockItem {
   id: string
   label: string
-  icon: React.ElementType
+  icon: LucideIcon
   href?: string
   action?: () => void
   type?: 'link' | 'action'
-  submenu?: { label: string; href: string; icon?: React.ElementType }[]
-  position?: 'left' | 'right' // Separação macOS-style
+  submenu?: DockSubitem[]
+  position?: 'left' | 'right'
+}
+
+export interface DockSettings {
+  position: 'bottom' | 'top' | 'left' | 'right'
+  visibility: 'always' | 'auto-hide'
+}
+
+export interface DockSettingsContextType {
+  settings: DockSettings
+  updateSettings: (settings: Partial<DockSettings>) => void
 }
 
 interface MysticalDockProps {
-  onSearchOpen?: () => void
+  items: DockItem[]
+  settings: DockSettings
 }
 
-const getDockItems = (onSearchOpen?: () => void): DockItem[] => [
-  // LADO ESQUERDO - Navegação principal
-  {
-    id: 'home',
-    label: 'Início',
-    icon: Home,
-    href: '/',
-    type: 'link',
-    position: 'left',
-  },
-  {
-    id: 'cartas',
-    label: 'Cartas',
-    icon: BookOpen,
-    href: '/cartas',
-    type: 'link',
-    position: 'left',
-    submenu: [
-      { label: 'Nova Carta', href: '/cartas/nova', icon: Plus },
-    ],
-  },
-  {
-    id: 'baralhos',
-    label: 'Baralhos',
-    icon: Layers,
-    href: '/decks',
-    type: 'link',
-    position: 'left',
-    submenu: [
-      { label: 'Novo Baralho', href: '/decks/novo', icon: Plus },
-    ],
-  },
-  {
-    id: 'busca',
-    label: 'Buscar (⌘K)',
-    icon: Search,
-    action: onSearchOpen,
-    type: 'action',
-    position: 'left',
-  },
-  // LADO DIREITO - Sistema
-  {
-    id: 'configuracoes',
-    label: 'Configurações',
-    icon: Settings,
-    href: '/configuracoes',
-    type: 'link',
-    position: 'right',
-  },
-  {
-    id: 'usuario',
-    label: 'Perfil',
-    icon: User,
-    href: '/perfil',
-    type: 'link',
-    position: 'right',
-  },
-]
-
-export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
-  const { settings } = useDockSettings()
+export function MysticalDock({ items, settings }: MysticalDockProps) {
   const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(settings.visibility === 'always')
   const [lastScrollY, setLastScrollY] = useState(0)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
-  const dockItems = getDockItems(onSearchOpen)
-  const leftItems = dockItems.filter(item => item.position === 'left')
-  const rightItems = dockItems.filter(item => item.position === 'right')
+  const leftItems = items.filter(item => item.position === 'left')
+  const rightItems = items.filter(item => item.position === 'right')
 
   // Auto-hide logic
   useEffect(() => {
@@ -185,7 +145,7 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
       )
     }
 
-    // Link button - com Stack Fan vertical
+    // Link button - com Stack Fan vertical ou Tooltip
     return (
       <div
         key={item.id}
@@ -215,6 +175,27 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
           {/* Active indicator */}
           {isActive && (
             <div className="absolute -top-1 -right-1 size-3 rounded-full bg-purple-500 border-2 border-background animate-pulse" />
+          )}
+
+          {/* Tooltip para itens SEM submenu */}
+          {!hasSubmenu && (
+            <span
+              className={cn(
+                'absolute whitespace-nowrap px-3 py-1.5 rounded-lg',
+                'bg-background/90 backdrop-blur-sm',
+                'border border-purple-500/30',
+                'text-xs font-medium text-foreground',
+                'opacity-0 group-hover:opacity-100',
+                'transition-opacity duration-200',
+                'pointer-events-none z-50',
+                settings.position === 'bottom' && '-top-12',
+                settings.position === 'top' && '-bottom-12',
+                settings.position === 'left' && 'left-full ml-3',
+                settings.position === 'right' && 'right-full mr-3'
+              )}
+            >
+              {item.label}
+            </span>
           )}
         </Link>
 
