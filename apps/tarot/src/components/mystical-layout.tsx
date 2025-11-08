@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
 import { GlobalSearch } from './global-search'
 import { MysticalDock } from './mystical-dock'
+import { MysticalHeader } from './mystical-header'
 
 interface MysticalLayoutProps {
   children: React.ReactNode
@@ -48,7 +49,8 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   if (isHomePage) {
     return (
       <>
-        <main className="min-h-screen">
+        <MysticalHeader />
+        <main className="min-h-screen pt-12">
           {children}
         </main>
         <MysticalDock onSearchOpen={() => setSearchOpen(true)} />
@@ -60,7 +62,8 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   // Outras páginas: layout fullscreen imersivo
   return (
     <>
-      <main className="min-h-screen p-6 md:p-12">
+      <MysticalHeader />
+      <main className="min-h-screen pt-12 p-6 md:p-12">
         {children}
       </main>
 

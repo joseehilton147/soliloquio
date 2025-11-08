@@ -227,38 +227,54 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
           <div
             className={cn(
               'absolute z-50',
-              'animate-in fade-in slide-in-from-bottom-2 duration-200',
-              // Remove margin e usa apenas o padding do container pai como espaçamento
-              isHorizontal ? 'bottom-full left-1/2 -translate-x-1/2' : 'left-full top-0'
+              'animate-in fade-in slide-in-from-bottom-2 duration-300',
+              // Mais espaçamento elegante entre botão e submenu
+              isHorizontal ? 'bottom-full mb-4 left-1/2 -translate-x-1/2' : 'left-full ml-4 top-0'
             )}
           >
-            <div className={cn(
-              'rounded-xl p-2',
-              'bg-background/95 backdrop-blur-xl',
-              'border border-purple-500/30',
-              'shadow-2xl shadow-purple-500/20',
-              'min-w-[180px]'
-            )}>
-              {item.submenu!.map((subitem) => {
-                const SubIcon = subitem.icon || Plus
-                return (
-                  <Link
-                    key={subitem.href}
-                    href={subitem.href}
-                    className={cn(
-                      'flex items-center gap-3 px-3 py-2.5 rounded-lg',
-                      'text-sm font-medium',
-                      'hover:bg-gradient-to-r hover:from-purple-500/20 hover:to-indigo-500/20',
-                      'hover:text-purple-600 dark:hover:text-purple-400',
-                      'transition-all duration-150',
-                      'group/sub'
-                    )}
-                  >
-                    <SubIcon className="size-4 text-purple-500/70 group-hover/sub:text-purple-500 transition-colors" />
-                    <span>{subitem.label}</span>
-                  </Link>
-                )
-              })}
+            {/* Borda gradiente animada "viva" */}
+            <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
+              {/* Background interno com blur */}
+              <div className={cn(
+                'rounded-2xl p-3',
+                'bg-background/98 backdrop-blur-2xl',
+                'shadow-2xl shadow-purple-500/30',
+                'min-w-[200px]',
+                'relative overflow-hidden'
+              )}>
+                {/* Glow interno místico */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none" />
+
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+
+                <div className="relative space-y-1">
+                  {item.submenu!.map((subitem) => {
+                    const SubIcon = subitem.icon || Plus
+                    return (
+                      <Link
+                        key={subitem.href}
+                        href={subitem.href}
+                        className={cn(
+                          'flex items-center gap-3 px-4 py-3 rounded-xl',
+                          'text-sm font-medium',
+                          'hover:bg-gradient-to-r hover:from-purple-500/20 hover:via-violet-500/20 hover:to-indigo-500/20',
+                          'hover:text-purple-600 dark:hover:text-purple-400',
+                          'hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/20',
+                          'transition-all duration-200',
+                          'group/sub relative overflow-hidden'
+                        )}
+                      >
+                        {/* Hover glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
+
+                        <SubIcon className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />
+                        <span className="relative">{subitem.label}</span>
+                      </Link>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         )}
