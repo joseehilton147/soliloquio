@@ -58,13 +58,16 @@ interface CardImageProps {
 }
 
 const CardImage = ({ src, alt = '', badge, icon = <Layers className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />, className = '' }: CardImageProps) => {
+  const [imageError, setImageError] = React.useState(false)
+
   return (
     <div className={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20 ${className}`}>
-      {src ? (
+      {src && !imageError ? (
         <>
           <img
             src={src}
             alt={alt}
+            onError={() => setImageError(true)}
             className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
           />
           {/* Gradient overlay */}
@@ -249,7 +252,7 @@ export const Default: Story = {
   render: () => (
     <Card style={{ maxWidth: '350px' }}>
       <CardImage
-        src="https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop"
+        src="https://picsum.photos/seed/tarot1/800/600"
         alt="Rider-Waite Tarot"
         badge="1909"
       />
@@ -361,7 +364,7 @@ export const CompositionExamples: Story = {
         {/* Full Composition */}
         <Card>
           <CardImage
-            src="https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop"
+            src="https://picsum.photos/seed/tarot-full/800/600"
             alt="Rider-Waite"
             badge="1909"
           />
@@ -395,7 +398,7 @@ export const CompositionExamples: Story = {
         {/* Image + Title Only */}
         <Card>
           <CardImage
-            src="https://images.unsplash.com/photo-1595123550441-d377e1f7d46b?w=800&auto=format&fit=crop"
+            src="https://picsum.photos/seed/tarot-minimal/800/600"
             alt="Minimal"
           />
           <CardHeader>
