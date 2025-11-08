@@ -1,6 +1,7 @@
 'use client'
 
-import { Search as SearchIcon, Sparkles, Layers, X } from 'lucide-react'
+import { Search as SearchIcon, Sparkles, Layers, X, ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
@@ -47,6 +48,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       name: card.name,
       slug: card.slug,
       description: card.summary,
+      imageUrl: card.imageUrl,
       icon: Sparkles,
     })),
     ...filteredDecks.map((deck) => ({
@@ -55,6 +57,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       name: deck.name,
       slug: deck.slug,
       description: deck.description,
+      imageUrl: deck.imageUrl,
       icon: Layers,
     })),
   ]
@@ -114,7 +117,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
         <div className="absolute bottom-1/4 right-1/4 size-96 bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
-      <div className="container flex h-full max-w-2xl flex-col items-center justify-start pt-32 relative">
+      <div className="container flex h-full max-w-2xl flex-col items-center justify-center relative px-4">
         <div
           className="w-full rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
           onClick={(e) => e.stopPropagation()}
@@ -195,15 +198,35 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                           : 'hover:bg-gradient-to-r hover:from-purple-500/5 hover:to-indigo-500/5 border border-transparent'
                       )}
                     >
-                      <div
-                        className={cn(
-                          'flex size-10 items-center justify-center rounded-xl shadow-lg transition-all duration-200',
-                          result.type === 'card'
-                            ? 'bg-gradient-to-br from-purple-500 to-indigo-600 group-hover:shadow-purple-500/50'
-                            : 'bg-gradient-to-br from-indigo-500 to-purple-600 group-hover:shadow-indigo-500/50'
+                      {/* Image/Icon */}
+                      <div className="relative flex-shrink-0">
+                        {result.imageUrl ? (
+                          <div className="relative size-16 sm:size-20 rounded-xl overflow-hidden border-2 border-purple-500/20 shadow-lg group-hover:border-purple-500/40 group-hover:shadow-purple-500/30 transition-all duration-200">
+                            <Image
+                              src={result.imageUrl}
+                              alt={result.name}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                              sizes="80px"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent" />
+                          </div>
+                        ) : (
+                          <div
+                            className={cn(
+                              'flex size-16 sm:size-20 items-center justify-center rounded-xl shadow-lg transition-all duration-200',
+                              result.type === 'card'
+                                ? 'bg-gradient-to-br from-purple-500 to-indigo-600 group-hover:shadow-purple-500/50'
+                                : 'bg-gradient-to-br from-indigo-500 to-purple-600 group-hover:shadow-indigo-500/50'
+                            )}
+                          >
+                            {result.imageUrl === null || result.imageUrl === undefined ? (
+                              <ImageIcon className="size-6 sm:size-8 text-white/50" strokeWidth={1.5} />
+                            ) : (
+                              <Icon className="size-6 sm:size-8 text-white" strokeWidth={2} />
+                            )}
+                          </div>
                         )}
-                      >
-                        <Icon className="size-5 text-white" strokeWidth={2} />
                       </div>
 
                       <div className="flex-1 min-w-0">
@@ -224,7 +247,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                       </div>
 
                       {isSelected && (
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground flex-shrink-0">
                           <kbd className="inline-flex h-6 items-center rounded-lg border border-purple-500/30 bg-purple-500/10 px-2 font-medium">
                             ⏎
                           </kbd>
