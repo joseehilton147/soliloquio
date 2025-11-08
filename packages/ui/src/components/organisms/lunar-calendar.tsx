@@ -89,7 +89,9 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 					className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
 				>
 					{/* Seta de conexão */}
-					<div className="absolute -top-[5px] right-8 w-3 h-3 rotate-45 bg-background border-t border-l border-purple-500/50" />
+					<div className="absolute -top-[2px] right-8">
+						<div className="border-8 border-transparent border-b-purple-500" />
+					</div>
 
 					{/* Borda gradiente animada mística */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
