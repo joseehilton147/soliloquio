@@ -6,6 +6,7 @@
 export { AppSwitcher, type AppSwitcherProps, type AppItem } from './app-switcher'
 export { CurrentAppBadge, type CurrentAppBadgeProps } from './current-app-badge'
 export { FileDropZone, type FileDropZoneProps } from './file-drop-zone'
+export { FilterChip, type FilterChipProps } from './filter-chip'
 export { FilePreview, type FilePreviewProps } from './file-preview'
 export { ImagePreview, type ImagePreviewProps } from './image-preview'
 export { MoonPhaseBadge, type MoonPhaseBadgeProps } from './moon-phase-badge'
