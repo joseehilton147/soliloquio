@@ -108,7 +108,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-background/90 backdrop-blur-xl animate-in fade-in duration-300"
+      className="fixed inset-0 z-50 bg-background/50 backdrop-blur-sm animate-in fade-in duration-300"
       onClick={handleBackgroundClick}
     >
       {/* Mystical background orbs */}
@@ -117,9 +117,9 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
         <div className="absolute bottom-1/4 right-1/4 size-96 bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
-      <div className="container flex h-full max-w-2xl flex-col items-center justify-center relative px-4">
+      <div className="flex h-full w-full items-center justify-center relative px-4">
         <div
-          className="w-full rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
+          className="w-full max-w-2xl rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Search Input místico */}
