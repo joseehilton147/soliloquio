@@ -3,12 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { designTokens } from '@workspace/ui/design-system/tokens'
 
 /**
- * **Espaçamentos Sagrados**
+ * **Spacing System**
  *
- * Como a geometria sagrada organiza o cosmos em proporções divinas,
- * nossos espaçamentos seguem múltiplos de 4px baseados na proporção áurea.
+ * Sistema de espaçamento baseado em múltiplos de 4px (8px base grid).
+ * Valores crescem de forma consistente de 0px até 384px.
  *
- * Cada distância carrega uma harmonia visual.
+ * Garante alinhamento perfeito e consistência visual em todo o layout.
  */
 const meta = {
   title: 'Design System/Foundations/Spacing',
@@ -16,7 +16,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Explore os tokens de espaçamento do Solilóquio Tarot. Baseados em múltiplos de 4px e geometria sagrada.',
+        component: 'Sistema de espaçamento completo. Baseado em múltiplos de 4px para consistência e alinhamento preciso.',
       },
     },
   },
@@ -26,7 +26,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 📏 Spacing Components
+// Spacing Components
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface SpacingCardProps {
@@ -161,7 +161,7 @@ function SpacingCard({ name, value }: SpacingCardProps) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 📖 Stories
+// Stories
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const AllSpacings: Story = {
@@ -193,10 +193,10 @@ export const AllSpacings: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          📏 Espaçamentos Sagrados
+          Spacing Scale
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          Múltiplos de 4px • De px (1px) até 96 (384px) • Geometria Sagrada
+          Multiples of 4px • From px (1px) to 96 (384px) • 8px base grid
         </p>
       </div>
 
@@ -217,7 +217,6 @@ export const AllSpacings: Story = {
             borderRadius: '0.75rem',
           }}
         >
-          <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🔢</div>
           <div
             style={{
               fontSize: '1rem',
@@ -226,10 +225,10 @@ export const AllSpacings: Story = {
               marginBottom: '0.5rem',
             }}
           >
-            Escala Base
+            Base Scale
           </div>
           <div style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-            Múltiplos de 4px (0.25rem) garantem consistência visual e alinhamento perfeito
+            Multiples of 4px (0.25rem) ensure visual consistency and perfect alignment
           </div>
         </div>
 
@@ -241,7 +240,6 @@ export const AllSpacings: Story = {
             borderRadius: '0.75rem',
           }}
         >
-          <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>✨</div>
           <div
             style={{
               fontSize: '1rem',
@@ -250,10 +248,10 @@ export const AllSpacings: Story = {
               marginBottom: '0.5rem',
             }}
           >
-            Uso Comum
+            Common Usage
           </div>
           <div style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-            0.5-4 = interno | 4-8 = entre elementos | 8+ = seções e layouts
+            0.5-4 = internal padding | 4-8 = between elements | 8+ = sections and layouts
           </div>
         </div>
 
@@ -265,7 +263,6 @@ export const AllSpacings: Story = {
             borderRadius: '0.75rem',
           }}
         >
-          <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🎯</div>
           <div
             style={{
               fontSize: '1rem',
@@ -274,10 +271,10 @@ export const AllSpacings: Story = {
               marginBottom: '0.5rem',
             }}
           >
-            Proporção Áurea
+            Consistent Growth
           </div>
           <div style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-            Valores crescem harmonicamente seguindo princípios de geometria sagrada
+            Values grow consistently following 8px base grid for predictable spacing
           </div>
         </div>
       </div>
@@ -292,7 +289,7 @@ export const AllSpacings: Story = {
             marginBottom: '1.5rem',
           }}
         >
-          Espaçamentos Pequenos (1px - 16px)
+          Small Spacings (1px - 16px)
         </h2>
         <div style={{ display: 'grid', gap: '1rem' }}>
           {Object.entries(designTokens.spacing)
@@ -316,7 +313,7 @@ export const AllSpacings: Story = {
             marginBottom: '1.5rem',
           }}
         >
-          Espaçamentos Médios (20px - 64px)
+          Medium Spacings (20px - 64px)
         </h2>
         <div style={{ display: 'grid', gap: '1rem' }}>
           {Object.entries(designTokens.spacing)
@@ -340,7 +337,7 @@ export const AllSpacings: Story = {
             marginBottom: '1.5rem',
           }}
         >
-          Espaçamentos Grandes (80px+)
+          Large Spacings (80px+)
         </h2>
         <div style={{ display: 'grid', gap: '1rem' }}>
           {Object.entries(designTokens.spacing)
@@ -354,7 +351,7 @@ export const AllSpacings: Story = {
         </div>
       </section>
 
-      {/* Footer Insight */}
+      {/* Footer Tip */}
       <div
         style={{
           marginTop: '3rem',
@@ -372,7 +369,7 @@ export const AllSpacings: Story = {
             fontSize: '0.875rem',
           }}
         >
-          ★ O espaço vazio não é vazio. É potencial. É onde a magia respira. ★
+          Tip: Use spacing tokens to maintain consistent layout throughout your application.
         </p>
       </div>
     </div>
@@ -411,10 +408,10 @@ export const SpacingComparison: Story = {
               marginBottom: '0.5rem',
             }}
           >
-            🔄 Comparação Visual
+            Visual Comparison
           </h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-            Espaçamentos mais usados lado a lado
+            Most commonly used spacings side by side
           </p>
         </div>
 
@@ -499,7 +496,7 @@ export const SpacingComparison: Story = {
           })}
         </div>
 
-        {/* Footer Insight */}
+        {/* Footer Tip */}
         <div
           style={{
             marginTop: '3rem',
@@ -517,7 +514,7 @@ export const SpacingComparison: Story = {
               fontSize: '0.875rem',
             }}
           >
-            ★ Distâncias corretas criam harmonia. Harmonia cria beleza. ★
+            Tip: Consistent spacing creates visual rhythm and improves readability.
           </p>
         </div>
       </div>

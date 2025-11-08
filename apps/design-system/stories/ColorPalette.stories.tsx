@@ -3,14 +3,15 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { designTokens } from '@workspace/ui/design-system/tokens'
 
 /**
- * **Paleta de Cores Místicas**
+ * **Color Palette**
  *
- * Como cada Sefirá na Árvore da Vida Cabalística possui sua cor sagrada,
- * nosso design system organiza cores em tons harmônicos baseados em OKLCH.
+ * Sistema de cores baseado em três escalas principais (Purple, Violet, Indigo)
+ * com 10 tons cada (50-900), utilizando OKLCH color space para consistência
+ * perceptual entre diferentes displays.
  *
- * Purple (280°) → Chakra da Coroa → Conexão espiritual
- * Violet (290°) → Transmutação → Transformação alquímica
- * Indigo (270°) → Terceiro Olho → Intuição e sabedoria
+ * - Purple (280° hue): Cor primária
+ * - Violet (290° hue): Cor secundária
+ * - Indigo (270° hue): Cor terciária
  */
 const meta = {
   title: 'Design System/Foundations/Colors',
@@ -18,7 +19,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Explore a paleta de cores místicas do Solilóquio Tarot. Todas as cores usam OKLCH para consistência perceptual.',
+        component: 'Paleta de cores do design system. Todas as cores usam OKLCH para consistência perceptual e melhor interpolação.',
       },
     },
   },
@@ -168,10 +169,10 @@ export const MysticalColors: Story = {
               marginBottom: '0.5rem',
             }}
           >
-            🔮 Cores Místicas
+            Color Palette
           </h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-            Baseadas em OKLCH para percepção visual consistente. Clique em qualquer cor para copiar.
+            OKLCH color space. Clique em qualquer cor para copiar o valor.
           </p>
           {lastCopied && (
             <div
@@ -212,7 +213,7 @@ export const MysticalColors: Story = {
                 borderRadius: '0.5rem',
               }}
             >
-              🔮
+
             </div>
             <div>
               <h2
@@ -226,7 +227,7 @@ export const MysticalColors: Story = {
                 Purple
               </h2>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>
-                Chakra da Coroa • Hue 280°
+                Primary color • Hue 280°
               </p>
             </div>
           </div>
@@ -270,7 +271,7 @@ export const MysticalColors: Story = {
                 borderRadius: '0.5rem',
               }}
             >
-              ✨
+
             </div>
             <div>
               <h2
@@ -284,7 +285,7 @@ export const MysticalColors: Story = {
                 Violet
               </h2>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>
-                Transmutação Alquímica • Hue 290°
+                Secondary color • Hue 290°
               </p>
             </div>
           </div>
@@ -328,7 +329,7 @@ export const MysticalColors: Story = {
                 borderRadius: '0.5rem',
               }}
             >
-              👁️
+
             </div>
             <div>
               <h2
@@ -342,7 +343,7 @@ export const MysticalColors: Story = {
                 Indigo
               </h2>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>
-                Terceiro Olho • Hue 270°
+                Tertiary color • Hue 270°
               </p>
             </div>
           </div>
@@ -386,7 +387,7 @@ export const MysticalColors: Story = {
                 borderRadius: '0.5rem',
               }}
             >
-              🎯
+
             </div>
             <div>
               <h2
@@ -397,10 +398,10 @@ export const MysticalColors: Story = {
                   margin: 0,
                 }}
               >
-                Cores Semânticas
+                Semantic Colors
               </h2>
               <p style={{ color: 'rgba(255, 255, 255, 0.6)', margin: 0 }}>
-                Tokens para componentes e estados
+                Tokens for components and states
               </p>
             </div>
           </div>
@@ -440,7 +441,7 @@ export const MysticalColors: Story = {
               fontSize: '0.875rem',
             }}
           >
-            ★ Cada cor carrega uma vibração. Use-as com intenção consciente. ★
+            💡 Tip: Use semantic colors for components to maintain consistency across themes.
           </p>
         </div>
       </div>

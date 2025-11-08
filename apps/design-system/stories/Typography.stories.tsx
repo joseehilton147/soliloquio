@@ -3,12 +3,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { designTokens } from '@workspace/ui/design-system/tokens'
 
 /**
- * **Tipografia Sagrada**
+ * **Typography System**
  *
- * Como os mantras são pronunciados em vibrações específicas,
- * nossa tipografia segue escalas harmônicas baseadas em ratio 1.25 (Quarta Perfeita).
+ * Sistema tipográfico baseado em escala modular com ratio 1.25 (Major Third).
+ * Todos os tamanhos seguem progressão harmônica de 12px (xs) até 128px (9xl).
  *
- * Cada tamanho, peso e espaçamento carrega uma intenção visual.
+ * Fonte principal: Inter (interface) e JetBrains Mono (código).
  */
 const meta = {
   title: 'Design System/Foundations/Typography',
@@ -16,7 +16,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Explore a escala tipográfica do Solilóquio Tarot. Baseada em proporções harmônicas e geometria sagrada.',
+        component: 'Sistema tipográfico completo. Baseado em escala modular com ratio 1.25 para progressão consistente.',
       },
     },
   },
@@ -26,7 +26,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 🔤 Typography Components
+// Typography Components
 // ═══════════════════════════════════════════════════════════════════════════
 
 interface FontSizeCardProps {
@@ -35,7 +35,7 @@ interface FontSizeCardProps {
   sampleText?: string
 }
 
-function FontSizeCard({ name, sizeValue, sampleText = 'Magia é intenção' }: FontSizeCardProps) {
+function FontSizeCard({ name, sizeValue, sampleText = 'The quick brown fox' }: FontSizeCardProps) {
   const [copied, setCopied] = useState(false)
 
   const fontSize = Array.isArray(sizeValue) ? sizeValue[0] : sizeValue
@@ -177,7 +177,7 @@ function FontWeightCard({ name, weight }: FontWeightCardProps) {
               fontFamily: 'Inter, sans-serif',
             }}
           >
-            Como acima, assim abaixo
+            The quick brown fox jumps
           </div>
         </div>
         {copied && (
@@ -250,7 +250,7 @@ function LetterSpacingCard({ name, spacing }: LetterSpacingCardProps) {
           fontFamily: 'Inter, sans-serif',
         }}
       >
-        SOLILÓQUIO TAROT
+        DESIGN SYSTEM TYPOGRAPHY
       </div>
       {copied && (
         <div
@@ -268,7 +268,7 @@ function LetterSpacingCard({ name, spacing }: LetterSpacingCardProps) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 📖 Stories
+// Stories
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const FontSizes: Story = {
@@ -300,10 +300,10 @@ export const FontSizes: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          🔤 Escala Tipográfica
+          Typography Scale
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          Ratio 1.25 (Quarta Perfeita) • De xs (12px) até 9xl (128px)
+          Ratio 1.25 (Major Third) • From xs (12px) to 9xl (128px)
         </p>
       </div>
 
@@ -323,7 +323,7 @@ export const FontSizes: Story = {
         ))}
       </div>
 
-      {/* Footer Insight */}
+      {/* Footer Tip */}
       <div
         style={{
           marginTop: '3rem',
@@ -341,7 +341,7 @@ export const FontSizes: Story = {
             fontSize: '0.875rem',
           }}
         >
-          ★ A tipografia é o mantra visual. Cada tamanho carrega uma intenção. ★
+          Tip: Use consistent font sizes from this scale to maintain visual hierarchy.
         </p>
       </div>
     </div>
@@ -377,10 +377,10 @@ export const FontWeights: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          ⚖️ Pesos Tipográficos
+          Font Weights
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          De thin (100) até black (900) • Hierarquia visual
+          From thin (100) to black (900) • Visual hierarchy
         </p>
       </div>
 
@@ -400,7 +400,7 @@ export const FontWeights: Story = {
         ))}
       </div>
 
-      {/* Footer Insight */}
+      {/* Footer Tip */}
       <div
         style={{
           marginTop: '3rem',
@@ -418,7 +418,7 @@ export const FontWeights: Story = {
             fontSize: '0.875rem',
           }}
         >
-          ★ O peso da letra carrega o peso da mensagem. Use com sabedoria. ★
+          Tip: Use weight variations to establish clear visual hierarchy and emphasis.
         </p>
       </div>
     </div>
@@ -454,10 +454,10 @@ export const LetterSpacing: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          ↔️ Espaçamento de Letras
+          Letter Spacing
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          Kerning e tracking para legibilidade e estética
+          Tracking values for readability and visual refinement
         </p>
       </div>
 
@@ -477,7 +477,7 @@ export const LetterSpacing: Story = {
         ))}
       </div>
 
-      {/* Footer Insight */}
+      {/* Footer Tip */}
       <div
         style={{
           marginTop: '3rem',
@@ -495,7 +495,7 @@ export const LetterSpacing: Story = {
             fontSize: '0.875rem',
           }}
         >
-          ★ O espaço entre as letras é o silêncio entre as notas. Ambos são sagrados. ★
+          Tip: Tighter spacing works well for headings, wider spacing improves readability in body text.
         </p>
       </div>
     </div>
@@ -531,10 +531,10 @@ export const FontFamilies: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          🔠 Famílias Tipográficas
+          Font Families
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          Sans-serif para interface • Mono para código
+          Sans-serif for UI • Monospace for code
         </p>
       </div>
 
@@ -568,7 +568,7 @@ export const FontFamilies: Story = {
               marginBottom: '1rem',
             }}
           >
-            "O Universo é mental. A Mente é Tudo."
+            "Clean, modern, highly legible."
           </div>
           <div
             style={{
@@ -577,7 +577,7 @@ export const FontFamilies: Story = {
               fontFamily: 'Inter, sans-serif',
             }}
           >
-            Usado para: Interfaces, textos de leitura, componentes, títulos
+            Used for: UI components, body text, headings, labels
           </div>
         </div>
 
@@ -609,7 +609,7 @@ export const FontFamilies: Story = {
               marginBottom: '1rem',
             }}
           >
-            const magic = "intention" + "focus"
+            const value = calculateTotal(items)
           </div>
           <div
             style={{
@@ -618,12 +618,12 @@ export const FontFamilies: Story = {
               fontFamily: 'Inter, sans-serif',
             }}
           >
-            Usado para: Código, valores técnicos, tokens, IDs
+            Used for: Code blocks, technical values, tokens, IDs
           </div>
         </div>
       </div>
 
-      {/* Footer Insight */}
+      {/* Footer Tip */}
       <div
         style={{
           marginTop: '3rem',
@@ -641,7 +641,7 @@ export const FontFamilies: Story = {
             fontSize: '0.875rem',
           }}
         >
-          ★ Duas fontes, infinitas possibilidades. Simplicidade é divindade. ★
+          Tip: Limit font families to maintain consistency and improve performance.
         </p>
       </div>
     </div>
