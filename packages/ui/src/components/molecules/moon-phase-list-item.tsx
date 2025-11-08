@@ -16,12 +16,18 @@ export interface MoonPhaseListItemProps {
  */
 export function MoonPhaseListItem({ phase, phaseName, date, className }: MoonPhaseListItemProps) {
   const formatDate = (d: Date) => {
-    return new Intl.DateTimeFormat('pt-BR', {
+    const dateStr = new Intl.DateTimeFormat('pt-BR', {
       day: '2-digit',
       month: 'short',
+    }).format(d)
+
+    const timeStr = new Intl.DateTimeFormat('pt-BR', {
       hour: '2-digit',
       minute: '2-digit',
+      hour12: false,
     }).format(d)
+
+    return `${dateStr}, ${timeStr}`
   }
 
   return (
