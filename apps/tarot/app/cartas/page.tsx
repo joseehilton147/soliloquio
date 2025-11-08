@@ -42,11 +42,8 @@ export default function CartasPage() {
 								href={`/cartas/${card.slug}`}
 								className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1"
 							>
-								{/* Mystical glow backdrop */}
-								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-violet-500/0 to-indigo-500/0 opacity-0 group-hover:opacity-100 group-hover:from-purple-500/5 group-hover:via-violet-500/5 group-hover:to-indigo-500/5 transition-all duration-500" />
-
-								{/* Shimmer effect */}
-								<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+								{/* Shimmer effect on hover */}
+								<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent z-10" />
 
 								{/* Card Image */}
 								<div className="relative aspect-[2/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20">

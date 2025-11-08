@@ -1,5 +1,6 @@
 'use client'
 
+import { MysticalLoading } from '@workspace/ui'
 import { Layers, Plus, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,6 +8,11 @@ import { trpc } from '../../src/lib/trpc'
 
 export default function DecksPage() {
 	const { data: decks, isLoading, error } = trpc.tarot.getDecks.useQuery()
+
+	// Loading místico fullscreen
+	if (isLoading) {
+		return <MysticalLoading variant="fullscreen" size="xl" />
+	}
 
 	return (
 		<div className="space-y-12">
@@ -34,24 +40,6 @@ export default function DecksPage() {
 				</Link>
 			</div>
 
-			{/* Loading state */}
-			{isLoading && (
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-					{[...Array(6)].map((_, i) => (
-						<div
-							key={i}
-							className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10"
-						>
-							<div className="aspect-[4/3] w-full animate-pulse bg-gradient-to-br from-muted to-muted/50" />
-							<div className="p-6 space-y-3">
-								<div className="h-6 w-3/4 animate-pulse rounded bg-muted" />
-								<div className="h-4 w-1/2 animate-pulse rounded bg-muted/70" />
-								<div className="h-3 w-full animate-pulse rounded bg-muted/50" />
-							</div>
-						</div>
-					))}
-				</div>
-			)}
 
 			{/* Error state */}
 			{error && (
@@ -71,10 +59,7 @@ export default function DecksPage() {
 							href={`/decks/${deck.slug}`}
 							className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1"
 						>
-							{/* Mystical glow backdrop */}
-							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-violet-500/0 to-indigo-500/0 opacity-0 group-hover:opacity-100 group-hover:from-purple-500/5 group-hover:via-violet-500/5 group-hover:to-indigo-500/5 transition-all duration-500" />
-
-							{/* Shimmer effect */}
+							{/* Shimmer effect on hover */}
 							<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
 							{/* Cover Image */}

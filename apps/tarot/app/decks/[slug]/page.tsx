@@ -1,7 +1,8 @@
 'use client'
 
 import type { TarotCard } from '@workspace/core/tarot'
-import { ArrowLeft, Sparkles, Pencil, Trash2 } from 'lucide-react'
+import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
+import { Sparkles, Pencil, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -40,24 +41,19 @@ export default function DeckDetailPage({ params }: PageProps) {
 	}
 
 	if (isLoading) {
-		return (
-			<div className="space-y-8">
-				<div className="h-8 w-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-				<div className="h-64 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-			</div>
-		)
+		return <MysticalLoading variant="fullscreen" size="xl" />
 	}
 
 	if (error || !deck) {
+		const breadcrumbItems: BreadcrumbItem[] = [
+			{ label: 'Início', href: '/' },
+			{ label: 'Baralhos', href: '/decks' },
+			{ label: 'Não encontrado' },
+		]
+
 		return (
 			<div className="space-y-4">
-				<Link
-					href="/decks"
-					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
-				>
-					<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-					Voltar para baralhos
-				</Link>
+				<MysticalBreadcrumb items={breadcrumbItems} showSparkles />
 				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
 					<p className="text-sm font-medium text-destructive">
 						Baralho não encontrado
@@ -67,16 +63,16 @@ export default function DeckDetailPage({ params }: PageProps) {
 		)
 	}
 
+	const breadcrumbItems: BreadcrumbItem[] = [
+		{ label: 'Início', href: '/' },
+		{ label: 'Baralhos', href: '/decks' },
+		{ label: deck.name },
+	]
+
 	return (
 		<div className="space-y-8">
-			{/* Breadcrumb */}
-			<Link
-				href="/decks"
-				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
-			>
-				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-				Voltar para baralhos
-			</Link>
+			{/* Breadcrumb Místico */}
+			<MysticalBreadcrumb items={breadcrumbItems} showSparkles />
 
 			{/* Header */}
 			<div className="flex items-start justify-between gap-6">

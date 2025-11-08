@@ -1,7 +1,8 @@
 'use client'
 
 import type { ReadingType } from '@workspace/core/tarot'
-import { ArrowLeft, Pencil, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
+import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
+import { Pencil, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { use } from 'react'
@@ -17,27 +18,19 @@ export default function CartaDetailPage({ params }: PageProps) {
 	const { data: card, isLoading, error } = trpc.tarot.getBySlug.useQuery(slug)
 
 	if (isLoading) {
-		return (
-			<div className="space-y-8">
-				<div className="h-8 w-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-				<div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-					<div className="h-[480px] animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-					<div className="space-y-6">
-						<div className="h-32 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-						<div className="h-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-					</div>
-				</div>
-			</div>
-		)
+		return <MysticalLoading variant="fullscreen" size="xl" />
 	}
 
 	if (error || !card) {
+		const breadcrumbItems: BreadcrumbItem[] = [
+			{ label: 'Início', href: '/' },
+			{ label: 'Cartas', href: '/cartas' },
+			{ label: 'Não encontrada' },
+		]
+
 		return (
 			<div className="space-y-4">
-				<Link href="/cartas" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-					<ArrowLeft className="size-4" />
-					Voltar
-				</Link>
+				<MysticalBreadcrumb items={breadcrumbItems} showSparkles />
 				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
 					<p className="text-sm font-medium text-destructive">
 						Carta não encontrada
@@ -55,16 +48,16 @@ export default function CartaDetailPage({ params }: PageProps) {
 		'inverted': 'Invertida'
 	}
 
+	const breadcrumbItems: BreadcrumbItem[] = [
+		{ label: 'Início', href: '/' },
+		{ label: 'Cartas', href: '/cartas' },
+		{ label: card.name },
+	]
+
 	return (
 		<div className="space-y-8">
 			{/* Breadcrumb Místico */}
-			<Link
-				href="/cartas"
-				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
-			>
-				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-				Voltar para todas as cartas
-			</Link>
+			<MysticalBreadcrumb items={breadcrumbItems} showSparkles />
 
 			{/* Layout Principal */}
 			<div className="grid gap-8 lg:grid-cols-[380px_1fr]">
