@@ -1,130 +1,212 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Layers, Sparkles } from 'lucide-react'
-import Image from 'next/image'
 
 /**
- * **Card Component**
+ * **Card Component - Modular Mystical Design**
  *
- * Card component with mystical design patterns used in the Tarot app.
- * Features gradient backgrounds, hover effects, shimmer animations, and
- * spiritual aesthetics.
+ * Composable card system with mystical aesthetics. Mix and match components
+ * like Lego blocks to build various card layouts while maintaining consistent
+ * magical effects.
  *
- * This demonstrates the actual card pattern used in /decks route.
+ * Components: Card, CardImage, CardHeader, CardContent, CardFooter
+ *
+ * Based on the production design from /decks route with enhanced modularity.
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Deck Card - Production Design from /decks
+// Card Root - Container with mystical effects
 // ═══════════════════════════════════════════════════════════════════════════
 
-interface DeckCardProps {
-  name: string
-  tradition?: string
-  description?: string
-  imageUrl?: string
-  year?: number
-  cardCount?: number
-  tagCount?: number
-  onClick?: () => void
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode
+  className?: string
 }
 
-function DeckCard({
-  name,
-  tradition,
-  description,
-  imageUrl,
-  year,
-  cardCount = 78,
-  tagCount = 12,
-  onClick,
-}: DeckCardProps) {
-  return (
-    <div
-      onClick={onClick}
-      className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1 cursor-pointer"
-    >
-      {/* Mystical glow backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-violet-500/0 to-indigo-500/0 opacity-0 group-hover:opacity-100 group-hover:from-purple-500/5 group-hover:via-violet-500/5 group-hover:to-indigo-500/5 transition-all duration-500" />
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ children, className = '', ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={`group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1 ${className}`}
+        {...props}
+      >
+        {/* Mystical glow backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-violet-500/0 to-indigo-500/0 opacity-0 group-hover:opacity-100 group-hover:from-purple-500/5 group-hover:via-violet-500/5 group-hover:to-indigo-500/5 transition-all duration-500" />
 
-      {/* Shimmer effect */}
-      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        {/* Shimmer effect */}
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
-      {/* Cover Image */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20">
-        {imageUrl ? (
-          <>
-            <img
-              src={imageUrl}
-              alt={name}
-              className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-            />
-            {/* Gradient overlay for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-          </>
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/20 border border-purple-500/30">
-              <Layers className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />
-            </div>
-          </div>
-        )}
-
-        {/* Year badge */}
-        {year && (
-          <div className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur-md px-3 py-1 text-xs font-medium text-foreground/80 border border-border/40">
-            {year}
-          </div>
-        )}
-
-        {/* Sparkle icon on hover */}
-        <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Sparkles className="size-5 text-purple-400 animate-pulse" />
-        </div>
+        {/* Content */}
+        <div className="relative">{children}</div>
       </div>
+    )
+  }
+)
+Card.displayName = 'Card'
 
-      {/* Content */}
-      <div className="relative p-6 space-y-3">
-        <div>
-          <h3 className="text-xl font-semibold group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-indigo-600 dark:group-hover:from-purple-400 dark:group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all">
-            {name}
-          </h3>
-          {tradition && (
-            <p className="mt-1.5 text-sm text-muted-foreground flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-purple-500/50" />
-              {tradition}
-            </p>
-          )}
-        </div>
+// ═══════════════════════════════════════════════════════════════════════════
+// CardImage - Cover image with zoom effect
+// ═══════════════════════════════════════════════════════════════════════════
 
-        {description && (
-          <p className="line-clamp-2 text-sm text-muted-foreground/80 leading-relaxed">
-            {description}
-          </p>
-        )}
+interface CardImageProps {
+  src?: string
+  alt?: string
+  badge?: React.ReactNode
+  icon?: React.ReactNode
+  className?: string
+}
 
-        {/* Stats */}
-        <div className="flex items-center gap-6 pt-3 text-xs text-muted-foreground border-t border-border/30">
-          <div className="flex items-center gap-1.5">
-            <div className="size-1.5 rounded-full bg-purple-500/70" />
-            <span className="font-medium">{cardCount}</span>
-            <span>cartas</span>
+const CardImage = ({ src, alt = '', badge, icon = <Layers className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />, className = '' }: CardImageProps) => {
+  return (
+    <div className={`relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20 ${className}`}>
+      {src ? (
+        <>
+          <img
+            src={src}
+            alt={alt}
+            className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        </>
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          <div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/20 border border-purple-500/30">
+            {icon}
           </div>
-          <div className="flex items-center gap-1.5">
-            <div className="size-1.5 rounded-full bg-indigo-500/70" />
-            <span className="font-medium">{tagCount}</span>
-            <span>tags</span>
-          </div>
         </div>
+      )}
+
+      {/* Badge (year, category, etc.) */}
+      {badge && (
+        <div className="absolute top-4 right-4 rounded-full bg-background/80 backdrop-blur-md px-3 py-1 text-xs font-medium text-foreground/80 border border-border/40">
+          {badge}
+        </div>
+      )}
+
+      {/* Sparkle icon on hover */}
+      <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Sparkles className="size-5 text-purple-400 animate-pulse" />
       </div>
     </div>
   )
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Loading Skeleton
+// CardHeader - Title and metadata section
 // ═══════════════════════════════════════════════════════════════════════════
 
-function DeckCardSkeleton() {
+interface CardHeaderProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CardHeader = ({ children, className = '' }: CardHeaderProps) => {
+  return <div className={`p-6 space-y-3 ${className}`}>{children}</div>
+}
+
+interface CardTitleProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CardTitle = ({ children, className = '' }: CardTitleProps) => {
+  return (
+    <h3
+      className={`text-xl font-semibold group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-indigo-600 dark:group-hover:from-purple-400 dark:group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all ${className}`}
+    >
+      {children}
+    </h3>
+  )
+}
+
+interface CardMetaProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CardMeta = ({ children, className = '' }: CardMetaProps) => {
+  return (
+    <p className={`mt-1.5 text-sm text-muted-foreground flex items-center gap-1.5 ${className}`}>
+      <span className="size-1.5 rounded-full bg-purple-500/50" />
+      {children}
+    </p>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CardContent - Main body section
+// ═══════════════════════════════════════════════════════════════════════════
+
+interface CardContentProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CardContent = ({ children, className = '' }: CardContentProps) => {
+  return <div className={`px-6 pb-6 ${className}`}>{children}</div>
+}
+
+interface CardDescriptionProps {
+  children: React.ReactNode
+  lines?: number
+  className?: string
+}
+
+const CardDescription = ({ children, lines = 2, className = '' }: CardDescriptionProps) => {
+  return (
+    <p className={`line-clamp-${lines} text-sm text-muted-foreground/80 leading-relaxed ${className}`}>
+      {children}
+    </p>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CardFooter - Stats and actions
+// ═══════════════════════════════════════════════════════════════════════════
+
+interface CardFooterProps {
+  children: React.ReactNode
+  className?: string
+}
+
+const CardFooter = ({ children, className = '' }: CardFooterProps) => {
+  return (
+    <div className={`px-6 pb-6 flex items-center gap-6 pt-3 text-xs text-muted-foreground border-t border-border/30 ${className}`}>
+      {children}
+    </div>
+  )
+}
+
+interface CardStatProps {
+  value: number
+  label: string
+  color?: 'purple' | 'indigo' | 'violet'
+  className?: string
+}
+
+const CardStat = ({ value, label, color = 'purple', className = '' }: CardStatProps) => {
+  const colorClasses = {
+    purple: 'bg-purple-500/70',
+    indigo: 'bg-indigo-500/70',
+    violet: 'bg-violet-500/70',
+  }
+
+  return (
+    <div className={`flex items-center gap-1.5 ${className}`}>
+      <div className={`size-1.5 rounded-full ${colorClasses[color]}`} />
+      <span className="font-medium">{value}</span>
+      <span>{label}</span>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CardSkeleton - Loading state
+// ═══════════════════════════════════════════════════════════════════════════
+
+const CardSkeleton = () => {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10">
       <div className="aspect-[4/3] w-full animate-pulse bg-gradient-to-br from-muted to-muted/50" />
@@ -143,59 +225,102 @@ function DeckCardSkeleton() {
 
 const meta = {
   title: 'Components/Molecules/Card',
-  component: DeckCard,
+  component: Card,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Mystical card component with gradient backgrounds, hover effects, and shimmer animations. This is the actual design pattern used in the /decks route of the Tarot application.',
+          'Modular card system with mystical design. Compose cards using Card, CardImage, CardHeader, CardTitle, CardContent, CardFooter like Lego blocks. Includes hover effects: glow, shimmer, and transformation.',
       },
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof DeckCard>
+} satisfies Meta<typeof Card>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Basic Examples
+// Basic Examples - Showing Composition
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const Default: Story = {
-  args: {
-    name: 'Rider-Waite Tarot',
-    tradition: 'Tarot Tradicional',
-    description:
-      'O baralho mais icônico e amplamente utilizado, criado por A. E. Waite e ilustrado por Pamela Colman Smith em 1909.',
-    imageUrl: 'https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop',
-    year: 1909,
-    cardCount: 78,
-    tagCount: 22,
-  },
+  render: () => (
+    <Card style={{ maxWidth: '350px' }}>
+      <CardImage
+        src="https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop"
+        alt="Rider-Waite Tarot"
+        badge="1909"
+      />
+      <CardHeader>
+        <CardTitle>Rider-Waite Tarot</CardTitle>
+        <CardMeta>Tarot Tradicional</CardMeta>
+      </CardHeader>
+      <CardContent>
+        <CardDescription>
+          O baralho mais icônico e amplamente utilizado, criado por A. E. Waite e ilustrado por
+          Pamela Colman Smith em 1909.
+        </CardDescription>
+      </CardContent>
+      <CardFooter>
+        <CardStat value={78} label="cartas" color="purple" />
+        <CardStat value={22} label="tags" color="indigo" />
+      </CardFooter>
+    </Card>
+  ),
 }
 
 export const WithoutImage: Story = {
-  args: {
-    name: 'Tarot de Marselha',
-    tradition: 'Tradição Francesa',
-    description: 'Baralho clássico francês com simbolismo profundo e cores vibrantes.',
-    year: 1650,
-    cardCount: 78,
-    tagCount: 15,
-  },
+  render: () => (
+    <Card style={{ maxWidth: '350px' }}>
+      <CardImage badge="1650" />
+      <CardHeader>
+        <CardTitle>Tarot de Marselha</CardTitle>
+        <CardMeta>Tradição Francesa</CardMeta>
+      </CardHeader>
+      <CardContent>
+        <CardDescription>
+          Baralho clássico francês com simbolismo profundo e cores vibrantes.
+        </CardDescription>
+      </CardContent>
+      <CardFooter>
+        <CardStat value={78} label="cartas" color="purple" />
+        <CardStat value={15} label="tags" color="indigo" />
+      </CardFooter>
+    </Card>
+  ),
+}
+
+export const Simple: Story = {
+  render: () => (
+    <Card style={{ maxWidth: '350px' }}>
+      <CardHeader>
+        <CardTitle>Simple Card</CardTitle>
+        <CardMeta>Just header and content</CardMeta>
+      </CardHeader>
+      <CardContent>
+        <CardDescription>
+          You can omit any section. Mix and match components as needed.
+        </CardDescription>
+      </CardContent>
+    </Card>
+  ),
 }
 
 export const Loading: Story = {
-  render: () => <DeckCardSkeleton />,
+  render: () => (
+    <div style={{ maxWidth: '350px' }}>
+      <CardSkeleton />
+    </div>
+  ),
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Showcase - Multiple Cards
+// Composition Examples - Lego-style assembly
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const DeckGrid: Story = {
+export const CompositionExamples: Story = {
   render: () => (
     <div
       style={{
@@ -225,58 +350,97 @@ export const DeckGrid: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          Deck Cards
+          Card Composition
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          Production card design with mystical effects
+          Modular Lego-style components
         </p>
       </div>
 
-      {/* Cards Grid */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <DeckCard
-          name="Rider-Waite Tarot"
-          tradition="Tarot Tradicional"
-          description="O baralho mais icônico e amplamente utilizado, criado por A. E. Waite e ilustrado por Pamela Colman Smith em 1909."
-          imageUrl="https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop"
-          year={1909}
-          cardCount={78}
-          tagCount={22}
-        />
-        <DeckCard
-          name="Tarot de Marselha"
-          tradition="Tradição Francesa"
-          description="Baralho clássico francês com simbolismo profundo e cores vibrantes que remontam ao século XVII."
-          imageUrl="https://images.unsplash.com/photo-1595123550441-d377e1f7d46b?w=800&auto=format&fit=crop"
-          year={1650}
-          cardCount={78}
-          tagCount={15}
-        />
-        <DeckCard
-          name="Thoth Tarot"
-          tradition="Thelema"
-          description="Criado por Aleister Crowley e Lady Frieda Harris, um baralho esotérico profundamente simbólico."
-          imageUrl="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=800&auto=format&fit=crop"
-          year={1969}
-          cardCount={78}
-          tagCount={18}
-        />
-        <DeckCard
-          name="Oracle Cards"
-          tradition="Oráculo Moderno"
-          description="Conjunto místico de cartas oraculares para guiar jornadas espirituais e autoconhecimento."
-          cardCount={44}
-          tagCount={8}
-        />
-        <DeckCard
-          name="Lenormand Deck"
-          tradition="Cartomancia"
-          description="Sistema de 36 cartas com simbolismo direto e prático, perfeito para leituras cotidianas."
-          year={1850}
-          cardCount={36}
-          tagCount={10}
-        />
-        <DeckCardSkeleton />
+        {/* Full Composition */}
+        <Card>
+          <CardImage
+            src="https://images.unsplash.com/photo-1636690619969-d90d84815c84?w=800&auto=format&fit=crop"
+            alt="Rider-Waite"
+            badge="1909"
+          />
+          <CardHeader>
+            <CardTitle>Full Card</CardTitle>
+            <CardMeta>All components</CardMeta>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>Image + Header + Content + Footer assembled together.</CardDescription>
+          </CardContent>
+          <CardFooter>
+            <CardStat value={78} label="cards" color="purple" />
+            <CardStat value={22} label="tags" color="indigo" />
+          </CardFooter>
+        </Card>
+
+        {/* No Image */}
+        <Card>
+          <CardHeader>
+            <CardTitle>No Image</CardTitle>
+            <CardMeta>Header + Content</CardMeta>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>Works perfectly without CardImage component.</CardDescription>
+          </CardContent>
+          <CardFooter>
+            <CardStat value={44} label="cards" color="violet" />
+          </CardFooter>
+        </Card>
+
+        {/* Image + Title Only */}
+        <Card>
+          <CardImage
+            src="https://images.unsplash.com/photo-1595123550441-d377e1f7d46b?w=800&auto=format&fit=crop"
+            alt="Minimal"
+          />
+          <CardHeader>
+            <CardTitle>Minimal</CardTitle>
+          </CardHeader>
+        </Card>
+
+        {/* Content Rich */}
+        <Card>
+          <CardImage badge="2023" />
+          <CardHeader>
+            <CardTitle>Content Rich</CardTitle>
+            <CardMeta>Modern Oracle</CardMeta>
+          </CardHeader>
+          <CardContent>
+            <CardDescription lines={3}>
+              This card has more description text to show how the line-clamp works. You can set
+              different line limits via the lines prop. Perfect for variable content lengths.
+            </CardDescription>
+          </CardContent>
+          <CardFooter>
+            <CardStat value={36} label="cards" color="purple" />
+            <CardStat value={8} label="tags" color="violet" />
+          </CardFooter>
+        </Card>
+
+        {/* Loading State */}
+        <CardSkeleton />
+
+        {/* Custom Content */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Custom Content</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div className="p-3 rounded-lg bg-purple-500/10 border border-purple-500/20 text-sm">
+                🎯 Custom element 1
+              </div>
+              <div className="p-3 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-sm">
+                ✨ Custom element 2
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Footer */}
@@ -297,75 +461,9 @@ export const DeckGrid: Story = {
             fontSize: '0.875rem',
           }}
         >
-          💡 Hover over cards to see mystical effects: glow, shimmer, and transformation
+          💡 Assemble cards like Lego: mix Card, CardImage, CardHeader, CardContent, CardFooter as
+          needed
         </p>
-      </div>
-    </div>
-  ),
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// Interactive States
-// ═══════════════════════════════════════════════════════════════════════════
-
-export const AllStates: Story = {
-  render: () => (
-    <div
-      style={{
-        padding: '2rem',
-        background: 'oklch(0.145 0 0)',
-        minHeight: '100vh',
-      }}
-    >
-      <h2
-        style={{
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: '#a855f7',
-          marginBottom: '1.5rem',
-        }}
-      >
-        Card States
-      </h2>
-
-      <div className="grid gap-8 md:grid-cols-3">
-        {/* Default State */}
-        <div>
-          <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'rgba(255, 255, 255, 0.9)' }}>
-            Default State
-          </h3>
-          <DeckCard
-            name="Sample Deck"
-            tradition="Traditional"
-            description="This is how the card appears in its default state."
-            cardCount={78}
-            tagCount={12}
-          />
-        </div>
-
-        {/* With Image */}
-        <div>
-          <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'rgba(255, 255, 255, 0.9)' }}>
-            With Image
-          </h3>
-          <DeckCard
-            name="Visual Deck"
-            tradition="Modern"
-            description="Card with cover image and year badge."
-            imageUrl="https://images.unsplash.com/photo-1518398046578-8cca57782e17?w=800&auto=format&fit=crop"
-            year={2023}
-            cardCount={78}
-            tagCount={12}
-          />
-        </div>
-
-        {/* Loading State */}
-        <div>
-          <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'rgba(255, 255, 255, 0.9)' }}>
-            Loading State
-          </h3>
-          <DeckCardSkeleton />
-        </div>
       </div>
     </div>
   ),

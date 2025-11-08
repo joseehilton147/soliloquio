@@ -29,6 +29,9 @@ importers:
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      lucide-react:
+        specifier: ^0.475.0
+        version: 0.475.0(react@19.2.0)
       react:
         specifier: ^19.2.0
         version: 19.2.0
@@ -7583,6 +7586,10 @@ snapshots:
   lucide-react@0.475.0(react@19.1.1):
     dependencies:
       react: 19.1.1
+
+  lucide-react@0.475.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
 
   lz-string@1.5.0: {}
 
