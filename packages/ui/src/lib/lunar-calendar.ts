@@ -37,18 +37,18 @@ function calculateMoonAge(date: Date): number {
 }
 
 /**
- * Descrições didáticas de cada fase lunar
- * Acessível para todos os públicos
+ * Significados esotéricos de cada fase lunar
+ * Mensagens espirituais para orientação mística
  */
 const PHASE_DESCRIPTIONS: Record<MoonPhase, string> = {
-	new: 'Lua totalmente escura, alinhada entre Terra e Sol. Início de um novo ciclo lunar.',
-	'waxing-crescent': 'Pequena fatia iluminada crescendo. Transição da Lua Nova para o Quarto Crescente.',
-	'first-quarter': 'Metade iluminada (50%). Lua crescendo em direção à Lua Cheia.',
-	'waxing-gibbous': 'Mais de 50% iluminada, quase cheia. Última fase antes da Lua Cheia.',
-	full: 'Lua totalmente iluminada (100%). Terra entre Lua e Sol, face completa visível.',
-	'waning-gibbous': 'Mais de 50% iluminada, diminuindo. Primeira fase após a Lua Cheia.',
-	'last-quarter': 'Metade iluminada (50%). Lua minguando em direção à Lua Nova.',
-	'waning-crescent': 'Pequena fatia iluminada diminuindo. Última fase antes da Lua Nova.',
+	new: 'Momento de plantar sementes e estabelecer intenções. A escuridão fértil acolhe novos começos e sonhos ainda não manifestados.',
+	'waxing-crescent': 'Fase de ação e primeiros passos. O que foi semeado começa a brotar - hora de nutrir seus projetos com fé e dedicação.',
+	'first-quarter': 'Tempo de decisões e superação de obstáculos. A força crescente da Lua te convida a agir com coragem e determinação.',
+	'waxing-gibbous': 'Momento de refinamento e ajustes finais. Quase no ápice, é hora de polir detalhes e preparar-se para a realização plena.',
+	full: 'Plenitude e iluminação máxima. Celebre suas conquistas, manifeste gratidão e deixe sua luz interior brilhar intensamente.',
+	'waning-gibbous': 'Simboliza o início de um período de conclusão e introspecção, que convida a uma reflexão sobre o que foi realizado na fase anterior.',
+	'last-quarter': 'Fase de liberação e limpeza espiritual. Deixe ir o que não serve mais, perdoe, limpe energias densas e renove-se.',
+	'waning-crescent': 'Tempo de descanso e recolhimento interior. Prepare-se para o novo ciclo através da meditação, silêncio e renovação profunda.',
 }
 
 /**
