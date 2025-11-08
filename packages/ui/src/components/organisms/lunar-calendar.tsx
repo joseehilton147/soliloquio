@@ -90,7 +90,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 				>
 					{/* Borda gradiente animada mística */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[320px] shadow-2xl shadow-purple-500/30 overflow-hidden">
+						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden">
 							{/* Glow interno */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
 
