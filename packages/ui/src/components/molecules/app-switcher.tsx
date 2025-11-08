@@ -79,11 +79,6 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 				<div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200">
 					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-						{/* Seta de conexão - integrada na borda */}
-						<div className="absolute -top-2 left-1/2 -translate-x-1/2">
-							<div className="border-[10px] border-transparent border-b-purple-500" />
-						</div>
-
 						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 min-w-[280px] shadow-2xl shadow-purple-500/30">
 							{/* Glow interno */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
@@ -147,6 +142,11 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 								})}
 							</div>
 						</div>
+					</div>
+
+					{/* Seta indicadora - EXATAMENTE como na dock */}
+					<div className="absolute top-full -mt-[2px] left-1/2 -translate-x-1/2">
+						<div className="border-8 border-transparent border-t-purple-500" />
 					</div>
 				</div>
 			)}
