@@ -78,8 +78,8 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 			{isOpen && (
 				<div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200">
 					{/* Seta de conexão */}
-					<div className="absolute -top-[2px] left-1/2 -translate-x-1/2">
-						<div className="border-8 border-transparent border-t-purple-500" />
+					<div className="absolute -top-[2px] left-1/2 -translate-x-1/2 z-10">
+						<div className="border-8 border-transparent border-b-purple-500" />
 					</div>
 
 					{/* Borda gradiente animada */}
