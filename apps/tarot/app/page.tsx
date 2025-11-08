@@ -1,125 +1,230 @@
 'use client'
 
-import type { TarotCard } from '@workspace/core/tarot'
-import { Sparkles } from 'lucide-react'
-import Image from 'next/image'
+import { Eye, Moon, Star, Sparkles, Hexagon, Circle, Triangle } from 'lucide-react'
 import Link from 'next/link'
 
-import { trpc } from '../src/lib/trpc'
-
 export default function TarotHomePage() {
-	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 10 })
-
 	return (
-		<div className="space-y-8">
-			{/* Header Místico */}
-			<div className="space-y-3">
-				<h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
-					Arcanos Maiores
-				</h1>
-				<p className="text-lg text-muted-foreground">
-					Explore os arcanos maiores e suas interpretações para sua jornada espiritual
-				</p>
+		<div className="relative min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center">
+			{/* Sacred Geometry Background */}
+			<div className="absolute inset-0 overflow-hidden pointer-events-none">
+				{/* Animated circles */}
+				<div className="absolute top-1/4 left-1/4 size-64 rounded-full border border-purple-500/10 animate-pulse" />
+				<div className="absolute top-1/3 right-1/4 size-96 rounded-full border border-indigo-500/10 animate-pulse [animation-delay:1s]" />
+				<div className="absolute bottom-1/4 left-1/3 size-48 rounded-full border border-violet-500/10 animate-pulse [animation-delay:2s]" />
+
+				{/* Gradient orbs */}
+				<div className="absolute top-20 right-20 size-96 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-transparent rounded-full blur-3xl" />
+				<div className="absolute bottom-20 left-20 size-96 bg-gradient-to-tr from-indigo-500/5 via-purple-500/5 to-transparent rounded-full blur-3xl" />
 			</div>
 
-			{/* Loading State */}
-			{isLoading && (
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{[...Array(6)].map((_, i) => (
-						<div key={i} className="h-96 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
-					))}
-				</div>
-			)}
+			<div className="relative z-10 max-w-5xl mx-auto px-6 space-y-20">
+				{/* Hero - Sacred Eye */}
+				<div className="text-center space-y-8">
+					{/* Sacred Eye Symbol */}
+					<div className="relative inline-flex items-center justify-center">
+						{/* Outer hexagon rotating */}
+						<div className="absolute size-32 animate-spin-slow">
+							<Hexagon className="size-full text-purple-500/20" strokeWidth={0.5} />
+						</div>
 
-			{/* Error State */}
-			{error && (
-				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
-					<p className="text-sm font-medium text-destructive">
-						Erro ao carregar cartas: {error.message}
-					</p>
-					<p className="mt-2 text-xs text-muted-foreground">
-						Certifique-se de que a API está rodando em http://localhost:3001
-					</p>
-				</div>
-			)}
+						{/* Middle circle pulsing */}
+						<div className="absolute size-24 animate-pulse">
+							<Circle className="size-full text-violet-500/30" strokeWidth={0.5} />
+						</div>
 
-			{/* Cards Grid */}
-			{data && (
-				<div className="space-y-6">
-					{/* Stats and Action */}
-					<div className="flex items-center justify-between">
-						<p className="text-sm text-muted-foreground">
-							{data.pagination.total} carta(s) disponíveis
+						{/* Inner eye */}
+						<div className="relative flex items-center justify-center size-16 rounded-full bg-gradient-to-br from-purple-600/10 to-indigo-600/10 border border-purple-500/20 backdrop-blur-sm">
+							<Eye className="size-8 text-purple-600 dark:text-purple-400 animate-pulse" strokeWidth={1.5} />
+						</div>
+
+						{/* Sparkles orbiting */}
+						<div className="absolute size-40 animate-spin-slow [animation-duration:8s]">
+							<Sparkles className="absolute top-0 left-1/2 -translate-x-1/2 size-4 text-purple-400" />
+							<Sparkles className="absolute bottom-0 left-1/2 -translate-x-1/2 size-4 text-indigo-400" />
+							<Sparkles className="absolute left-0 top-1/2 -translate-y-1/2 size-4 text-violet-400" />
+							<Sparkles className="absolute right-0 top-1/2 -translate-y-1/2 size-4 text-purple-400" />
+						</div>
+					</div>
+
+					{/* Sacred Title */}
+					<div className="space-y-4">
+						<h1 className="text-6xl md:text-7xl font-bold tracking-tight">
+							<span className="block bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+								Solilóquio
+							</span>
+						</h1>
+						<p className="text-xl md:text-2xl text-muted-foreground font-light tracking-wide">
+							Portal de Sabedoria Mística
 						</p>
-						<Link
-							href="/cartas"
-							className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
-						>
-							Ver todas
-							<Sparkles className="size-4" />
-						</Link>
 					</div>
 
-					{/* Cards Grid with Mystical Design */}
-					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-						{data.cards.map((card: TarotCard) => (
-							<Link
-								key={card.id}
-								href={`/cartas/${card.slug}`}
-								className="group relative overflow-hidden rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 transition-all hover:shadow-xl hover:border-purple-500/20"
-							>
-								{/* Mystical glow effect on hover */}
-								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-								{/* Card Image */}
-								{card.imageUrl && (
-									<div className="relative aspect-[2/3] w-full bg-gradient-to-br from-muted to-muted/50">
-										<Image
-											src={card.imageUrl}
-											alt={card.name}
-											fill
-											className="object-cover transition-transform duration-300 group-hover:scale-105"
-											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-										/>
-										{/* Overlay gradient */}
-										<div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-									</div>
-								)}
-
-								{/* Card Content */}
-								<div className="relative p-6 space-y-3">
-									<div>
-										<h3 className="text-xl font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-											{card.name}
-										</h3>
-										<p className="text-xs text-muted-foreground mt-1">
-											Numerologia: {card.numerology}
-											{card.astrology && ` • ${card.astrology}`}
-										</p>
-									</div>
-
-									<p className="line-clamp-3 text-sm text-muted-foreground">
-										{card.summary}
-									</p>
-
-									{/* Mystical Tags */}
-									<div className="flex flex-wrap gap-2">
-										{(card.verticalMeaning as string[]).slice(0, 2).map((meaning, i) => (
-											<span
-												key={i}
-												className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-purple-500/10 to-indigo-500/10 px-2.5 py-1 text-xs font-medium text-purple-600 dark:text-purple-400 border border-purple-500/20"
-											>
-												<span className="size-1.5 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600" />
-												{meaning}
-											</span>
-										))}
-									</div>
-								</div>
-							</Link>
-						))}
+					{/* Mystical Quote */}
+					<div className="max-w-2xl mx-auto py-8 relative">
+						<div className="absolute top-0 left-0 text-6xl text-purple-500/10 font-serif">"</div>
+						<p className="text-lg md:text-xl text-foreground/90 font-light italic leading-relaxed px-8">
+							Como acima, assim embaixo. Como dentro, assim fora.
+						</p>
+						<div className="absolute bottom-0 right-0 text-6xl text-purple-500/10 font-serif rotate-180">"</div>
+						<p className="text-sm text-muted-foreground mt-4">— Tábua de Esmeralda</p>
 					</div>
 				</div>
-			)}
+
+				{/* Three Pillars - Sacred Triad */}
+				<div className="grid md:grid-cols-3 gap-8 md:gap-12">
+					{/* Pillar 1: Baralhos */}
+					<Link
+						href="/decks"
+						className="group relative"
+					>
+						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-2">
+							{/* Sacred symbol */}
+							<div className="relative inline-flex items-center justify-center">
+								<div className="absolute size-20 animate-spin-slow [animation-duration:10s]">
+									<Circle className="size-full text-purple-500/20" strokeWidth={0.5} />
+								</div>
+								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+									<Moon className="size-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<h3 className="text-2xl font-semibold group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-indigo-600 dark:group-hover:from-purple-400 dark:group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+									Baralhos
+								</h3>
+								<p className="text-sm text-muted-foreground leading-relaxed">
+									Explore tradições sagradas e oráculos ancestrais
+								</p>
+							</div>
+
+							{/* Decorative dots */}
+							<div className="flex items-center justify-center gap-2">
+								<span className="size-1.5 rounded-full bg-purple-500/50" />
+								<span className="size-1 rounded-full bg-purple-500/30" />
+								<span className="size-0.5 rounded-full bg-purple-500/20" />
+							</div>
+						</div>
+					</Link>
+
+					{/* Pillar 2: Cartas */}
+					<Link
+						href="/cartas"
+						className="group relative"
+					>
+						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/10 hover:border-violet-500/30 hover:-translate-y-2">
+							{/* Sacred symbol */}
+							<div className="relative inline-flex items-center justify-center">
+								<div className="absolute size-20 animate-spin-slow [animation-duration:12s] [animation-direction:reverse]">
+									<Hexagon className="size-full text-violet-500/20" strokeWidth={0.5} />
+								</div>
+								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
+									<Star className="size-8 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<h3 className="text-2xl font-semibold group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-purple-600 dark:group-hover:from-violet-400 dark:group-hover:to-purple-400 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+									Cartas
+								</h3>
+								<p className="text-sm text-muted-foreground leading-relaxed">
+									Desvende arcanos e símbolos do inconsciente coletivo
+								</p>
+							</div>
+
+							{/* Decorative dots */}
+							<div className="flex items-center justify-center gap-2">
+								<span className="size-1.5 rounded-full bg-violet-500/50" />
+								<span className="size-1 rounded-full bg-violet-500/30" />
+								<span className="size-0.5 rounded-full bg-violet-500/20" />
+							</div>
+						</div>
+					</Link>
+
+					{/* Pillar 3: Jornada */}
+					<div className="group relative">
+						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 cursor-default">
+							{/* Sacred symbol */}
+							<div className="relative inline-flex items-center justify-center">
+								<div className="absolute size-20 animate-spin-slow [animation-duration:14s]">
+									<Triangle className="size-full text-indigo-500/20" strokeWidth={0.5} />
+								</div>
+								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
+									<Sparkles className="size-8 text-indigo-600 dark:text-indigo-400 animate-pulse" strokeWidth={1.5} />
+								</div>
+							</div>
+
+							<div className="space-y-2">
+								<h3 className="text-2xl font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 bg-clip-text text-transparent">
+									Jornada
+								</h3>
+								<p className="text-sm text-muted-foreground leading-relaxed">
+									Registro pessoal da caminhada iniciática
+								</p>
+							</div>
+
+							{/* Coming soon badge */}
+							<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
+								<span className="size-1.5 rounded-full bg-indigo-500/70 animate-pulse" />
+								<span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+									Em breve
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{/* Sacred Path - Visual Divider */}
+				<div className="relative py-12">
+					<div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+					<div className="relative flex items-center justify-center gap-8">
+						<span className="size-2 rounded-full bg-purple-500/50" />
+						<span className="size-3 rounded-full bg-purple-500/70" />
+						<span className="size-4 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg shadow-purple-500/50" />
+						<span className="size-3 rounded-full bg-indigo-500/70" />
+						<span className="size-2 rounded-full bg-indigo-500/50" />
+					</div>
+				</div>
+
+				{/* Mystical Wisdom */}
+				<div className="text-center space-y-8 pb-12">
+					<div className="space-y-3">
+						<p className="text-sm uppercase tracking-widest text-muted-foreground/60 font-light">
+							Sabedoria Ancestral
+						</p>
+						<p className="text-lg md:text-xl text-foreground/80 font-light leading-relaxed max-w-3xl mx-auto">
+							Este espaço sagrado preserva conhecimentos herméticos, símbolos esotéricos e ensinamentos místicos.
+							Cada carta é uma porta para o inconsciente. Cada baralho, uma tradição viva.
+						</p>
+					</div>
+
+					{/* Mystical symbols footer */}
+					<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
+						<Moon className="size-5" strokeWidth={1} />
+						<span className="size-1 rounded-full bg-current" />
+						<Star className="size-5" strokeWidth={1} />
+						<span className="size-1 rounded-full bg-current" />
+						<Eye className="size-5" strokeWidth={1} />
+						<span className="size-1 rounded-full bg-current" />
+						<Sparkles className="size-5" strokeWidth={1} />
+					</div>
+				</div>
+			</div>
+
+			{/* Ambient animation styles */}
+			<style jsx>{`
+				@keyframes spin-slow {
+					from {
+						transform: rotate(0deg);
+					}
+					to {
+						transform: rotate(360deg);
+					}
+				}
+
+				.animate-spin-slow {
+					animation: spin-slow 20s linear infinite;
+				}
+			`}</style>
 		</div>
 	)
 }
