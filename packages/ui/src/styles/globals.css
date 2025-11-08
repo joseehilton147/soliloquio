@@ -95,6 +95,16 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Cursor padrão para todos os textos - não mostra cursor de seleção */
+  p, span, h1, h2, h3, h4, h5, h6, div, label, li, a {
+    cursor: default;
+  }
+
+  /* Inputs e textareas mantêm cursor de texto */
+  input, textarea {
+    cursor: text;
+  }
 }
 
 /* Animações místicas customizadas */
@@ -120,6 +130,12 @@
   .animate-gradient-xy {
     background-size: 200% 200%;
     animation: gradient-xy 3s ease infinite;
+  }
+
+  /* Classe para permitir seleção de texto quando necessário */
+  .selectable-text {
+    cursor: text;
+    user-select: text;
   }
 }
 
