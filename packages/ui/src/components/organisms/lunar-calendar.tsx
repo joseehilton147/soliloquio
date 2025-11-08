@@ -90,7 +90,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 				>
 					{/* Seta de conexão */}
 					<div className="absolute -top-[2px] right-8">
-						<div className="border-8 border-transparent border-b-purple-500" />
+						<div className="border-8 border-transparent border-t-purple-500" />
 					</div>
 
 					{/* Borda gradiente animada mística */}
