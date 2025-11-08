@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="pt-BR" className="dark" suppressHydrationWarning>
-			<body className="dark">
+		<html lang="pt-BR" suppressHydrationWarning>
+			<body>
 				<Providers>
 					<TarotLayout>{children}</TarotLayout>
 				</Providers>

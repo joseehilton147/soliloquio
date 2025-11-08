@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function TarotHomePage() {
 	return (
-		<div className="relative min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center">
+		<div className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4">
 			{/* Sacred Geometry Background */}
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
 				{/* Animated circles */}
