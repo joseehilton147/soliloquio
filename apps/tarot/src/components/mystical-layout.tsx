@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
+import { MysticalBackground } from '@workspace/ui'
 import { AppHeader } from '@workspace/ui/components/organisms/app-header'
 import { LunarCalendar } from '@workspace/ui/components/organisms/lunar-calendar'
 import { LogoIconMystical } from '@workspace/ui/components/atoms/logo-icon-mystical'
@@ -44,7 +45,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Homepage: Header + conteúdo + Dock
+  // Homepage: Header + conteúdo (sem Dock)
   if (isHomePage) {
     return (
       <>
@@ -60,7 +61,6 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         <main className="min-h-screen pt-12">
           {children}
         </main>
-        <MysticalDock items={dockItems} settings={settings} />
         <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       </>
     )
@@ -78,8 +78,14 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         apps={headerApps}
         rightContent={<LunarCalendar />}
       />
-      <main className="min-h-screen pt-12 p-6 md:p-12">
-        {children}
+      <main className="relative min-h-screen pt-12 p-6 md:p-12 overflow-hidden">
+        {/* Mystical Background */}
+        <MysticalBackground variant="stars" intensity="subtle" />
+
+        {/* Conteúdo */}
+        <div className="relative z-10">
+          {children}
+        </div>
       </main>
 
       {/* Mystical Dock */}
