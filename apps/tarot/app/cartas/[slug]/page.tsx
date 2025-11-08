@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReadingType } from '@workspace/core/tarot'
-import { ArrowLeft, Pencil } from 'lucide-react'
+import { ArrowLeft, Pencil, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { use } from 'react'
@@ -19,8 +19,14 @@ export default function CartaDetailPage({ params }: PageProps) {
 	if (isLoading) {
 		return (
 			<div className="space-y-8">
-				<div className="h-8 w-48 animate-pulse rounded bg-muted" />
-				<div className="h-64 animate-pulse rounded-lg bg-muted" />
+				<div className="h-8 w-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
+				<div className="grid gap-8 lg:grid-cols-[320px_1fr]">
+					<div className="h-[480px] animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
+					<div className="space-y-6">
+						<div className="h-32 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
+						<div className="h-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
+					</div>
+				</div>
 			</div>
 		)
 	}
@@ -28,12 +34,12 @@ export default function CartaDetailPage({ params }: PageProps) {
 	if (error || !card) {
 		return (
 			<div className="space-y-4">
-				<Link href="/cartas" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary">
-					<ArrowLeft className="mr-2 size-4" />
+				<Link href="/cartas" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
+					<ArrowLeft className="size-4" />
 					Voltar
 				</Link>
-				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-					<p className="text-sm text-destructive">
+				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
+					<p className="text-sm font-medium text-destructive">
 						Carta não encontrada
 					</p>
 				</div>
@@ -41,38 +47,74 @@ export default function CartaDetailPage({ params }: PageProps) {
 		)
 	}
 
+	const readingTypeLabels: Record<string, string> = {
+		'general': 'Leitura Geral',
+		'love-relationship': 'Amor e Relacionamentos',
+		'career-money': 'Carreira e Dinheiro',
+		'personal-spiritual': 'Pessoal e Espiritual',
+		'inverted': 'Invertida'
+	}
+
 	return (
 		<div className="space-y-8">
-			<Link href="/cartas" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary">
-				<ArrowLeft className="mr-2 size-4" />
+			{/* Breadcrumb Místico */}
+			<Link
+				href="/cartas"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
+			>
+				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
 				Voltar para todas as cartas
 			</Link>
 
-			<div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-				<div className="lg:sticky lg:top-20 lg:self-start space-y-4">
+			{/* Layout Principal */}
+			<div className="grid gap-8 lg:grid-cols-[380px_1fr]">
+				{/* Sidebar - Imagem e Info Rápida */}
+				<div className="lg:sticky lg:top-24 lg:self-start space-y-6">
+					{/* Card Image com efeito místico */}
 					{card.imageUrl && (
-						<div className="relative aspect-[2/3] w-full max-w-sm mx-auto lg:mx-0 rounded-lg overflow-hidden border bg-muted shadow-lg">
+						<div className="group relative aspect-[2/3] w-full max-w-sm mx-auto lg:mx-0 rounded-lg overflow-hidden border-2 border-border/40 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
+							{/* Mystical glow effect */}
+							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 							<Image
 								src={card.imageUrl}
 								alt={card.name}
 								fill
 								className="object-cover"
-								sizes="(max-width: 1024px) 100vw, 320px"
+								sizes="(max-width: 1024px) 100vw, 380px"
 								priority
 							/>
 						</div>
 					)}
-					<div className="text-center lg:text-left px-2 space-y-3">
+
+					{/* Informações Principais */}
+					<div className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 space-y-4">
 						<div>
-							<h1 className="text-2xl font-bold">{card.name}</h1>
-							<p className="mt-1 text-sm text-muted-foreground">
-								Numerologia: {card.numerology}
-								{card.astrology && ` • Astrologia: ${card.astrology}`}
-							</p>
+							<h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+								{card.name}
+							</h1>
+							<div className="mt-2 flex flex-col gap-1 text-sm text-muted-foreground">
+								<p className="flex items-center gap-2">
+									<Sparkles className="size-4 text-purple-500" />
+									Numerologia: <span className="font-medium text-foreground">{card.numerology}</span>
+								</p>
+								{card.astrology && (
+									<p className="flex items-center gap-2">
+										<Sparkles className="size-4 text-indigo-500" />
+										Astrologia: <span className="font-medium text-foreground">{card.astrology}</span>
+									</p>
+								)}
+								{card.deck && (
+									<p className="flex items-center gap-2">
+										<Sparkles className="size-4 text-purple-500" />
+										Baralho: <span className="font-medium text-foreground">{card.deck.name}</span>
+									</p>
+								)}
+							</div>
 						</div>
+
 						<Link
 							href={`/cartas/${card.slug}/editar`}
-							className="inline-flex items-center gap-2 rounded-md border bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
+							className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
 						>
 							<Pencil className="size-4" />
 							Editar Carta
@@ -80,58 +122,86 @@ export default function CartaDetailPage({ params }: PageProps) {
 					</div>
 				</div>
 
+				{/* Conteúdo Principal */}
 				<div className="space-y-6">
-
-					<div className="rounded-lg border bg-card p-6">
-						<h2 className="text-lg font-semibold">Resumo</h2>
-						<p className="mt-2 text-muted-foreground">{card.summary}</p>
+					{/* Resumo */}
+					<div className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6">
+						<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+							Resumo
+						</h2>
+						<p className="mt-3 text-foreground leading-relaxed">{card.summary}</p>
 					</div>
 
-					<div className="rounded-lg border bg-card p-6">
-						<h2 className="text-lg font-semibold">Descrição</h2>
-						<p className="mt-2 text-muted-foreground">{card.description}</p>
+					{/* Descrição */}
+					<div className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6">
+						<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+							Descrição Detalhada
+						</h2>
+						<p className="mt-3 text-foreground leading-relaxed whitespace-pre-line">{card.description}</p>
 					</div>
 
+					{/* Significados - Grid */}
 					<div className="grid gap-6 md:grid-cols-2">
-						<div className="rounded-lg border bg-card p-6">
-							<h2 className="text-lg font-semibold text-green-600 dark:text-green-400">
+						{/* Vertical */}
+						<div className="rounded-lg border border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/5 p-6">
+							<h2 className="flex items-center gap-2 text-lg font-semibold text-green-600 dark:text-green-400">
+								<CheckCircle2 className="size-5" />
 								Significado Vertical
 							</h2>
-							<ul className="mt-3 space-y-2">
+							<ul className="mt-4 space-y-2">
 								{(card.verticalMeaning as string[]).map((meaning, i) => (
-									<li key={i} className="flex items-start">
-										<span className="mr-2">✓</span>
-										<span className="text-muted-foreground">{meaning}</span>
+									<li key={i} className="flex items-start gap-2">
+										<span className="mt-0.5 size-1.5 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex-shrink-0" />
+										<span className="text-sm text-foreground">{meaning}</span>
 									</li>
 								))}
 							</ul>
 						</div>
 
-						<div className="rounded-lg border bg-card p-6">
-							<h2 className="text-lg font-semibold text-amber-600 dark:text-amber-400">
+						{/* Invertido */}
+						<div className="rounded-lg border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-orange-500/5 p-6">
+							<h2 className="flex items-center gap-2 text-lg font-semibold text-amber-600 dark:text-amber-400">
+								<AlertCircle className="size-5" />
 								Significado Invertido
 							</h2>
-							<ul className="mt-3 space-y-2">
+							<ul className="mt-4 space-y-2">
 								{(card.invertedMeaning as string[]).map((meaning, i) => (
-									<li key={i} className="flex items-start">
-										<span className="mr-2">⚠</span>
-										<span className="text-muted-foreground">{meaning}</span>
+									<li key={i} className="flex items-start gap-2">
+										<span className="mt-0.5 size-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 flex-shrink-0" />
+										<span className="text-sm text-foreground">{meaning}</span>
 									</li>
 								))}
 							</ul>
 						</div>
 					</div>
 
+					{/* Tipos de Leitura */}
 					<div className="space-y-4">
-						<h2 className="text-2xl font-semibold">Tipos de Leitura</h2>
-						{card.typesOfReading.map((reading: ReadingType) => (
-							<div key={reading.id} className="rounded-lg border bg-card p-6">
-								<h3 className="font-semibold capitalize">
-									{reading.type.replace('-', ' ')}
-								</h3>
-								<p className="mt-2 text-muted-foreground">{reading.read}</p>
+						<h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+							Tipos de Leitura
+						</h2>
+						{card.typesOfReading.length > 0 ? (
+							<div className="grid gap-4">
+								{card.typesOfReading.map((reading: ReadingType) => (
+									<div
+										key={reading.id}
+										className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 hover:shadow-lg hover:border-purple-500/20 transition-all"
+									>
+										<h3 className="font-semibold text-lg flex items-center gap-2">
+											<span className="size-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600" />
+											{readingTypeLabels[reading.type] || reading.type}
+										</h3>
+										<p className="mt-3 text-foreground leading-relaxed">{reading.read}</p>
+									</div>
+								))}
 							</div>
-						))}
+						) : (
+							<div className="rounded-lg border border-border/40 bg-muted/20 p-6 text-center">
+								<p className="text-sm text-muted-foreground">
+									Nenhum tipo de leitura cadastrado para esta carta
+								</p>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

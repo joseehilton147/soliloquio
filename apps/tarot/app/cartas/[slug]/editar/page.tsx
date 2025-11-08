@@ -97,8 +97,8 @@ export default function EditarCartaPage({ params }: PageProps) {
 	if (isLoading) {
 		return (
 			<div className="space-y-8">
-				<div className="h-8 w-48 animate-pulse rounded bg-muted" />
-				<div className="h-64 animate-pulse rounded-lg bg-muted" />
+				<div className="h-8 w-48 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
+				<div className="h-64 animate-pulse rounded-lg bg-gradient-to-br from-muted to-muted/50" />
 			</div>
 		)
 	}
@@ -106,12 +106,15 @@ export default function EditarCartaPage({ params }: PageProps) {
 	if (error || !card) {
 		return (
 			<div className="space-y-4">
-				<Link href="/cartas" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary">
-					<ArrowLeft className="mr-2 size-4" />
-					Voltar
+				<Link
+					href="/cartas"
+					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
+				>
+					<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
+					Voltar para cartas
 				</Link>
-				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-					<p className="text-sm text-destructive">
+				<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
+					<p className="text-sm font-medium text-destructive">
 						Carta não encontrada
 					</p>
 				</div>
@@ -126,24 +129,34 @@ export default function EditarCartaPage({ params }: PageProps) {
 
 	return (
 		<div className="space-y-8">
-			<Link href={`/cartas/${card.slug}`} className="inline-flex items-center text-sm text-muted-foreground hover:text-primary">
-				<ArrowLeft className="mr-2 size-4" />
+			{/* Breadcrumb Místico */}
+			<Link
+				href={`/cartas/${card.slug}`}
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
+			>
+				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
 				Voltar para carta
 			</Link>
 
-			<div>
-				<h1 className="text-4xl font-bold">Editar Carta: {card.name}</h1>
-				<p className="mt-2 text-muted-foreground">
-					Atualize as informações da carta de tarot
+			{/* Header Místico */}
+			<div className="space-y-3">
+				<h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+					Editar: {card.name}
+				</h1>
+				<p className="text-lg text-muted-foreground">
+					Atualize as informações espirituais da carta de tarot
 				</p>
 			</div>
 
 			<form onSubmit={handleSubmit} className="space-y-6">
-				<div className="rounded-lg border bg-card p-6 space-y-4">
-					<h2 className="text-xl font-semibold">Informações Básicas</h2>
+				{/* Informações Básicas */}
+				<div className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 space-y-4">
+					<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+						Informações Básicas
+					</h2>
 
 					<div>
-						<label htmlFor="name" className="block text-sm font-medium mb-2">
+						<label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
 							Nome da Carta *
 						</label>
 						<input
@@ -152,13 +165,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							name="name"
 							required
 							defaultValue={card.name}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Ex: O Mago"
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="numerology" className="block text-sm font-medium mb-2">
+						<label htmlFor="numerology" className="block text-sm font-medium mb-2 text-foreground">
 							Numerologia *
 						</label>
 						<input
@@ -167,13 +180,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							name="numerology"
 							required
 							defaultValue={card.numerology}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Ex: 1"
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="astrology" className="block text-sm font-medium mb-2">
+						<label htmlFor="astrology" className="block text-sm font-medium mb-2 text-foreground">
 							Astrologia
 						</label>
 						<input
@@ -181,13 +194,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							id="astrology"
 							name="astrology"
 							defaultValue={card.astrology || ''}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Ex: Mercúrio"
 						/>
 					</div>
 
 					<div>
-						<span className="block text-sm font-medium mb-2">
+						<span className="block text-sm font-medium mb-2 text-foreground">
 							Imagem da Carta
 						</span>
 						<ImageUploader
@@ -201,7 +214,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					</div>
 
 					<div>
-						<label htmlFor="summary" className="block text-sm font-medium mb-2">
+						<label htmlFor="summary" className="block text-sm font-medium mb-2 text-foreground">
 							Resumo *
 						</label>
 						<textarea
@@ -210,13 +223,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							required
 							rows={3}
 							defaultValue={card.summary}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Resumo curto da carta..."
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="description" className="block text-sm font-medium mb-2">
+						<label htmlFor="description" className="block text-sm font-medium mb-2 text-foreground">
 							Descrição *
 						</label>
 						<textarea
@@ -225,7 +238,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 							required
 							rows={6}
 							defaultValue={card.description}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Descrição detalhada da carta..."
 						/>
 					</div>
@@ -257,26 +270,31 @@ export default function EditarCartaPage({ params }: PageProps) {
 					/>
 				</div>
 
-				<div className="rounded-lg border bg-card p-6 space-y-4">
-					<h2 className="text-xl font-semibold">Tipos de Leitura</h2>
-					<p className="text-sm text-muted-foreground">Pelo menos um tipo é obrigatório</p>
+				{/* Tipos de Leitura */}
+				<div className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 space-y-4">
+					<div>
+						<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+							Tipos de Leitura
+						</h2>
+						<p className="mt-2 text-sm text-muted-foreground">Pelo menos um tipo é obrigatório (mínimo 10 caracteres)</p>
+					</div>
 
 					<div>
-						<label htmlFor="generalReading" className="block text-sm font-medium mb-2">
-							Geral
+						<label htmlFor="generalReading" className="block text-sm font-medium mb-2 text-foreground">
+							Leitura Geral
 						</label>
 						<textarea
 							id="generalReading"
 							name="generalReading"
 							rows={4}
 							defaultValue={getReadingByType('general')}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Interpretação geral da carta..."
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="loveReading" className="block text-sm font-medium mb-2">
+						<label htmlFor="loveReading" className="block text-sm font-medium mb-2 text-foreground">
 							Amor e Relacionamentos
 						</label>
 						<textarea
@@ -284,13 +302,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							name="loveReading"
 							rows={4}
 							defaultValue={getReadingByType('love-relationship')}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Interpretação para amor e relacionamentos..."
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="careerReading" className="block text-sm font-medium mb-2">
+						<label htmlFor="careerReading" className="block text-sm font-medium mb-2 text-foreground">
 							Carreira e Dinheiro
 						</label>
 						<textarea
@@ -298,13 +316,13 @@ export default function EditarCartaPage({ params }: PageProps) {
 							name="careerReading"
 							rows={4}
 							defaultValue={getReadingByType('career-money')}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Interpretação para carreira e finanças..."
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="spiritualReading" className="block text-sm font-medium mb-2">
+						<label htmlFor="spiritualReading" className="block text-sm font-medium mb-2 text-foreground">
 							Pessoal e Espiritual
 						</label>
 						<textarea
@@ -312,45 +330,47 @@ export default function EditarCartaPage({ params }: PageProps) {
 							name="spiritualReading"
 							rows={4}
 							defaultValue={getReadingByType('personal-spiritual')}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Interpretação para crescimento pessoal e espiritual..."
 						/>
 					</div>
 
 					<div>
-						<label htmlFor="invertedReading" className="block text-sm font-medium mb-2">
-							Invertida
+						<label htmlFor="invertedReading" className="block text-sm font-medium mb-2 text-foreground">
+							Leitura Invertida
 						</label>
 						<textarea
 							id="invertedReading"
 							name="invertedReading"
 							rows={4}
 							defaultValue={getReadingByType('inverted')}
-							className="w-full rounded-md border bg-background px-3 py-2"
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Interpretação quando a carta aparece invertida..."
 						/>
 					</div>
 				</div>
 
+				{/* Error State */}
 				{updateMutation.error && (
-					<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
-						<p className="text-sm text-destructive">
+					<div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6">
+						<p className="text-sm font-medium text-destructive">
 							Erro ao atualizar carta: {updateMutation.error.message}
 						</p>
 					</div>
 				)}
 
+				{/* Actions */}
 				<div className="flex gap-4">
 					<button
 						type="submit"
 						disabled={isSubmitting}
-						className="rounded-md bg-primary px-6 py-3 text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+						className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
 					>
 						{isSubmitting ? 'Salvando...' : 'Salvar Alterações'}
 					</button>
 					<Link
 						href={`/cartas/${card.slug}`}
-						className="rounded-md border px-6 py-3 hover:bg-accent"
+						className="inline-flex items-center justify-center rounded-lg border border-border/40 bg-background/50 px-6 py-3 text-sm font-medium hover:bg-accent transition-all"
 					>
 						Cancelar
 					</Link>
