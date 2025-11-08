@@ -6,3 +6,4 @@
 
 export { DynamicTagInput, type DynamicTagInputProps } from './dynamic-tag-input';
 export { ImageUploader, type ImageUploaderProps } from './image-uploader';
+export { MysticalHeader, type MysticalHeaderProps, type HeaderApp } from './mystical-header';

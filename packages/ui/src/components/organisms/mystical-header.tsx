@@ -3,67 +3,44 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@workspace/ui/lib/utils'
-import { BookOpen, BookMarked, Compass, Library, Scroll, ChevronDown } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
+import { cn } from '../../lib/utils'
+import { MysticalLogo } from '../atoms/mystical-logo'
+import { LunarCalendar } from '../molecules/lunar-calendar'
 
-interface AppItem {
+/**
+ * Header App Configuration Interface
+ * Apps devem implementar este tipo
+ */
+export interface HeaderApp {
   id: string
   name: string
-  icon: React.ElementType
+  icon: LucideIcon
   href: string
   available: boolean
   description?: string
 }
 
-const apps: AppItem[] = [
-  {
-    id: 'tarot',
-    name: 'Tarot',
-    icon: BookOpen,
-    href: '/',
-    available: true,
-    description: 'Cartas e Baralhos Sagrados',
-  },
-  {
-    id: 'grimorio',
-    name: 'Grimório',
-    icon: BookMarked,
-    href: '/grimorio',
-    available: false,
-    description: 'Livro de Conhecimento Arcano',
-  },
-  {
-    id: 'jornada',
-    name: 'Jornada',
-    icon: Compass,
-    href: '/jornada',
-    available: false,
-    description: 'Diário Espiritual Pessoal',
-  },
-  {
-    id: 'biblioteca',
-    name: 'Biblioteca',
-    icon: Library,
-    href: '/biblioteca',
-    available: false,
-    description: 'Arquivo de Recursos Místicos',
-  },
-  {
-    id: 'arquivo',
-    name: 'Arquivo',
-    icon: Scroll,
-    href: '/arquivo',
-    available: false,
-    description: 'Registros e Documentação',
-  },
-]
+export interface MysticalHeaderProps {
+  apps: HeaderApp[]
+}
 
-export function MysticalHeader() {
+/**
+ * Mystical Header - Organismo
+ * Header reutilizável com logo místico, app switcher e calendário lunar
+ *
+ * Design Atômico:
+ * - Átomo: MysticalLogo
+ * - Molécula: LunarCalendar
+ * - Organismo: MysticalHeader (este componente)
+ */
+export function MysticalHeader({ apps }: MysticalHeaderProps) {
   const pathname = usePathname()
   const [appsMenuOpen, setAppsMenuOpen] = useState(false)
 
   const currentApp = apps.find(app =>
-    pathname.startsWith(app.href) || (app.id === 'tarot' && pathname === '/')
+    pathname.startsWith(app.href) && app.href !== '/' || (pathname === '/' && app.href === '/')
   ) || apps[0]
 
   return (
@@ -76,15 +53,8 @@ export function MysticalHeader() {
 
         {/* Left side - Logo + Current App */}
         <div className="flex items-center gap-4">
-          {/* Logo + Brand */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 group"
-          >
-            <span className="text-sm font-semibold text-foreground group-hover:text-purple-400 transition-colors">
-              Solilóquio
-            </span>
-          </Link>
+          {/* Logo Místico com estrela animada */}
+          <MysticalLogo href="/" />
 
           {/* Divider */}
           <div className="h-4 w-px bg-white/10" />
@@ -188,12 +158,8 @@ export function MysticalHeader() {
           )}
         </div>
 
-        {/* Right side - System info (pode adicionar hora, tema, etc.) */}
-        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <time suppressHydrationWarning>
-            {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-          </time>
-        </div>
+        {/* Right side - Calendário Lunar */}
+        <LunarCalendar />
 
       </div>
     </header>

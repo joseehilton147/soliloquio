@@ -3,10 +3,11 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
+import { MysticalHeader } from '@workspace/ui'
 import { GlobalSearch } from './global-search'
-import { MysticalHeader } from './mystical-header'
 import { useDockSettings } from '../contexts/dock-settings-context'
 import { createDockItems } from '../config/dock-items'
+import { headerApps } from '../config/header-apps'
 
 interface MysticalLayoutProps {
   children: React.ReactNode
@@ -45,7 +46,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   if (isHomePage) {
     return (
       <>
-        <MysticalHeader />
+        <MysticalHeader apps={headerApps} />
         <main className="min-h-screen pt-12">
           {children}
         </main>
@@ -58,7 +59,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   // Outras páginas: layout fullscreen imersivo
   return (
     <>
-      <MysticalHeader />
+      <MysticalHeader apps={headerApps} />
       <main className="min-h-screen pt-12 p-6 md:p-12">
         {children}
       </main>

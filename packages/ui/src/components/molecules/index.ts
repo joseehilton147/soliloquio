@@ -6,4 +6,5 @@
 export { FileDropZone, type FileDropZoneProps } from './file-drop-zone';
 export { FilePreview, type FilePreviewProps } from './file-preview';
 export { ImagePreview, type ImagePreviewProps } from './image-preview';
+export { LunarCalendar, type LunarCalendarProps } from './lunar-calendar';
 export { Tag, type TagProps } from './tag';
