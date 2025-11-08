@@ -151,7 +151,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 							{/* Lista de fases - Scrollbar místico customizado */}
 							<div className="relative space-y-1 max-h-[320px] overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar">
-								{nextPhases.map((phaseData, index) => (
+								{nextPhases.map((phaseData: ReturnType<typeof getNextMoonPhases>[number], index: number) => (
 									<MoonPhaseListItem
 										key={`${phaseData.phase}-${index}`}
 										phase={phaseData.phase}
