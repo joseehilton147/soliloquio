@@ -26,6 +26,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
   const [lunarInfo, setLunarInfo] = useState<LunarInfo | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [nextPhases, setNextPhases] = useState<ReturnType<typeof getNextMoonPhases>>([])
+  const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const updateLunarInfo = () => {
@@ -40,6 +41,21 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
     return () => clearInterval(interval)
   }, [])
 
+  const handleMouseEnter = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout)
+      setCloseTimeout(null)
+    }
+    setIsOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsOpen(false)
+    }, 150) // Delay de 150ms para permitir movimento do mouse
+    setCloseTimeout(timeout)
+  }
+
   if (!lunarInfo) {
     return (
       <div className={cn('flex items-center text-xs text-muted-foreground', className)}>
@@ -49,11 +65,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
   }
 
   return (
-    <div
-      className={cn('relative', className)}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+    <div className={cn('relative', className)}>
       {/* Trigger Button */}
       <div
         className={cn(
@@ -62,6 +74,8 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
           'hover:scale-105',
           isOpen && 'scale-105'
         )}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Label */}
         <span className="text-muted-foreground">Lua vigente:</span>
@@ -78,7 +92,11 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+        <div
+          className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           {/* Borda gradiente animada mística */}
           <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
             <div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[320px] shadow-2xl shadow-purple-500/30 overflow-hidden">
