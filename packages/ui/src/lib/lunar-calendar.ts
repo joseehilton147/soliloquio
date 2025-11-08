@@ -134,3 +134,63 @@ export function formatLunarDate(date: Date): string {
     month: 'short',
   }).format(date)
 }
+
+/**
+ * Calcula as próximas N fases lunares principais
+ * Retorna apenas as 4 fases principais: Nova, Crescente, Cheia, Minguante
+ */
+export function getNextMoonPhases(count: number = 8, startDate: Date = new Date()): Array<{
+  phase: MoonPhase
+  phaseName: string
+  date: Date
+}> {
+  const SYNODIC_MONTH = 29.53058867
+  const phases: Array<{ phase: MoonPhase; phaseName: string; date: Date }> = []
+
+  // Fases principais e seus momentos no ciclo (em dias)
+  const mainPhases: Array<{ age: number; phase: MoonPhase; name: string }> = [
+    { age: 0, phase: 'new', name: 'Lua Nova' },
+    { age: 7.38265, phase: 'first-quarter', name: 'Quarto Crescente' },
+    { age: 14.76530, phase: 'full', name: 'Lua Cheia' },
+    { age: 22.14795, phase: 'last-quarter', name: 'Quarto Minguante' },
+  ]
+
+  const currentAge = calculateMoonAge(startDate)
+  let searchDate = new Date(startDate)
+
+  // Buscar próximas fases
+  while (phases.length < count) {
+    const age = calculateMoonAge(searchDate)
+
+    // Verificar cada fase principal
+    for (const mainPhase of mainPhases) {
+      // Se estamos próximos desta fase (margem de 0.5 dias)
+      const diff = Math.abs(age - mainPhase.age)
+
+      if (diff < 0.5 && searchDate > startDate) {
+        // Não adicionar duplicatas
+        const isDuplicate = phases.some(p =>
+          Math.abs(p.date.getTime() - searchDate.getTime()) < 1000 * 60 * 60 * 12 // 12 horas
+        )
+
+        if (!isDuplicate) {
+          phases.push({
+            phase: mainPhase.phase,
+            phaseName: mainPhase.name,
+            date: new Date(searchDate),
+          })
+        }
+      }
+    }
+
+    // Avançar 1 dia
+    searchDate.setDate(searchDate.getDate() + 1)
+
+    // Proteção contra loop infinito
+    if (searchDate.getTime() - startDate.getTime() > 1000 * 60 * 60 * 24 * 365) {
+      break
+    }
+  }
+
+  return phases.slice(0, count)
+}

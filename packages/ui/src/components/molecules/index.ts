@@ -8,5 +8,6 @@ export { CurrentAppBadge, type CurrentAppBadgeProps } from './current-app-badge'
 export { FileDropZone, type FileDropZoneProps } from './file-drop-zone';
 export { FilePreview, type FilePreviewProps } from './file-preview';
 export { ImagePreview, type ImagePreviewProps } from './image-preview';
-export { LunarCalendar, type LunarCalendarProps } from './lunar-calendar';
+export { MoonPhaseBadge, type MoonPhaseBadgeProps } from './moon-phase-badge';
+export { MoonPhaseListItem, type MoonPhaseListItemProps } from './moon-phase-list-item';
 export { Tag, type TagProps } from './tag';
