@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
-import { ThemeToggle } from '@workspace/ui/components/molecules/theme-toggle'
 import { GlobalSearch } from './global-search'
 
 interface MysticalLayoutProps {
@@ -21,10 +20,14 @@ const navItems = [
 /**
  * Layout místico inspirado em Vercel/Superhuman
  * Design minimalista e espiritual
+ *
+ * Homepage: Apenas conteúdo (3 pilares de navegação)
+ * Outras páginas: Sidebar com navegação e busca
  */
 export function MysticalLayout({ children }: MysticalLayoutProps) {
   const pathname = usePathname()
   const [searchOpen, setSearchOpen] = useState(false)
+  const isHomePage = pathname === '/'
 
   // Keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
@@ -39,6 +42,19 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  // Homepage: sem sidebar, sem header, apenas conteúdo
+  if (isHomePage) {
+    return (
+      <>
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
+      </>
+    )
+  }
+
+  // Outras páginas: sidebar com navegação e busca
   return (
     <div className="min-h-screen bg-background">
       {/* Sidebar */}
@@ -51,10 +67,24 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
             </div>
             <div>
               <h1 className="text-sm font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                Tarot
+                Solilóquio
               </h1>
-              <p className="text-xs text-muted-foreground">Jornada Interior</p>
+              <p className="text-xs text-muted-foreground">Portal Místico</p>
             </div>
+          </div>
+
+          {/* Search button místico */}
+          <div className="p-4 border-b border-border/40">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex w-full items-center gap-3 rounded-lg border border-border/40 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 px-3 py-2 text-sm text-muted-foreground transition-all hover:border-purple-500/30 hover:from-purple-500/10 hover:to-indigo-500/10 hover:shadow-lg hover:shadow-purple-500/10"
+            >
+              <SearchIcon className="size-4" strokeWidth={2} />
+              <span>Buscar...</span>
+              <kbd className="ml-auto inline-flex h-5 items-center gap-1 rounded border border-border/40 bg-background/50 px-1.5 text-[10px] font-medium">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            </button>
           </div>
 
           {/* Navigation */}
@@ -87,36 +117,16 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
           {/* Footer místico */}
           <div className="border-t border-border/40 p-4">
             <div className="rounded-lg bg-gradient-to-br from-purple-500/5 to-indigo-500/5 p-3 text-xs text-muted-foreground">
-              <p className="font-medium text-foreground">★ Solilóquio</p>
-              <p className="mt-1">Exploração espiritual através do Tarot</p>
+              <p className="font-medium text-foreground">★ Sabedoria Ancestral</p>
+              <p className="mt-1 leading-relaxed">Como acima, assim embaixo</p>
             </div>
           </div>
         </div>
       </aside>
 
-      {/* Main content */}
+      {/* Main content (sem header) */}
       <div className="pl-64">
-        {/* Header with search and theme toggle */}
-        <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6">
-          {/* Global search */}
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="flex flex-1 max-w-md items-center gap-2 rounded-lg border border-border/40 bg-background/50 px-3 py-2 text-sm text-muted-foreground transition-all hover:border-purple-500/20 hover:shadow-sm"
-          >
-            <SearchIcon className="size-4" strokeWidth={2} />
-            <span>Buscar cartas e baralhos...</span>
-            <kbd className="ml-auto inline-flex h-5 items-center gap-1 rounded border border-border/40 bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </button>
-
-          <div className="ml-auto">
-            <ThemeToggle />
-          </div>
-        </header>
-
-        {/* Page content */}
-        <main className="min-h-[calc(100vh-4rem)] p-6">
+        <main className="min-h-screen p-6">
           {children}
         </main>
       </div>

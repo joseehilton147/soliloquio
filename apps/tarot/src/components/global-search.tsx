@@ -105,59 +105,76 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-background/90 backdrop-blur-xl animate-in fade-in duration-300"
       onClick={handleBackgroundClick}
     >
-      <div className="container flex h-full max-w-2xl flex-col items-center justify-start pt-32">
+      {/* Mystical background orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 size-96 bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-transparent rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 size-96 bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
+      </div>
+
+      <div className="container flex h-full max-w-2xl flex-col items-center justify-start pt-32 relative">
         <div
-          className="w-full rounded-lg border border-border bg-background shadow-2xl animate-in slide-in-from-top-4 duration-300"
+          className="w-full rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Search Input */}
-          <div className="flex items-center gap-3 border-b border-border/40 px-4 py-3">
-            <SearchIcon className="size-5 text-muted-foreground" strokeWidth={2} />
+          {/* Search Input místico */}
+          <div className="flex items-center gap-3 border-b border-border/40 px-5 py-4 bg-gradient-to-r from-purple-500/5 via-transparent to-indigo-500/5">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+              <SearchIcon className="size-5 text-purple-600 dark:text-purple-400" strokeWidth={2} />
+            </div>
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Buscar cartas e baralhos..."
-              className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              placeholder="Buscar no oráculo sagrado..."
+              className="flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground/60"
               autoFocus
             />
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="rounded-full p-1 hover:bg-accent transition-colors"
+                className="rounded-full p-2 hover:bg-purple-500/10 transition-all hover:scale-110"
               >
                 <X className="size-4 text-muted-foreground" />
               </button>
             )}
           </div>
 
-          {/* Results */}
-          <div className="max-h-96 overflow-y-auto p-2">
+          {/* Results místicos */}
+          <div className="max-h-[32rem] overflow-y-auto p-3">
             {query.length < 2 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10">
-                  <SearchIcon className="size-6 text-muted-foreground" />
+              <div className="flex flex-col items-center justify-center py-16 text-center">
+                <div className="relative">
+                  <div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
+                  <div className="relative flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+                    <SearchIcon className="size-8 text-purple-600 dark:text-purple-400" />
+                  </div>
                 </div>
-                <p className="mt-4 text-sm text-muted-foreground">
-                  Digite pelo menos 2 caracteres para buscar
+                <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
+                  Busque sabedoria nos arcanos
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground/60">
+                  Digite pelo menos 2 caracteres
                 </p>
               </div>
             ) : allResults.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="flex size-12 items-center justify-center rounded-full bg-muted">
-                  <SearchIcon className="size-6 text-muted-foreground" />
+              <div className="flex flex-col items-center justify-center py-16 text-center">
+                <div className="relative">
+                  <div className="absolute inset-0 animate-pulse rounded-full bg-purple-500/10" />
+                  <div className="relative flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+                    <Sparkles className="size-8 text-purple-600 dark:text-purple-400 animate-pulse" />
+                  </div>
                 </div>
-                <p className="mt-4 text-sm font-medium">Nenhum resultado encontrado</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Tente buscar por outro termo
+                <p className="mt-6 text-sm font-medium">Nenhum arcano encontrado</p>
+                <p className="mt-2 text-sm text-muted-foreground/80 leading-relaxed max-w-xs">
+                  O oráculo não revela segredos com este termo. Tente outro caminho.
                 </p>
               </div>
             ) : (
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 {allResults.map((result, index) => {
                   const Icon = result.icon
                   const isSelected = index === selectedIndex
@@ -172,38 +189,43 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                       href={url}
                       onClick={onClose}
                       className={cn(
-                        'flex items-start gap-3 rounded-lg px-3 py-2 transition-all',
+                        'group flex items-start gap-3 rounded-xl px-4 py-3 transition-all duration-200',
                         isSelected
-                          ? 'bg-gradient-to-r from-purple-500/10 to-indigo-500/10 shadow-sm'
-                          : 'hover:bg-accent'
+                          ? 'bg-gradient-to-r from-purple-500/10 to-indigo-500/10 shadow-lg shadow-purple-500/10 border border-purple-500/20'
+                          : 'hover:bg-gradient-to-r hover:from-purple-500/5 hover:to-indigo-500/5 border border-transparent'
                       )}
                     >
                       <div
                         className={cn(
-                          'flex size-8 items-center justify-center rounded-lg transition-colors',
+                          'flex size-10 items-center justify-center rounded-xl shadow-lg transition-all duration-200',
                           result.type === 'card'
-                            ? 'bg-gradient-to-br from-purple-500 to-indigo-600'
-                            : 'bg-gradient-to-br from-indigo-500 to-purple-600'
+                            ? 'bg-gradient-to-br from-purple-500 to-indigo-600 group-hover:shadow-purple-500/50'
+                            : 'bg-gradient-to-br from-indigo-500 to-purple-600 group-hover:shadow-indigo-500/50'
                         )}
                       >
-                        <Icon className="size-4 text-white" strokeWidth={2} />
+                        <Icon className="size-5 text-white" strokeWidth={2} />
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium">{result.name}</p>
+                        <p className="text-sm font-semibold group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-indigo-600 dark:group-hover:from-purple-400 dark:group-hover:to-indigo-400 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                          {result.name}
+                        </p>
                         {result.description && (
-                          <p className="mt-0.5 text-xs text-muted-foreground line-clamp-1">
+                          <p className="mt-1 text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed">
                             {result.description}
                           </p>
                         )}
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {result.type === 'card' ? 'Carta' : 'Baralho'}
-                        </p>
+                        <div className="mt-2 flex items-center gap-1.5">
+                          <span className="size-1 rounded-full bg-purple-500/70" />
+                          <p className="text-xs text-muted-foreground/60">
+                            {result.type === 'card' ? 'Arcano' : 'Baralho Sagrado'}
+                          </p>
+                        </div>
                       </div>
 
                       {isSelected && (
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <kbd className="inline-flex h-5 items-center rounded border border-border/40 bg-muted px-1.5">
+                          <kbd className="inline-flex h-6 items-center rounded-lg border border-purple-500/30 bg-purple-500/10 px-2 font-medium">
                             ⏎
                           </kbd>
                         </div>
@@ -215,22 +237,27 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
             )}
           </div>
 
-          {/* Footer */}
-          <div className="flex items-center justify-between border-t border-border/40 px-4 py-2 text-xs text-muted-foreground">
+          {/* Footer místico */}
+          <div className="flex items-center justify-between border-t border-border/40 px-5 py-3 text-xs text-muted-foreground bg-gradient-to-r from-purple-500/5 via-transparent to-indigo-500/5">
             <div className="flex items-center gap-2">
-              <kbd className="inline-flex h-5 items-center gap-1 rounded border border-border/40 bg-muted px-1.5">
+              <kbd className="inline-flex h-6 items-center gap-1.5 rounded-lg border border-border/40 bg-background/50 px-2 font-medium">
                 <span>↑↓</span>
               </kbd>
               <span>navegar</span>
             </div>
             <div className="flex items-center gap-2">
-              <kbd className="inline-flex h-5 items-center gap-1 rounded border border-border/40 bg-muted px-1.5">
+              <kbd className="inline-flex h-6 items-center gap-1.5 rounded-lg border border-border/40 bg-background/50 px-2 font-medium">
                 ESC
               </kbd>
               <span>fechar</span>
             </div>
           </div>
         </div>
+
+        {/* Mystical hint */}
+        <p className="mt-4 text-xs text-muted-foreground/50 text-center">
+          ★ O oráculo revela seus segredos aos que buscam com intenção pura ★
+        </p>
       </div>
     </div>
   )
