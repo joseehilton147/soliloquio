@@ -8,6 +8,3 @@ export { FileInput, type FileInputProps } from './file-input';
 export { Logo, type LogoProps } from './logo';
 export { LogoIconMystical } from './logo-icon-mystical';
 export { TagInput, type TagInputProps } from './tag-input';
-
-// Deprecated - use Logo + LogoIconMystical
-export { MysticalLogo, type MysticalLogoProps } from './mystical-logo';
