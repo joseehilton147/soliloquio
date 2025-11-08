@@ -80,7 +80,7 @@ function getNextPhase(currentAge: number, currentPhase: MoonPhase): { phase: Moo
   ]
 
   // Encontrar próxima fase
-  let nextPhaseData = phaseTargets[0]
+  let nextPhaseData = phaseTargets[0]!
   let daysUntilNext = 0
 
   for (const target of phaseTargets) {
@@ -94,7 +94,7 @@ function getNextPhase(currentAge: number, currentPhase: MoonPhase): { phase: Moo
   // Se não encontrou, próxima é lua nova do próximo ciclo
   if (daysUntilNext === 0) {
     daysUntilNext = SYNODIC_MONTH - currentAge
-    nextPhaseData = phaseTargets[0]
+    nextPhaseData = phaseTargets[0]!
   }
 
   const nextDate = new Date()

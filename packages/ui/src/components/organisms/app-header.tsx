@@ -50,7 +50,11 @@ export function AppHeader({ logo, apps, rightContent, onAppChange }: AppHeaderPr
   // Detecta app atual baseado na rota
   const currentApp = apps.find(app =>
     pathname.startsWith(app.href) && app.href !== '/' || (pathname === '/' && app.href === '/')
-  ) || apps[0]
+  ) || apps[0]!
+
+  if (!currentApp) {
+    throw new Error('AppHeader: at least one app must be provided')
+  }
 
   return (
     <header className="fixed top-0 inset-x-0 z-40 h-12">
