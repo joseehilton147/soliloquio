@@ -30,6 +30,7 @@ export const tarotRouter = router({
           skip: offset,
           include: {
             typesOfReading: true,
+            deck: true,
           },
           orderBy: {
             numerology: 'asc',

@@ -7,6 +7,7 @@ import { useState } from 'react'
 import superjson from 'superjson'
 
 import { trpc } from '../lib/trpc'
+import { DockSettingsProvider } from '../contexts/dock-settings-context'
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [queryClient] = useState(
@@ -35,7 +36,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					{children}
+					<DockSettingsProvider>
+						{children}
+					</DockSettingsProvider>
 				</ThemeProvider>
 			</QueryClientProvider>
 		</trpc.Provider>
