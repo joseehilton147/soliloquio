@@ -117,11 +117,10 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
         <div className="absolute bottom-1/4 right-1/4 size-96 bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl animate-pulse [animation-delay:1s]" />
       </div>
 
-      <div className="flex h-full w-full items-center justify-center relative px-4">
-        <div className="flex flex-col items-center w-full max-w-2xl">
+      <div className="flex h-full w-full items-center justify-center relative px-4" onClick={handleBackgroundClick}>
+        <div className="flex flex-col items-center w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
           <div
             className="w-full rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
-            onClick={(e) => e.stopPropagation()}
           >
           {/* Search Input místico */}
           <div className="flex items-center gap-3 border-b border-border/40 px-5 py-4 bg-gradient-to-r from-purple-500/5 via-transparent to-indigo-500/5">

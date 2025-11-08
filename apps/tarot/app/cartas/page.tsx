@@ -1,7 +1,8 @@
 'use client'
 
 import type { TarotCard } from '@workspace/core/tarot'
-import { BookOpen, Sparkles, Layers, Star } from 'lucide-react'
+import { MysticalLoading } from '@workspace/ui'
+import { BookOpen, Sparkles, Layers, Star, Plus } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,28 +11,13 @@ import { trpc } from '../../src/lib/trpc'
 export default function CartasPage() {
 	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })
 
+	// Loading fullscreen místico
+	if (isLoading) {
+		return <MysticalLoading variant="fullscreen" size="xl" />
+	}
+
 	return (
 		<div className="space-y-12">
-
-			{/* Loading State */}
-			{isLoading && (
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{[...Array(8)].map((_, i) => (
-						<div
-							key={i}
-							className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10"
-						>
-							<div className="aspect-[2/3] w-full animate-pulse bg-gradient-to-br from-muted to-muted/50" />
-							<div className="p-6 space-y-3">
-								<div className="h-6 w-3/4 animate-pulse rounded bg-muted" />
-								<div className="h-4 w-1/2 animate-pulse rounded bg-muted/70" />
-								<div className="h-3 w-full animate-pulse rounded bg-muted/50" />
-							</div>
-						</div>
-					))}
-				</div>
-			)}
-
 			{/* Error State */}
 			{error && (
 				<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">
