@@ -43,6 +43,7 @@
     "./components/atoms": "./src/components/atoms/index.ts",
     "./components/molecules": "./src/components/molecules/index.ts",
     "./components/organisms": "./src/components/organisms/index.ts",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./hooks/*": "./src/hooks/*.ts",
+    "./design-system/tokens": "./src/design-system/tokens.ts"
   }
 }

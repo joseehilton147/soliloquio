@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import { config as baseConfig } from "@workspace/eslint-config/base"
 
 /**
@@ -8,14 +11,10 @@ import { config as baseConfig } from "@workspace/eslint-config/base"
  *
  * @type {import("eslint").Linter.Config}
  */
-export default [
-	...baseConfig,
-
-	{
-		// Ignorar apps e packages (eles têm suas próprias configurações)
-		ignores: [
-			"apps/**",
-			"packages/**",
-		],
-	},
-]
+export default [...baseConfig, {
+    // Ignorar apps e packages (eles têm suas próprias configurações)
+    ignores: [
+        "apps/**",
+        "packages/**",
+    ],
+}, ...storybook.configs["flat/recommended"]];

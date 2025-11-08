@@ -40,3 +40,5 @@ npm-debug.log*
 .CLAUDE.md
 .alfredo
 .claude
+*storybook.log
+storybook-static

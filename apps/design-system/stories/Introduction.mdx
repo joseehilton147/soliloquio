@@ -1,0 +1,161 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Design System/Introdução" />
+
+# Design System - Solilóquio Tarot
+
+<div style={{
+  padding: '2rem',
+  background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(99, 102, 241, 0.1) 100%)',
+  borderRadius: '1rem',
+  border: '1px solid rgba(168, 85, 247, 0.2)',
+  marginBottom: '2rem'
+}}>
+  <h2 style={{
+    background: 'linear-gradient(90deg, #a855f7 0%, #8b5cf6 50%, #6366f1 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    marginBottom: '1rem'
+  }}>
+    ★ Portal de Sabedoria Mística
+  </h2>
+  <p style={{ fontSize: '1.125rem', lineHeight: '1.75', opacity: 0.9 }}>
+    "Como acima, assim embaixo. Como dentro, assim fora." — Tábua de Esmeralda
+  </p>
+</div>
+
+## Filosofia do Design
+
+Este design system é inspirado em tradições místicas e espiritualidade, organizando emanações visuais como a **Árvore da Vida Cabalística** organiza as Sefirot.
+
+### Princípios Fundamentais
+
+**1. Consistência Sagrada**
+Como cada Sefirá tem cor e vibração específica, cada token tem propósito definido.
+
+**2. Hierarquia Espiritual**
+Elementos visuais respeitam camadas de significado (Plano Material → Espiritual).
+
+**3. Harmonia Mística**
+Cores, espaçamentos e tipografia seguem proporções áureas e geometria sagrada.
+
+**4. Dark Mode Permanente**
+Paleta única inspirada no chakra da coroa (purple) e terceiro olho (indigo).
+
+---
+
+## Paleta de Cores
+
+Nossa identidade visual se baseia em três cores místicas principais:
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', margin: '2rem 0' }}>
+  <div style={{
+    padding: '1.5rem',
+    background: '#a855f7',
+    borderRadius: '0.75rem',
+    color: 'white',
+    textAlign: 'center'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🔮</div>
+    <strong>Purple</strong>
+    <div style={{ fontSize: '0.875rem', opacity: 0.9, marginTop: '0.5rem' }}>
+      Chakra da Coroa
+    </div>
+  </div>
+  <div style={{
+    padding: '1.5rem',
+    background: '#8b5cf6',
+    borderRadius: '0.75rem',
+    color: 'white',
+    textAlign: 'center'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>✨</div>
+    <strong>Violet</strong>
+    <div style={{ fontSize: '0.875rem', opacity: 0.9, marginTop: '0.5rem' }}>
+      Transmutação
+    </div>
+  </div>
+  <div style={{
+    padding: '1.5rem',
+    background: '#6366f1',
+    borderRadius: '0.75rem',
+    color: 'white',
+    textAlign: 'center'
+  }}>
+    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>👁️</div>
+    <strong>Indigo</strong>
+    <div style={{ fontSize: '0.875rem', opacity: 0.9, marginTop: '0.5rem' }}>
+      Terceiro Olho
+    </div>
+  </div>
+</div>
+
+---
+
+## Estrutura do Sistema
+
+### 🎨 Foundations (Fundações)
+- **Colors**: Paleta mística (Purple, Violet, Indigo)
+- **Typography**: Escala harmônica baseada em ratio 1.25
+- **Spacing**: Múltiplos de 4px (geometria sagrada)
+- **Shadows**: Glows místicos
+
+### 🧩 Components (Componentes)
+Organizados em:
+- **Atoms**: Botões, inputs, badges
+- **Molecules**: Cards, search bars
+- **Organisms**: Layouts, sidebars
+
+---
+
+## Como Usar
+
+### Instalação
+
+```bash
+pnpm add @workspace/ui
+```
+
+### Importar Tokens
+
+```typescript
+import { designTokens } from '@workspace/ui/design-system/tokens'
+
+// Usar cores
+const purpleColor = designTokens.colors.mystical.purple[500]
+
+// Usar espaçamentos
+const padding = designTokens.spacing[4]
+```
+
+### Importar Componentes
+
+```typescript
+import { Button, Card } from '@workspace/ui/components'
+```
+
+---
+
+## Navegação
+
+Use a sidebar para explorar:
+
+- **Design System** → Foundations (cores, tipografia, etc.)
+- **Components** → Componentes documentados
+- **Examples** → Padrões de uso
+
+---
+
+<div style={{
+  padding: '1.5rem',
+  background: 'rgba(168, 85, 247, 0.05)',
+  borderRadius: '0.75rem',
+  border: '1px solid rgba(168, 85, 247, 0.2)',
+  marginTop: '3rem'
+}}>
+  <p style={{ margin: 0, textAlign: 'center', opacity: 0.8 }}>
+    ★ O design system é o grimório que documenta cada Sefirá visual ★
+  </p>
+</div>
