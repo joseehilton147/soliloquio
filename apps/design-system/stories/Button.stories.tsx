@@ -1,14 +1,20 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from '@workspace/ui/components/atoms'
+import { Button, Icon, ButtonGroup } from '@workspace/ui/components/atoms'
+import { Skeleton } from '@workspace/ui/components/atoms'
 
 /**
- * **Button Component**
+ * **Button Component - Mystical Design System**
  *
- * Primary UI component for user actions. Supports multiple variants,
- * sizes, states, and can render as different elements using the asChild prop.
+ * Componente de botão místico com gradientes purple/violet/indigo,
+ * efeitos de shimmer, estados de loading integrados e composição modular.
  *
- * Based on Radix UI Slot for composition flexibility.
+ * **Novas Features:**
+ * - ⭐ Variantes místicas: `gradient` (shimmer) e `glow`
+ * - ⭐ Loading state integrado com prop `loading` + `loadingText`
+ * - ⭐ Tamanhos de ícone: `icon-sm`, `icon-lg`
+ * - ⭐ Integração com Icon atom
+ * - ⭐ ButtonGroup para composição
  */
 const meta = {
   title: 'Components/Atoms/Button',
@@ -17,7 +23,7 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Versatile button component with multiple variants, sizes, and states. Built with class-variance-authority for type-safe variant management.',
+        component: 'Botão místico com 8 variantes, 6 tamanhos, loading state integrado e efeitos purple/violet/indigo. Suporta composição com Icon e ButtonGroup.',
       },
     },
   },
@@ -25,13 +31,21 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link', 'gradient', 'glow'],
       description: 'Visual style variant',
     },
     size: {
       control: 'select',
-      options: ['default', 'sm', 'lg', 'icon'],
+      options: ['sm', 'default', 'lg', 'icon', 'icon-sm', 'icon-lg'],
       description: 'Size preset',
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Loading state (shows spinner, disables button)',
+    },
+    loadingText: {
+      control: 'text',
+      description: 'Alternative text when loading',
     },
     disabled: {
       control: 'boolean',
@@ -48,12 +62,26 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // ═══════════════════════════════════════════════════════════════════════════
-// Basic Examples
+// Basic Variants
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const Default: Story = {
   args: {
-    children: 'Button',
+    children: 'Default Button',
+  },
+}
+
+export const Gradient: Story = {
+  args: {
+    variant: 'gradient',
+    children: 'Gradient Shimmer',
+  },
+}
+
+export const Glow: Story = {
+  args: {
+    variant: 'glow',
+    children: 'Glow Effect',
   },
 }
 
@@ -110,10 +138,79 @@ export const Large: Story = {
   },
 }
 
-export const Icon: Story = {
+export const IconButton: Story = {
   args: {
     size: 'icon',
-    children: '→',
+    children: <Icon name="Heart" />,
+  },
+}
+
+export const IconSmall: Story = {
+  args: {
+    size: 'icon-sm',
+    children: <Icon name="X" size="sm" />,
+  },
+}
+
+export const IconLarge: Story = {
+  args: {
+    size: 'icon-lg',
+    children: <Icon name="Sparkles" size="lg" />,
+  },
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Loading States
+// ═══════════════════════════════════════════════════════════════════════════
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+    children: 'Salvando...',
+  },
+}
+
+export const LoadingWithText: Story = {
+  args: {
+    loading: true,
+    loadingText: 'Processando...',
+    children: 'Salvar',
+  },
+}
+
+export const LoadingGradient: Story = {
+  args: {
+    variant: 'gradient',
+    loading: true,
+    loadingText: 'Carregando magia...',
+    children: 'Iniciar',
+  },
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// With Icons
+// ═══════════════════════════════════════════════════════════════════════════
+
+export const WithIcon: Story = {
+  args: {
+    children: (
+      <>
+        <Icon name="Sparkles" />
+        Magical Action
+      </>
+    ),
+  },
+}
+
+export const WithIconGradient: Story = {
+  args: {
+    variant: 'gradient',
+    children: (
+      <>
+        <Icon name="Zap" />
+        Power Button
+      </>
+    ),
   },
 }
 
@@ -128,19 +225,52 @@ export const Disabled: Story = {
   },
 }
 
+export const LoadingSkeleton: Story = {
+  render: () => <Skeleton className="h-9 w-24 rounded-lg" />,
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
-// Showcase - All Variants
+// Button Groups
 // ═══════════════════════════════════════════════════════════════════════════
 
-export const AllVariants: Story = {
+export const HorizontalGroup: Story = {
   render: () => (
-    <div
-      style={{
-        padding: '2rem',
-        background: 'oklch(0.145 0 0)',
-        minHeight: '100vh',
-      }}
-    >
+    <ButtonGroup>
+      <Button variant="outline">Left</Button>
+      <Button variant="outline">Middle</Button>
+      <Button variant="outline">Right</Button>
+    </ButtonGroup>
+  ),
+}
+
+export const VerticalGroup: Story = {
+  render: () => (
+    <ButtonGroup orientation="vertical">
+      <Button variant="outline">Top</Button>
+      <Button variant="outline">Middle</Button>
+      <Button variant="outline">Bottom</Button>
+    </ButtonGroup>
+  ),
+}
+
+export const GroupWithGap: Story = {
+  render: () => (
+    <ButtonGroup attached={false}>
+      <Button variant="gradient">Action 1</Button>
+      <Button variant="gradient">Action 2</Button>
+      <Button variant="gradient">Action 3</Button>
+    </ButtonGroup>
+  ),
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Showcase - Complete System
+// ═══════════════════════════════════════════════════════════════════════════
+
+export const MysticalShowcase: Story = {
+  render: () => (
+    <div style={{ padding: '2rem', background: 'oklch(0.145 0 0)', minHeight: '100vh' }}>
+      {/* Header */}
       <div
         style={{
           marginBottom: '3rem',
@@ -160,24 +290,45 @@ export const AllVariants: Story = {
             marginBottom: '0.5rem',
           }}
         >
-          Button Variants
+          Mystical Button System
         </h1>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1.125rem' }}>
-          All available button styles and sizes
+          8 variants × 6 sizes × loading states × icon integration
         </p>
       </div>
 
-      {/* Variants */}
+      {/* Mystical Variants */}
       <section style={{ marginBottom: '3rem' }}>
-        <h2
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#a855f7', marginBottom: '1.5rem' }}>
+          ⭐ Mystical Variants (New)
+        </h2>
+        <div
           style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            color: '#a855f7',
-            marginBottom: '1.5rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            padding: '2rem',
+            background: 'rgba(255, 255, 255, 0.02)',
+            border: '1px solid rgba(168, 85, 247, 0.1)',
+            borderRadius: '0.75rem',
           }}
         >
-          Variants
+          <Button variant="default">Default (Gradient)</Button>
+          <Button variant="gradient">
+            <Icon name="Sparkles" />
+            Gradient Shimmer
+          </Button>
+          <Button variant="glow">
+            <Icon name="Zap" />
+            Glow Effect
+          </Button>
+        </div>
+      </section>
+
+      {/* All Variants */}
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#8b5cf6', marginBottom: '1.5rem' }}>
+          All Variants
         </h2>
         <div
           style={{
@@ -191,6 +342,8 @@ export const AllVariants: Story = {
           }}
         >
           <Button variant="default">Default</Button>
+          <Button variant="gradient">Gradient</Button>
+          <Button variant="glow">Glow</Button>
           <Button variant="destructive">Destructive</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="secondary">Secondary</Button>
@@ -201,15 +354,8 @@ export const AllVariants: Story = {
 
       {/* Sizes */}
       <section style={{ marginBottom: '3rem' }}>
-        <h2
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            color: '#8b5cf6',
-            marginBottom: '1.5rem',
-          }}
-        >
-          Sizes
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#6366f1', marginBottom: '1.5rem' }}>
+          All Sizes
         </h2>
         <div
           style={{
@@ -226,21 +372,16 @@ export const AllVariants: Story = {
           <Button size="sm">Small</Button>
           <Button size="default">Default</Button>
           <Button size="lg">Large</Button>
-          <Button size="icon">→</Button>
+          <Button size="icon-sm"><Icon name="X" size="sm" /></Button>
+          <Button size="icon"><Icon name="Heart" /></Button>
+          <Button size="icon-lg"><Icon name="Sparkles" size="lg" /></Button>
         </div>
       </section>
 
-      {/* States */}
+      {/* Loading States */}
       <section style={{ marginBottom: '3rem' }}>
-        <h2
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            color: '#6366f1',
-            marginBottom: '1.5rem',
-          }}
-        >
-          States
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#a855f7', marginBottom: '1.5rem' }}>
+          Loading States
         </h2>
         <div
           style={{
@@ -253,67 +394,77 @@ export const AllVariants: Story = {
             borderRadius: '0.75rem',
           }}
         >
-          <Button>Normal</Button>
-          <Button disabled>Disabled</Button>
+          <Button loading>Salvando...</Button>
+          <Button variant="gradient" loading loadingText="Processando...">Salvar</Button>
+          <Button variant="glow" loading>Carregando</Button>
+          <Skeleton className="h-9 w-24 rounded-lg" />
         </div>
       </section>
 
-      {/* Matrix - All combinations */}
-      <section>
-        <h2
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            color: '#a855f7',
-            marginBottom: '1.5rem',
-          }}
-        >
-          Complete Matrix
+      {/* With Icons */}
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#8b5cf6', marginBottom: '1.5rem' }}>
+          With Icons
         </h2>
         <div
           style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
             padding: '2rem',
             background: 'rgba(255, 255, 255, 0.02)',
             border: '1px solid rgba(168, 85, 247, 0.1)',
             borderRadius: '0.75rem',
           }}
         >
-          {(['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] as const).map((variant) => (
-            <div
-              key={variant}
-              style={{
-                marginBottom: '2rem',
-                paddingBottom: '2rem',
-                borderBottom: '1px solid rgba(168, 85, 247, 0.1)',
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  marginBottom: '1rem',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {variant}
-              </h3>
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                <Button variant={variant} size="sm">
-                  Small
-                </Button>
-                <Button variant={variant} size="default">
-                  Default
-                </Button>
-                <Button variant={variant} size="lg">
-                  Large
-                </Button>
-                <Button variant={variant} disabled>
-                  Disabled
-                </Button>
-              </div>
-            </div>
-          ))}
+          <Button><Icon name="Heart" />Favorite</Button>
+          <Button variant="gradient"><Icon name="Sparkles" />Magic</Button>
+          <Button variant="glow"><Icon name="Zap" />Power</Button>
+          <Button variant="outline"><Icon name="Download" />Download</Button>
+          <Button variant="destructive"><Icon name="Trash2" />Delete</Button>
+        </div>
+      </section>
+
+      {/* Button Groups */}
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#6366f1', marginBottom: '1.5rem' }}>
+          Button Groups
+        </h2>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem',
+            padding: '2rem',
+            background: 'rgba(255, 255, 255, 0.02)',
+            border: '1px solid rgba(168, 85, 247, 0.1)',
+            borderRadius: '0.75rem',
+          }}
+        >
+          <div>
+            <div style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Horizontal Attached:</div>
+            <ButtonGroup>
+              <Button variant="outline">Left</Button>
+              <Button variant="outline">Middle</Button>
+              <Button variant="outline">Right</Button>
+            </ButtonGroup>
+          </div>
+          <div>
+            <div style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>With Gap:</div>
+            <ButtonGroup attached={false}>
+              <Button variant="gradient">One</Button>
+              <Button variant="gradient">Two</Button>
+              <Button variant="gradient">Three</Button>
+            </ButtonGroup>
+          </div>
+          <div>
+            <div style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Vertical:</div>
+            <ButtonGroup orientation="vertical">
+              <Button variant="outline">Top</Button>
+              <Button variant="outline">Middle</Button>
+              <Button variant="outline">Bottom</Button>
+            </ButtonGroup>
+          </div>
         </div>
       </section>
 
@@ -327,15 +478,8 @@ export const AllVariants: Story = {
           border: '1px solid rgba(168, 85, 247, 0.2)',
         }}
       >
-        <p
-          style={{
-            margin: 0,
-            textAlign: 'center',
-            color: 'rgba(255, 255, 255, 0.7)',
-            fontSize: '0.875rem',
-          }}
-        >
-          💡 Tip: Use semantic variants (destructive for delete actions, outline for secondary actions) to maintain consistency.
+        <p style={{ margin: 0, textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.875rem' }}>
+          💡 Tip: Use `variant="gradient"` para ações principais místicas, `glow` para CTAs especiais, e `loading` para estados assíncronos
         </p>
       </div>
     </div>
