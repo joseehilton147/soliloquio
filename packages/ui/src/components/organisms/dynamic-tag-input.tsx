@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '../../lib/utils';
-import { TagInput } from '../atoms/tag-input';
+import { TagInput, type TagSuggestion } from '../atoms/tag-input';
 import { Tag } from '../molecules/tag';
 
 export interface DynamicTagInputProps {
@@ -15,11 +15,16 @@ export interface DynamicTagInputProps {
   label?: string;
   required?: boolean;
   helperText?: string;
+  // Autocomplete props
+  suggestions?: TagSuggestion[];
+  isLoadingSuggestions?: boolean;
+  onQueryChange?: (query: string) => void;
 }
 
 /**
  * Organismo: Sistema completo de input de tags dinâmicas
  * Gerencia lista de tags com adição e remoção
+ * Suporta autocomplete com fuzzy search integrado no TagInput
  */
 export function DynamicTagInput({
   value,
@@ -31,6 +36,9 @@ export function DynamicTagInput({
   label,
   required = false,
   helperText,
+  suggestions = [],
+  isLoadingSuggestions = false,
+  onQueryChange,
 }: DynamicTagInputProps) {
   const handleAddTag = (newTag: string) => {
     // Evitar duplicatas
@@ -80,6 +88,10 @@ export function DynamicTagInput({
           <TagInput
             placeholder={placeholder}
             onAddTag={handleAddTag}
+            suggestions={suggestions}
+            isLoadingSuggestions={isLoadingSuggestions}
+            onQueryChange={onQueryChange}
+            existingTags={value.map(t => t.toLowerCase())}
           />
           {helperText && (
             <p className="mt-1 text-xs text-muted-foreground">{helperText}</p>

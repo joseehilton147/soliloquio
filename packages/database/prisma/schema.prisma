@@ -16,21 +16,71 @@ datasource db {
 // TAROT - Arcanos e suas interpretações
 // ═══════════════════════════════════════════════════════
 
+// Baralho de Tarot (Deck) - Ex: Rider-Waite, Marselha, Thoth
+model TarotDeck {
+  id          String     @id @default(uuid())
+  name        String     @unique // "Rider-Waite Smith"
+  slug        String     @unique // "rider-waite"
+  description String?    // Sobre o baralho
+  publisher   String?    // "US Games Systems"
+  year        Int?       // 1909
+  tradition   String?    // "Hermética", "Qabalística"
+  imageUrl    String?    // Imagem representativa do baralho
+
+  // Relacionamentos
+  cards       TarotCard[]
+  tags        TarotTag[]
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("tarot_decks")
+}
+
+// Tags de significados (controladas por deck para evitar duplicação)
+model TarotTag {
+  id         String    @id @default(uuid())
+
+  // Relação com Deck - tags isoladas por baralho
+  deckId     String
+  deck       TarotDeck @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
+  value      String    // "amor", "transformação", "superação"
+  type       String    // "vertical" | "inverted"
+  usageCount Int       @default(0) // Quantas vezes foi usada
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  // Tag única por deck e tipo
+  @@unique([deckId, value, type])
+  @@index([deckId, type, value]) // Para fuzzy search eficiente
+  @@map("tarot_tags")
+}
+
 model TarotCard {
   id              String        @id @default(uuid())
-  name            String        @unique
-  slug            String?       @unique // URL-friendly version of name (e.g., "o-mago")
+  name            String        // Removido @unique - nome pode repetir entre decks
+  slug            String?       // URL-friendly version of name (e.g., "o-mago")
+
+  // Relação com Deck (nullable temporariamente para migration segura)
+  deckId          String?
+  deck            TarotDeck?    @relation(fields: [deckId], references: [id], onDelete: Cascade)
+
   summary         String
   description     String
   imageUrl        String?       // Image path for the card
-  verticalMeaning Json          // Array of strings
-  invertedMeaning Json          // Array of strings
+  verticalMeaning Json          // Array of strings (mantido para dados da carta)
+  invertedMeaning Json          // Array of strings (mantido para dados da carta)
   numerology      String
   astrology       String?
   typesOfReading  ReadingType[]
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
+  // Slug único por deck (permite "o-mago" em decks diferentes)
+  @@unique([deckId, slug])
+  @@index([deckId])
   @@map("tarot_cards")
 }
 

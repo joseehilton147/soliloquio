@@ -191,4 +191,61 @@ export const tarotRouter = router({
 
     return { success: true };
   }),
+
+  /**
+   * Buscar tags com fuzzy search (para autocomplete)
+   */
+  searchTags: publicProcedure
+    .input(
+      z.object({
+        deckId: z.string().uuid(),
+        type: z.enum(['vertical', 'inverted']),
+        query: z.string().min(1),
+        limit: z.number().min(1).max(20).default(10),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { deckId, type, query, limit } = input;
+
+      // Fuzzy search usando pg_trgm com similarity
+      // similarity() retorna valor entre 0 e 1 (quanto maior, mais similar)
+      const tags = await ctx.prisma.$queryRaw<
+        Array<{ id: string; value: string; usageCount: number; similarity: number }>
+      >`
+        SELECT
+          id,
+          value,
+          "usageCount",
+          similarity(value, ${query}) as similarity
+        FROM tarot_tags
+        WHERE "deckId" = ${deckId}
+          AND type = ${type}
+          AND similarity(value, ${query}) > 0.2
+        ORDER BY similarity DESC, "usageCount" DESC
+        LIMIT ${limit}
+      `;
+
+      return tags;
+    }),
+
+  /**
+   * Buscar todos os decks disponíveis
+   */
+  getDecks: publicProcedure.query(async ({ ctx }) => {
+    const decks = await ctx.prisma.tarotDeck.findMany({
+      orderBy: {
+        year: 'asc',
+      },
+      include: {
+        _count: {
+          select: {
+            cards: true,
+            tags: true,
+          },
+        },
+      },
+    });
+
+    return decks;
+  }),
 });

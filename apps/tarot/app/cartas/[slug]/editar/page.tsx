@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { use, useState, useEffect } from 'react'
 
 import { trpc } from '../../../../src/lib/trpc'
+import { useTagAutocomplete } from '../../../../src/hooks/use-tag-autocomplete'
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
@@ -21,6 +22,10 @@ export default function EditarCartaPage({ params }: PageProps) {
 	const [uploadError, setUploadError] = useState<string | null>(null)
 	const [verticalMeanings, setVerticalMeanings] = useState<string[]>([])
 	const [invertedMeanings, setInvertedMeanings] = useState<string[]>([])
+
+	// Autocomplete para tags verticais e invertidas
+	const verticalAutocomplete = useTagAutocomplete('vertical')
+	const invertedAutocomplete = useTagAutocomplete('inverted')
 
 	const { data: card, isLoading, error } = trpc.tarot.getBySlug.useQuery(slug)
 
@@ -231,8 +236,11 @@ export default function EditarCartaPage({ params }: PageProps) {
 						label="Significados Verticais"
 						variant="success"
 						placeholder="Digite um significado e pressione Enter"
-						helperText="Pressione Enter após cada significado para adicionar"
+						helperText="Sugestões aparecerão enquanto você digita. Pressione Enter para adicionar"
 						required
+						suggestions={verticalAutocomplete.suggestions}
+						isLoadingSuggestions={verticalAutocomplete.isLoadingSuggestions}
+						onQueryChange={verticalAutocomplete.onQueryChange}
 					/>
 
 					<DynamicTagInput
@@ -241,8 +249,11 @@ export default function EditarCartaPage({ params }: PageProps) {
 						label="Significados Invertidos"
 						variant="warning"
 						placeholder="Digite um significado e pressione Enter"
-						helperText="Pressione Enter após cada significado para adicionar"
+						helperText="Sugestões aparecerão enquanto você digita. Pressione Enter para adicionar"
 						required
+						suggestions={invertedAutocomplete.suggestions}
+						isLoadingSuggestions={invertedAutocomplete.isLoadingSuggestions}
+						onQueryChange={invertedAutocomplete.onQueryChange}
 					/>
 				</div>
 
