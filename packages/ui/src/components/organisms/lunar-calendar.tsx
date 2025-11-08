@@ -86,7 +86,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			{/* Dropdown Menu */}
 			{isOpen && (
 				<div
-					className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+					className="absolute top-full mt-3 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
 				>
 					{/* Borda gradiente animada mística */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
@@ -169,9 +169,9 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 						</div>
 					</div>
 
-					{/* Seta indicadora - EXATAMENTE como na dock */}
-					<div className="absolute top-full -mt-[2px] right-8">
-						<div className="border-8 border-transparent border-t-purple-500" />
+					{/* Seta indicadora - lógica da dock para dropdown que abre para baixo */}
+					<div className="absolute bottom-full -mb-[2px] right-8">
+						<div className="border-8 border-transparent border-b-purple-500" />
 					</div>
 				</div>
 			)}
