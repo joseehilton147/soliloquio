@@ -11,9 +11,9 @@
  */
 
 // Re-export all atomic levels
-export * from './atoms';
-export * from './molecules';
-export * from './organisms';
+export * from './atoms'
+export * from './molecules'
+export * from './organisms'
 
 // Re-export specialized components
-export * from './dock/mystical-dock';
+export * from './dock/mystical-dock'
