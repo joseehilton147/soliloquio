@@ -189,7 +189,12 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
     return (
       <div
         key={item.id}
-        className="relative"
+        className={cn(
+          'relative',
+          // Adiciona padding quando tem submenu para criar "ponte" entre botão e submenu
+          hasSubmenu && isHorizontal && 'pb-3',
+          hasSubmenu && !isHorizontal && 'pr-3'
+        )}
         onMouseEnter={() => setHoveredItem(item.id)}
         onMouseLeave={() => setHoveredItem(null)}
       >
@@ -223,7 +228,8 @@ export function MysticalDock({ onSearchOpen }: MysticalDockProps = {}) {
             className={cn(
               'absolute z-50',
               'animate-in fade-in slide-in-from-bottom-2 duration-200',
-              isHorizontal ? 'bottom-full mb-3 left-1/2 -translate-x-1/2' : 'left-full ml-3 top-0'
+              // Remove margin e usa apenas o padding do container pai como espaçamento
+              isHorizontal ? 'bottom-full left-1/2 -translate-x-1/2' : 'left-full top-0'
             )}
           >
             <div className={cn(
