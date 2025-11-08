@@ -49,13 +49,15 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
   }
 
   return (
-    <div className={cn('relative', className)}>
+    <div
+      className={cn('relative', className)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       {/* Trigger Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        onBlur={() => setTimeout(() => setIsOpen(false), 200)}
+      <div
         className={cn(
-          'flex items-center gap-2 text-xs',
+          'flex items-center gap-2 text-xs cursor-pointer',
           'transition-all duration-200',
           'hover:scale-105',
           isOpen && 'scale-105'
@@ -72,14 +74,14 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
           'size-3 text-muted-foreground transition-transform duration-200',
           isOpen && 'rotate-180'
         )} />
-      </button>
+      </div>
 
       {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-          {/* Borda gradiente animada místicaa */}
+          {/* Borda gradiente animada mística */}
           <div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-            <div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[320px] shadow-2xl shadow-purple-500/30">
+            <div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[320px] shadow-2xl shadow-purple-500/30 overflow-hidden">
               {/* Glow interno */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
 
@@ -93,8 +95,8 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
                 </p>
               </div>
 
-              {/* Lista de fases */}
-              <div className="relative space-y-1 max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/20 scrollbar-track-transparent">
+              {/* Lista de fases - Scrollbar místico customizado */}
+              <div className="relative space-y-1 max-h-[320px] overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar">
                 {nextPhases.map((phaseData, index) => (
                   <MoonPhaseListItem
                     key={`${phaseData.phase}-${index}`}
