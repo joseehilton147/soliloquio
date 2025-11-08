@@ -118,10 +118,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       </div>
 
       <div className="flex h-full w-full items-center justify-center relative px-4">
-        <div
-          className="w-full max-w-2xl rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="flex flex-col items-center w-full max-w-2xl">
+          <div
+            className="w-full rounded-2xl border border-purple-500/20 bg-background/95 backdrop-blur-md shadow-2xl shadow-purple-500/10 animate-in slide-in-from-top-4 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
           {/* Search Input místico */}
           <div className="flex items-center gap-3 border-b border-border/40 px-5 py-4 bg-gradient-to-r from-purple-500/5 via-transparent to-indigo-500/5">
             <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
@@ -275,12 +276,13 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               <span>fechar</span>
             </div>
           </div>
-        </div>
+          </div>
 
-        {/* Mystical hint */}
-        <p className="mt-4 text-xs text-muted-foreground/50 text-center">
-          ★ O oráculo revela seus segredos aos que buscam com intenção pura ★
-        </p>
+          {/* Mystical hint */}
+          <p className="mt-4 text-xs text-muted-foreground/50 text-center">
+            ★ O oráculo revela seus segredos aos que buscam com intenção pura ★
+          </p>
+        </div>
       </div>
     </div>
   )
