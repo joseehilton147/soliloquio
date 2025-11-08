@@ -69,12 +69,18 @@ importers:
       '@storybook/test':
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
+      '@tailwindcss/postcss':
+        specifier: ^4.1.11
+        version: 4.1.11
       eslint-plugin-storybook:
         specifier: ^0.11.1
         version: 0.11.6(eslint@9.32.0(jiti@2.5.1))(typescript@5.9.2)
       storybook:
         specifier: ^8.6.14
         version: 8.6.14(prettier@3.6.2)
+      tailwindcss:
+        specifier: ^4.1.17
+        version: 4.1.17
       vite:
         specifier: ^6.4.1
         version: 6.4.1(@types/node@20.19.9)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.6)
@@ -298,7 +304,7 @@ importers:
         version: 0.7.0(eslint@9.32.0(jiti@2.5.1))
       eslint-plugin-tailwindcss:
         specifier: 4.0.0-beta.0
-        version: 4.0.0-beta.0(tailwindcss@4.1.11)
+        version: 4.0.0-beta.0(tailwindcss@4.1.17)
       eslint-plugin-turbo:
         specifier: ^2.5.5
         version: 2.5.5(eslint@9.32.0(jiti@2.5.1))(turbo@2.5.5)
@@ -4107,6 +4113,9 @@ packages:
   tailwindcss@4.1.11:
     resolution: {integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==}
 
+  tailwindcss@4.1.17:
+    resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
+
   tapable@2.2.2:
     resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
     engines: {node: '>=6'}
@@ -6815,13 +6824,13 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-tailwindcss@4.0.0-beta.0(tailwindcss@4.1.11):
+  eslint-plugin-tailwindcss@4.0.0-beta.0(tailwindcss@4.1.17):
     dependencies:
       fast-glob: 3.3.3
       postcss: 8.5.6
       synckit: 0.11.11
-      tailwind-api-utils: 1.0.3(tailwindcss@4.1.11)
-      tailwindcss: 4.1.11
+      tailwind-api-utils: 1.0.3(tailwindcss@4.1.17)
+      tailwindcss: 4.1.17
 
   eslint-plugin-turbo@2.5.5(eslint@9.32.0(jiti@2.5.1))(turbo@2.5.5):
     dependencies:
@@ -8458,16 +8467,18 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.2.9
 
-  tailwind-api-utils@1.0.3(tailwindcss@4.1.11):
+  tailwind-api-utils@1.0.3(tailwindcss@4.1.17):
     dependencies:
       enhanced-resolve: 5.18.2
       jiti: 2.5.1
       local-pkg: 1.1.2
-      tailwindcss: 4.1.11
+      tailwindcss: 4.1.17
 
   tailwind-merge@3.3.1: {}
 
   tailwindcss@4.1.11: {}
+
+  tailwindcss@4.1.17: {}
 
   tapable@2.2.2: {}
 

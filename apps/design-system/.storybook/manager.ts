@@ -6,7 +6,7 @@ const mysticalTheme = create({
 
   // Branding
   brandTitle: '🔮 Solilóquio Design System',
-  brandUrl: 'https://github.com/yourusername/soliloquio',
+  brandUrl: 'https://github.com/joseehilton147/soliloquio',
   brandTarget: '_self',
 
   // Colors

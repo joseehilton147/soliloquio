@@ -16,18 +16,20 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-docs": "^8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/addon-links": "^8.6.14",
+    "@storybook/addon-onboarding": "^8.6.14",
     "@storybook/addon-themes": "^8.6.14",
     "@storybook/blocks": "^8.6.14",
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",
     "@storybook/test": "^8.6.14",
+    "@tailwindcss/postcss": "^4.1.11",
+    "eslint-plugin-storybook": "^0.11.1",
     "storybook": "^8.6.14",
-    "vite": "^6.4.1",
-    "@storybook/addon-docs": "^8.6.14",
-    "@storybook/addon-onboarding": "^8.6.14",
-    "eslint-plugin-storybook": "^0.11.1"
+    "tailwindcss": "^4.1.17",
+    "vite": "^6.4.1"
   }
 }
