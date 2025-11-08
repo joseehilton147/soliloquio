@@ -1,5 +1,5 @@
 import { BookOpen, BookMarked, Compass, Library, Scroll } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import type { AppItem } from '@workspace/ui/components/molecules/app-switcher'
 
 /**
  * Configuração dos Apps do Header - Solilóquio
@@ -8,16 +8,7 @@ import type { LucideIcon } from 'lucide-react'
  * Cada app futuro pode ter seu próprio arquivo de configuração.
  */
 
-export interface HeaderApp {
-  id: string
-  name: string
-  icon: LucideIcon
-  href: string
-  available: boolean
-  description?: string
-}
-
-export const headerApps: HeaderApp[] = [
+export const headerApps: AppItem[] = [
   {
     id: 'tarot',
     name: 'Tarot',

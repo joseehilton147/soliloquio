@@ -3,7 +3,10 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
-import { MysticalHeader } from '@workspace/ui/components/organisms/mystical-header'
+import { AppHeader } from '@workspace/ui/components/organisms/app-header'
+import { Logo } from '@workspace/ui/components/atoms/logo'
+import { LogoIconMystical } from '@workspace/ui/components/atoms/logo-icon-mystical'
+import { LunarCalendar } from '@workspace/ui/components/molecules/lunar-calendar'
 import { GlobalSearch } from './global-search'
 import { useDockSettings } from '../contexts/dock-settings-context'
 import { createDockItems } from '../config/dock-items'
@@ -46,7 +49,15 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   if (isHomePage) {
     return (
       <>
-        <MysticalHeader apps={headerApps} />
+        <AppHeader
+          logo={{
+            href: '/',
+            icon: <LogoIconMystical />,
+            text: 'Solilóquio',
+          }}
+          apps={headerApps}
+          rightContent={<LunarCalendar />}
+        />
         <main className="min-h-screen pt-12">
           {children}
         </main>
@@ -59,7 +70,15 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   // Outras páginas: layout fullscreen imersivo
   return (
     <>
-      <MysticalHeader apps={headerApps} />
+      <AppHeader
+        logo={{
+          href: '/',
+          icon: <LogoIconMystical />,
+          text: 'Solilóquio',
+        }}
+        apps={headerApps}
+        rightContent={<LunarCalendar />}
+      />
       <main className="min-h-screen pt-12 p-6 md:p-12">
         {children}
       </main>
