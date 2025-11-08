@@ -9,6 +9,3 @@ export { Logo, type LogoProps } from './logo'
 export { LogoIconMystical } from './logo-icon-mystical'
 export { MoonPhaseIcon, type MoonPhaseIconProps } from './moon-phase-icon'
 export { TagInput, type TagInputProps } from './tag-input'
-
-// Deprecated - use Logo + LogoIconMystical
-export { MysticalLogo, type MysticalLogoProps } from './mystical-logo'
