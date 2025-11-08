@@ -87,12 +87,15 @@ export const tarotRouter = router({
 
   /**
    * Buscar carta por slug
+   * Nota: Como slug não é único globalmente (apenas por deck),
+   * retorna a primeira carta encontrada com esse slug
    */
   getBySlug: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const card = await ctx.prisma.tarotCard.findUnique({
+    const card = await ctx.prisma.tarotCard.findFirst({
       where: { slug: input },
       include: {
         typesOfReading: true,
+        deck: true,
       },
     });
 
