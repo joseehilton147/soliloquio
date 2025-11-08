@@ -81,7 +81,7 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 						{/* Seta de conexão - integrada na borda */}
 						<div className="absolute -top-2 left-1/2 -translate-x-1/2">
-							<div className="border-[6px] border-transparent border-b-purple-500" />
+							<div className="border-[10px] border-transparent border-b-purple-500" />
 						</div>
 
 						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 min-w-[280px] shadow-2xl shadow-purple-500/30">
