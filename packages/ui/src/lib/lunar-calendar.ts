@@ -109,9 +109,15 @@ function getNextPhase(currentAge: number, _currentPhase: MoonPhase): { phase: Mo
 		{ age: 29.53059, phase: 'new', name: 'Lua Nova' },
 	]
 
+<<<<<<< HEAD
 	// Encontrar próxima fase
 	let nextPhaseData = phaseTargets[0]!
 	let daysUntilNext = 0
+=======
+  // Encontrar próxima fase
+  let nextPhaseData = phaseTargets[0]!
+  let daysUntilNext = 0
+>>>>>>> 90028e40772a2061e9fbfa72cc78341422d42b6d
 
 	for (const target of phaseTargets) {
 		if (target.age > currentAge) {
@@ -121,11 +127,19 @@ function getNextPhase(currentAge: number, _currentPhase: MoonPhase): { phase: Mo
 		}
 	}
 
+<<<<<<< HEAD
 	// Se não encontrou, próxima é lua nova do próximo ciclo
 	if (daysUntilNext === 0) {
 		daysUntilNext = SYNODIC_MONTH - currentAge
 		nextPhaseData = phaseTargets[0]!
 	}
+=======
+  // Se não encontrou, próxima é lua nova do próximo ciclo
+  if (daysUntilNext === 0) {
+    daysUntilNext = SYNODIC_MONTH - currentAge
+    nextPhaseData = phaseTargets[0]!
+  }
+>>>>>>> 90028e40772a2061e9fbfa72cc78341422d42b6d
 
 	const nextDate = new Date()
 	nextDate.setDate(nextDate.getDate() + daysUntilNext)

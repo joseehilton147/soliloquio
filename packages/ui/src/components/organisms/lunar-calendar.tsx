@@ -51,12 +51,16 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 	const handleMouseLeave = () => {
 		const timeout = setTimeout(() => {
 			setIsOpen(false)
-		}, 150) // Delay de 150ms para permitir movimento do mouse
+		}, 300) // Delay de 300ms - mais tempo para navegar até dropdown
 		setCloseTimeout(timeout)
 	}
 
 	return (
-		<div className={cn('relative', className)}>
+		<div
+			className={cn('relative', className)}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+		>
 			{/* Trigger Button */}
 			<div
 				className={cn(
@@ -65,8 +69,6 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 					'hover:scale-105',
 					isOpen && 'scale-105',
 				)}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
 			>
 				{/* Label */}
 				<span className="text-muted-foreground">Lua vigente:</span>
@@ -85,8 +87,6 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			{isOpen && (
 				<div
 					className="absolute top-full mt-2 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
-					onMouseEnter={handleMouseEnter}
-					onMouseLeave={handleMouseLeave}
 				>
 					{/* Borda gradiente animada mística */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
