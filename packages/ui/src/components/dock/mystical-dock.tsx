@@ -60,7 +60,9 @@ interface SubmenuItemProps {
 function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
 	const [position, setPosition] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
+	const [verticalOffset, setVerticalOffset] = useState(0)
 	const itemRef = useRef<HTMLDivElement>(null)
+	const submenuRef = useRef<HTMLDivElement>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
 	const SubIcon = item.icon || Plus
 
@@ -68,28 +70,54 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	useEffect(() => {
 		if (!isHovered || !hasChildren || !itemRef.current) return
 
-		const rect = itemRef.current.getBoundingClientRect()
-		const viewportWidth = window.innerWidth
-		const viewportHeight = window.innerHeight
-		const submenuWidth = 200 // Largura estimada do submenu
-		const submenuHeight = 300 // Altura estimada do submenu
+		// Pequeno delay para garantir que submenu foi renderizado
+		const timeout = setTimeout(() => {
+			if (!itemRef.current || !submenuRef.current) return
 
-		// Detecta espaço disponível em cada direção
-		const spaceRight = viewportWidth - rect.right
-		const spaceLeft = rect.left
-		const spaceBottom = viewportHeight - rect.bottom
-		const spaceTop = rect.top
+			const rect = itemRef.current.getBoundingClientRect()
+			const submenuRect = submenuRef.current.getBoundingClientRect()
+			const viewportWidth = window.innerWidth
+			const viewportHeight = window.innerHeight
 
-		// Prioridade: direita > esquerda > baixo > cima
-		if (spaceRight >= submenuWidth) {
-			setPosition('right')
-		} else if (spaceLeft >= submenuWidth) {
-			setPosition('left')
-		} else if (spaceBottom >= submenuHeight) {
-			setPosition('bottom')
-		} else {
-			setPosition('top')
-		}
+			const submenuWidth = submenuRect.width || 200
+			const submenuHeight = submenuRect.height || 300
+
+			// Detecta espaço disponível em cada direção
+			const spaceRight = viewportWidth - rect.right
+			const spaceLeft = rect.left
+			const spaceBottom = viewportHeight - rect.top // Espaço total abaixo do item
+			const spaceTop = rect.bottom // Espaço total acima do item
+
+			// Prioridade: direita > esquerda
+			let newPosition: 'right' | 'left' | 'top' | 'bottom' = 'right'
+
+			if (spaceRight >= submenuWidth + 20) {
+				newPosition = 'right'
+			} else if (spaceLeft >= submenuWidth + 20) {
+				newPosition = 'left'
+			} else if (spaceBottom >= submenuHeight + 20) {
+				newPosition = 'bottom'
+			} else {
+				newPosition = 'top'
+			}
+
+			setPosition(newPosition)
+
+			// Para posições laterais (right/left), ajusta verticalmente se necessário
+			if (newPosition === 'right' || newPosition === 'left') {
+				const submenuBottom = rect.top + submenuHeight
+
+				if (submenuBottom > viewportHeight) {
+					// Submenu passaria da borda inferior, ajusta para cima
+					const overflow = submenuBottom - viewportHeight
+					setVerticalOffset(-overflow - 10) // -10 para margem de segurança
+				} else {
+					setVerticalOffset(0)
+				}
+			}
+		}, 10)
+
+		return () => clearTimeout(timeout)
 	}, [isHovered, hasChildren])
 
 	return (
@@ -135,16 +163,20 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			{/* Submenu aninhado (recursão) */}
 			{hasChildren && isHovered && (
 				<div
+					ref={submenuRef}
 					className={cn(
 						'absolute',
 						'animate-in fade-in duration-200',
 						// Posicionamento baseado na detecção de espaço
-						position === 'right' && 'left-full top-0 ml-2 slide-in-from-left-2',
-						position === 'left' && 'right-full top-0 mr-2 slide-in-from-right-2',
+						position === 'right' && 'left-full ml-2 slide-in-from-left-2',
+						position === 'left' && 'right-full mr-2 slide-in-from-right-2',
 						position === 'bottom' && 'top-full left-0 mt-2 slide-in-from-top-2',
 						position === 'top' && 'bottom-full left-0 mb-2 slide-in-from-bottom-2',
 					)}
-					style={{ zIndex: 50 + (level * 10) }}
+					style={{
+						zIndex: 50 + (level * 10),
+						top: (position === 'right' || position === 'left') ? verticalOffset : undefined,
+					}}
 				>
 					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
@@ -178,24 +210,24 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 					<div
 						className={cn(
 							'absolute',
-							// Seta para direita (menu abre à direita)
-							position === 'right' && 'right-full top-4 mr-[2px]',
-							// Seta para esquerda (menu abre à esquerda)
-							position === 'left' && 'left-full top-4 ml-[2px]',
-							// Seta para baixo (menu abre abaixo)
-							position === 'bottom' && 'bottom-full left-8 mb-[2px]',
-							// Seta para cima (menu abre acima)
-							position === 'top' && 'top-full left-8 mt-[2px]',
+							// Seta para direita (menu abre à direita) - fica no meio da borda esquerda do submenu
+							position === 'right' && 'right-full top-1/2 -translate-y-1/2 mr-[1px]',
+							// Seta para esquerda (menu abre à esquerda) - fica no meio da borda direita do submenu
+							position === 'left' && 'left-full top-1/2 -translate-y-1/2 ml-[1px]',
+							// Seta para baixo (menu abre abaixo) - fica no meio da borda superior do submenu
+							position === 'bottom' && 'bottom-full left-1/2 -translate-x-1/2 mb-[1px]',
+							// Seta para cima (menu abre acima) - fica no meio da borda inferior do submenu
+							position === 'top' && 'top-full left-1/2 -translate-x-1/2 mt-[1px]',
 						)}
 					>
 						<div
 							className={cn(
-								'border-8 border-transparent',
-								// Cores da seta baseado na orientação
-								position === 'right' && 'border-l-purple-500',
-								position === 'left' && 'border-r-purple-500',
-								position === 'bottom' && 'border-t-purple-500',
-								position === 'top' && 'border-b-purple-500',
+								'border-[6px] border-transparent',
+								// Cores da seta baseado na orientação (aponta para o parent)
+								position === 'right' && 'border-r-purple-500',
+								position === 'left' && 'border-l-purple-500',
+								position === 'bottom' && 'border-b-purple-500',
+								position === 'top' && 'border-t-purple-500',
 							)}
 						/>
 					</div>
