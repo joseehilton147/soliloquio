@@ -34,6 +34,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
     id: 'cartas',
     label: 'Cartas',
     icon: BookOpen,
+    href: '/cartas/arcanos',
     type: 'link',
     position: 'left',
     submenu: [
