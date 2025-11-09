@@ -53,16 +53,18 @@ const MAX_DEPTH = 3
 interface SubmenuItemProps {
 	item: DockSubitem
 	level: number
+	dockPosition: 'bottom' | 'top' | 'left' | 'right' // Contexto da dock principal
 	onHover?: (hovering: boolean) => void
 }
 
-function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
+function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
 	const [orientation, setOrientation] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
 	const [offset, setOffset] = useState({ x: 0, y: 0 })
 	const [arrowOffset, setArrowOffset] = useState(0)
 	const itemRef = useRef<HTMLDivElement>(null)
 	const submenuRef = useRef<HTMLDivElement>(null)
+	const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
 
 	// Detecta melhor orientação e calcula offset para collision detection
@@ -89,19 +91,56 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 				top: triggerRect.top - SAFETY_MARGIN,
 			}
 
-			// Escolhe orientação com mais espaço (prioridade: right > left > bottom > top)
+			// Escolhe orientação com mais espaço
+			// IMPORTANTE: Prioridade ajustada baseada na posição da dock (collision-aware)
 			let newOrientation: 'right' | 'left' | 'top' | 'bottom' = 'right'
 
-			if (space.right >= submenuRect.width) {
-				newOrientation = 'right'
-			} else if (space.left >= submenuRect.width) {
-				newOrientation = 'left'
-			} else if (space.bottom >= submenuRect.height) {
-				newOrientation = 'bottom'
-			} else if (space.top >= submenuRect.height) {
-				newOrientation = 'top'
-			} else {
-				// Nenhuma direção tem espaço suficiente - escolhe a com MAIS espaço
+			// Define ordem de prioridade baseada na posição da dock principal
+			const getPriorityOrder = (): ('right' | 'left' | 'top' | 'bottom')[] => {
+				switch (dockPosition) {
+					case 'right':
+						// Dock à direita: priorizar esquerda para evitar sair da tela
+						return ['left', 'bottom', 'top', 'right']
+					case 'left':
+						// Dock à esquerda: priorizar direita
+						return ['right', 'bottom', 'top', 'left']
+					case 'bottom':
+						// Dock embaixo: priorizar cima
+						return ['top', 'left', 'right', 'bottom']
+					case 'top':
+						// Dock em cima: priorizar baixo
+						return ['bottom', 'left', 'right', 'top']
+					default:
+						return ['right', 'left', 'bottom', 'top']
+				}
+			}
+
+			const priorityOrder = getPriorityOrder()
+
+			// Tenta cada direção na ordem de prioridade
+			let foundFit = false
+			for (const direction of priorityOrder) {
+				if (direction === 'right' && space.right >= submenuRect.width) {
+					newOrientation = 'right'
+					foundFit = true
+					break
+				} else if (direction === 'left' && space.left >= submenuRect.width) {
+					newOrientation = 'left'
+					foundFit = true
+					break
+				} else if (direction === 'bottom' && space.bottom >= submenuRect.height) {
+					newOrientation = 'bottom'
+					foundFit = true
+					break
+				} else if (direction === 'top' && space.top >= submenuRect.height) {
+					newOrientation = 'top'
+					foundFit = true
+					break
+				}
+			}
+
+			// Se nenhuma direção cabe perfeitamente, escolhe a com MAIS espaço
+			if (!foundFit) {
 				const maxSpace = Math.max(space.right, space.left, space.bottom, space.top)
 				if (maxSpace === space.right) newOrientation = 'right'
 				else if (maxSpace === space.left) newOrientation = 'left'
@@ -157,38 +196,61 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			setOffset({ x: offsetX, y: offsetY })
 
 			// Calcula posição da seta para alinhar com o trigger (não com centro do submenu)
+			// IMPORTANTE: Submenu JÁ tem transform aplicado, então seta usa posição ORIGINAL
 			if (newOrientation === 'right' || newOrientation === 'left') {
-				// Posição Y do trigger em relação ao submenu
+				// Posição Y do trigger em relação ao submenu (SEM considerar offsetY pois transform já aplica)
 				const triggerCenter = triggerRect.top + (triggerRect.height / 2)
-				const submenuTop = triggerRect.top + offsetY // Considera o offset aplicado
+				const submenuTop = triggerRect.top // Posição ORIGINAL antes do offset
 				const arrowPositionFromTop = triggerCenter - submenuTop
 				setArrowOffset(arrowPositionFromTop)
 			}
 
 			if (newOrientation === 'bottom' || newOrientation === 'top') {
-				// Posição X do trigger em relação ao submenu
+				// Posição X do trigger em relação ao submenu (SEM considerar offsetX pois transform já aplica)
 				const triggerCenter = triggerRect.left + (triggerRect.width / 2)
-				const submenuLeft = triggerRect.left + offsetX // Considera o offset aplicado
+				const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2) // Centralizado
 				const arrowPositionFromLeft = triggerCenter - submenuLeft
 				setArrowOffset(arrowPositionFromLeft)
 			}
 		}, 10)
 
 		return () => clearTimeout(timeout)
-	}, [isHovered, hasChildren])
+	}, [isHovered, hasChildren, dockPosition])
+
+	// Handlers para hover com delay (evita fechar ao mover mouse entre trigger e submenu)
+	const handleMouseEnter = () => {
+		// Cancela qualquer timeout pendente
+		if (leaveTimeoutRef.current) {
+			clearTimeout(leaveTimeoutRef.current)
+			leaveTimeoutRef.current = null
+		}
+		setIsHovered(true)
+		onHover?.(true)
+	}
+
+	const handleMouseLeave = () => {
+		// Delay de 150ms antes de fechar (tempo para mover mouse para submenu)
+		leaveTimeoutRef.current = setTimeout(() => {
+			setIsHovered(false)
+			onHover?.(false)
+		}, 150)
+	}
+
+	// Cleanup do timeout ao desmontar
+	useEffect(() => {
+		return () => {
+			if (leaveTimeoutRef.current) {
+				clearTimeout(leaveTimeoutRef.current)
+			}
+		}
+	}, [])
 
 	return (
 		<div
 			ref={itemRef}
 			className="relative"
-			onMouseEnter={() => {
-				setIsHovered(true)
-				onHover?.(true)
-			}}
-			onMouseLeave={() => {
-				setIsHovered(false)
-				onHover?.(false)
-			}}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 		>
 			<Link
 				href={item.href}
@@ -234,6 +296,8 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 						zIndex: 50 + (level * 10),
 						transform: `translate(${offset.x}px, ${offset.y}px)`,
 					}}
+					onMouseEnter={handleMouseEnter}
+					onMouseLeave={handleMouseLeave}
 				>
 					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
@@ -257,6 +321,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 										key={`${child.href}-${idx}`}
 										item={child}
 										level={level + 1}
+										dockPosition={dockPosition}
 									/>
 								))}
 							</div>
@@ -339,7 +404,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 			case 'bottom':
 				return 'bottom-6 left-1/2 -translate-x-1/2 flex-row'
 			case 'top':
-				return 'top-6 left-1/2 -translate-x-1/2 flex-row'
+				// top-20 (80px) para ficar abaixo do header (altura ~60-70px)
+				return 'top-20 left-1/2 -translate-x-1/2 flex-row'
 			case 'left':
 				return 'left-6 top-1/2 -translate-y-1/2 flex-col'
 			case 'right':
@@ -456,24 +522,26 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 					)}
 				</Link>
 
-				{/* Stack Fan - expande verticalmente acima/abaixo */}
+				{/* Stack Fan - expande baseado na posição da dock (collision-aware) */}
 				{hasSubmenu && isHovered && (
 					<div
 						className={cn(
-							'absolute left-1/2 -translate-x-1/2 z-50',
-							'animate-in fade-in slide-in-from-bottom-2 duration-300',
-							// Posicionamento baseado na orientação da dock
-							settings.position === 'bottom' && 'bottom-full mb-2',
-							settings.position === 'top' && 'top-full mt-2',
-							settings.position === 'left' && 'left-full ml-2 top-0',
-							settings.position === 'right' && 'right-full mr-2 top-0',
+							'absolute z-50',
+							'animate-in fade-in duration-300',
+							// Posicionamento baseado na orientação da dock (COLLISION-AWARE)
+							settings.position === 'bottom' && 'bottom-full mb-8 left-1/2 -translate-x-1/2 slide-in-from-bottom-2',
+							settings.position === 'top' && 'top-full mt-8 left-1/2 -translate-x-1/2 slide-in-from-top-2',
+							// CORRIGIDO: Dock à esquerda → menu abre à direita com espaço para seta
+							settings.position === 'left' && 'left-full ml-8 top-1/2 -translate-y-1/2 slide-in-from-left-2',
+							// CORRIGIDO: Dock à direita → menu abre à esquerda com espaço para seta
+							settings.position === 'right' && 'right-full mr-8 top-1/2 -translate-y-1/2 slide-in-from-right-2',
 						)}
 					>
 						{/* Borda gradiente animada "viva" */}
 						<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 							{/* Background interno com blur */}
 							<div className={cn(
-								'rounded-2xl overflow-visible',
+								'rounded-2xl overflow-hidden',
 								'bg-background/98 backdrop-blur-2xl',
 								'shadow-2xl shadow-purple-500/30',
 								'min-w-[180px]',
@@ -504,6 +572,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 												key={`${subitem.href}-${idx}`}
 												item={subitem}
 												level={1}
+												dockPosition={settings.position}
 											/>
 										))}
 									</div>
@@ -514,12 +583,13 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						{/* Seta indicadora (pontinha apontando para o ícone de origem) */}
 						<div
 							className={cn(
-								'absolute left-1/2 -translate-x-1/2',
+								'absolute',
 								// Posição da seta baseada na orientação da dock
-								settings.position === 'bottom' && 'top-full -mt-[2px]',
-								settings.position === 'top' && 'bottom-full -mb-[2px]',
-								settings.position === 'left' && 'right-full -mr-[2px] top-1/2 -translate-y-1/2',
-								settings.position === 'right' && 'left-full -ml-[2px] top-1/2 -translate-y-1/2',
+								// Seta no centro do gap (meio do espaço entre submenu e item)
+								settings.position === 'bottom' && 'top-full mt-0.8 left-1/2 -translate-x-1/2',
+								settings.position === 'top' && 'bottom-full mb-0.8 left-1/2 -translate-x-1/2',
+								settings.position === 'left' && 'right-full mr-0.8 top-1/2 -translate-y-1/2',
+								settings.position === 'right' && 'left-full ml-0.8 top-1/2 -translate-y-1/2',
 							)}
 						>
 							<div
@@ -544,7 +614,10 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 			className={cn(
 				'fixed z-50 transition-all duration-300',
 				getPositionClasses(),
-				isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none',
+				// Animação de visibilidade que respeita a orientação
+				isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
+				isHorizontal && !isVisible && 'translate-y-4',
+				!isHorizontal && !isVisible && 'translate-x-4',
 			)}
 		>
 			{/* Dock Container - Glass Effect */}
