@@ -60,8 +60,8 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 		>
 			<div
 				className={cn(
-					'flex items-center gap-2 px-3 py-1.5 rounded-lg cursor-pointer',
-					'text-xs font-medium text-muted-foreground',
+					'flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer',
+					'text-sm font-medium text-muted-foreground',
 					'hover:text-foreground hover:bg-white/5',
 					'transition-all duration-200',
 					isOpen && 'bg-white/5 text-foreground',
@@ -69,7 +69,7 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 			>
 				<span>Apps</span>
 				<ChevronDown className={cn(
-					'size-3 transition-transform duration-200',
+					'size-4 transition-transform duration-200',
 					isOpen && 'rotate-180',
 				)} />
 			</div>

@@ -18,12 +18,12 @@ export interface LogoProps {
  */
 export function Logo({ href = '/', icon, text, className }: LogoProps) {
 	const content = (
-		<div className={cn('relative inline-flex items-center gap-2 group', className)}>
+		<div className={cn('relative inline-flex items-center gap-3 group', className)}>
 			{/* Ícone (opcional, personalizável) */}
 			{icon && <div className="relative">{icon}</div>}
 
 			{/* Texto com gradiente */}
-			<span className="text-base font-semibold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent group-hover:from-purple-500 group-hover:via-violet-500 group-hover:to-indigo-500 transition-all duration-300">
+			<span className="text-lg font-semibold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent group-hover:from-purple-500 group-hover:via-violet-500 group-hover:to-indigo-500 transition-all duration-300">
 				{text}
 			</span>
 		</div>

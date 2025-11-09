@@ -3,10 +3,9 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
-import { MysticalBackground } from '@workspace/ui'
+import { MysticalBackground, SacredEyeLogo } from '@workspace/ui'
 import { AppHeader } from '@workspace/ui/components/organisms/app-header'
 import { LunarCalendar } from '@workspace/ui/components/organisms/lunar-calendar'
-import { LogoIconMystical } from '@workspace/ui/components/atoms/logo-icon-mystical'
 import { GlobalSearch } from './global-search'
 import { useDockSettings } from '../contexts/dock-settings-context'
 import { createDockItems } from '../config/dock-items'
@@ -52,13 +51,13 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         <AppHeader
           logo={{
             href: '/',
-            icon: <LogoIconMystical />,
+            icon: <SacredEyeLogo size="sm" />,
             text: 'Solilóquio',
           }}
           apps={headerApps}
           rightContent={<LunarCalendar />}
         />
-        <main className="min-h-screen pt-12">
+        <main className="min-h-screen pt-28">
           {children}
         </main>
         <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
@@ -72,13 +71,13 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
       <AppHeader
         logo={{
           href: '/',
-          icon: <LogoIconMystical />,
+          icon: <SacredEyeLogo size="sm" />,
           text: 'Solilóquio',
         }}
         apps={headerApps}
         rightContent={<LunarCalendar />}
       />
-      <main className="relative min-h-screen pt-12 p-6 md:p-12 overflow-hidden">
+      <main className="relative min-h-screen pt-28 p-6 md:p-12 overflow-hidden">
         {/* Mystical Background */}
         <MysticalBackground variant="stars" intensity="subtle" />
 

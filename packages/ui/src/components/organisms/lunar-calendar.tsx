@@ -64,7 +64,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			{/* Trigger Button */}
 			<div
 				className={cn(
-					'flex items-center gap-2 text-xs cursor-pointer',
+					'flex items-center gap-2 text-sm cursor-pointer',
 					'transition-all duration-200',
 					'hover:scale-105',
 					isOpen && 'scale-105',
@@ -78,7 +78,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 				{/* Chevron */}
 				<ChevronDown className={cn(
-					'size-3 text-muted-foreground transition-transform duration-200',
+					'size-4 text-muted-foreground transition-transform duration-200',
 					isOpen && 'rotate-180',
 				)} />
 			</div>
