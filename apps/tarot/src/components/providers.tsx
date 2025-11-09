@@ -8,6 +8,7 @@ import superjson from 'superjson'
 
 import { trpc } from '../lib/trpc'
 import { DockSettingsProvider } from '../contexts/dock-settings-context'
+import { PageLoadingIndicator } from './page-loading-indicator'
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [queryClient] = useState(
@@ -37,6 +38,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 			<QueryClientProvider client={queryClient}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<DockSettingsProvider>
+						<PageLoadingIndicator />
 						{children}
 					</DockSettingsProvider>
 				</ThemeProvider>
