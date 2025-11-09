@@ -1,5 +1,12 @@
-import { Home, BookOpen, Layers, Settings, Search, Plus, User, Crown, Sparkles, Heart, Flame, Coins, Swords } from 'lucide-react'
+import { Home, Layers, Settings, Search, Plus, User, Crown, Sparkles, Heart, Flame, Coins, Swords } from 'lucide-react'
 import type { DockItem } from '@workspace/ui/components/dock/mystical-dock'
+
+// Ícones do Iconify (game-icons)
+const ICONIFY_ICONS = {
+	cards: 'game-icons:card-random',
+	deck: 'game-icons:perspective-dice-six-faces-random',
+	tarotReader: 'game-icons:tarot-reader',
+} as const
 
 /**
  * Configuração dos itens da Mystical Dock - App Tarot
@@ -33,7 +40,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'cartas',
     label: 'Cartas',
-    icon: BookOpen,
+    icon: ICONIFY_ICONS.cards,
     href: '/cartas/arcanos',
     type: 'link',
     position: 'left',
@@ -69,7 +76,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'baralhos',
     label: 'Baralhos',
-    icon: Layers,
+    icon: ICONIFY_ICONS.deck,
     href: '/baralhos',
     type: 'link',
     position: 'left',
