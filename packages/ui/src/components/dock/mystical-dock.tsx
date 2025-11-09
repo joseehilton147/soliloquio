@@ -105,9 +105,10 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			{hasChildren && isHovered && (
 				<div
 					className={cn(
-						'absolute left-full top-0 ml-2 z-50',
+						'absolute left-full top-0 ml-2',
 						'animate-in fade-in slide-in-from-left-2 duration-200',
 					)}
+					style={{ zIndex: 50 + (level * 10) }}
 				>
 					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
