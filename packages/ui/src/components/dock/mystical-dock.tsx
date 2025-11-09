@@ -61,6 +61,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
 	const [orientation, setOrientation] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
 	const [offset, setOffset] = useState({ x: 0, y: 0 })
+	const [arrowOffset, setArrowOffset] = useState(0)
 	const itemRef = useRef<HTMLDivElement>(null)
 	const submenuRef = useRef<HTMLDivElement>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
@@ -156,6 +157,23 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			}
 
 			setOffset({ x: offsetX, y: offsetY })
+
+			// Calcula posição da seta para alinhar com o trigger (não com centro do submenu)
+			if (newOrientation === 'right' || newOrientation === 'left') {
+				// Posição Y do trigger em relação ao submenu
+				const triggerCenter = triggerRect.top + (triggerRect.height / 2)
+				const submenuTop = triggerRect.top + offsetY // Considera o offset aplicado
+				const arrowPositionFromTop = triggerCenter - submenuTop
+				setArrowOffset(arrowPositionFromTop)
+			}
+
+			if (newOrientation === 'bottom' || newOrientation === 'top') {
+				// Posição X do trigger em relação ao submenu
+				const triggerCenter = triggerRect.left + (triggerRect.width / 2)
+				const submenuLeft = triggerRect.left + offsetX // Considera o offset aplicado
+				const arrowPositionFromLeft = triggerCenter - submenuLeft
+				setArrowOffset(arrowPositionFromLeft)
+			}
 		}, 10)
 
 		return () => clearTimeout(timeout)
@@ -247,19 +265,25 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 						</div>
 					</div>
 
-					{/* Seta de conexão - adapta baseado na orientação */}
+					{/* Seta de conexão - alinha com o trigger que abriu o submenu */}
 					<div
 						className={cn(
-							'absolute',
-							// Seta para direita (menu abre à direita) - fica no meio da borda esquerda do submenu
-							orientation === 'right' && 'right-full top-1/2 -translate-y-1/2 mr-[1px]',
-							// Seta para esquerda (menu abre à esquerda) - fica no meio da borda direita do submenu
-							orientation === 'left' && 'left-full top-1/2 -translate-y-1/2 ml-[1px]',
-							// Seta para baixo (menu abre abaixo) - fica no meio da borda superior do submenu
-							orientation === 'bottom' && 'bottom-full left-1/2 -translate-x-1/2 mb-[1px]',
-							// Seta para cima (menu abre acima) - fica no meio da borda inferior do submenu
-							orientation === 'top' && 'top-full left-1/2 -translate-x-1/2 mt-[1px]',
+							'absolute -translate-y-1/2',
+							// Seta para direita (menu abre à direita)
+							orientation === 'right' && 'right-full mr-[1px]',
+							// Seta para esquerda (menu abre à esquerda)
+							orientation === 'left' && 'left-full ml-[1px]',
+							// Seta para baixo (menu abre abaixo)
+							orientation === 'bottom' && 'bottom-full mb-[1px] -translate-x-1/2',
+							// Seta para cima (menu abre acima)
+							orientation === 'top' && 'top-full mt-[1px] -translate-x-1/2',
 						)}
+						style={{
+							// Para orientações laterais, posiciona verticalmente alinhado com o trigger
+							...(orientation === 'right' || orientation === 'left' ? { top: arrowOffset } : {}),
+							// Para orientações verticais, posiciona horizontalmente alinhado com o trigger
+							...(orientation === 'bottom' || orientation === 'top' ? { left: arrowOffset } : {}),
+						}}
 					>
 						<div
 							className={cn(
