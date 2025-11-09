@@ -3,6 +3,7 @@
 import { Icon } from '@iconify/react'
 import { useDockSettings } from '../../src/contexts/dock-settings-context'
 import { cn } from '@workspace/ui/lib/utils'
+import { PageHeader } from '@workspace/ui/components/molecules'
 
 type DockPosition = 'bottom' | 'top' | 'left' | 'right'
 type DockVisibility = 'always' | 'auto-hide'
@@ -25,19 +26,11 @@ export default function ConfiguracoesPage() {
   return (
     <div className="space-y-12">
       {/* Header */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
-          <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-            <Icon icon="lucide:settings" className="size-6 text-purple-600 dark:text-purple-400" />
-          </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-            Configurações
-          </h1>
-        </div>
-        <p className="text-lg text-muted-foreground ml-15">
-          Personalize sua experiência mística
-        </p>
-      </div>
+      <PageHeader
+        icon="lucide:settings"
+        title="Configurações"
+        description="Personalize sua experiência mística"
+      />
 
       {/* Seção: Aparência */}
       <section className="space-y-6">

@@ -21,6 +21,7 @@ export {
 	type BreadcrumbItem,
 } from './mystical-breadcrumb'
 export { MysticalLoading, type MysticalLoadingProps } from './mystical-loading'
+export { PageHeader, type PageHeaderProps } from './page-header'
 export { RichTextEditor, type RichTextEditorProps } from './rich-text-editor'
 export { SacredEyeLogo, type SacredEyeLogoProps } from './sacred-eye-logo'
 export { Tag, type TagProps } from './tag'
