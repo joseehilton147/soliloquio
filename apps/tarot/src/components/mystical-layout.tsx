@@ -33,18 +33,20 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   const dockItems = createDockItems(() => setSearchOpen(true))
 
   // Calcula padding para evitar que a dock cubra conteúdo
+  // Dock tem: bottom-6 (24px) + p-3 (12px*2=24px) + size-14 (56px) + hover margin ≈ 120px
+  // Adiciona margem de segurança extra
   const getDockPadding = () => {
     switch (settings.position) {
       case 'bottom':
-        return 'pb-28' // Padding inferior para dock na parte de baixo
+        return '!pb-40' // 160px - força override com !important
       case 'top':
-        return 'pt-52' // Padding superior adicional (já tem pt-28 do header)
+        return '!pt-56' // 224px - força override
       case 'left':
-        return 'pl-28' // Padding esquerdo para dock lateral
+        return '!pl-32' // 128px - força override
       case 'right':
-        return 'pr-28' // Padding direito para dock lateral
+        return '!pr-32' // 128px - força override
       default:
-        return 'pb-28'
+        return '!pb-40'
     }
   }
 
