@@ -62,7 +62,7 @@ export default function TarotHomePage() {
 									<Icon icon="lucide:circle" className="size-full text-purple-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-									<Icon icon="lucide:moon" className="size-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
+									<Icon icon="game-icons:card-draw" className="size-8 text-purple-600 dark:text-purple-400" />
 								</div>
 							</div>
 
@@ -96,7 +96,7 @@ export default function TarotHomePage() {
 									<Icon icon="lucide:hexagon" className="size-full text-violet-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-									<Icon icon="lucide:star" className="size-8 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+									<Icon icon="game-icons:card-random" className="size-8 text-violet-600 dark:text-violet-400" />
 								</div>
 							</div>
 
@@ -127,7 +127,7 @@ export default function TarotHomePage() {
 									<Icon icon="lucide:triangle" className="size-full text-indigo-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
-									<Icon icon="lucide:sparkles" className="size-8 text-indigo-600 dark:text-indigo-400 animate-pulse" strokeWidth={1.5} />
+									<Icon icon="game-icons:scroll-unfurled" className="size-8 text-indigo-600 dark:text-indigo-400 animate-pulse" />
 								</div>
 							</div>
 
