@@ -37,19 +37,31 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
     type: 'link',
     position: 'left',
     submenu: [
-      // Arcanos
-      { label: 'Arcanos', href: '/cartas/arcanos', icon: Sparkles },
-      { label: '  Maiores', href: '/cartas/arcanos/maiores', icon: Crown },
-      { label: '  Menores', href: '/cartas/arcanos/menores', icon: Layers },
+      // Arcanos - com submenu aninhado
+      {
+        label: 'Arcanos',
+        href: '/cartas/arcanos',
+        icon: Sparkles,
+        children: [
+          { label: 'Maiores', href: '/cartas/arcanos/maiores', icon: Crown },
+          { label: 'Menores', href: '/cartas/arcanos/menores', icon: Layers },
+        ],
+      },
 
-      // Naipes
-      { label: 'Naipes', href: '/cartas/naipes', icon: BookOpen },
-      { label: '  Copas', href: '/cartas/naipes/copas', icon: Heart },
-      { label: '  Paus', href: '/cartas/naipes/paus', icon: Flame },
-      { label: '  Ouros', href: '/cartas/naipes/ouros', icon: Coins },
-      { label: '  Espadas', href: '/cartas/naipes/espadas', icon: Swords },
+      // Naipes - com submenu aninhado
+      {
+        label: 'Naipes',
+        href: '/cartas/naipes',
+        icon: BookOpen,
+        children: [
+          { label: 'Copas', href: '/cartas/naipes/copas', icon: Heart },
+          { label: 'Paus', href: '/cartas/naipes/paus', icon: Flame },
+          { label: 'Ouros', href: '/cartas/naipes/ouros', icon: Coins },
+          { label: 'Espadas', href: '/cartas/naipes/espadas', icon: Swords },
+        ],
+      },
 
-      // Ação
+      // Ação - sem children
       { label: 'Nova Carta', href: '/cartas/nova', icon: Plus },
     ],
   },
