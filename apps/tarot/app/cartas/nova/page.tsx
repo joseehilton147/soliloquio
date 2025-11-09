@@ -1,7 +1,7 @@
 'use client'
 
 import { CardSuitEnum, type CardSuitValue } from '@workspace/core/tarot'
-import { RichTextEditor } from '@workspace/ui'
+import { RichTextEditor, PageHeader } from '@workspace/ui'
 import { DynamicTagInput } from '@workspace/ui/components/organisms/dynamic-tag-input'
 import { ImageUploader } from '@workspace/ui/components/organisms/image-uploader'
 import { Icon } from '@iconify/react'
