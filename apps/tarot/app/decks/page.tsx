@@ -15,32 +15,7 @@ export default function DecksPage() {
 	}
 
 	return (
-		<div className="space-y-12">
-			{/* Header Místico */}
-			<div className="flex items-start justify-between">
-				<div className="space-y-3">
-					<div className="flex items-center gap-3">
-						<div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-							<Layers className="size-6 text-purple-600 dark:text-purple-400" />
-						</div>
-						<h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-							Baralhos
-						</h1>
-					</div>
-					<p className="text-lg text-muted-foreground ml-15">
-						Coleção espiritual de oráculos e tradições místicas
-					</p>
-				</div>
-				<Link
-					href="/decks/novo"
-					className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 transition-all hover:scale-105"
-				>
-					<Plus className="size-4 transition-transform group-hover:rotate-90" />
-					Novo Baralho
-				</Link>
-			</div>
-
-
+		<div className="pt-8 space-y-8">
 			{/* Error state */}
 			{error && (
 				<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">
