@@ -6,7 +6,7 @@ import { Sparkles, Layers, Star, BookOpen, Eye, Crown, Triangle } from 'lucide-r
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { trpc } from '../../../src/lib/trpc'
+import { trpc } from '../../../../src/lib/trpc'
 
 export default function ArcanosMaioresPage() {
 	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })

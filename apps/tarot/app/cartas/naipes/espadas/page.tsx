@@ -6,7 +6,7 @@ import { Sparkles, Layers, Star, BookOpen, Eye, Sword, Triangle } from 'lucide-r
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { trpc } from '../../../src/lib/trpc'
+import { trpc } from '../../../../src/lib/trpc'
 
 export default function EspadasPage() {
 	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })

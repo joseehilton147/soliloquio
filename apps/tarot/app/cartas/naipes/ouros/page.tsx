@@ -6,7 +6,7 @@ import { Sparkles, Layers, Star, BookOpen, Eye, Coins, Square } from 'lucide-rea
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { trpc } from '../../../src/lib/trpc'
+import { trpc } from '../../../../src/lib/trpc'
 
 export default function OurosPage() {
 	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })
