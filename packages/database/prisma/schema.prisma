@@ -58,6 +58,14 @@ model TarotTag {
   @@map("tarot_tags")
 }
 
+// Enum de Naipes (apenas para Arcanos Menores)
+enum CardSuit {
+  COPAS    // Elemento Água - Emoções
+  PAUS     // Elemento Fogo - Ação
+  OUROS    // Elemento Terra - Material
+  ESPADAS  // Elemento Ar - Intelecto
+}
+
 model TarotCard {
   id              String        @id @default(uuid())
   name            String        // Removido @unique - nome pode repetir entre decks
@@ -68,6 +76,7 @@ model TarotCard {
   deck            TarotDeck?    @relation(fields: [deckId], references: [id], onDelete: Cascade)
 
   cardType        String?       // "Arcano Maior", "Arcano Menor - Número", "Arcano Menor - Corte", "Carta Cigana", etc.
+  suit            CardSuit?     // Naipe (apenas para Arcanos Menores): Copas, Paus, Ouros, Espadas
   summary         String
   description     String
   imageUrl        String?       // Image path for the card

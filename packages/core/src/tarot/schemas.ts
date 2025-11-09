@@ -1,6 +1,18 @@
 import { z } from 'zod';
 
 /**
+ * Naipes do Tarot (apenas para Arcanos Menores)
+ */
+export const CardSuitEnum = z.enum([
+  'COPAS',    // Elemento Água - Emoções
+  'PAUS',     // Elemento Fogo - Ação
+  'OUROS',    // Elemento Terra - Material
+  'ESPADAS',  // Elemento Ar - Intelecto
+]);
+
+export type CardSuitValue = z.infer<typeof CardSuitEnum>;
+
+/**
  * Tipos de leitura disponíveis para cada carta
  */
 export const ReadingTypeEnum = z.enum([
@@ -34,6 +46,7 @@ export const tarotCardSchema = z.object({
   slug: z.string().optional().nullable(),
   deckId: z.string().uuid().optional().nullable(),
   cardType: z.string().optional().nullable(),
+  suit: CardSuitEnum.optional().nullable(),
   summary: z.string().min(10, 'Resumo deve ter no mínimo 10 caracteres'),
   description: z.string().min(50, 'Descrição deve ter no mínimo 50 caracteres'),
   imageUrl: z.string().optional().nullable(),

@@ -3,6 +3,7 @@
 import { DynamicTagInput } from '@workspace/ui/components/organisms/dynamic-tag-input'
 import { ImageUploader } from '@workspace/ui/components/organisms/image-uploader'
 import { RichTextEditor } from '@workspace/ui'
+import { CardSuitEnum, type CardSuitValue } from '@workspace/core/tarot'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -31,6 +32,7 @@ export default function NovaCartaPage() {
 	// Estados para novos campos
 	const [deckId, setDeckId] = useState<string | null>(null)
 	const [cardType, setCardType] = useState('')
+	const [suit, setSuit] = useState<CardSuitValue | null>(null)
 
 	// Autocomplete para tags verticais e invertidas
 	const verticalAutocomplete = useTagAutocomplete('vertical')
@@ -71,6 +73,7 @@ export default function NovaCartaPage() {
 				astrology: formData.get('astrology')?.toString() || null,
 				deckId: deckId || null,
 				cardType: cardType || null,
+				suit: suit || null,
 				typesOfReading: readingTypes,
 			})
 		} catch (error) {
@@ -167,6 +170,27 @@ export default function NovaCartaPage() {
 						/>
 						<p className="mt-1 text-xs text-muted-foreground">
 							Opcional - Ex: Arcano Maior, Arcano Menor - Corte, Carta Cigana
+						</p>
+					</div>
+
+					<div>
+						<label htmlFor="suit" className="block text-sm font-medium mb-2 text-foreground">
+							Naipe
+						</label>
+						<select
+							id="suit"
+							value={suit || ''}
+							onChange={(e) => setSuit((e.target.value as CardSuitValue) || null)}
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
+						>
+							<option value="">Selecione um naipe</option>
+							<option value="COPAS">♥ Copas (Água - Emoções)</option>
+							<option value="PAUS">♣ Paus (Fogo - Ação)</option>
+							<option value="OUROS">♦ Ouros (Terra - Material)</option>
+							<option value="ESPADAS">♠ Espadas (Ar - Intelecto)</option>
+						</select>
+						<p className="mt-1 text-xs text-muted-foreground">
+							Opcional - Apenas para Arcanos Menores
 						</p>
 					</div>
 
