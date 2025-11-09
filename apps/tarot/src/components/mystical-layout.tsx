@@ -32,6 +32,13 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
   // Criar dock items com callback de busca
   const dockItems = createDockItems(() => setSearchOpen(true))
 
+  // Calcula padding para evitar que o header cubra conteúdo
+  // Header tem: py-3 (12px*2=24px) + conteúdo (~40-48px) + margem segurança ≈ 80-90px
+  // Usando !pt-32 (128px) para garantir espaço generoso
+  const getHeaderPadding = () => {
+    return '!pt-32' // 128px - força override com !important
+  }
+
   // Calcula padding para evitar que a dock cubra conteúdo
   // Dock tem: bottom-6 (24px) + p-3 (12px*2=24px) + size-14 (56px) + hover margin ≈ 120px
   // Adiciona margem de segurança extra
@@ -40,7 +47,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
       case 'bottom':
         return '!pb-40' // 160px - força override com !important
       case 'top':
-        return '!pt-56' // 224px - força override
+        return '!pt-56' // 224px - força override (acumula com header)
       case 'left':
         return '!pl-32' // 128px - força override
       case 'right':
@@ -76,7 +83,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
           apps={headerApps}
           rightContent={<LunarCalendar />}
         />
-        <main className="min-h-screen pt-28">
+        <main className={cn('min-h-screen', getHeaderPadding())}>
           {children}
         </main>
         <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
@@ -96,7 +103,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         apps={headerApps}
         rightContent={<LunarCalendar />}
       />
-      <main className={cn('relative min-h-screen pt-28 p-6 md:p-12 overflow-hidden', getDockPadding())}>
+      <main className={cn('relative min-h-screen p-6 md:p-12 overflow-hidden', getHeaderPadding(), getDockPadding())}>
         {/* Mystical Background */}
         <MysticalBackground variant="stars" intensity="subtle" />
 
