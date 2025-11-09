@@ -55,10 +55,10 @@ export default function ArcanosMenoresPage() {
 					{/* Sacred Symbol */}
 					<div className="relative inline-flex items-center justify-center">
 						<div className="absolute size-24 animate-spin-slow [animation-duration:10s] [animation-direction:reverse]">
-							<Hexagon className="size-full text-violet-500/20" strokeWidth={0.5} />
+							<Icon icon="lucide:hexagon" className="size-full text-violet-500/20" />
 						</div>
 						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-							<Icon icon="lucide:flame" className="size-10 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+							<Icon icon="lucide:flame" className="size-10 text-violet-600 dark:text-violet-400" />
 						</div>
 					</div>
 
@@ -267,7 +267,7 @@ export default function ArcanosMenoresPage() {
 						<div className="relative">
 							<div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
 							<div className="relative flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-								<Flame className="size-10 text-purple-600/50 dark:text-purple-400/50" />
+								<Icon icon="lucide:flame" className="size-10 text-purple-600/50 dark:text-purple-400/50" />
 							</div>
 						</div>
 						<h3 className="mt-8 text-2xl font-semibold">Nenhum Arcano Menor encontrado</h3>
