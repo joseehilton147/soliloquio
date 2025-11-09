@@ -31,24 +31,26 @@ const CardPreview = ({ card }: { card: any }) => (
 		<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
 		<div className="relative aspect-[2/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20">
-			{card.imageUrl ? (
-				<>
-					<Image
-						src={card.imageUrl}
-						alt={card.name}
-						fill
-						className="object-cover transition-transform duration-500 group-hover:scale-110"
-						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-					/>
-					<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-				</>
-			) : (
-				<div className="flex h-full items-center justify-center">
-					<div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/20 border border-purple-500/30">
-						<BookOpen className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />
+			{card.imageUrl
+				? (
+					<>
+						<Image
+							src={card.imageUrl}
+							alt={card.name}
+							fill
+							className="object-cover transition-transform duration-500 group-hover:scale-110"
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+						/>
+						<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+					</>
+				) :
+				(
+					<div className="flex h-full items-center justify-center">
+						<div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/20 border border-purple-500/30">
+							<BookOpen className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />
+						</div>
 					</div>
-				</div>
-			)}
+				)}
 
 			{card.deck && (
 				<CardBadge
@@ -92,7 +94,7 @@ const CategorySection = ({
 	href,
 	icon: Icon,
 	iconColor,
-	gradientClass
+	gradientClass,
 }: {
 	title: string
 	subtitle: string
@@ -225,7 +227,7 @@ export default function CartasPage() {
 								title="Arcanos Maiores"
 								subtitle="Os 22 caminhos da jornada do Louco"
 								cards={arcanosMaiores}
-								href="/cartas/arcanos-maiores"
+								href="/cartas/arcanos/maiores"
 								icon={Crown}
 								iconColor="from-violet-500/10 to-purple-500/10"
 								gradientClass="from-violet-600 via-purple-600 to-indigo-600 dark:from-violet-400 dark:via-purple-400 dark:to-indigo-400"
@@ -235,7 +237,7 @@ export default function CartasPage() {
 								title="Arcanos Menores"
 								subtitle="Os 4 elementos manifestados"
 								cards={arcanosMenores}
-								href="/cartas/arcanos-menores"
+								href="/cartas/arcanos/menores"
 								icon={Flame}
 								iconColor="from-violet-500/10 to-purple-500/10"
 								gradientClass="from-violet-600 via-purple-600 to-indigo-600 dark:from-violet-400 dark:via-purple-400 dark:to-indigo-400"
@@ -246,7 +248,7 @@ export default function CartasPage() {
 									title="Copas ♥"
 									subtitle="Elemento Água - Emoções e sentimentos"
 									cards={copas}
-									href="/cartas/copas"
+									href="/cartas/naipes/copas"
 									icon={({ className }: any) => <span className="text-3xl">♥</span>}
 									iconColor="from-red-500/10 to-rose-500/10"
 									gradientClass="from-red-600 to-rose-600 dark:from-red-400 dark:to-rose-400"
@@ -258,7 +260,7 @@ export default function CartasPage() {
 									title="Paus ♣"
 									subtitle="Elemento Fogo - Ação e criatividade"
 									cards={paus}
-									href="/cartas/paus"
+									href="/cartas/naipes/paus"
 									icon={({ className }: any) => <span className="text-3xl">♣</span>}
 									iconColor="from-green-500/10 to-emerald-500/10"
 									gradientClass="from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400"
@@ -270,7 +272,7 @@ export default function CartasPage() {
 									title="Ouros ♦"
 									subtitle="Elemento Terra - Materialidade e prosperidade"
 									cards={ouros}
-									href="/cartas/ouros"
+									href="/cartas/naipes/ouros"
 									icon={({ className }: any) => <span className="text-3xl">♦</span>}
 									iconColor="from-yellow-500/10 to-amber-500/10"
 									gradientClass="from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400"
@@ -282,7 +284,7 @@ export default function CartasPage() {
 									title="Espadas ♠"
 									subtitle="Elemento Ar - Intelecto e verdade"
 									cards={espadas}
-									href="/cartas/espadas"
+									href="/cartas/naipes/espadas"
 									icon={({ className }: any) => <span className="text-3xl">♠</span>}
 									iconColor="from-blue-500/10 to-cyan-500/10"
 									gradientClass="from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400"

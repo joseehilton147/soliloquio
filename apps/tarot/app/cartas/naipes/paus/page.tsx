@@ -79,6 +79,99 @@ export default function PausPage() {
 					</div>
 				</div>
 
+				{/* Conteúdo Educacional */}
+				<div className="max-w-5xl mx-auto space-y-8">
+					{/* Card Principal - O que é Paus */}
+					<div className="rounded-2xl border-2 border-green-500/30 bg-gradient-to-br from-green-500/10 via-emerald-500/10 to-teal-500/10 p-8 backdrop-blur-sm shadow-xl">
+						<div className="space-y-6">
+							<div className="flex items-start gap-4">
+								<div className="inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-green-600/20 to-emerald-600/20 border-2 border-green-500/30 flex-shrink-0">
+									<Flame className="size-7 text-green-600 dark:text-green-400" />
+								</div>
+								<div className="flex-1 space-y-4">
+									<div>
+										<h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent mb-2">
+											O Naipe do Fogo
+										</h2>
+										<p className="text-sm text-green-600/80 dark:text-green-400/80 font-medium">
+											Elemento Fogo · Signos: Áries, Leão e Sagitário
+										</p>
+									</div>
+									<p className="text-foreground/80 leading-relaxed">
+										<strong>Paus representa o elemento fogo e o naipe da ação.</strong> Cada uma das
+										14 cartas deste naipe retrata uma jornada através da paixão, da criatividade,
+										da iniciativa e da energia vital. Os Paus são símbolos de empreendedorismo,
+										força de vontade e transformação ativa.
+									</p>
+									<p className="text-foreground/80 leading-relaxed">
+										Na astrologia, Paus conecta-se aos signos de fogo: <strong>Áries</strong> (iniciativa
+										e pioneirismo), <strong>Leão</strong> (liderança e expressão criativa) e{' '}
+										<strong>Sagitário</strong> (expansão e aventura).
+									</p>
+								</div>
+							</div>
+
+							{/* Temas Principais */}
+							<div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-green-500/20">
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider">
+										Temas Principais
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-green-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Ação, iniciativa e dinamismo</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-green-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Paixão, entusiasmo e motivação</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-green-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Criatividade e expressão pessoal</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-green-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Empreendedorismo e ambição</span>
+										</li>
+									</ul>
+								</div>
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider">
+										Estrutura do Naipe
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Ás a 10:</strong> Evolução da energia criativa</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Valete:</strong> Mensageiro da ação</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Cavaleiro:</strong> Busca apaixonada</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Rainha e Rei:</strong> Maestria criativa</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							{/* Citação Mística */}
+							<div className="relative py-4 px-6 border-l-4 border-green-500/50 bg-green-500/5 rounded-r-lg">
+								<p className="text-sm text-foreground/90 italic leading-relaxed">
+									"Os Paus nos ensinam que a ação é a chama da transformação. Como o fogo que purifica
+									e ilumina, nossa vontade tem o poder de criar mundos."
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				{/* Error State */}
 				{error && (
 					<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">

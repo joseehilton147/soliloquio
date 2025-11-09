@@ -79,6 +79,99 @@ export default function CopasPage() {
 					</div>
 				</div>
 
+				{/* Conteúdo Educacional */}
+				<div className="max-w-5xl mx-auto space-y-8">
+					{/* Card Principal - O que é Copas */}
+					<div className="rounded-2xl border-2 border-red-500/30 bg-gradient-to-br from-red-500/10 via-rose-500/10 to-pink-500/10 p-8 backdrop-blur-sm shadow-xl">
+						<div className="space-y-6">
+							<div className="flex items-start gap-4">
+								<div className="inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-red-600/20 to-rose-600/20 border-2 border-red-500/30 flex-shrink-0">
+									<Droplets className="size-7 text-red-600 dark:text-red-400" />
+								</div>
+								<div className="flex-1 space-y-4">
+									<div>
+										<h2 className="text-2xl font-bold bg-gradient-to-r from-red-600 to-rose-600 dark:from-red-400 dark:to-rose-400 bg-clip-text text-transparent mb-2">
+											O Naipe das Águas
+										</h2>
+										<p className="text-sm text-red-600/80 dark:text-red-400/80 font-medium">
+											Elemento Água · Signos: Câncer, Escorpião e Peixes
+										</p>
+									</div>
+									<p className="text-foreground/80 leading-relaxed">
+										<strong>Copas representa o elemento água e o naipe das emoções.</strong> Cada uma das
+										14 cartas deste naipe retrata uma jornada elemental através dos sentimentos, do amor,
+										da intuição e das relações humanas. As Copas são símbolos de emoções, sentimentos,
+										amor e intuição.
+									</p>
+									<p className="text-foreground/80 leading-relaxed">
+										Na astrologia, Copas conecta-se aos signos de água: <strong>Câncer</strong> (emoção
+										maternal e proteção), <strong>Escorpião</strong> (profundidade e transformação emocional)
+										e <strong>Peixes</strong> (intuição e compaixão universal).
+									</p>
+								</div>
+							</div>
+
+							{/* Temas Principais */}
+							<div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-red-500/20">
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-red-600 dark:text-red-400 uppercase tracking-wider">
+										Temas Principais
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-red-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Emoções e sentimentos profundos</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-red-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Amor, romance e relacionamentos</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-red-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Intuição e mundo interior</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-red-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Conexões emocionais e empatia</span>
+										</li>
+									</ul>
+								</div>
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-red-600 dark:text-red-400 uppercase tracking-wider">
+										Estrutura do Naipe
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-rose-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Ás a 10:</strong> Jornada emocional progressiva</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-rose-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Valete:</strong> Mensagens do coração</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-rose-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Cavaleiro:</strong> Busca emocional ativa</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-rose-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Rainha e Rei:</strong> Maturidade emocional</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							{/* Citação Mística */}
+							<div className="relative py-4 px-6 border-l-4 border-red-500/50 bg-red-500/5 rounded-r-lg">
+								<p className="text-sm text-foreground/90 italic leading-relaxed">
+									"As Copas nos ensinam que sentir profundamente é um poder, não uma fraqueza.
+									Meu copo transborda de emoções, e nelas encontro minha verdadeira essência."
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				{/* Error State */}
 				{error && (
 					<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">

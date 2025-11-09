@@ -1,8 +1,8 @@
 'use client'
 
+import { SacredEyeLogo } from '@workspace/ui'
 import { Moon, Star, Sparkles, Hexagon, Circle, Triangle, Eye } from 'lucide-react'
 import Link from 'next/link'
-import { SacredEyeLogo } from '@workspace/ui'
 
 export default function TarotHomePage() {
 	return (

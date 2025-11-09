@@ -79,6 +79,99 @@ export default function EspadasPage() {
 					</div>
 				</div>
 
+				{/* Conteúdo Educacional */}
+				<div className="max-w-5xl mx-auto space-y-8">
+					{/* Card Principal - O que é Espadas */}
+					<div className="rounded-2xl border-2 border-blue-500/30 bg-gradient-to-br from-blue-500/10 via-cyan-500/10 to-sky-500/10 p-8 backdrop-blur-sm shadow-xl">
+						<div className="space-y-6">
+							<div className="flex items-start gap-4">
+								<div className="inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border-2 border-blue-500/30 flex-shrink-0">
+									<Sword className="size-7 text-blue-600 dark:text-blue-400" />
+								</div>
+								<div className="flex-1 space-y-4">
+									<div>
+										<h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2">
+											O Naipe do Ar
+										</h2>
+										<p className="text-sm text-blue-600/80 dark:text-blue-400/80 font-medium">
+											Elemento Ar · Signos: Gêmeos, Libra e Aquário
+										</p>
+									</div>
+									<p className="text-foreground/80 leading-relaxed">
+										<strong>Espadas representa o elemento ar e o naipe do intelecto.</strong> Cada uma das
+										14 cartas deste naipe retrata uma jornada através do pensamento, da razão,
+										da comunicação e dos desafios mentais. As Espadas são símbolos de verdade,
+										lógica, decisões difíceis e clareza mental.
+									</p>
+									<p className="text-foreground/80 leading-relaxed">
+										Na astrologia, Espadas conecta-se aos signos de ar: <strong>Gêmeos</strong> (comunicação
+										e versatilidade mental), <strong>Libra</strong> (equilíbrio e justiça racional)
+										e <strong>Aquário</strong> (ideias inovadoras e visão futura).
+									</p>
+								</div>
+							</div>
+
+							{/* Temas Principais */}
+							<div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-blue-500/20">
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+										Temas Principais
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Pensamento, lógica e racionalidade</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Comunicação e expressão verbal</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Verdade, justiça e decisões difíceis</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Desafios mentais e conflitos</span>
+										</li>
+									</ul>
+								</div>
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+										Estrutura do Naipe
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Ás a 10:</strong> Jornada do pensamento e clareza</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Valete:</strong> Novas ideias e mensagens</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Cavaleiro:</strong> Ação intelectual rápida</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Rainha e Rei:</strong> Sabedoria e autoridade mental</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							{/* Citação Mística */}
+							<div className="relative py-4 px-6 border-l-4 border-blue-500/50 bg-blue-500/5 rounded-r-lg">
+								<p className="text-sm text-foreground/90 italic leading-relaxed">
+									"As Espadas nos ensinam que a verdade, mesmo quando dolorosa, liberta. Como o ar
+									que circula livre, nosso pensamento deve buscar clareza acima de tudo."
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				{/* Error State */}
 				{error && (
 					<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">

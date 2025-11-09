@@ -79,6 +79,99 @@ export default function OurosPage() {
 					</div>
 				</div>
 
+				{/* Conteúdo Educacional */}
+				<div className="max-w-5xl mx-auto space-y-8">
+					{/* Card Principal - O que é Ouros */}
+					<div className="rounded-2xl border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 via-amber-500/10 to-orange-500/10 p-8 backdrop-blur-sm shadow-xl">
+						<div className="space-y-6">
+							<div className="flex items-start gap-4">
+								<div className="inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-yellow-600/20 to-amber-600/20 border-2 border-yellow-500/30 flex-shrink-0">
+									<Coins className="size-7 text-yellow-600 dark:text-yellow-400" />
+								</div>
+								<div className="flex-1 space-y-4">
+									<div>
+										<h2 className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400 bg-clip-text text-transparent mb-2">
+											O Naipe da Terra
+										</h2>
+										<p className="text-sm text-yellow-600/80 dark:text-yellow-400/80 font-medium">
+											Elemento Terra · Signos: Touro, Virgem e Capricórnio
+										</p>
+									</div>
+									<p className="text-foreground/80 leading-relaxed">
+										<strong>Ouros representa o elemento terra e o naipe da materialidade.</strong> Cada uma das
+										14 cartas deste naipe retrata uma jornada através do mundo físico, do trabalho,
+										da prosperidade e da manifestação concreta. Os Ouros são símbolos de dinheiro,
+										segurança material e estabilidade.
+									</p>
+									<p className="text-foreground/80 leading-relaxed">
+										Na astrologia, Ouros conecta-se aos signos de terra: <strong>Touro</strong> (segurança
+										material e prazer sensorial), <strong>Virgem</strong> (trabalho prático e refinamento)
+										e <strong>Capricórnio</strong> (ambição estruturada e construção).
+									</p>
+								</div>
+							</div>
+
+							{/* Temas Principais */}
+							<div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-yellow-500/20">
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider">
+										Temas Principais
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-yellow-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Dinheiro, finanças e prosperidade</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-yellow-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Trabalho, carreira e realizações</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-yellow-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Saúde física e bem-estar</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-yellow-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80">Segurança e estabilidade material</span>
+										</li>
+									</ul>
+								</div>
+								<div className="space-y-3">
+									<h3 className="text-sm font-semibold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider">
+										Estrutura do Naipe
+									</h3>
+									<ul className="space-y-2">
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-amber-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Ás a 10:</strong> Construção material progressiva</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-amber-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Valete:</strong> Novos projetos materiais</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-amber-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Cavaleiro:</strong> Trabalho metódico</span>
+										</li>
+										<li className="flex items-start gap-2">
+											<span className="mt-1.5 size-1.5 rounded-full bg-amber-500 flex-shrink-0" />
+											<span className="text-sm text-foreground/80"><strong>Rainha e Rei:</strong> Abundância estabelecida</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							{/* Citação Mística */}
+							<div className="relative py-4 px-6 border-l-4 border-yellow-500/50 bg-yellow-500/5 rounded-r-lg">
+								<p className="text-sm text-foreground/90 italic leading-relaxed">
+									"Os Ouros nos ensinam que o mundo material é sagrado. Como a terra que sustenta
+									toda vida, nossa prosperidade é fruto do trabalho consciente e dedicado."
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				{/* Error State */}
 				{error && (
 					<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">
