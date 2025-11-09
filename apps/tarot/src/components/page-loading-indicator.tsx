@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { Loader2 } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 /**
  * Indicador de loading global para transições de página
@@ -52,7 +52,7 @@ export function PageLoadingIndicator() {
 
 					{/* Ícone central */}
 					<div className="relative flex size-20 items-center justify-center">
-						<Loader2 className="size-8 text-violet-600 dark:text-violet-400 animate-spin" />
+						<Icon icon="lucide:loader-2" className="size-8 text-violet-600 dark:text-violet-400 animate-spin" />
 					</div>
 
 					{/* Glow effect */}

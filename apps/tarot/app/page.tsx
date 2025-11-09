@@ -1,7 +1,7 @@
 'use client'
 
 import { SacredEyeLogo } from '@workspace/ui'
-import { Moon, Star, Sparkles, Hexagon, Circle, Triangle, Eye } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 
 export default function TarotHomePage() {
@@ -62,7 +62,7 @@ export default function TarotHomePage() {
 									<Circle className="size-full text-purple-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-									<Moon className="size-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
+									<Icon icon="lucide:moon" className="size-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
 								</div>
 							</div>
 
@@ -96,7 +96,7 @@ export default function TarotHomePage() {
 									<Hexagon className="size-full text-violet-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-									<Star className="size-8 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+									<Icon icon="lucide:star" className="size-8 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
 								</div>
 							</div>
 
@@ -127,7 +127,7 @@ export default function TarotHomePage() {
 									<Triangle className="size-full text-indigo-500/20" strokeWidth={0.5} />
 								</div>
 								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
-									<Sparkles className="size-8 text-indigo-600 dark:text-indigo-400 animate-pulse" strokeWidth={1.5} />
+									<Icon icon="lucide:sparkles" className="size-8 text-indigo-600 dark:text-indigo-400 animate-pulse" strokeWidth={1.5} />
 								</div>
 							</div>
 
@@ -179,13 +179,13 @@ export default function TarotHomePage() {
 
 					{/* Mystical symbols footer */}
 					<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
-						<Moon className="size-5" strokeWidth={1} />
+						<Icon icon="lucide:moon" className="size-5" strokeWidth={1} />
 						<span className="size-1 rounded-full bg-current" />
-						<Star className="size-5" strokeWidth={1} />
+						<Icon icon="lucide:star" className="size-5" strokeWidth={1} />
 						<span className="size-1 rounded-full bg-current" />
-						<Eye className="size-5" strokeWidth={1} />
+						<Icon icon="lucide:eye" className="size-5" strokeWidth={1} />
 						<span className="size-1 rounded-full bg-current" />
-						<Sparkles className="size-5" strokeWidth={1} />
+						<Icon icon="lucide:sparkles" className="size-5" strokeWidth={1} />
 					</div>
 				</div>
 			</div>

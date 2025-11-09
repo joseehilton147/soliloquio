@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle2, Clock, Trash2, RotateCcw } from 'lucide-react'
+import { Icon } from '@iconify/react'
 
 // Helper para formatar tempo decorrido
 function formatTimeAgo(date: Date): string {
@@ -45,7 +45,7 @@ export function DraftRecovery({
 			<div className="flex items-start gap-4">
 				{/* Icon */}
 				<div className="flex size-10 items-center justify-center rounded-full bg-violet-500/10 border border-violet-500/20">
-					<AlertCircle className="size-5 text-violet-600 dark:text-violet-400" />
+					<Icon icon="lucide:alert-circle" className="size-5 text-violet-600 dark:text-violet-400" />
 				</div>
 
 				{/* Content */}
@@ -67,7 +67,7 @@ export function DraftRecovery({
 							onClick={onRestore}
 							className="group inline-flex items-center gap-2 rounded-lg bg-violet-600 hover:bg-violet-700 px-4 py-2 text-sm font-medium text-white transition-all hover:scale-105 shadow-lg shadow-violet-500/25"
 						>
-							<RotateCcw className="size-4 transition-transform group-hover:rotate-180" />
+							<Icon icon="lucide:rotate-ccw" className="size-4 transition-transform group-hover:rotate-180" />
 							Recuperar Rascunho
 						</button>
 
@@ -76,7 +76,7 @@ export function DraftRecovery({
 							onClick={onDiscard}
 							className="group inline-flex items-center gap-2 rounded-lg border border-border/40 bg-background/50 hover:bg-destructive/10 hover:border-destructive/30 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-destructive transition-all"
 						>
-							<Trash2 className="size-4 transition-transform group-hover:scale-110" />
+							<Icon icon="lucide:trash-2" className="size-4 transition-transform group-hover:scale-110" />
 							Descartar
 						</button>
 					</div>
@@ -116,7 +116,7 @@ export function AutosaveIndicator({ lastSaved, isSaving }: AutosaveIndicatorProp
 		const savedTimeAgo = formatTimeAgo(lastSaved)
 		return (
 			<div className="flex items-center gap-2 text-sm text-muted-foreground">
-				<CheckCircle2 className="size-4 text-green-500" />
+				<Icon icon="lucide:check-circle-2" className="size-4 text-green-500" />
 				<span>Salvo {savedTimeAgo}</span>
 			</div>
 		)
@@ -124,7 +124,7 @@ export function AutosaveIndicator({ lastSaved, isSaving }: AutosaveIndicatorProp
 
 	return (
 		<div className="flex items-center gap-2 text-sm text-muted-foreground">
-			<Clock className="size-4" />
+			<Icon icon="lucide:clock" className="size-4" />
 			<span>Aguardando mudanças...</span>
 		</div>
 	)

@@ -2,7 +2,7 @@
 
 import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, CardBadge } from '@workspace/ui'
-import { Sparkles, Layers, Star, BookOpen, Eye, Coins, Square } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -86,7 +86,7 @@ export default function OurosPage() {
 						<div className="space-y-6">
 							<div className="flex items-start gap-4">
 								<div className="inline-flex items-center justify-center size-14 rounded-full bg-gradient-to-br from-yellow-600/20 to-amber-600/20 border-2 border-yellow-500/30 flex-shrink-0">
-									<Coins className="size-7 text-yellow-600 dark:text-yellow-400" />
+									<Icon icon="lucide:coins" className="size-7 text-yellow-600 dark:text-yellow-400" />
 								</div>
 								<div className="flex-1 space-y-4">
 									<div>
@@ -231,7 +231,7 @@ export default function OurosPage() {
 										{/* Deck badge - aparece no hover */}
 										{card.deck && (
 											<CardBadge
-												icon={Layers}
+												icon="lucide:layers"
 												label={card.deck.name}
 												position="top-left"
 											/>
@@ -240,7 +240,7 @@ export default function OurosPage() {
 										{/* Card Type Badge - Canto Superior Direito */}
 										{card.cardType && (
 											<CardBadge
-												icon={Sparkles}
+												icon="lucide:sparkles"
 												label={card.cardType}
 												position="top-right"
 											/>
@@ -322,13 +322,13 @@ export default function OurosPage() {
 
 							{/* Mystical Symbols */}
 							<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
-								<Coins className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:coins" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Eye className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:eye" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
 								<span className="text-2xl text-yellow-500/30">♦</span>
 								<span className="size-1 rounded-full bg-current" />
-								<BookOpen className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:book-open" className="size-5" strokeWidth={1} />
 							</div>
 						</div>
 					</>

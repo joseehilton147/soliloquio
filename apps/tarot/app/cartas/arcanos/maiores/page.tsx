@@ -2,7 +2,7 @@
 
 import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, CardBadge } from '@workspace/ui'
-import { Sparkles, Layers, Star, BookOpen, Eye, Crown, Triangle } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -44,7 +44,7 @@ export default function ArcanosMaioresPage() {
 							<Triangle className="size-full text-violet-500/20" strokeWidth={0.5} />
 						</div>
 						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-							<Crown className="size-10 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+							<Icon icon="lucide:crown" className="size-10 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
 						</div>
 					</div>
 
@@ -138,7 +138,7 @@ export default function ArcanosMaioresPage() {
 										{/* Deck badge - aparece no hover */}
 										{card.deck && (
 											<CardBadge
-												icon={Layers}
+												icon="lucide:layers"
 												label={card.deck.name}
 												position="top-left"
 											/>
@@ -146,7 +146,7 @@ export default function ArcanosMaioresPage() {
 
 										{/* Card Type Badge - Canto Superior Direito */}
 										<CardBadge
-											icon={Crown}
+											icon="lucide:crown"
 											label="Arcano Maior"
 											position="top-right"
 										/>
@@ -219,13 +219,13 @@ export default function ArcanosMaioresPage() {
 
 							{/* Mystical Symbols */}
 							<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
-								<Star className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:star" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Eye className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:eye" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Crown className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:crown" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<BookOpen className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:book-open" className="size-5" strokeWidth={1} />
 							</div>
 						</div>
 					</>

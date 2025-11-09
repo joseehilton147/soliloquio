@@ -2,7 +2,7 @@
 
 import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { Sparkles, Pencil, Trash2 } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -102,7 +102,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 						href={`/baralhos/${deck.slug}/editar`}
 						className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
 					>
-						<Pencil className="size-4" />
+						<Icon icon="lucide:pencil" className="size-4" />
 						Editar
 					</Link>
 					<button
@@ -110,7 +110,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 						disabled={isDeleting}
 						className="inline-flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/20 transition-all disabled:opacity-50"
 					>
-						<Trash2 className="size-4" />
+						<Icon icon="lucide:trash-2" className="size-4" />
 						{isDeleting ? 'Excluindo...' : 'Excluir'}
 					</button>
 				</div>
@@ -176,7 +176,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 										<h3 className="text-xl font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex-1">
 											{card.name}
 										</h3>
-										<Sparkles className="size-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+										<Icon icon="lucide:sparkles" className="size-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
 									</div>
 									<p className="text-xs text-muted-foreground">
 										Numerologia: {card.numerology}

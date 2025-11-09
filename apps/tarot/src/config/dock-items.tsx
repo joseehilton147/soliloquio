@@ -1,12 +1,4 @@
-import { Home, Layers, Settings, Search, Plus, User, Crown, Sparkles, Heart, Flame, Coins, Swords } from 'lucide-react'
 import type { DockItem } from '@workspace/ui/components/dock/mystical-dock'
-
-// Ícones do Iconify (game-icons)
-const ICONIFY_ICONS = {
-	cards: 'game-icons:card-random',
-	deck: 'game-icons:perspective-dice-six-faces-random',
-	tarotReader: 'game-icons:tarot-reader',
-} as const
 
 /**
  * Configuração dos itens da Mystical Dock - App Tarot
@@ -32,7 +24,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'home',
     label: 'Início',
-    icon: Home,
+    icon: 'lucide:home',
     href: '/',
     type: 'link',
     position: 'left',
@@ -40,7 +32,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'cartas',
     label: 'Cartas',
-    icon: ICONIFY_ICONS.cards,
+    icon: 'game-icons:card-random',
     href: '/cartas/arcanos',
     type: 'link',
     position: 'left',
@@ -49,10 +41,10 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
       {
         label: 'Arcanos',
         href: '/cartas/arcanos',
-        icon: Sparkles,
+        icon: 'lucide:sparkles',
         children: [
-          { label: 'Maiores', href: '/cartas/arcanos/maiores', icon: Crown },
-          { label: 'Menores', href: '/cartas/arcanos/menores', icon: Layers },
+          { label: 'Maiores', href: '/cartas/arcanos/maiores', icon: 'lucide:crown' },
+          { label: 'Menores', href: '/cartas/arcanos/menores', icon: 'lucide:layers' },
         ],
       },
 
@@ -60,34 +52,34 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
       {
         label: 'Naipes',
         href: '/cartas/naipes',
-        icon: BookOpen,
+        icon: 'lucide:book-open',
         children: [
-          { label: 'Copas', href: '/cartas/naipes/copas', icon: Heart },
-          { label: 'Paus', href: '/cartas/naipes/paus', icon: Flame },
-          { label: 'Ouros', href: '/cartas/naipes/ouros', icon: Coins },
-          { label: 'Espadas', href: '/cartas/naipes/espadas', icon: Swords },
+          { label: 'Copas', href: '/cartas/naipes/copas', icon: 'lucide:heart' },
+          { label: 'Paus', href: '/cartas/naipes/paus', icon: 'lucide:flame' },
+          { label: 'Ouros', href: '/cartas/naipes/ouros', icon: 'lucide:coins' },
+          { label: 'Espadas', href: '/cartas/naipes/espadas', icon: 'lucide:swords' },
         ],
       },
 
       // Ação - sem children
-      { label: 'Nova Carta', href: '/cartas/nova', icon: Plus },
+      { label: 'Nova Carta', href: '/cartas/nova', icon: 'lucide:plus' },
     ],
   },
   {
     id: 'baralhos',
     label: 'Baralhos',
-    icon: ICONIFY_ICONS.deck,
+    icon: 'game-icons:perspective-dice-six-faces-random',
     href: '/baralhos',
     type: 'link',
     position: 'left',
     submenu: [
-      { label: 'Novo Baralho', href: '/baralhos/novo', icon: Plus },
+      { label: 'Novo Baralho', href: '/baralhos/novo', icon: 'lucide:plus' },
     ],
   },
   {
     id: 'busca',
     label: 'Buscar (⌘K)',
-    icon: Search,
+    icon: 'lucide:search',
     action: onSearchOpen,
     type: 'action',
     position: 'left',
@@ -99,7 +91,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'configuracoes',
     label: 'Configurações',
-    icon: Settings,
+    icon: 'lucide:settings',
     href: '/configuracoes',
     type: 'link',
     position: 'right',
@@ -107,7 +99,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'usuario',
     label: 'Perfil',
-    icon: User,
+    icon: 'lucide:user',
     href: '/perfil',
     type: 'link',
     position: 'right',

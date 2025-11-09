@@ -1,7 +1,7 @@
 'use client'
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { Heart, Flame, Coins, Swords, Sparkles, Droplets, Wind } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 
 export default function NaipesPage() {
@@ -102,7 +102,7 @@ export default function NaipesPage() {
 			<div className="max-w-4xl mx-auto rounded-2xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 p-8 backdrop-blur-sm">
 				<div className="flex items-start gap-4">
 					<div className="inline-flex items-center justify-center size-12 rounded-full bg-gradient-to-br from-purple-600/20 to-violet-600/20 border-2 border-purple-500/30 flex-shrink-0">
-						<Sparkles className="size-6 text-purple-600 dark:text-purple-400" />
+						<Icon icon="lucide:sparkles" className="size-6 text-purple-600 dark:text-purple-400" />
 					</div>
 					<div className="space-y-3">
 						<h2 className="text-xl font-semibold text-foreground">
@@ -193,7 +193,7 @@ export default function NaipesPage() {
 										<span className={`text-${naipe.color}-600 dark:text-${naipe.color}-400`}>
 											Explorar {naipe.name}
 										</span>
-										<Sparkles className={`size-4 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
+										<Icon icon="lucide:sparkles" className={`size-4 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
 									</div>
 								</div>
 							</div>

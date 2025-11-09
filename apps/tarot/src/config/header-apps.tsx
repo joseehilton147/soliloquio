@@ -1,4 +1,4 @@
-import { BookOpen, BookMarked, Compass, Library, Scroll } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import type { AppItem } from '@workspace/ui/components/molecules/app-switcher'
 
 /**
@@ -12,7 +12,7 @@ export const headerApps: AppItem[] = [
   {
     id: 'tarot',
     name: 'Tarot',
-    icon: BookOpen,
+    icon: 'lucide:book-open',
     href: '/',
     available: true,
     description: 'Cartas e Baralhos Sagrados',
@@ -20,7 +20,7 @@ export const headerApps: AppItem[] = [
   {
     id: 'grimorio',
     name: 'Grimório',
-    icon: BookMarked,
+    icon: 'lucide:book-marked',
     href: '/grimorio',
     available: false,
     description: 'Livro de Conhecimento Arcano',
@@ -28,7 +28,7 @@ export const headerApps: AppItem[] = [
   {
     id: 'jornada',
     name: 'Jornada',
-    icon: Compass,
+    icon: 'lucide:compass',
     href: '/jornada',
     available: false,
     description: 'Diário Espiritual Pessoal',
@@ -36,7 +36,7 @@ export const headerApps: AppItem[] = [
   {
     id: 'biblioteca',
     name: 'Biblioteca',
-    icon: Library,
+    icon: 'lucide:library',
     href: '/biblioteca',
     available: false,
     description: 'Arquivo de Recursos Místicos',
@@ -44,7 +44,7 @@ export const headerApps: AppItem[] = [
   {
     id: 'arquivo',
     name: 'Arquivo',
-    icon: Scroll,
+    icon: 'lucide:scroll',
     href: '/arquivo',
     available: false,
     description: 'Registros e Documentação',

@@ -1,7 +1,7 @@
 'use client'
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { Crown, Sparkles, ArrowRight } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -39,7 +39,7 @@ export default function ArcanosPage() {
 					<div className="relative space-y-6">
 						{/* Icon */}
 						<div className="inline-flex items-center justify-center size-16 rounded-full bg-gradient-to-br from-violet-600/20 to-purple-600/20 border-2 border-violet-500/30">
-							<Crown className="size-8 text-violet-600 dark:text-violet-400" />
+							<Icon icon="lucide:crown" className="size-8 text-violet-600 dark:text-violet-400" />
 						</div>
 
 						{/* Title */}
@@ -98,7 +98,7 @@ export default function ArcanosPage() {
 							className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-violet-500/30 transition-all hover:scale-105 group-hover:gap-3"
 						>
 							<span>Explorar Arcanos Maiores</span>
-							<ArrowRight className="size-4" />
+							<Icon icon="lucide:arrow-right" className="size-4" />
 						</Link>
 					</div>
 				</div>
@@ -111,7 +111,7 @@ export default function ArcanosPage() {
 					<div className="relative space-y-6">
 						{/* Icon */}
 						<div className="inline-flex items-center justify-center size-16 rounded-full bg-gradient-to-br from-indigo-600/20 to-blue-600/20 border-2 border-indigo-500/30">
-							<Sparkles className="size-8 text-indigo-600 dark:text-indigo-400" />
+							<Icon icon="lucide:sparkles" className="size-8 text-indigo-600 dark:text-indigo-400" />
 						</div>
 
 						{/* Title */}
@@ -170,7 +170,7 @@ export default function ArcanosPage() {
 							className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-indigo-500/30 transition-all hover:scale-105 group-hover:gap-3"
 						>
 							<span>Explorar Arcanos Menores</span>
-							<ArrowRight className="size-4" />
+							<Icon icon="lucide:arrow-right" className="size-4" />
 						</Link>
 					</div>
 				</div>
@@ -191,7 +191,7 @@ export default function ArcanosPage() {
 						className="inline-flex items-center gap-2 rounded-lg border-2 border-purple-500/30 bg-purple-600/10 px-6 py-3 text-sm font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-600/20 transition-all hover:scale-105"
 					>
 						<span>Explorar os Naipes</span>
-						<ArrowRight className="size-4" />
+						<Icon icon="lucide:arrow-right" className="size-4" />
 					</Link>
 				</div>
 			</div>

@@ -159,7 +159,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					href="/cartas/arcanos"
 					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 				>
-					<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
+					<Icon icon="lucide:arrow-left" className="size-4 group-hover:-translate-x-1 transition-transform" />
 					Voltar para cartas
 				</Link>
 				<div className="rounded-xl border-2 border-destructive/50 bg-destructive/10 p-6">
@@ -178,7 +178,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 				href={`/cartas/${card.slug}`}
 				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 			>
-				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
+				<Icon icon="lucide:arrow-left" className="size-4 group-hover:-translate-x-1 transition-transform" />
 				Voltar para carta
 			</Link>
 
@@ -198,7 +198,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					{/* Preview da Imagem */}
 					<div className="rounded-xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-indigo-500/10 p-5 backdrop-blur-sm shadow-lg shadow-purple-500/10">
 						<div className="flex items-center gap-2 mb-4">
-							<ImageIcon className="size-5 text-purple-600 dark:text-purple-400" />
+							<Icon icon="lucide:image" className="size-5 text-purple-600 dark:text-purple-400" />
 							<h2 className="font-semibold text-lg bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Imagem da Carta
 							</h2>
@@ -241,7 +241,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					{/* Preview Info Rápida */}
 					<div className="rounded-xl border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 p-5 backdrop-blur-sm shadow-lg shadow-violet-500/10">
 						<div className="flex items-center gap-2 mb-4">
-							<Sparkles className="size-5 text-violet-600 dark:text-violet-400" />
+							<Icon icon="lucide:sparkles" className="size-5 text-violet-600 dark:text-violet-400" />
 							<h2 className="font-semibold text-lg bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Informações Rápidas
 							</h2>
@@ -296,7 +296,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					{/* Informações Básicas */}
 					<div className="rounded-xl border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-blue-500/10 to-purple-500/10 p-6 backdrop-blur-sm shadow-lg shadow-indigo-500/10">
 						<div className="flex items-center gap-2 mb-5">
-							<Layers className="size-5 text-indigo-600 dark:text-indigo-400" />
+							<Icon icon="lucide:layers" className="size-5 text-indigo-600 dark:text-indigo-400" />
 							<h2 className="text-xl font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
 								Informações Básicas
 							</h2>
@@ -407,7 +407,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					{/* Descrições */}
 					<div className="rounded-xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-fuchsia-500/10 to-pink-500/10 p-6 backdrop-blur-sm shadow-lg shadow-purple-500/10">
 						<div className="flex items-center gap-2 mb-5">
-							<BookOpen className="size-5 text-purple-600 dark:text-purple-400" />
+							<Icon icon="lucide:book-open" className="size-5 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
 								Descrições e Conteúdo
 							</h2>
@@ -437,7 +437,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 						{/* Significados Verticais */}
 						<div className="rounded-xl border-2 border-green-500/30 bg-gradient-to-br from-green-500/10 via-emerald-500/10 to-teal-500/10 p-6 backdrop-blur-sm shadow-lg shadow-green-500/10">
 							<div className="flex items-center gap-2 mb-4">
-								<CheckCircle2 className="size-5 text-green-600 dark:text-green-400" />
+								<Icon icon="lucide:check-circle-2" className="size-5 text-green-600 dark:text-green-400" />
 								<h3 className="font-semibold text-lg text-green-700 dark:text-green-400">
 									Significados Verticais
 								</h3>
@@ -459,7 +459,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 						{/* Significados Invertidos */}
 						<div className="rounded-xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-yellow-500/10 p-6 backdrop-blur-sm shadow-lg shadow-amber-500/10">
 							<div className="flex items-center gap-2 mb-4">
-								<AlertCircle className="size-5 text-amber-600 dark:text-amber-400" />
+								<Icon icon="lucide:alert-circle" className="size-5 text-amber-600 dark:text-amber-400" />
 								<h3 className="font-semibold text-lg text-amber-700 dark:text-amber-400">
 									Significados Invertidos
 								</h3>
@@ -482,7 +482,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					{/* Tipos de Leitura */}
 					<div className="rounded-xl border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-fuchsia-500/10 p-6 backdrop-blur-sm shadow-lg shadow-violet-500/10">
 						<div className="flex items-center gap-2 mb-5">
-							<Star className="size-5 text-violet-600 dark:text-violet-400" />
+							<Icon icon="lucide:star" className="size-5 text-violet-600 dark:text-violet-400" />
 							<h2 className="text-xl font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 dark:from-violet-400 dark:to-fuchsia-400 bg-clip-text text-transparent">
 								Tipos de Leitura
 							</h2>
@@ -550,7 +550,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 							disabled={isSubmitting}
 							className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/30 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
 						>
-							<Sparkles className="size-4" />
+							<Icon icon="lucide:sparkles" className="size-4" />
 							{isSubmitting ? 'Salvando Alterações...' : 'Salvar Alterações'}
 						</button>
 						<Link

@@ -2,7 +2,7 @@
 
 import type { ReadingType } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, CardBadge, type BreadcrumbItem } from '@workspace/ui'
-import { Pencil, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { use } from 'react'
@@ -80,7 +80,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 							{/* Card Type Badge - Canto Superior Direito */}
 							{card.cardType && (
 								<CardBadge
-									icon={Sparkles}
+									icon="lucide:sparkles"
 									label={card.cardType}
 									position="top-right"
 									className="z-20"
@@ -97,18 +97,18 @@ export default function CartaDetailPage({ params }: PageProps) {
 							</h1>
 							<div className="mt-2 flex flex-col gap-1 text-sm text-muted-foreground">
 								<p className="flex items-center gap-2">
-									<Sparkles className="size-4 text-purple-500" />
+									<Icon icon="lucide:sparkles" className="size-4 text-purple-500" />
 									Numerologia: <span className="font-medium text-foreground">{card.numerology}</span>
 								</p>
 								{card.astrology && (
 									<p className="flex items-center gap-2">
-										<Sparkles className="size-4 text-indigo-500" />
+										<Icon icon="lucide:sparkles" className="size-4 text-indigo-500" />
 										Astrologia: <span className="font-medium text-foreground">{card.astrology}</span>
 									</p>
 								)}
 								{card.deck && (
 									<p className="flex items-center gap-2">
-										<Sparkles className="size-4 text-purple-500" />
+										<Icon icon="lucide:sparkles" className="size-4 text-purple-500" />
 										Baralho: <span className="font-medium text-foreground">{card.deck.name}</span>
 									</p>
 								)}
@@ -119,7 +119,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 							href={`/cartas/${card.slug}/editar`}
 							className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
 						>
-							<Pencil className="size-4" />
+							<Icon icon="lucide:pencil" className="size-4" />
 							Editar Carta
 						</Link>
 					</div>
@@ -154,7 +154,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 						{/* Vertical */}
 						<div className="rounded-lg border border-green-500/20 bg-gradient-to-br from-green-500/5 to-emerald-500/5 p-6">
 							<h2 className="flex items-center gap-2 text-lg font-semibold text-green-600 dark:text-green-400">
-								<CheckCircle2 className="size-5" />
+								<Icon icon="lucide:check-circle-2" className="size-5" />
 								Significado Vertical
 							</h2>
 							<ul className="mt-4 space-y-2">
@@ -170,7 +170,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 						{/* Invertido */}
 						<div className="rounded-lg border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-orange-500/5 p-6">
 							<h2 className="flex items-center gap-2 text-lg font-semibold text-amber-600 dark:text-amber-400">
-								<AlertCircle className="size-5" />
+								<Icon icon="lucide:alert-circle" className="size-5" />
 								Significado Invertido
 							</h2>
 							<ul className="mt-4 space-y-2">

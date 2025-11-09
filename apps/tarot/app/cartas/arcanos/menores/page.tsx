@@ -2,7 +2,7 @@
 
 import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, CardBadge } from '@workspace/ui'
-import { Sparkles, Layers, Star, BookOpen, Eye, Flame, Hexagon } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -58,7 +58,7 @@ export default function ArcanosMenoresPage() {
 							<Hexagon className="size-full text-violet-500/20" strokeWidth={0.5} />
 						</div>
 						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-							<Flame className="size-10 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
+							<Icon icon="lucide:flame" className="size-10 text-violet-600 dark:text-violet-400" strokeWidth={1.5} />
 						</div>
 					</div>
 
@@ -152,7 +152,7 @@ export default function ArcanosMenoresPage() {
 										{/* Deck badge - aparece no hover */}
 										{card.deck && (
 											<CardBadge
-												icon={Layers}
+												icon="lucide:layers"
 												label={card.deck.name}
 												position="top-left"
 											/>
@@ -161,7 +161,7 @@ export default function ArcanosMenoresPage() {
 										{/* Card Type Badge - Canto Superior Direito */}
 										{card.cardType && (
 											<CardBadge
-												icon={Sparkles}
+												icon="lucide:sparkles"
 												label={card.cardType}
 												position="top-right"
 											/>

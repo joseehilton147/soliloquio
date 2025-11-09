@@ -139,9 +139,6 @@ importers:
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      lucide-react:
-        specifier: ^0.475.0
-        version: 0.475.0(react@19.1.1)
       next:
         specifier: ^15.4.5
         version: 15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -319,9 +316,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      lucide-react:
-        specifier: ^0.475.0
-        version: 0.475.0(react@19.1.1)
       next:
         specifier: ^15.0.0
         version: 15.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -7268,10 +7262,6 @@ snapshots:
       yallist: 3.1.1
 
   lru-cache@7.18.3: {}
-
-  lucide-react@0.475.0(react@19.1.1):
-    dependencies:
-      react: 19.1.1
 
   lucide-react@0.475.0(react@19.2.0):
     dependencies:

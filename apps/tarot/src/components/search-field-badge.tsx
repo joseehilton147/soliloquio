@@ -1,10 +1,10 @@
 'use client'
 
-import type { LucideIcon } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
 export interface SearchFieldBadgeProps {
-	icon: LucideIcon
+	icon: string
 	label: string
 	variant?: 'default' | 'compact'
 	className?: string

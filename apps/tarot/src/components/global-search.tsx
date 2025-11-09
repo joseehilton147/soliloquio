@@ -1,6 +1,6 @@
 'use client'
 
-import { Search as SearchIcon, Sparkles, Layers, X, ImageIcon, Hash, Star, Tag } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -135,7 +135,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       description: card.summary,
       imageUrl: card.imageUrl,
       cardType: card.cardType,
-      icon: Sparkles,
+      icon: 'lucide:sparkles',
       matches,
     })),
     ...filteredDecks.map((deck) => ({
@@ -145,7 +145,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       slug: deck.slug,
       description: deck.description,
       imageUrl: deck.imageUrl,
-      icon: Layers,
+      icon: 'lucide:layers',
       matches: [] as SearchMatch[],
     })),
   ]
@@ -213,7 +213,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
           {/* Search Input místico */}
           <div className="flex items-center gap-3 border-b border-border/40 px-5 py-4 bg-gradient-to-r from-purple-500/5 via-transparent to-indigo-500/5">
             <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-              <SearchIcon className="size-5 text-purple-600 dark:text-purple-400" strokeWidth={2} />
+              <Icon icon="lucide:search" className="size-5 text-purple-600 dark:text-purple-400" strokeWidth={2} />
             </div>
             <input
               type="text"
@@ -229,7 +229,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 onClick={() => setQuery('')}
                 className="rounded-full p-2 hover:bg-purple-500/10 transition-all hover:scale-110"
               >
-                <X className="size-4 text-muted-foreground" />
+                <Icon icon="lucide:x" className="size-4 text-muted-foreground" />
               </button>
             )}
           </div>
@@ -241,7 +241,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 <div className="relative">
                   <div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
                   <div className="relative flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-                    <SearchIcon className="size-8 text-purple-600 dark:text-purple-400" />
+                    <Icon icon="lucide:search" className="size-8 text-purple-600 dark:text-purple-400" />
                   </div>
                 </div>
                 <p className="mt-6 text-sm text-muted-foreground leading-relaxed">
@@ -251,11 +251,11 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                   Comece digitando para buscar
                 </p>
                 <div className="mt-4 flex flex-wrap justify-center gap-2 max-w-md">
-                  <SearchFieldBadge icon={Tag} label="Nome" />
-                  <SearchFieldBadge icon={Sparkles} label="Tipo de Carta" />
-                  <SearchFieldBadge icon={Hash} label="Numerologia" />
-                  <SearchFieldBadge icon={Star} label="Astrologia" />
-                  <SearchFieldBadge icon={Sparkles} label="Significados" />
+                  <SearchFieldBadge icon="lucide:tag" label="Nome" />
+                  <SearchFieldBadge icon="lucide:sparkles" label="Tipo de Carta" />
+                  <SearchFieldBadge icon="lucide:hash" label="Numerologia" />
+                  <SearchFieldBadge icon="lucide:star" label="Astrologia" />
+                  <SearchFieldBadge icon="lucide:sparkles" label="Significados" />
                 </div>
               </div>
             ) : allResults.length === 0 ? (
@@ -263,7 +263,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                 <div className="relative">
                   <div className="absolute inset-0 animate-pulse rounded-full bg-purple-500/10" />
                   <div className="relative flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-                    <Sparkles className="size-8 text-purple-600 dark:text-purple-400 animate-pulse" />
+                    <Icon icon="lucide:sparkles" className="size-8 text-purple-600 dark:text-purple-400 animate-pulse" />
                   </div>
                 </div>
                 <p className="mt-6 text-sm font-medium">Nenhum arcano encontrado</p>
@@ -339,7 +339,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                         <div className="mt-2 flex items-center gap-1.5 flex-wrap">
                           {result.type === 'card' && result.cardType && (
                             <SearchFieldBadge
-                              icon={Sparkles}
+                              icon="lucide:sparkles"
                               label={result.cardType}
                               variant="compact"
                             />

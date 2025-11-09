@@ -1,6 +1,6 @@
 'use client'
 
-import { Settings, Palette } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { useDockSettings } from '../../src/contexts/dock-settings-context'
 import { cn } from '@workspace/ui/lib/utils'
 
@@ -28,7 +28,7 @@ export default function ConfiguracoesPage() {
       <div className="space-y-3">
         <div className="flex items-center gap-3">
           <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-            <Settings className="size-6 text-purple-600 dark:text-purple-400" />
+            <Icon icon="lucide:settings" className="size-6 text-purple-600 dark:text-purple-400" />
           </div>
           <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
             Configurações
@@ -42,7 +42,7 @@ export default function ConfiguracoesPage() {
       {/* Seção: Aparência */}
       <section className="space-y-6">
         <div className="flex items-center gap-3">
-          <Palette className="size-5 text-purple-600 dark:text-purple-400" />
+          <Icon icon="lucide:palette" className="size-5 text-purple-600 dark:text-purple-400" />
           <h2 className="text-2xl font-semibold">Aparência</h2>
         </div>
 

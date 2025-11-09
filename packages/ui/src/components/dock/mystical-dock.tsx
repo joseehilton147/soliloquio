@@ -1,8 +1,6 @@
 'use client'
 
-import type { LucideIcon } from 'lucide-react'
-import { Plus, ChevronRight } from 'lucide-react'
-import { Icon as IconifyIcon } from '@iconify/react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useState, useEffect, useRef } from 'react'
@@ -16,32 +14,19 @@ import { cn } from '../../lib/utils'
 export interface DockSubitem {
 	label: string
 	href: string
-	icon?: LucideIcon | string  // Suporta Lucide ou Iconify (string)
+	icon?: string  // Iconify icon name (ex: "lucide:home")
 	children?: DockSubitem[]  // Suporta aninhamento recursivo
 }
 
 export interface DockItem {
 	id: string
 	label: string
-	icon: LucideIcon | string  // Suporta Lucide ou Iconify (string)
+	icon: string  // Iconify icon name (ex: "lucide:home")
 	href?: string
 	action?: () => void
 	type?: 'link' | 'action'
 	submenu?: DockSubitem[]
 	position?: 'left' | 'right'
-}
-
-/**
- * Helper para renderizar ícone (Lucide ou Iconify)
- */
-function renderIcon(icon: LucideIcon | string, className?: string) {
-	if (typeof icon === 'string') {
-		// Iconify icon (string)
-		return <IconifyIcon icon={icon} className={className} />
-	}
-	// Lucide icon (component)
-	const IconComponent = icon
-	return <IconComponent className={className} />
 }
 
 export interface DockSettings {
@@ -79,7 +64,6 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const itemRef = useRef<HTMLDivElement>(null)
 	const submenuRef = useRef<HTMLDivElement>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
-	const iconToRender = item.icon || Plus
 
 	// Detecta melhor orientação e calcula offset para collision detection
 	useEffect(() => {
@@ -224,12 +208,12 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 				{/* Hover glow effect */}
 				<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
-				{renderIcon(iconToRender, "relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200")}
+				<Icon icon={item.icon} className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />
 				<span className="relative flex-1">{item.label}</span>
 
 				{/* Seta para indicar que tem submenu */}
 				{hasChildren && (
-					<ChevronRight className="relative size-3.5 text-purple-500/50 group-hover/sub:text-purple-500 group-hover/sub:translate-x-0.5 transition-all duration-200" />
+					<Icon icon="lucide:chevron-right" className="relative size-3.5 text-purple-500/50 group-hover/sub:text-purple-500 group-hover/sub:translate-x-0.5 transition-all duration-200" />
 				)}
 			</Link>
 
@@ -393,7 +377,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 							'hover:shadow-purple-500/25',
 						)}
 					>
-						{renderIcon(item.icon, "size-6 text-purple-600 dark:text-purple-400")}
+						<Icon icon={item.icon} className="size-6 text-purple-600 dark:text-purple-400" />
 
 						{/* Tooltip básico */}
 						<span
@@ -440,10 +424,10 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						!isActive && 'hover:border-purple-500/40 hover:from-purple-500/20 hover:to-indigo-500/20 hover:scale-110 hover:-translate-y-2 hover:shadow-purple-500/25',
 					)}
 				>
-					{renderIcon(item.icon, cn(
+					<Icon icon={item.icon} className={cn(
 						'size-6 transition-colors',
 						isActive ? 'text-purple-500 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400',
-					))}
+					)} />
 
 					{/* Active indicator */}
 					{isActive && (
@@ -504,7 +488,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 								<div className="relative p-3 space-y-2">
 									{/* Header da Stack - Ícone + Label */}
 									<div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-										{renderIcon(item.icon, "size-5 text-purple-600 dark:text-purple-400")}
+										<Icon icon={item.icon} className="size-5 text-purple-600 dark:text-purple-400" />
 										<span className="text-sm font-semibold text-foreground">
 											{item.label}
 										</span>
