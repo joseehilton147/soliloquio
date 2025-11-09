@@ -2,6 +2,7 @@
 
 import { DynamicTagInput } from '@workspace/ui/components/organisms/dynamic-tag-input'
 import { ImageUploader } from '@workspace/ui/components/organisms/image-uploader'
+import { RichTextEditor } from '@workspace/ui'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -23,9 +24,25 @@ export default function EditarCartaPage({ params }: PageProps) {
 	const [verticalMeanings, setVerticalMeanings] = useState<string[]>([])
 	const [invertedMeanings, setInvertedMeanings] = useState<string[]>([])
 
+	// Estados para campos WYSIWYG
+	const [summary, setSummary] = useState('')
+	const [description, setDescription] = useState('')
+	const [generalReading, setGeneralReading] = useState('')
+	const [loveReading, setLoveReading] = useState('')
+	const [careerReading, setCareerReading] = useState('')
+	const [spiritualReading, setSpiritualReading] = useState('')
+	const [invertedReading, setInvertedReading] = useState('')
+
+	// Estados para novos campos
+	const [deckId, setDeckId] = useState<string | null>(null)
+	const [cardType, setCardType] = useState('')
+
 	// Autocomplete para tags verticais e invertidas
 	const verticalAutocomplete = useTagAutocomplete('vertical')
 	const invertedAutocomplete = useTagAutocomplete('inverted')
+
+	// Buscar decks disponíveis
+	const { data: decksData } = trpc.tarot.getDecks.useQuery()
 
 	const { data: card, isLoading, error } = trpc.tarot.getBySlug.useQuery(slug)
 
@@ -47,6 +64,36 @@ export default function EditarCartaPage({ params }: PageProps) {
 			setVerticalMeanings(card.verticalMeaning as string[])
 			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
 			setInvertedMeanings(card.invertedMeaning as string[])
+
+			// Inicializar campos WYSIWYG
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setSummary(card.summary || '')
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setDescription(card.description || '')
+
+			// Inicializar tipos de leitura
+			const generalType = card.typesOfReading.find((r) => r.type === 'general')
+			const loveType = card.typesOfReading.find((r) => r.type === 'love-relationship')
+			const careerType = card.typesOfReading.find((r) => r.type === 'career-money')
+			const spiritualType = card.typesOfReading.find((r) => r.type === 'personal-spiritual')
+			const invertedType = card.typesOfReading.find((r) => r.type === 'inverted')
+
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setGeneralReading(generalType?.read || '')
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setLoveReading(loveType?.read || '')
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setCareerReading(careerType?.read || '')
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setSpiritualReading(spiritualType?.read || '')
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setInvertedReading(invertedType?.read || '')
+
+			// Inicializar novos campos
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setDeckId(card.deckId || null)
+			// eslint-disable-next-line react-you-might-not-need-an-effect/no-derived-state
+			setCardType(card.cardType || '')
 		}
 	}, [card])
 
@@ -57,11 +104,11 @@ export default function EditarCartaPage({ params }: PageProps) {
 		const formData = new FormData(e.currentTarget)
 
 		const readingTypes = [
-			{ type: 'general', read: formData.get('generalReading')?.toString() || '' },
-			{ type: 'love-relationship', read: formData.get('loveReading')?.toString() || '' },
-			{ type: 'career-money', read: formData.get('careerReading')?.toString() || '' },
-			{ type: 'personal-spiritual', read: formData.get('spiritualReading')?.toString() || '' },
-			{ type: 'inverted', read: formData.get('invertedReading')?.toString() || '' },
+			{ type: 'general' as const, read: generalReading },
+			{ type: 'love-relationship' as const, read: loveReading },
+			{ type: 'career-money' as const, read: careerReading },
+			{ type: 'personal-spiritual' as const, read: spiritualReading },
+			{ type: 'inverted' as const, read: invertedReading },
 		].filter((r) => r.read.length >= 10)
 
 		try {
@@ -69,13 +116,15 @@ export default function EditarCartaPage({ params }: PageProps) {
 				id: card!.id,
 				data: {
 					name: formData.get('name')?.toString() || '',
-					summary: formData.get('summary')?.toString() || '',
-					description: formData.get('description')?.toString() || '',
+					summary,
+					description,
 					imageUrl: imageUrl,
 					verticalMeaning: verticalMeanings,
 					invertedMeaning: invertedMeanings,
 					numerology: formData.get('numerology')?.toString() || '',
 					astrology: formData.get('astrology')?.toString() || null,
+					deckId: deckId || null,
+					cardType: cardType || null,
 					typesOfReading: readingTypes,
 				},
 			})
@@ -122,11 +171,6 @@ export default function EditarCartaPage({ params }: PageProps) {
 		)
 	}
 
-	// Helper para pegar reading type específico
-	const getReadingByType = (type: string) => {
-		return card.typesOfReading.find((r) => r.type === type)?.read || ''
-	}
-
 	return (
 		<div className="space-y-8">
 			{/* Breadcrumb Místico */}
@@ -168,6 +212,45 @@ export default function EditarCartaPage({ params }: PageProps) {
 							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
 							placeholder="Ex: O Mago"
 						/>
+					</div>
+
+					<div>
+						<label htmlFor="deckId" className="block text-sm font-medium mb-2 text-foreground">
+							Baralho
+						</label>
+						<select
+							id="deckId"
+							value={deckId || ''}
+							onChange={(e) => setDeckId(e.target.value || null)}
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
+						>
+							<option value="">Selecione um baralho</option>
+							{decksData?.map((deck) => (
+								<option key={deck.id} value={deck.id}>
+									{deck.name}
+								</option>
+							))}
+						</select>
+						<p className="mt-1 text-xs text-muted-foreground">
+							Opcional - Associe a carta a um baralho específico
+						</p>
+					</div>
+
+					<div>
+						<label htmlFor="cardType" className="block text-sm font-medium mb-2 text-foreground">
+							Tipo de Carta
+						</label>
+						<input
+							type="text"
+							id="cardType"
+							value={cardType}
+							onChange={(e) => setCardType(e.target.value)}
+							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
+							placeholder="Ex: Arcano Maior, Arcano Menor - Número, Carta Cigana"
+						/>
+						<p className="mt-1 text-xs text-muted-foreground">
+							Opcional - Ex: Arcano Maior, Arcano Menor - Corte, Carta Cigana
+						</p>
 					</div>
 
 					<div>
@@ -213,35 +296,21 @@ export default function EditarCartaPage({ params }: PageProps) {
 						)}
 					</div>
 
-					<div>
-						<label htmlFor="summary" className="block text-sm font-medium mb-2 text-foreground">
-							Resumo *
-						</label>
-						<textarea
-							id="summary"
-							name="summary"
-							required
-							rows={3}
-							defaultValue={card.summary}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Resumo curto da carta..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Resumo *"
+						value={summary}
+						onChange={setSummary}
+						placeholder="Resumo curto da carta..."
+						description="Breve resumo sobre a carta (mínimo 10 caracteres)"
+					/>
 
-					<div>
-						<label htmlFor="description" className="block text-sm font-medium mb-2 text-foreground">
-							Descrição *
-						</label>
-						<textarea
-							id="description"
-							name="description"
-							required
-							rows={6}
-							defaultValue={card.description}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Descrição detalhada da carta..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Descrição *"
+						value={description}
+						onChange={setDescription}
+						placeholder="Descrição detalhada da carta..."
+						description="Descrição completa sobre a carta e seus significados (mínimo 50 caracteres)"
+					/>
 
 					<DynamicTagInput
 						value={verticalMeanings}
@@ -279,75 +348,45 @@ export default function EditarCartaPage({ params }: PageProps) {
 						<p className="mt-2 text-sm text-muted-foreground">Pelo menos um tipo é obrigatório (mínimo 10 caracteres)</p>
 					</div>
 
-					<div>
-						<label htmlFor="generalReading" className="block text-sm font-medium mb-2 text-foreground">
-							Leitura Geral
-						</label>
-						<textarea
-							id="generalReading"
-							name="generalReading"
-							rows={4}
-							defaultValue={getReadingByType('general')}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Interpretação geral da carta..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Leitura Geral"
+						value={generalReading}
+						onChange={setGeneralReading}
+						placeholder="Interpretação geral da carta..."
+						description="Significado geral da carta em qualquer contexto"
+					/>
 
-					<div>
-						<label htmlFor="loveReading" className="block text-sm font-medium mb-2 text-foreground">
-							Amor e Relacionamentos
-						</label>
-						<textarea
-							id="loveReading"
-							name="loveReading"
-							rows={4}
-							defaultValue={getReadingByType('love-relationship')}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Interpretação para amor e relacionamentos..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Amor e Relacionamentos"
+						value={loveReading}
+						onChange={setLoveReading}
+						placeholder="Interpretação para amor e relacionamentos..."
+						description="Como a carta se manifesta em questões amorosas e relacionamentos"
+					/>
 
-					<div>
-						<label htmlFor="careerReading" className="block text-sm font-medium mb-2 text-foreground">
-							Carreira e Dinheiro
-						</label>
-						<textarea
-							id="careerReading"
-							name="careerReading"
-							rows={4}
-							defaultValue={getReadingByType('career-money')}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Interpretação para carreira e finanças..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Carreira e Dinheiro"
+						value={careerReading}
+						onChange={setCareerReading}
+						placeholder="Interpretação para carreira e finanças..."
+						description="Significado da carta para vida profissional e financeira"
+					/>
 
-					<div>
-						<label htmlFor="spiritualReading" className="block text-sm font-medium mb-2 text-foreground">
-							Pessoal e Espiritual
-						</label>
-						<textarea
-							id="spiritualReading"
-							name="spiritualReading"
-							rows={4}
-							defaultValue={getReadingByType('personal-spiritual')}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Interpretação para crescimento pessoal e espiritual..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Pessoal e Espiritual"
+						value={spiritualReading}
+						onChange={setSpiritualReading}
+						placeholder="Interpretação para crescimento pessoal e espiritual..."
+						description="Como a carta orienta o desenvolvimento interior e espiritual"
+					/>
 
-					<div>
-						<label htmlFor="invertedReading" className="block text-sm font-medium mb-2 text-foreground">
-							Leitura Invertida
-						</label>
-						<textarea
-							id="invertedReading"
-							name="invertedReading"
-							rows={4}
-							defaultValue={getReadingByType('inverted')}
-							className="w-full rounded-md border border-border/40 bg-background px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 transition-all"
-							placeholder="Interpretação quando a carta aparece invertida..."
-						/>
-					</div>
+					<RichTextEditor
+						label="Leitura Invertida"
+						value={invertedReading}
+						onChange={setInvertedReading}
+						placeholder="Interpretação quando a carta aparece invertida..."
+						description="Significado quando a carta surge de cabeça para baixo"
+					/>
 				</div>
 
 				{/* Error State */}
