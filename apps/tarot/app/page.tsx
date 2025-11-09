@@ -3,8 +3,23 @@
 import { SacredEyeLogo } from '@workspace/ui'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function TarotHomePage() {
+	// Gera partículas apenas no cliente para evitar hydration mismatch
+	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>([])
+
+	useEffect(() => {
+		setParticles(
+			Array.from({ length: 30 }).map(() => ({
+				left: `${Math.random() * 100}%`,
+				top: `${Math.random() * 100}%`,
+				delay: `${Math.random() * 5}s`,
+				duration: `${10 + Math.random() * 10}s`,
+			}))
+		)
+	}, [])
+
 	return (
 		<div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
 			{/* ═══════════════════════════════════════════════════════
@@ -28,15 +43,15 @@ export default function TarotHomePage() {
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] bg-gradient-to-tl from-indigo-600/10 via-purple-600/5 to-transparent rounded-full blur-2xl animate-pulse [animation-duration:3s] [animation-delay:1s]" />
 
 				{/* Partículas místicas flutuantes - Poeira estelar */}
-				{Array.from({ length: 30 }).map((_, i) => (
+				{particles.map((particle, i) => (
 					<div
 						key={i}
 						className="absolute size-1 rounded-full bg-purple-400/30 animate-float"
 						style={{
-							left: `${Math.random() * 100}%`,
-							top: `${Math.random() * 100}%`,
-							animationDelay: `${Math.random() * 5}s`,
-							animationDuration: `${10 + Math.random() * 10}s`,
+							left: particle.left,
+							top: particle.top,
+							animationDelay: particle.delay,
+							animationDuration: particle.duration,
 						}}
 					/>
 				))}
