@@ -1,6 +1,6 @@
 'use client'
 
-import { Eye, Hexagon, Circle, Sparkles } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { cn } from '../../lib/utils'
 
@@ -85,7 +85,7 @@ export function SacredEyeLogo({
 				currentSize.hexagon,
 				!disableAnimation && 'animate-spin-slow',
 			)}>
-				<Hexagon className="size-full text-purple-500/20" strokeWidth={0.5} />
+				<Icon icon="lucide:hexagon" className="size-full text-purple-500/20" />
 			</div>
 
 			{/* Middle circle pulsing */}
@@ -94,7 +94,7 @@ export function SacredEyeLogo({
 				currentSize.circle,
 				!disableAnimation && 'animate-pulse',
 			)}>
-				<Circle className="size-full text-violet-500/30" strokeWidth={0.5} />
+				<Icon icon="lucide:circle" className="size-full text-violet-500/30" />
 			</div>
 
 			{/* Inner eye */}
@@ -102,13 +102,13 @@ export function SacredEyeLogo({
 				'relative flex items-center justify-center rounded-full bg-gradient-to-br from-purple-600/10 to-indigo-600/10 border border-purple-500/20 backdrop-blur-sm',
 				currentSize.eyeBg,
 			)}>
-				<Eye
+				<Icon
+					icon="lucide:eye"
 					className={cn(
 						currentSize.eye,
 						'text-purple-600 dark:text-purple-400',
 						!disableAnimation && 'animate-pulse',
 					)}
-					strokeWidth={1.5}
 				/>
 			</div>
 
@@ -118,19 +118,19 @@ export function SacredEyeLogo({
 				currentSize.sparkles,
 				!disableAnimation && 'animate-spin-slow [animation-duration:8s]',
 			)}>
-				<Sparkles className={cn(
+				<Icon icon="lucide:sparkles" className={cn(
 					'absolute top-0 left-1/2 -translate-x-1/2 text-purple-400',
 					currentSize.sparkleIcon,
 				)} />
-				<Sparkles className={cn(
+				<Icon icon="lucide:sparkles" className={cn(
 					'absolute bottom-0 left-1/2 -translate-x-1/2 text-indigo-400',
 					currentSize.sparkleIcon,
 				)} />
-				<Sparkles className={cn(
+				<Icon icon="lucide:sparkles" className={cn(
 					'absolute left-0 top-1/2 -translate-y-1/2 text-violet-400',
 					currentSize.sparkleIcon,
 				)} />
-				<Sparkles className={cn(
+				<Icon icon="lucide:sparkles" className={cn(
 					'absolute right-0 top-1/2 -translate-y-1/2 text-purple-400',
 					currentSize.sparkleIcon,
 				)} />

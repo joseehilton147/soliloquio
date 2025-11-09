@@ -4,17 +4,7 @@ import { CardSuitEnum, type CardSuitValue } from '@workspace/core/tarot'
 import { RichTextEditor } from '@workspace/ui'
 import { DynamicTagInput } from '@workspace/ui/components/organisms/dynamic-tag-input'
 import { ImageUploader } from '@workspace/ui/components/organisms/image-uploader'
-import {
-	ArrowLeft,
-	Sparkles,
-	CheckCircle2,
-	AlertCircle,
-	BookOpen,
-	Image as ImageIcon,
-	Hash,
-	Star,
-	Layers
-} from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -151,7 +141,7 @@ export default function NovaCartaPage() {
 						) : (
 							<div className="aspect-[2/3] w-full rounded-lg border-2 border-dashed border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
 								<div className="text-center space-y-2">
-									<ImageIcon className="size-12 text-purple-500/40 mx-auto" />
+									<Icon icon="lucide:image" className="size-12 text-purple-500/40 mx-auto" />
 									<p className="text-sm text-muted-foreground">
 										Aguardando upload
 									</p>

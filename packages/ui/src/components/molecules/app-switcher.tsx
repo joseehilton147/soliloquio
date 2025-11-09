@@ -1,7 +1,6 @@
 'use client'
 
-import type { LucideIcon } from 'lucide-react'
-import { ChevronDown } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -10,7 +9,7 @@ import { cn } from '../../lib/utils'
 export interface AppItem {
 	id: string
 	name: string
-	icon: LucideIcon
+	icon: string
 	href: string
 	available: boolean
 	description?: string
@@ -68,7 +67,7 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 				)}
 			>
 				<span>Apps</span>
-				<ChevronDown className={cn(
+				<Icon icon="lucide:chevron-down" className={cn(
 					'size-4 transition-transform duration-200',
 					isOpen && 'rotate-180',
 				)} />
@@ -85,7 +84,6 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 
 							<div className="relative space-y-1">
 								{apps.map((app) => {
-									const AppIcon = app.icon
 									return (
 										<Link
 											key={app.id}
@@ -110,7 +108,7 @@ export function AppSwitcher({ apps, onAppChange, className }: AppSwitcherProps) 
 												<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/app:from-purple-500/10 group-hover/app:via-violet-500/10 group-hover/app:to-indigo-500/10 transition-all duration-300" />
 											)}
 
-											<AppIcon className={cn(
+											<Icon icon={app.icon} className={cn(
 												'relative size-5 mt-0.5 transition-all duration-200',
 												app.available
 													? 'text-purple-500/70 group-hover/app:text-purple-500 group-hover/app:scale-110'

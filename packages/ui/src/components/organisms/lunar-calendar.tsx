@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { useEffect, useState } from 'react'
 
 import { getLunarInfo, getNextMoonPhases, type LunarInfo } from '../../lib/lunar-calendar'
@@ -77,7 +77,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 				<MoonPhaseBadge phase={lunarInfo.phase} phaseName={lunarInfo.phaseName} />
 
 				{/* Chevron */}
-				<ChevronDown className={cn(
+				<Icon icon="lucide:chevron-down" className={cn(
 					'size-4 text-muted-foreground transition-transform duration-200',
 					isOpen && 'rotate-180',
 				)} />

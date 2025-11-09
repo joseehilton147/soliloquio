@@ -17,7 +17,7 @@ export interface CardBadgeProps {
  * Usado para indicar: baralho, tipo de carta, etc.
  */
 export function CardBadge({
-	icon: Icon,
+	icon,
 	label,
 	position = 'top-left',
 	className,
@@ -38,7 +38,7 @@ export function CardBadge({
 			)}
 		>
 			<div className="flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur-md px-3 py-1.5 text-xs font-medium text-foreground/80 border border-purple-500/30 shadow-lg">
-				<Icon className="size-3 text-purple-600 dark:text-purple-400" />
+				<Icon icon={icon} className="size-3 text-purple-600 dark:text-purple-400" />
 				<span>{label}</span>
 			</div>
 		</div>

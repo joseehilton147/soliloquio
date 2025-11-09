@@ -1,6 +1,6 @@
 'use client'
 
-import { Upload } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import * as React from 'react'
 
 import { cn } from '../../lib/utils'
@@ -105,7 +105,7 @@ export function FileDropZone({
 				onDrop={handleDrop}
 				onClick={handleClick}
 			>
-				<Upload
+				<Icon icon="lucide:upload"
 					className={cn(
 						'mb-4 size-12 text-muted-foreground transition-colors',
 						isDragging && 'text-primary',

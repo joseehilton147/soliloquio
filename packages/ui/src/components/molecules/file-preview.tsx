@@ -1,6 +1,6 @@
 'use client'
 
-import { X, FileImage } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import * as React from 'react'
 
@@ -51,7 +51,7 @@ export function FilePreview({ file, onRemove, className }: FilePreviewProps) {
 				className="absolute right-2 top-2 size-8 rounded-full"
 				onClick={onRemove}
 			>
-				<X className="size-4" />
+				<Icon icon="lucide:x" className="size-4" />
 				<span className="sr-only">Remover arquivo</span>
 			</Button>
 
@@ -70,7 +70,7 @@ export function FilePreview({ file, onRemove, className }: FilePreviewProps) {
 						)
 						: (
 							<div className="flex size-full items-center justify-center">
-								<FileImage className="size-8 text-muted-foreground" />
+								<Icon icon="lucide:file-image" className="size-8 text-muted-foreground" />
 							</div>
 						)}
 				</div>

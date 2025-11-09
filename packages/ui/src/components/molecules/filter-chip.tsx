@@ -1,6 +1,6 @@
 'use client'
 
-import { X } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { cn } from '../../lib/utils'
 
 export interface FilterChipProps {
@@ -106,7 +106,7 @@ export function FilterChip({
 						'hover:bg-white/20',
 					)}
 				>
-					<X className="size-3" strokeWidth={2.5} />
+					<Icon icon="lucide:x" className="size-3"  />
 				</button>
 			)}
 		</button>

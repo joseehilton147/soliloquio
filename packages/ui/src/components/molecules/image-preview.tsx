@@ -1,6 +1,6 @@
 'use client'
 
-import { X } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import * as React from 'react'
 
@@ -27,7 +27,7 @@ export function ImagePreview({ imageUrl, onRemove, className }: ImagePreviewProp
 				className="absolute right-2 top-2 size-8 rounded-full"
 				onClick={onRemove}
 			>
-				<X className="size-4" />
+				<Icon icon="lucide:x" className="size-4" />
 				<span className="sr-only">Remover imagem</span>
 			</Button>
 

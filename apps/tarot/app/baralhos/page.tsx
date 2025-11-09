@@ -1,7 +1,7 @@
 'use client'
 
 import { MysticalLoading } from '@workspace/ui'
-import { Layers, Plus, Sparkles, Moon, Circle, Eye, Star, BookOpen } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { trpc } from '../../src/lib/trpc'
@@ -34,10 +34,10 @@ export default function BaralhosPage() {
 					{/* Sacred Symbol */}
 					<div className="relative inline-flex items-center justify-center">
 						<div className="absolute size-24 animate-spin-slow [animation-duration:10s]">
-							<Circle className="size-full text-purple-500/20" strokeWidth={0.5} />
+							<Icon icon="lucide:circle" className="size-full text-purple-500/20" strokeWidth={0.5} />
 						</div>
 						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-							<Moon className="size-10 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
+							<Icon icon="lucide:moon" className="size-10 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
 						</div>
 					</div>
 
@@ -114,7 +114,7 @@ export default function BaralhosPage() {
 										) : (
 											<div className="flex h-full items-center justify-center">
 												<div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-600/20 border border-purple-500/30">
-													<Layers className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />
+													<Icon icon="lucide:layers" className="size-10 text-purple-600/50 dark:text-purple-400/50" strokeWidth={1.5} />
 												</div>
 											</div>
 										)}
@@ -128,7 +128,7 @@ export default function BaralhosPage() {
 
 										{/* Sparkle icon on hover */}
 										<div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
-											<Sparkles className="size-5 text-purple-400 animate-pulse" />
+											<Icon icon="lucide:sparkles" className="size-5 text-purple-400 animate-pulse" />
 										</div>
 									</div>
 
@@ -186,13 +186,13 @@ export default function BaralhosPage() {
 
 							{/* Mystical Symbols */}
 							<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
-								<Moon className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:moon" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Eye className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:eye" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Layers className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:layers" className="size-5" strokeWidth={1} />
 								<span className="size-1 rounded-full bg-current" />
-								<Sparkles className="size-5" strokeWidth={1} />
+								<Icon icon="lucide:sparkles" className="size-5" strokeWidth={1} />
 							</div>
 						</div>
 					</>
@@ -204,7 +204,7 @@ export default function BaralhosPage() {
 						<div className="relative">
 							<div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
 							<div className="relative flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
-								<Layers className="size-10 text-purple-600/50 dark:text-purple-400/50" />
+								<Icon icon="lucide:layers" className="size-10 text-purple-600/50 dark:text-purple-400/50" />
 							</div>
 						</div>
 						<h3 className="mt-8 text-2xl font-semibold">Nenhum baralho encontrado</h3>
@@ -215,7 +215,7 @@ export default function BaralhosPage() {
 							href="/baralhos/novo"
 							className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 transition-all hover:scale-105"
 						>
-							<Plus className="size-4 transition-transform group-hover:rotate-90" />
+							<Icon icon="lucide:plus" className="size-4 transition-transform group-hover:rotate-90" />
 							Criar Primeiro Baralho
 						</Link>
 					</div>

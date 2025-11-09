@@ -2,18 +2,7 @@
 
 import { useEditor, EditorContent, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import {
-	Bold,
-	Italic,
-	List,
-	ListOrdered,
-	Heading2,
-	Heading3,
-	Quote,
-	Undo,
-	Redo,
-	Minus,
-} from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { useEffect } from 'react'
 import { cn } from '../../lib/utils'
 
@@ -161,7 +150,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('bold'))}
 				title="Negrito (Ctrl+B)"
 			>
-				<Bold className="size-4" />
+				<Icon icon="lucide:bold" className="size-4" />
 			</button>
 
 			<button
@@ -171,7 +160,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('italic'))}
 				title="Itálico (Ctrl+I)"
 			>
-				<Italic className="size-4" />
+				<Icon icon="lucide:italic" className="size-4" />
 			</button>
 
 			<div className="mx-1 h-6 w-px bg-border/40" />
@@ -183,7 +172,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('heading', { level: 2 }))}
 				title="Título 2"
 			>
-				<Heading2 className="size-4" />
+				<Icon icon="lucide:heading-2" className="size-4" />
 			</button>
 
 			<button
@@ -192,7 +181,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('heading', { level: 3 }))}
 				title="Título 3"
 			>
-				<Heading3 className="size-4" />
+				<Icon icon="lucide:heading-3" className="size-4" />
 			</button>
 
 			<div className="mx-1 h-6 w-px bg-border/40" />
@@ -204,7 +193,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('bulletList'))}
 				title="Lista com marcadores"
 			>
-				<List className="size-4" />
+				<Icon icon="lucide:list" className="size-4" />
 			</button>
 
 			<button
@@ -213,7 +202,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('orderedList'))}
 				title="Lista numerada"
 			>
-				<ListOrdered className="size-4" />
+				<Icon icon="lucide:list-ordered" className="size-4" />
 			</button>
 
 			<div className="mx-1 h-6 w-px bg-border/40" />
@@ -225,7 +214,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(editor.isActive('blockquote'))}
 				title="Citação"
 			>
-				<Quote className="size-4" />
+				<Icon icon="lucide:quote" className="size-4" />
 			</button>
 
 			<div className="mx-1 h-6 w-px bg-border/40" />
@@ -237,7 +226,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(false)}
 				title="Linha horizontal"
 			>
-				<Minus className="size-4" />
+				<Icon icon="lucide:minus" className="size-4" />
 			</button>
 
 			<div className="mx-1 h-6 w-px bg-border/40" />
@@ -250,7 +239,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(false)}
 				title="Desfazer (Ctrl+Z)"
 			>
-				<Undo className="size-4" />
+				<Icon icon="lucide:undo" className="size-4" />
 			</button>
 
 			<button
@@ -260,7 +249,7 @@ function MenuBar({ editor, className }: MenuBarProps) {
 				className={buttonClass(false)}
 				title="Refazer (Ctrl+Y)"
 			>
-				<Redo className="size-4" />
+				<Icon icon="lucide:redo" className="size-4" />
 			</button>
 		</div>
 	)

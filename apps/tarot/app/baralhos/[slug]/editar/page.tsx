@@ -2,14 +2,7 @@
 
 import { ImageUploader } from '@workspace/ui/components/organisms/image-uploader'
 import { MysticalLoading } from '@workspace/ui'
-import {
-	ArrowLeft,
-	Sparkles,
-	BookOpen,
-	Image as ImageIcon,
-	Calendar,
-	Building
-} from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -102,7 +95,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 					href="/baralhos"
 					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 				>
-					<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
+					<Icon icon="lucide:arrow-left" className="size-4 group-hover:-translate-x-1 transition-transform" />
 					Voltar para baralhos
 				</Link>
 				<div className="rounded-xl border-2 border-destructive/50 bg-destructive/10 p-6">
@@ -121,7 +114,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 				href={`/baralhos/${deck.slug}`}
 				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 			>
-				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
+				<Icon icon="lucide:arrow-left" className="size-4 group-hover:-translate-x-1 transition-transform" />
 				Voltar para baralho
 			</Link>
 
@@ -141,7 +134,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 					{/* Preview da Imagem */}
 					<div className="rounded-xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-indigo-500/10 p-5 backdrop-blur-sm shadow-lg shadow-purple-500/10">
 						<div className="flex items-center gap-2 mb-4">
-							<ImageIcon className="size-5 text-purple-600 dark:text-purple-400" />
+							<Icon icon="lucide:image" className="size-5 text-purple-600 dark:text-purple-400" />
 							<h2 className="font-semibold text-lg bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Imagem de Capa
 							</h2>
@@ -161,7 +154,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 						) : (
 							<div className="aspect-square w-full rounded-lg border-2 border-dashed border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
 								<div className="text-center space-y-2">
-									<ImageIcon className="size-12 text-purple-500/40 mx-auto" />
+									<Icon icon="lucide:image" className="size-12 text-purple-500/40 mx-auto" />
 									<p className="text-sm text-muted-foreground">
 										Aguardando upload
 									</p>
@@ -184,7 +177,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 					{/* Preview Info Rápida */}
 					<div className="rounded-xl border-2 border-violet-500/30 bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 p-5 backdrop-blur-sm shadow-lg shadow-violet-500/10">
 						<div className="flex items-center gap-2 mb-4">
-							<Sparkles className="size-5 text-violet-600 dark:text-violet-400" />
+							<Icon icon="lucide:sparkles" className="size-5 text-violet-600 dark:text-violet-400" />
 							<h2 className="font-semibold text-lg bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Resumo
 							</h2>
@@ -227,7 +220,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 					{/* Informações Básicas */}
 					<div className="rounded-xl border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-500/10 via-blue-500/10 to-purple-500/10 p-6 backdrop-blur-sm shadow-lg shadow-indigo-500/10">
 						<div className="flex items-center gap-2 mb-5">
-							<BookOpen className="size-5 text-indigo-600 dark:text-indigo-400" />
+							<Icon icon="lucide:book-open" className="size-5 text-indigo-600 dark:text-indigo-400" />
 							<h2 className="text-xl font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
 								Informações do Baralho
 							</h2>
@@ -266,7 +259,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 							<div className="grid grid-cols-2 gap-4">
 								<div>
 									<label htmlFor="publisher" className="block text-sm font-medium mb-2 text-foreground">
-										<Building className="size-4 inline mr-1.5 text-indigo-500" />
+										<Icon icon="lucide:building" className="size-4 inline mr-1.5 text-indigo-500" />
 										Editora
 									</label>
 									<input
@@ -281,7 +274,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 
 								<div>
 									<label htmlFor="year" className="block text-sm font-medium mb-2 text-foreground">
-										<Calendar className="size-4 inline mr-1.5 text-indigo-500" />
+										<Icon icon="lucide:calendar" className="size-4 inline mr-1.5 text-indigo-500" />
 										Ano
 									</label>
 									<input
@@ -302,7 +295,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 					{/* Descrição */}
 					<div className="rounded-xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-fuchsia-500/10 to-pink-500/10 p-6 backdrop-blur-sm shadow-lg shadow-purple-500/10">
 						<div className="flex items-center gap-2 mb-5">
-							<BookOpen className="size-5 text-purple-600 dark:text-purple-400" />
+							<Icon icon="lucide:book-open" className="size-5 text-purple-600 dark:text-purple-400" />
 							<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
 								Descrição
 							</h2>
@@ -342,7 +335,7 @@ export default function EditarBaralhoPage({ params }: PageProps) {
 							disabled={isSubmitting}
 							className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/30 transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
 						>
-							<Sparkles className="size-4" />
+							<Icon icon="lucide:sparkles" className="size-4" />
 							{isSubmitting ? 'Salvando Alterações...' : 'Salvar Alterações'}
 						</button>
 						<Link

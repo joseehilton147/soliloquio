@@ -1,6 +1,6 @@
 'use client'
 
-import { X } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import * as React from 'react'
 
 import { cn } from '../../lib/utils'
@@ -40,7 +40,7 @@ export function Tag({ value, onRemove, variant = 'default', className }: TagProp
 					onClick={onRemove}
 					className="ml-1 rounded-full p-0.5 hover:bg-black/10 dark:hover:bg-white/10"
 				>
-					<X className="size-3" />
+					<Icon icon="lucide:x" className="size-3" />
 					<span className="sr-only">Remover {value}</span>
 				</button>
 			)}

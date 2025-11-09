@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles, Home, ChevronRight } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 
 import { cn } from '../../lib/utils'
@@ -42,10 +42,9 @@ export function MysticalBreadcrumb({
 									>
 										{/* Ícone Home para primeiro item */}
 										{isFirst && (
-											<Home
+											<Icon icon="lucide:home"
 												className="size-4 text-muted-foreground group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors"
-												strokeWidth={2}
-											/>
+																							/>
 										)}
 										<span className="text-muted-foreground group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors">
 											{item.label}
@@ -63,15 +62,14 @@ export function MysticalBreadcrumb({
 									>
 										{/* Ícone Home para primeiro item sem link */}
 										{isFirst && !isLast && (
-											<Home className="size-4 text-muted-foreground" strokeWidth={2} />
+											<Icon icon="lucide:home" className="size-4 text-muted-foreground" strokeWidth={2} />
 										)}
 
 										{/* Sparkle místico para última página */}
 										{isLast && showSparkles && (
-											<Sparkles
+											<Icon icon="lucide:sparkles"
 												className="size-4 text-purple-600 dark:text-purple-400"
-												strokeWidth={2}
-											/>
+																							/>
 										)}
 
 										{item.label}
@@ -80,10 +78,9 @@ export function MysticalBreadcrumb({
 
 							{/* Separador */}
 							{!isLast && (
-								<ChevronRight
+								<Icon icon="lucide:chevron-right"
 									className="size-4 text-muted-foreground/40"
-									strokeWidth={2}
-									aria-hidden="true"
+																		aria-hidden="true"
 								/>
 							)}
 						</li>

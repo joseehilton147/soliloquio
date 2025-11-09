@@ -1,6 +1,6 @@
 'use client'
 
-import { Loader2 } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import * as React from 'react'
 
 import { cn } from '../../lib/utils'
@@ -99,7 +99,7 @@ export function ImageUploader({
 			{isUploading
 				? (
 					<div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-8">
-						<Loader2 className="mb-4 size-12 animate-spin text-primary" />
+						<Icon icon="lucide:loader-2" className="mb-4 size-12 animate-spin text-primary" />
 						<p className="text-sm font-medium">Fazendo upload da imagem...</p>
 						<p className="mt-1 text-xs text-muted-foreground">Aguarde um momento</p>
 					</div>

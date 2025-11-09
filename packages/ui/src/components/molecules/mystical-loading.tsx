@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles } from 'lucide-react'
+import { Icon } from '@iconify/react'
 import { cn } from '../../lib/utils'
 
 export interface MysticalLoadingProps {
@@ -80,14 +80,16 @@ export function MysticalLoading({
 			{/* Órbita animada */}
 			<div className="absolute inset-0 animate-spin [animation-duration:3s]">
 				{/* Sparkle orbitante superior */}
-				<Sparkles
+				<Icon
+				icon="lucide:sparkles"
 					className={cn(
 						'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-purple-500 animate-pulse',
 						orbitIconSizeMap[size],
 					)}
 				/>
 				{/* Sparkle orbitante inferior */}
-				<Sparkles
+				<Icon
+				icon="lucide:sparkles"
 					className={cn(
 						'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-indigo-500 animate-pulse [animation-delay:0.5s]',
 						orbitIconSizeMap[size],
@@ -97,7 +99,8 @@ export function MysticalLoading({
 
 			{/* Sparkle central brilhante */}
 			<div className="absolute inset-0 flex items-center justify-center">
-				<Sparkles
+				<Icon
+				icon="lucide:sparkles"
 					className={cn(
 						'text-purple-600 dark:text-purple-400 animate-pulse [animation-duration:2s]',
 						iconSizeMap[size],

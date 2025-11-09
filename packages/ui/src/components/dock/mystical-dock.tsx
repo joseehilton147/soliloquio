@@ -208,7 +208,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 				{/* Hover glow effect */}
 				<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
-				<Icon icon={item.icon} className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />
+				{item.icon && <Icon icon={item.icon} className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />}
 				<span className="relative flex-1">{item.label}</span>
 
 				{/* Seta para indicar que tem submenu */}
