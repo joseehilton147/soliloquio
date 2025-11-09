@@ -24,7 +24,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'home',
     label: 'Início',
-    icon: 'lucide:home',
+    icon: 'game-icons:magic-portal',
     href: '/',
     type: 'link',
     position: 'left',
@@ -79,7 +79,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'busca',
     label: 'Buscar (⌘K)',
-    icon: 'lucide:search',
+    icon: 'game-icons:crystal-ball',
     action: onSearchOpen,
     type: 'action',
     position: 'left',
@@ -91,7 +91,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'configuracoes',
     label: 'Configurações',
-    icon: 'lucide:settings',
+    icon: 'game-icons:spell-book',
     href: '/configuracoes',
     type: 'link',
     position: 'right',
@@ -99,7 +99,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'usuario',
     label: 'Perfil',
-    icon: 'lucide:user',
+    icon: 'game-icons:hooded-figure',
     href: '/perfil',
     type: 'link',
     position: 'right',
