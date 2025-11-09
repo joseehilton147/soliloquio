@@ -71,8 +71,8 @@ export default function CopasPage() {
 
 					{/* Breadcrumb */}
 					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">
-							Cartas
+						<Link href="/cartas/naipes" className="hover:text-red-600 dark:hover:text-red-400 transition-colors">
+							Naipes
 						</Link>
 						<span className="text-red-500/50">/</span>
 						<span className="text-foreground font-medium">Copas</span>

@@ -71,11 +71,11 @@ export default function ArcanosMaioresPage() {
 
 					{/* Breadcrumb */}
 					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-							Cartas
+						<Link href="/cartas/arcanos" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
+							Arcanos
 						</Link>
 						<span className="text-violet-500/50">/</span>
-						<span className="text-foreground font-medium">Arcanos Maiores</span>
+						<span className="text-foreground font-medium">Maiores</span>
 					</div>
 				</div>
 

@@ -71,8 +71,8 @@ export default function PausPage() {
 
 					{/* Breadcrumb */}
 					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
-							Cartas
+						<Link href="/cartas/naipes" className="hover:text-green-600 dark:hover:text-green-400 transition-colors">
+							Naipes
 						</Link>
 						<span className="text-green-500/50">/</span>
 						<span className="text-foreground font-medium">Paus</span>

@@ -1,4 +1,4 @@
-import { Home, BookOpen, Layers, Settings, Search, Plus, User } from 'lucide-react'
+import { Home, BookOpen, Layers, Settings, Search, Plus, User, Crown, Sparkles, Heart, Flame, Coins, Swords } from 'lucide-react'
 import type { DockItem } from '@workspace/ui/components/dock/mystical-dock'
 
 /**
@@ -34,10 +34,22 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
     id: 'cartas',
     label: 'Cartas',
     icon: BookOpen,
-    href: '/cartas',
     type: 'link',
     position: 'left',
     submenu: [
+      // Arcanos
+      { label: 'Arcanos', href: '/cartas/arcanos', icon: Sparkles },
+      { label: '  Maiores', href: '/cartas/arcanos/maiores', icon: Crown },
+      { label: '  Menores', href: '/cartas/arcanos/menores', icon: Layers },
+
+      // Naipes
+      { label: 'Naipes', href: '/cartas/naipes', icon: BookOpen },
+      { label: '  Copas', href: '/cartas/naipes/copas', icon: Heart },
+      { label: '  Paus', href: '/cartas/naipes/paus', icon: Flame },
+      { label: '  Ouros', href: '/cartas/naipes/ouros', icon: Coins },
+      { label: '  Espadas', href: '/cartas/naipes/espadas', icon: Swords },
+
+      // Ação
       { label: 'Nova Carta', href: '/cartas/nova', icon: Plus },
     ],
   },

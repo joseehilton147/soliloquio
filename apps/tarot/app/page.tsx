@@ -86,7 +86,7 @@ export default function TarotHomePage() {
 
 					{/* Pillar 2: Cartas */}
 					<Link
-						href="/cartas"
+						href="/cartas/arcanos"
 						className="group relative flex"
 					>
 						<div className="flex flex-col h-full w-full text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/10 hover:border-violet-500/30 hover:-translate-y-2">

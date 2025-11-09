@@ -108,7 +108,7 @@ export default function NovaCartaPage() {
 		<div className="space-y-6">
 			{/* Breadcrumb Místico */}
 			<Link
-				href="/cartas"
+				href="/cartas/arcanos"
 				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 			>
 				<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
@@ -486,7 +486,7 @@ export default function NovaCartaPage() {
 							{isSubmitting ? 'Criando Carta...' : 'Criar Carta'}
 						</button>
 						<Link
-							href="/cartas"
+							href="/cartas/arcanos"
 							className="inline-flex items-center justify-center rounded-lg border-2 border-border/40 bg-background/50 px-6 py-3 text-sm font-medium hover:bg-accent transition-all"
 						>
 							Cancelar

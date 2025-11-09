@@ -71,8 +71,8 @@ export default function EspadasPage() {
 
 					{/* Breadcrumb */}
 					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-							Cartas
+						<Link href="/cartas/naipes" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+							Naipes
 						</Link>
 						<span className="text-blue-500/50">/</span>
 						<span className="text-foreground font-medium">Espadas</span>

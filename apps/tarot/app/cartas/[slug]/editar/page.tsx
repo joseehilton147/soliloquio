@@ -156,7 +156,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 		return (
 			<div className="space-y-4">
 				<Link
-					href="/cartas"
+					href="/cartas/arcanos"
 					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors group"
 				>
 					<ArrowLeft className="size-4 group-hover:-translate-x-1 transition-transform" />

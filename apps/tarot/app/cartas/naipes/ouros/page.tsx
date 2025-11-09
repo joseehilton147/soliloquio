@@ -71,8 +71,8 @@ export default function OurosPage() {
 
 					{/* Breadcrumb */}
 					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas" className="hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors">
-							Cartas
+						<Link href="/cartas/naipes" className="hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors">
+							Naipes
 						</Link>
 						<span className="text-yellow-500/50">/</span>
 						<span className="text-foreground font-medium">Ouros</span>
