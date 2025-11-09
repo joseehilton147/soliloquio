@@ -67,6 +67,7 @@ model TarotCard {
   deckId          String?
   deck            TarotDeck?    @relation(fields: [deckId], references: [id], onDelete: Cascade)
 
+  cardType        String?       // "Arcano Maior", "Arcano Menor - Número", "Arcano Menor - Corte", "Carta Cigana", etc.
   summary         String
   description     String
   imageUrl        String?       // Image path for the card

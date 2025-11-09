@@ -70,9 +70,10 @@ export const tarotRouter = router({
 
   /**
    * Buscar carta por nome
+   * Nota: Como name não é único, retorna a primeira carta encontrada
    */
   getByName: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const card = await ctx.prisma.tarotCard.findUnique({
+    const card = await ctx.prisma.tarotCard.findFirst({
       where: { name: input },
       include: {
         typesOfReading: true,

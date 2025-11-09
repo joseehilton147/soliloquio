@@ -32,6 +32,8 @@ export const tarotCardSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().min(1, 'Nome da carta é obrigatório'),
   slug: z.string().optional().nullable(),
+  deckId: z.string().uuid().optional().nullable(),
+  cardType: z.string().optional().nullable(),
   summary: z.string().min(10, 'Resumo deve ter no mínimo 10 caracteres'),
   description: z.string().min(50, 'Descrição deve ter no mínimo 50 caracteres'),
   imageUrl: z.string().optional().nullable(),
