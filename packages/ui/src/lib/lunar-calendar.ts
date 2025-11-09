@@ -147,7 +147,7 @@ export function getLunarInfo(date: Date = new Date()): LunarInfo {
 	const nextPhaseInfo = getNextPhase(age, phase)
 
 	// Calcular dias até próxima fase principal
-	const daysUntilNext = Math.round(nextPhaseInfo.daysUntil || (nextPhaseInfo.date.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+	const daysUntilNext = Math.round((nextPhaseInfo.date.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
 
 	return {
 		phase,

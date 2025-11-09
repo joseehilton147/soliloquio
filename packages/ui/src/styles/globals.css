@@ -126,10 +126,23 @@
   }
 }
 
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @layer utilities {
   .animate-gradient-xy {
     background-size: 200% 200%;
     animation: gradient-xy 3s ease infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
   }
 
   /* Classe para permitir seleção de texto quando necessário */
