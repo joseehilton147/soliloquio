@@ -58,7 +58,7 @@ export function AppHeader({ logo, apps, rightContent, onAppChange }: AppHeaderPr
 	}
 
 	return (
-		<header className="fixed top-0 inset-x-0 z-40">
+		<header className="fixed top-0 inset-x-0 z-60">
 			{/* Glass effect container */}
 			<div className="absolute inset-0 bg-background/60 backdrop-blur-xl border-b border-white/5" />
 
