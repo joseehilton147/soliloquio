@@ -14,14 +14,14 @@ import { cn } from '../../lib/utils'
 export interface DockSubitem {
 	label: string
 	href: string
-	icon?: string  // Iconify icon name (ex: "lucide:home")
-	children?: DockSubitem[]  // Suporta aninhamento recursivo
+	icon?: string
+	children?: DockSubitem[]
 }
 
 export interface DockItem {
 	id: string
 	label: string
-	icon: string  // Iconify icon name (ex: "lucide:home")
+	icon: string
 	href?: string
 	action?: () => void
 	type?: 'link' | 'action'
@@ -44,8 +44,185 @@ interface MysticalDockProps {
 	settings: DockSettings
 }
 
-// Profundidade máxima de submenus aninhados (proteção contra loops e má UX)
 const MAX_DEPTH = 3
+
+type Orientation = 'right' | 'left' | 'top' | 'bottom'
+type DockPosition = 'bottom' | 'top' | 'left' | 'right'
+
+interface SpaceAvailable {
+	right: number
+	left: number
+	top: number
+	bottom: number
+}
+
+/**
+ * Calcula orientação do submenu baseado em level e espaço disponível
+ */
+function calculateOrientation(
+	level: number,
+	dockPosition: DockPosition,
+	space: SpaceAvailable,
+): Orientation {
+	if (level > 1) {
+		return space.left >= space.right ? 'left' : 'right'
+	}
+
+	switch (dockPosition) {
+		case 'right':
+			return 'left'
+		case 'left':
+			return 'right'
+		case 'bottom':
+			return 'top'
+		case 'top':
+			return 'bottom'
+		default:
+			return 'right'
+	}
+}
+
+/**
+ * Retorna classes CSS para posicionar submenu
+ */
+function getSubmenuPositionClasses(level: number, orientation: Orientation): string {
+	if (level > 1) {
+		if (orientation === 'right') return 'left-full ml-2 top-1/2 -translate-y-1/2 slide-in-from-left-2'
+		if (orientation === 'left') return 'right-full mr-2 top-1/2 -translate-y-1/2 slide-in-from-right-2'
+		return 'left-full ml-2 top-1/2 -translate-y-1/2 slide-in-from-left-2'
+	}
+
+	if (orientation === 'right') return 'left-full ml-2 top-1/2 -translate-y-1/2 slide-in-from-left-2'
+	if (orientation === 'left') return 'right-full mr-2 top-1/2 -translate-y-1/2 slide-in-from-right-2'
+	if (orientation === 'bottom') return 'top-full mt-2 slide-in-from-top-2'
+	if (orientation === 'top') return 'bottom-full mb-2 slide-in-from-bottom-2'
+	return 'left-full ml-2 top-1/2 -translate-y-1/2 slide-in-from-left-2'
+}
+
+/**
+ * Retorna classes CSS para posicionar seta de conexão
+ */
+function getArrowPositionClasses(level: number, orientation: Orientation): string {
+	if (level > 1) {
+		if (orientation === 'right') return 'right-full mr-[1px] top-1/2 -translate-y-1/2'
+		if (orientation === 'left') return 'left-full ml-[1px] top-1/2 -translate-y-1/2'
+		return 'right-full mr-[1px] top-1/2 -translate-y-1/2'
+	}
+
+	if (orientation === 'right') return 'right-full mr-[1px] top-1/2 -translate-y-1/2'
+	if (orientation === 'left') return 'left-full ml-[1px] top-1/2 -translate-y-1/2'
+	if (orientation === 'bottom') return 'bottom-full mb-[1px] -translate-x-1/2'
+	if (orientation === 'top') return 'top-full mt-[1px] -translate-x-1/2'
+	return 'right-full mr-[1px] top-1/2 -translate-y-1/2'
+}
+
+/**
+ * Retorna classes CSS para cores da seta
+ */
+function getArrowColorClasses(level: number, orientation: Orientation): string {
+	if (level > 1) {
+		if (orientation === 'right') return 'border-r-purple-500'
+		if (orientation === 'left') return 'border-l-purple-500'
+		return 'border-r-purple-500'
+	}
+
+	if (orientation === 'right') return 'border-r-purple-500'
+	if (orientation === 'left') return 'border-l-purple-500'
+	if (orientation === 'bottom') return 'border-b-purple-500'
+	if (orientation === 'top') return 'border-t-purple-500'
+	return 'border-r-purple-500'
+}
+
+/**
+ * Calcula offset para manter submenu dentro do viewport
+ */
+function calculateOffset(
+	orientation: Orientation,
+	triggerRect: DOMRect,
+	submenuRect: DOMRect,
+	viewportWidth: number,
+	viewportHeight: number,
+	safetyMargin: number,
+): { x: number; y: number } {
+	let offsetX = 0
+	let offsetY = 0
+
+	if (orientation === 'right' || orientation === 'left') {
+		const submenuTop = triggerRect.top
+		const submenuBottom = submenuTop + submenuRect.height
+
+		if (submenuBottom > viewportHeight - safetyMargin) {
+			const overflow = submenuBottom - (viewportHeight - safetyMargin)
+			offsetY = -overflow
+		}
+
+		if (submenuTop + offsetY < safetyMargin) {
+			offsetY = safetyMargin - submenuTop
+		}
+	}
+
+	if (orientation === 'bottom' || orientation === 'top') {
+		const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2)
+		const submenuRight = submenuLeft + submenuRect.width
+
+		if (submenuRight > viewportWidth - safetyMargin) {
+			const overflow = submenuRight - (viewportWidth - safetyMargin)
+			offsetX = -overflow
+		}
+
+		if (submenuLeft + offsetX < safetyMargin) {
+			offsetX = safetyMargin - submenuLeft
+		}
+	}
+
+	return { x: offsetX, y: offsetY }
+}
+
+/**
+ * Calcula posição da seta para alinhar com trigger
+ */
+function calculateArrowPosition(
+	orientation: Orientation,
+	triggerRect: DOMRect,
+	submenuRect: DOMRect,
+): number {
+	if (orientation === 'right' || orientation === 'left') {
+		const triggerCenter = triggerRect.top + (triggerRect.height / 2)
+		const submenuTop = triggerRect.top
+		return triggerCenter - submenuTop
+	}
+
+	if (orientation === 'bottom' || orientation === 'top') {
+		const triggerCenter = triggerRect.left + (triggerRect.width / 2)
+		const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2)
+		return triggerCenter - submenuLeft
+	}
+
+	return 0
+}
+
+/**
+ * Retorna estilo inline para posicionar seta
+ */
+function getArrowPositionStyle(
+	level: number,
+	orientation: Orientation,
+	arrowOffset: number,
+): React.CSSProperties {
+	if (level > 1) {
+		return {}
+	}
+
+	if (orientation === 'right' || orientation === 'left') {
+		return { top: arrowOffset }
+	}
+
+	if (orientation === 'bottom' || orientation === 'top') {
+		return { left: arrowOffset }
+	}
+
+	return {}
+}
 
 /**
  * Componente recursivo para renderizar subitens com aninhamento
@@ -53,7 +230,7 @@ const MAX_DEPTH = 3
 interface SubmenuItemProps {
 	item: DockSubitem
 	level: number
-	dockPosition: 'bottom' | 'top' | 'left' | 'right' // Contexto da dock principal
+	dockPosition: 'bottom' | 'top' | 'left' | 'right'
 	onHover?: (hovering: boolean) => void
 }
 
@@ -67,11 +244,9 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 	const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
 
-	// Detecta melhor orientação e calcula offset para collision detection
 	useEffect(() => {
 		if (!isHovered || !hasChildren || !itemRef.current) return
 
-		// Delay para garantir renderização do submenu
 		const timeout = setTimeout(() => {
 			if (!itemRef.current || !submenuRef.current) return
 
@@ -80,146 +255,46 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 			const viewportWidth = window.innerWidth
 			const viewportHeight = window.innerHeight
 
-			const SPACING = 8 // Espaçamento entre trigger e submenu
-			const SAFETY_MARGIN = 16 // Margem de segurança das bordas
+			const SAFETY_MARGIN = 16
 
-			// Espaço disponível em cada direção
-			const space = {
+			const space: SpaceAvailable = {
 				right: viewportWidth - triggerRect.right - SAFETY_MARGIN,
 				left: triggerRect.left - SAFETY_MARGIN,
 				bottom: viewportHeight - triggerRect.bottom - SAFETY_MARGIN,
 				top: triggerRect.top - SAFETY_MARGIN,
 			}
 
-			// Escolhe orientação com mais espaço
-			// IMPORTANTE: Prioridade ajustada baseada na posição da dock (collision-aware)
-			let newOrientation: 'right' | 'left' | 'top' | 'bottom' = 'right'
+			const newOrientation = calculateOrientation(
+				level,
+				dockPosition,
+				space,
+			)
 
-			// Define ordem de prioridade baseada na posição da dock principal
-			const getPriorityOrder = (): ('right' | 'left' | 'top' | 'bottom')[] => {
-				switch (dockPosition) {
-					case 'right':
-						// Dock à direita: priorizar esquerda para evitar sair da tela
-						return ['left', 'bottom', 'top', 'right']
-					case 'left':
-						// Dock à esquerda: priorizar direita
-						return ['right', 'bottom', 'top', 'left']
-					case 'bottom':
-						// Dock embaixo: priorizar cima
-						return ['top', 'left', 'right', 'bottom']
-					case 'top':
-						// Dock em cima: priorizar baixo
-						return ['bottom', 'left', 'right', 'top']
-					default:
-						return ['right', 'left', 'bottom', 'top']
-				}
-			}
+			const newOffset = calculateOffset(
+				newOrientation,
+				triggerRect,
+				submenuRect,
+				viewportWidth,
+				viewportHeight,
+				SAFETY_MARGIN,
+			)
 
-			const priorityOrder = getPriorityOrder()
-
-			// Tenta cada direção na ordem de prioridade
-			let foundFit = false
-			for (const direction of priorityOrder) {
-				if (direction === 'right' && space.right >= submenuRect.width) {
-					newOrientation = 'right'
-					foundFit = true
-					break
-				} else if (direction === 'left' && space.left >= submenuRect.width) {
-					newOrientation = 'left'
-					foundFit = true
-					break
-				} else if (direction === 'bottom' && space.bottom >= submenuRect.height) {
-					newOrientation = 'bottom'
-					foundFit = true
-					break
-				} else if (direction === 'top' && space.top >= submenuRect.height) {
-					newOrientation = 'top'
-					foundFit = true
-					break
-				}
-			}
-
-			// Se nenhuma direção cabe perfeitamente, escolhe a com MAIS espaço
-			if (!foundFit) {
-				const maxSpace = Math.max(space.right, space.left, space.bottom, space.top)
-				if (maxSpace === space.right) newOrientation = 'right'
-				else if (maxSpace === space.left) newOrientation = 'left'
-				else if (maxSpace === space.bottom) newOrientation = 'bottom'
-				else newOrientation = 'top'
-			}
+			const newArrowOffset = calculateArrowPosition(
+				newOrientation,
+				triggerRect,
+				submenuRect,
+			)
 
 			setOrientation(newOrientation)
-
-			// Calcula offset para manter dentro do viewport
-			let offsetX = 0
-			let offsetY = 0
-
-			if (newOrientation === 'right' || newOrientation === 'left') {
-				// Para orientações laterais, alinha TOP do submenu com TOP do trigger
-				// Depois ajusta se ultrapassar viewport
-
-				// Posição inicial: alinhado com o trigger
-				const submenuTop = triggerRect.top
-				const submenuBottom = submenuTop + submenuRect.height
-
-				// Verifica overflow vertical
-				if (submenuBottom > viewportHeight - SAFETY_MARGIN) {
-					// Submenu ultrapassa parte inferior - ajusta para cima
-					const overflow = submenuBottom - (viewportHeight - SAFETY_MARGIN)
-					offsetY = -overflow
-				}
-
-				if (submenuTop + offsetY < SAFETY_MARGIN) {
-					// Ajuste fez submenu ultrapassar topo - reajusta
-					offsetY = SAFETY_MARGIN - submenuTop
-				}
-			}
-
-			if (newOrientation === 'bottom' || newOrientation === 'top') {
-				// Para orientações verticais, centraliza horizontalmente
-				// Depois ajusta se ultrapassar viewport
-
-				const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2)
-				const submenuRight = submenuLeft + submenuRect.width
-
-				// Verifica overflow horizontal
-				if (submenuRight > viewportWidth - SAFETY_MARGIN) {
-					const overflow = submenuRight - (viewportWidth - SAFETY_MARGIN)
-					offsetX = -overflow
-				}
-
-				if (submenuLeft + offsetX < SAFETY_MARGIN) {
-					offsetX = SAFETY_MARGIN - submenuLeft
-				}
-			}
-
-			setOffset({ x: offsetX, y: offsetY })
-
-			// Calcula posição da seta para alinhar com o trigger (não com centro do submenu)
-			// IMPORTANTE: Submenu JÁ tem transform aplicado, então seta usa posição ORIGINAL
-			if (newOrientation === 'right' || newOrientation === 'left') {
-				// Posição Y do trigger em relação ao submenu (SEM considerar offsetY pois transform já aplica)
-				const triggerCenter = triggerRect.top + (triggerRect.height / 2)
-				const submenuTop = triggerRect.top // Posição ORIGINAL antes do offset
-				const arrowPositionFromTop = triggerCenter - submenuTop
-				setArrowOffset(arrowPositionFromTop)
-			}
-
-			if (newOrientation === 'bottom' || newOrientation === 'top') {
-				// Posição X do trigger em relação ao submenu (SEM considerar offsetX pois transform já aplica)
-				const triggerCenter = triggerRect.left + (triggerRect.width / 2)
-				const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2) // Centralizado
-				const arrowPositionFromLeft = triggerCenter - submenuLeft
-				setArrowOffset(arrowPositionFromLeft)
-			}
+			setOffset(newOffset)
+			setArrowOffset(newArrowOffset)
 		}, 10)
 
 		return () => clearTimeout(timeout)
-	}, [isHovered, hasChildren, dockPosition])
+	}, [isHovered, hasChildren, dockPosition, level])
 
-	// Handlers para hover com delay (evita fechar ao mover mouse entre trigger e submenu)
-	const handleMouseEnter = () => {
-		// Cancela qualquer timeout pendente
+	const handleMouseEnter = (e: React.MouseEvent) => {
+		e.stopPropagation()
 		if (leaveTimeoutRef.current) {
 			clearTimeout(leaveTimeoutRef.current)
 			leaveTimeoutRef.current = null
@@ -228,15 +303,14 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 		onHover?.(true)
 	}
 
-	const handleMouseLeave = () => {
-		// Delay de 150ms antes de fechar (tempo para mover mouse para submenu)
+	const handleMouseLeave = (e: React.MouseEvent) => {
+		e.stopPropagation()
 		leaveTimeoutRef.current = setTimeout(() => {
 			setIsHovered(false)
 			onHover?.(false)
 		}, 150)
 	}
 
-	// Cleanup do timeout ao desmontar
 	useEffect(() => {
 		return () => {
 			if (leaveTimeoutRef.current) {
@@ -267,54 +341,44 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 					'group/sub overflow-hidden',
 				)}
 			>
-				{/* Hover glow effect */}
 				<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
 				{item.icon && <Icon icon={item.icon} className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />}
 				<span className="relative flex-1">{item.label}</span>
 
-				{/* Seta para indicar que tem submenu */}
 				{hasChildren && (
 					<Icon icon="lucide:chevron-right" className="relative size-3.5 text-purple-500/50 group-hover/sub:text-purple-500 group-hover/sub:translate-x-0.5 transition-all duration-200" />
 				)}
 			</Link>
 
-			{/* Submenu aninhado (recursão) */}
 			{hasChildren && isHovered && (
 				<div
 					ref={submenuRef}
 					className={cn(
 						'absolute',
 						'animate-in fade-in duration-200',
-						// Posicionamento baseado na orientação detectada
-						orientation === 'right' && 'left-full ml-2 top-0 slide-in-from-left-2',
-						orientation === 'left' && 'right-full mr-2 top-0 slide-in-from-right-2',
-						orientation === 'bottom' && 'top-full mt-2 slide-in-from-top-2',
-						orientation === 'top' && 'bottom-full mb-2 slide-in-from-bottom-2',
+						getSubmenuPositionClasses(level + 1, orientation),
 					)}
 					style={{
-						zIndex: 50 + (level * 10),
+						zIndex: 10100 + (level * 10),
 						transform: `translate(${offset.x}px, ${offset.y}px)`,
 					}}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
 				>
-					{/* Borda gradiente animada */}
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-						{/* Background interno com blur */}
 						<div className={cn(
 							'rounded-2xl overflow-visible',
 							'bg-background/98 backdrop-blur-2xl',
 							'shadow-2xl shadow-purple-500/30',
 							'min-w-[180px]',
 						)}>
-							{/* Glow interno místico */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
-							{/* Shimmer effect */}
-							<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none overflow-hidden rounded-2xl" />
+							<div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+							</div>
 
-							{/* Conteúdo do submenu aninhado */}
 							<div className="relative p-3 space-y-1.5">
 								{item.children!.map((child, idx) => (
 									<SubmenuItem
@@ -328,34 +392,17 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 						</div>
 					</div>
 
-					{/* Seta de conexão - alinha com o trigger que abriu o submenu */}
 					<div
 						className={cn(
-							'absolute -translate-y-1/2',
-							// Seta para direita (menu abre à direita)
-							orientation === 'right' && 'right-full mr-[1px]',
-							// Seta para esquerda (menu abre à esquerda)
-							orientation === 'left' && 'left-full ml-[1px]',
-							// Seta para baixo (menu abre abaixo)
-							orientation === 'bottom' && 'bottom-full mb-[1px] -translate-x-1/2',
-							// Seta para cima (menu abre acima)
-							orientation === 'top' && 'top-full mt-[1px] -translate-x-1/2',
+							'absolute',
+							getArrowPositionClasses(level + 1, orientation),
 						)}
-						style={{
-							// Para orientações laterais, posiciona verticalmente alinhado com o trigger
-							...(orientation === 'right' || orientation === 'left' ? { top: arrowOffset } : {}),
-							// Para orientações verticais, posiciona horizontalmente alinhado com o trigger
-							...(orientation === 'bottom' || orientation === 'top' ? { left: arrowOffset } : {}),
-						}}
+						style={getArrowPositionStyle(level + 1, orientation, arrowOffset)}
 					>
 						<div
 							className={cn(
 								'border-[6px] border-transparent',
-								// Cores da seta baseado na orientação (aponta para o parent)
-								orientation === 'right' && 'border-r-purple-500',
-								orientation === 'left' && 'border-l-purple-500',
-								orientation === 'bottom' && 'border-b-purple-500',
-								orientation === 'top' && 'border-t-purple-500',
+								getArrowColorClasses(level + 1, orientation),
 							)}
 						/>
 					</div>
@@ -374,7 +421,6 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 	const leftItems = items.filter((item) => item.position === 'left')
 	const rightItems = items.filter((item) => item.position === 'right')
 
-	// Auto-hide logic
 	useEffect(() => {
 		if (settings.visibility === 'always') {
 			setIsVisible(true)
@@ -384,7 +430,6 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY
 
-			// Mostrar ao subir, esconder ao descer
 			if (currentScrollY < lastScrollY || currentScrollY < 50) {
 				setIsVisible(true)
 			} else if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -398,13 +443,11 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [settings.visibility, lastScrollY])
 
-	// Posicionamento baseado nas configurações
 	const getPositionClasses = () => {
 		switch (settings.position) {
 			case 'bottom':
 				return 'bottom-6 left-1/2 -translate-x-1/2 flex-row'
 			case 'top':
-				// top-20 (80px) para ficar abaixo do header (altura ~60-70px)
 				return 'top-20 left-1/2 -translate-x-1/2 flex-row'
 			case 'left':
 				return 'left-6 top-1/2 -translate-y-1/2 flex-col'
@@ -422,14 +465,19 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		const isHovered = hoveredItem === item.id
 		const hasSubmenu = item.submenu && item.submenu.length > 0
 
-		// Action button (busca)
 		if (item.type === 'action' && item.action) {
 			return (
 				<div key={item.id} className="relative">
 					<button
 						onClick={item.action}
-						onMouseEnter={() => setHoveredItem(item.id)}
-						onMouseLeave={() => setHoveredItem(null)}
+						onMouseEnter={(e) => {
+							e.stopPropagation()
+							setHoveredItem(item.id)
+						}}
+						onMouseLeave={(e) => {
+							e.stopPropagation()
+							setHoveredItem(null)
+						}}
 						className={cn(
 							'group relative flex items-center justify-center',
 							'size-14 rounded-xl',
@@ -445,7 +493,6 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 					>
 						<Icon icon={item.icon} className="size-6 text-purple-600 dark:text-purple-400" />
 
-						{/* Tooltip básico */}
 						<span
 							className={cn(
 								'absolute whitespace-nowrap px-3 py-1.5 rounded-lg',
@@ -468,15 +515,19 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 			)
 		}
 
-		// Link button - com Stack Fan vertical ou Tooltip
 		return (
 			<div
 				key={item.id}
 				className="relative"
-				onMouseEnter={() => setHoveredItem(item.id)}
-				onMouseLeave={() => setHoveredItem(null)}
+				onMouseEnter={(e) => {
+					e.stopPropagation()
+					setHoveredItem(item.id)
+				}}
+				onMouseLeave={(e) => {
+					e.stopPropagation()
+					setHoveredItem(null)
+				}}
 			>
-				{/* Ícone base (sempre visível) */}
 				<Link
 					href={item.href!}
 					className={cn(
@@ -495,12 +546,10 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						isActive ? 'text-purple-500 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400',
 					)} />
 
-					{/* Active indicator */}
 					{isActive && (
 						<div className="absolute -top-1 -right-1 size-3 rounded-full bg-purple-500 border-2 border-background animate-pulse" />
 					)}
 
-					{/* Tooltip para itens SEM submenu */}
 					{!hasSubmenu && (
 						<span
 							className={cn(
@@ -522,39 +571,39 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 					)}
 				</Link>
 
-				{/* Stack Fan - expande baseado na posição da dock (collision-aware) */}
 				{hasSubmenu && isHovered && (
 					<div
+						onMouseEnter={(e) => {
+							e.stopPropagation()
+							setHoveredItem(item.id)
+						}}
+						onMouseLeave={(e) => {
+							e.stopPropagation()
+							setHoveredItem(null)
+						}}
 						className={cn(
-							'absolute z-50',
+							'absolute z-[10000]',
 							'animate-in fade-in duration-300',
-							// Posicionamento baseado na orientação da dock (COLLISION-AWARE)
-							settings.position === 'bottom' && 'bottom-full mb-8 left-1/2 -translate-x-1/2 slide-in-from-bottom-2',
-							settings.position === 'top' && 'top-full mt-8 left-1/2 -translate-x-1/2 slide-in-from-top-2',
-							// CORRIGIDO: Dock à esquerda → menu abre à direita com espaço para seta
-							settings.position === 'left' && 'left-full ml-8 top-1/2 -translate-y-1/2 slide-in-from-left-2',
-							// CORRIGIDO: Dock à direita → menu abre à esquerda com espaço para seta
-							settings.position === 'right' && 'right-full mr-8 top-1/2 -translate-y-1/2 slide-in-from-right-2',
+							settings.position === 'bottom' && 'bottom-full mb-2 left-1/2 -translate-x-1/2 slide-in-from-bottom-2',
+							settings.position === 'top' && 'top-full mt-2 left-1/2 -translate-x-1/2 slide-in-from-top-2',
+							settings.position === 'left' && 'left-full ml-2 top-1/2 -translate-y-1/2 slide-in-from-left-2',
+							settings.position === 'right' && 'right-full mr-2 top-1/2 -translate-y-1/2 slide-in-from-right-2',
 						)}
 					>
-						{/* Borda gradiente animada "viva" */}
 						<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-							{/* Background interno com blur */}
 							<div className={cn(
-								'rounded-2xl overflow-hidden',
+								'rounded-2xl overflow-visible',
 								'bg-background/98 backdrop-blur-2xl',
 								'shadow-2xl shadow-purple-500/30',
 								'min-w-[180px]',
 							)}>
-								{/* Glow interno místico */}
 								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
-								{/* Shimmer effect */}
-								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none overflow-hidden rounded-2xl" />
+								<div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+									<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+								</div>
 
-								{/* Conteúdo da Stack */}
 								<div className="relative p-3 space-y-2">
-									{/* Header da Stack - Ícone + Label */}
 									<div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
 										<Icon icon={item.icon} className="size-5 text-purple-600 dark:text-purple-400" />
 										<span className="text-sm font-semibold text-foreground">
@@ -562,10 +611,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 										</span>
 									</div>
 
-									{/* Divider */}
 									<div className="h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-									{/* Subitens verticais - agora com suporte a aninhamento recursivo */}
 									<div className="space-y-1.5">
 										{item.submenu!.map((subitem, idx) => (
 											<SubmenuItem
@@ -580,12 +627,9 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 							</div>
 						</div>
 
-						{/* Seta indicadora (pontinha apontando para o ícone de origem) */}
 						<div
 							className={cn(
 								'absolute',
-								// Posição da seta baseada na orientação da dock
-								// Seta no centro do gap (meio do espaço entre submenu e item)
 								settings.position === 'bottom' && 'top-full mt-0.8 left-1/2 -translate-x-1/2',
 								settings.position === 'top' && 'bottom-full mb-0.8 left-1/2 -translate-x-1/2',
 								settings.position === 'left' && 'right-full mr-0.8 top-1/2 -translate-y-1/2',
@@ -595,7 +639,6 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 							<div
 								className={cn(
 									'border-8 border-transparent',
-									// Direção da seta baseada na orientação da dock
 									settings.position === 'bottom' && 'border-t-purple-500',
 									settings.position === 'top' && 'border-b-purple-500',
 									settings.position === 'left' && 'border-r-purple-500',
@@ -612,15 +655,13 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 	return (
 		<div
 			className={cn(
-				'fixed z-50 transition-all duration-300',
+				'fixed z-[9999] transition-all duration-300',
 				getPositionClasses(),
-				// Animação de visibilidade que respeita a orientação
 				isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
 				isHorizontal && !isVisible && 'translate-y-4',
 				!isHorizontal && !isVisible && 'translate-x-4',
 			)}
 		>
-			{/* Dock Container - Glass Effect */}
 			<div
 				className={cn(
 					'flex gap-2 p-3 rounded-2xl',
@@ -631,10 +672,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 					isHorizontal ? 'flex-row' : 'flex-col',
 				)}
 			>
-				{/* Items da Esquerda */}
 				{leftItems.map(renderDockItem)}
 
-				{/* Separador estilo macOS */}
 				{rightItems.length > 0 && (
 					<div
 						className={cn(
@@ -644,10 +683,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 					/>
 				)}
 
-				{/* Items da Direita */}
 				{rightItems.map(renderDockItem)}
 
-				{/* Dock Indicator */}
 				<div
 					className={cn(
 						'absolute bg-purple-500/30 rounded-full blur-xl',
