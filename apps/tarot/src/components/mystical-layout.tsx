@@ -20,8 +20,7 @@ interface MysticalLayoutProps {
  * Layout místico inspirado em Vercel/Superhuman
  * Design minimalista e espiritual
  *
- * Homepage: Header + conteúdo + Dock
- * Outras páginas: Header + conteúdo + Dock
+ * Todas as páginas: Header + conteúdo + Dock
  */
 export function MysticalLayout({ children }: MysticalLayoutProps) {
   const pathname = usePathname()
@@ -70,28 +69,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Homepage: Header + conteúdo (sem Dock)
-  if (isHomePage) {
-    return (
-      <>
-        <AppHeader
-          logo={{
-            href: '/',
-            icon: <SacredEyeLogo size="sm" />,
-            text: 'Solilóquio',
-          }}
-          apps={headerApps}
-          rightContent={<LunarCalendar />}
-        />
-        <main className={cn('min-h-screen', getHeaderPadding())}>
-          {children}
-        </main>
-        <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
-      </>
-    )
-  }
-
-  // Outras páginas: layout fullscreen imersivo
+  // Layout unificado: todas as páginas com dock
   return (
     <>
       <AppHeader
@@ -103,17 +81,23 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         apps={headerApps}
         rightContent={<LunarCalendar />}
       />
-      <main className={cn('relative min-h-screen p-6 md:p-12 overflow-hidden', getHeaderPadding(), getDockPadding())}>
-        {/* Mystical Background */}
-        <MysticalBackground variant="stars" intensity="subtle" />
+      <main className={cn(
+        'relative min-h-screen overflow-hidden',
+        getHeaderPadding(),
+        getDockPadding(),
+        // Home sem padding lateral para imersão total
+        isHomePage ? '' : 'p-6 md:p-12'
+      )}>
+        {/* Mystical Background - apenas em páginas não-home */}
+        {!isHomePage && <MysticalBackground variant="stars" intensity="subtle" />}
 
         {/* Conteúdo */}
-        <div className="relative z-10">
+        <div className={cn('relative', !isHomePage && 'z-10')}>
           {children}
         </div>
       </main>
 
-      {/* Mystical Dock */}
+      {/* Mystical Dock - agora em todas as páginas */}
       <MysticalDock items={dockItems} settings={settings} />
 
       {/* Global Search Modal */}
