@@ -16,7 +16,7 @@ export default function NaipesPage() {
 			name: 'Copas',
 			symbol: '♥',
 			element: 'Água',
-			Icon: Heart,
+			icon: 'lucide:heart',
 			color: 'red',
 			gradient: 'from-red-600 to-rose-600',
 			bgGradient: 'from-red-500/10 via-rose-500/10 to-pink-500/10',
@@ -31,7 +31,7 @@ export default function NaipesPage() {
 			name: 'Paus',
 			symbol: '♣',
 			element: 'Fogo',
-			Icon: Flame,
+			icon: 'lucide:flame',
 			color: 'green',
 			gradient: 'from-green-600 to-emerald-600',
 			bgGradient: 'from-green-500/10 via-emerald-500/10 to-teal-500/10',
@@ -46,7 +46,7 @@ export default function NaipesPage() {
 			name: 'Ouros',
 			symbol: '♦',
 			element: 'Terra',
-			Icon: Coins,
+			icon: 'lucide:coins',
 			color: 'yellow',
 			gradient: 'from-yellow-600 to-amber-600',
 			bgGradient: 'from-yellow-500/10 via-amber-500/10 to-orange-500/10',
@@ -61,7 +61,7 @@ export default function NaipesPage() {
 			name: 'Espadas',
 			symbol: '♠',
 			element: 'Ar',
-			Icon: Swords,
+			icon: 'lucide:swords',
 			color: 'blue',
 			gradient: 'from-blue-600 to-cyan-600',
 			bgGradient: 'from-blue-500/10 via-cyan-500/10 to-sky-500/10',
@@ -75,10 +75,10 @@ export default function NaipesPage() {
 	]
 
 	const elementIcons = {
-		'Água': Droplets,
-		'Fogo': Flame,
-		'Terra': Coins,
-		'Ar': Wind
+		'Água': 'lucide:droplets',
+		'Fogo': 'lucide:flame',
+		'Terra': 'lucide:coins',
+		'Ar': 'lucide:wind'
 	}
 
 	return (
@@ -125,7 +125,7 @@ export default function NaipesPage() {
 			{/* Grid de Naipes */}
 			<div className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto">
 				{naipes.map((naipe) => {
-					const ElementIcon = elementIcons[naipe.element as keyof typeof elementIcons]
+					const elementIcon = elementIcons[naipe.element as keyof typeof elementIcons]
 
 					return (
 						<Link
@@ -142,7 +142,7 @@ export default function NaipesPage() {
 									<div className="flex items-center justify-between">
 										<div className="flex items-center gap-3">
 											<div className={`inline-flex items-center justify-center size-12 rounded-full bg-gradient-to-br from-${naipe.color}-600/20 to-${naipe.color}-600/20 border-2 ${naipe.borderColor}`}>
-												<naipe.Icon className={`size-6 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
+												<Icon icon={naipe.icon} className={`size-6 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
 											</div>
 											<div>
 												<h3 className={`text-2xl font-bold bg-gradient-to-r ${naipe.gradient} dark:from-${naipe.color}-400 dark:to-${naipe.color}-400 bg-clip-text text-transparent`}>
@@ -163,7 +163,7 @@ export default function NaipesPage() {
 
 									{/* Element Info */}
 									<div className={`flex items-center gap-2 p-3 rounded-lg bg-${naipe.color}-500/10 border ${naipe.borderColor}`}>
-										<ElementIcon className={`size-5 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
+										<Icon icon={elementIcon} className={`size-5 text-${naipe.color}-600 dark:text-${naipe.color}-400`} />
 										<div>
 											<p className="text-xs text-muted-foreground">Elemento</p>
 											<p className={`text-sm font-semibold text-${naipe.color}-700 dark:text-${naipe.color}-300`}>
