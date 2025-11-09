@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react'
 import { Plus, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { cn } from '../../lib/utils'
 
@@ -59,11 +59,42 @@ interface SubmenuItemProps {
 
 function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
+	const [position, setPosition] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
+	const itemRef = useRef<HTMLDivElement>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
 	const SubIcon = item.icon || Plus
 
+	// Detecta melhor posição para o submenu baseado no espaço disponível
+	useEffect(() => {
+		if (!isHovered || !hasChildren || !itemRef.current) return
+
+		const rect = itemRef.current.getBoundingClientRect()
+		const viewportWidth = window.innerWidth
+		const viewportHeight = window.innerHeight
+		const submenuWidth = 200 // Largura estimada do submenu
+		const submenuHeight = 300 // Altura estimada do submenu
+
+		// Detecta espaço disponível em cada direção
+		const spaceRight = viewportWidth - rect.right
+		const spaceLeft = rect.left
+		const spaceBottom = viewportHeight - rect.bottom
+		const spaceTop = rect.top
+
+		// Prioridade: direita > esquerda > baixo > cima
+		if (spaceRight >= submenuWidth) {
+			setPosition('right')
+		} else if (spaceLeft >= submenuWidth) {
+			setPosition('left')
+		} else if (spaceBottom >= submenuHeight) {
+			setPosition('bottom')
+		} else {
+			setPosition('top')
+		}
+	}, [isHovered, hasChildren])
+
 	return (
 		<div
+			ref={itemRef}
 			className="relative"
 			onMouseEnter={() => {
 				setIsHovered(true)
@@ -105,8 +136,13 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			{hasChildren && isHovered && (
 				<div
 					className={cn(
-						'absolute left-full top-0 ml-2',
-						'animate-in fade-in slide-in-from-left-2 duration-200',
+						'absolute',
+						'animate-in fade-in duration-200',
+						// Posicionamento baseado na detecção de espaço
+						position === 'right' && 'left-full top-0 ml-2 slide-in-from-left-2',
+						position === 'left' && 'right-full top-0 mr-2 slide-in-from-right-2',
+						position === 'bottom' && 'top-full left-0 mt-2 slide-in-from-top-2',
+						position === 'top' && 'bottom-full left-0 mb-2 slide-in-from-bottom-2',
 					)}
 					style={{ zIndex: 50 + (level * 10) }}
 				>
@@ -136,6 +172,32 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 								))}
 							</div>
 						</div>
+					</div>
+
+					{/* Seta de conexão - adapta baseado na orientação */}
+					<div
+						className={cn(
+							'absolute',
+							// Seta para direita (menu abre à direita)
+							position === 'right' && 'right-full top-4 mr-[2px]',
+							// Seta para esquerda (menu abre à esquerda)
+							position === 'left' && 'left-full top-4 ml-[2px]',
+							// Seta para baixo (menu abre abaixo)
+							position === 'bottom' && 'bottom-full left-8 mb-[2px]',
+							// Seta para cima (menu abre acima)
+							position === 'top' && 'top-full left-8 mt-[2px]',
+						)}
+					>
+						<div
+							className={cn(
+								'border-8 border-transparent',
+								// Cores da seta baseado na orientação
+								position === 'right' && 'border-l-purple-500',
+								position === 'left' && 'border-r-purple-500',
+								position === 'bottom' && 'border-t-purple-500',
+								position === 'top' && 'border-b-purple-500',
+							)}
+						/>
 					</div>
 				</div>
 			)}
