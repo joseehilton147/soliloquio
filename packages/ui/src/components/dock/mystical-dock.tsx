@@ -59,62 +59,103 @@ interface SubmenuItemProps {
 
 function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
-	const [position, setPosition] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
-	const [verticalOffset, setVerticalOffset] = useState(0)
+	const [orientation, setOrientation] = useState<'right' | 'left' | 'top' | 'bottom'>('right')
+	const [offset, setOffset] = useState({ x: 0, y: 0 })
 	const itemRef = useRef<HTMLDivElement>(null)
 	const submenuRef = useRef<HTMLDivElement>(null)
 	const hasChildren = item.children && item.children.length > 0 && level < MAX_DEPTH
 	const SubIcon = item.icon || Plus
 
-	// Detecta melhor posição para o submenu baseado no espaço disponível
+	// Detecta melhor orientação e calcula offset para collision detection
 	useEffect(() => {
 		if (!isHovered || !hasChildren || !itemRef.current) return
 
-		// Pequeno delay para garantir que submenu foi renderizado
+		// Delay para garantir renderização do submenu
 		const timeout = setTimeout(() => {
 			if (!itemRef.current || !submenuRef.current) return
 
-			const rect = itemRef.current.getBoundingClientRect()
+			const triggerRect = itemRef.current.getBoundingClientRect()
 			const submenuRect = submenuRef.current.getBoundingClientRect()
 			const viewportWidth = window.innerWidth
 			const viewportHeight = window.innerHeight
 
-			const submenuWidth = submenuRect.width || 200
-			const submenuHeight = submenuRect.height || 300
+			const SPACING = 8 // Espaçamento entre trigger e submenu
+			const SAFETY_MARGIN = 16 // Margem de segurança das bordas
 
-			// Detecta espaço disponível em cada direção
-			const spaceRight = viewportWidth - rect.right
-			const spaceLeft = rect.left
-			const spaceBottom = viewportHeight - rect.top // Espaço total abaixo do item
-			const spaceTop = rect.bottom // Espaço total acima do item
-
-			// Prioridade: direita > esquerda
-			let newPosition: 'right' | 'left' | 'top' | 'bottom' = 'right'
-
-			if (spaceRight >= submenuWidth + 20) {
-				newPosition = 'right'
-			} else if (spaceLeft >= submenuWidth + 20) {
-				newPosition = 'left'
-			} else if (spaceBottom >= submenuHeight + 20) {
-				newPosition = 'bottom'
-			} else {
-				newPosition = 'top'
+			// Espaço disponível em cada direção
+			const space = {
+				right: viewportWidth - triggerRect.right - SAFETY_MARGIN,
+				left: triggerRect.left - SAFETY_MARGIN,
+				bottom: viewportHeight - triggerRect.bottom - SAFETY_MARGIN,
+				top: triggerRect.top - SAFETY_MARGIN,
 			}
 
-			setPosition(newPosition)
+			// Escolhe orientação com mais espaço (prioridade: right > left > bottom > top)
+			let newOrientation: 'right' | 'left' | 'top' | 'bottom' = 'right'
 
-			// Para posições laterais (right/left), ajusta verticalmente se necessário
-			if (newPosition === 'right' || newPosition === 'left') {
-				const submenuBottom = rect.top + submenuHeight
+			if (space.right >= submenuRect.width) {
+				newOrientation = 'right'
+			} else if (space.left >= submenuRect.width) {
+				newOrientation = 'left'
+			} else if (space.bottom >= submenuRect.height) {
+				newOrientation = 'bottom'
+			} else if (space.top >= submenuRect.height) {
+				newOrientation = 'top'
+			} else {
+				// Nenhuma direção tem espaço suficiente - escolhe a com MAIS espaço
+				const maxSpace = Math.max(space.right, space.left, space.bottom, space.top)
+				if (maxSpace === space.right) newOrientation = 'right'
+				else if (maxSpace === space.left) newOrientation = 'left'
+				else if (maxSpace === space.bottom) newOrientation = 'bottom'
+				else newOrientation = 'top'
+			}
 
-				if (submenuBottom > viewportHeight) {
-					// Submenu passaria da borda inferior, ajusta para cima
-					const overflow = submenuBottom - viewportHeight
-					setVerticalOffset(-overflow - 10) // -10 para margem de segurança
-				} else {
-					setVerticalOffset(0)
+			setOrientation(newOrientation)
+
+			// Calcula offset para manter dentro do viewport
+			let offsetX = 0
+			let offsetY = 0
+
+			if (newOrientation === 'right' || newOrientation === 'left') {
+				// Para orientações laterais, alinha TOP do submenu com TOP do trigger
+				// Depois ajusta se ultrapassar viewport
+
+				// Posição inicial: alinhado com o trigger
+				const submenuTop = triggerRect.top
+				const submenuBottom = submenuTop + submenuRect.height
+
+				// Verifica overflow vertical
+				if (submenuBottom > viewportHeight - SAFETY_MARGIN) {
+					// Submenu ultrapassa parte inferior - ajusta para cima
+					const overflow = submenuBottom - (viewportHeight - SAFETY_MARGIN)
+					offsetY = -overflow
+				}
+
+				if (submenuTop + offsetY < SAFETY_MARGIN) {
+					// Ajuste fez submenu ultrapassar topo - reajusta
+					offsetY = SAFETY_MARGIN - submenuTop
 				}
 			}
+
+			if (newOrientation === 'bottom' || newOrientation === 'top') {
+				// Para orientações verticais, centraliza horizontalmente
+				// Depois ajusta se ultrapassar viewport
+
+				const submenuLeft = triggerRect.left + (triggerRect.width / 2) - (submenuRect.width / 2)
+				const submenuRight = submenuLeft + submenuRect.width
+
+				// Verifica overflow horizontal
+				if (submenuRight > viewportWidth - SAFETY_MARGIN) {
+					const overflow = submenuRight - (viewportWidth - SAFETY_MARGIN)
+					offsetX = -overflow
+				}
+
+				if (submenuLeft + offsetX < SAFETY_MARGIN) {
+					offsetX = SAFETY_MARGIN - submenuLeft
+				}
+			}
+
+			setOffset({ x: offsetX, y: offsetY })
 		}, 10)
 
 		return () => clearTimeout(timeout)
@@ -167,15 +208,15 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 					className={cn(
 						'absolute',
 						'animate-in fade-in duration-200',
-						// Posicionamento baseado na detecção de espaço
-						position === 'right' && 'left-full ml-2 slide-in-from-left-2',
-						position === 'left' && 'right-full mr-2 slide-in-from-right-2',
-						position === 'bottom' && 'top-full left-0 mt-2 slide-in-from-top-2',
-						position === 'top' && 'bottom-full left-0 mb-2 slide-in-from-bottom-2',
+						// Posicionamento baseado na orientação detectada
+						orientation === 'right' && 'left-full ml-2 top-0 slide-in-from-left-2',
+						orientation === 'left' && 'right-full mr-2 top-0 slide-in-from-right-2',
+						orientation === 'bottom' && 'top-full mt-2 slide-in-from-top-2',
+						orientation === 'top' && 'bottom-full mb-2 slide-in-from-bottom-2',
 					)}
 					style={{
 						zIndex: 50 + (level * 10),
-						top: (position === 'right' || position === 'left') ? verticalOffset : undefined,
+						transform: `translate(${offset.x}px, ${offset.y}px)`,
 					}}
 				>
 					{/* Borda gradiente animada */}
@@ -211,23 +252,23 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 						className={cn(
 							'absolute',
 							// Seta para direita (menu abre à direita) - fica no meio da borda esquerda do submenu
-							position === 'right' && 'right-full top-1/2 -translate-y-1/2 mr-[1px]',
+							orientation === 'right' && 'right-full top-1/2 -translate-y-1/2 mr-[1px]',
 							// Seta para esquerda (menu abre à esquerda) - fica no meio da borda direita do submenu
-							position === 'left' && 'left-full top-1/2 -translate-y-1/2 ml-[1px]',
+							orientation === 'left' && 'left-full top-1/2 -translate-y-1/2 ml-[1px]',
 							// Seta para baixo (menu abre abaixo) - fica no meio da borda superior do submenu
-							position === 'bottom' && 'bottom-full left-1/2 -translate-x-1/2 mb-[1px]',
+							orientation === 'bottom' && 'bottom-full left-1/2 -translate-x-1/2 mb-[1px]',
 							// Seta para cima (menu abre acima) - fica no meio da borda inferior do submenu
-							position === 'top' && 'top-full left-1/2 -translate-x-1/2 mt-[1px]',
+							orientation === 'top' && 'top-full left-1/2 -translate-x-1/2 mt-[1px]',
 						)}
 					>
 						<div
 							className={cn(
 								'border-[6px] border-transparent',
 								// Cores da seta baseado na orientação (aponta para o parent)
-								position === 'right' && 'border-r-purple-500',
-								position === 'left' && 'border-l-purple-500',
-								position === 'bottom' && 'border-b-purple-500',
-								position === 'top' && 'border-t-purple-500',
+								orientation === 'right' && 'border-r-purple-500',
+								orientation === 'left' && 'border-l-purple-500',
+								orientation === 'bottom' && 'border-b-purple-500',
+								orientation === 'top' && 'border-t-purple-500',
 							)}
 						/>
 					</div>
