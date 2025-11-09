@@ -1,7 +1,7 @@
 'use client'
 
 import type { TarotCard } from '@workspace/core/tarot'
-import { MysticalLoading } from '@workspace/ui'
+import { MysticalLoading, CardBadge } from '@workspace/ui'
 import { Sparkles, Layers, Star, BookOpen, Plus } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -30,7 +30,7 @@ export default function CartasPage() {
 			{/* Cards Grid */}
 			{data && data.cards.length > 0 && (
 				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{data.cards.map((card: TarotCard & { deck?: { name: string } }) => (
+					{data.cards.map((card: any) => (
 						<Link
 							key={card.id}
 							href={`/cartas/${card.slug}`}
@@ -63,18 +63,21 @@ export default function CartasPage() {
 
 								{/* Deck badge - aparece no hover */}
 								{card.deck && (
-									<div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
-										<div className="flex items-center gap-1.5 rounded-full bg-background/90 backdrop-blur-md px-3 py-1.5 text-xs font-medium text-foreground/80 border border-purple-500/30 shadow-lg">
-											<Layers className="size-3 text-purple-600 dark:text-purple-400" />
-											<span>{card.deck.name}</span>
-										</div>
-									</div>
+									<CardBadge
+										icon={Layers}
+										label={card.deck.name}
+										position="top-left"
+									/>
 								)}
 
-								{/* Sparkle hover indicator */}
-								<div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-									<Sparkles className="size-5 text-purple-400 animate-pulse" />
-								</div>
+								{/* Card Type Badge - Canto Superior Direito */}
+								{card.cardType && (
+									<CardBadge
+										icon={Sparkles}
+										label={card.cardType}
+										position="top-right"
+									/>
+								)}
 							</div>
 
 							{/* Content */}
@@ -104,9 +107,10 @@ export default function CartasPage() {
 								</div>
 
 								{card.summary && (
-									<p className="line-clamp-2 text-sm text-muted-foreground/80 leading-relaxed">
-										{card.summary}
-									</p>
+									<div
+										className="line-clamp-2 text-sm text-muted-foreground/80 leading-relaxed prose prose-sm prose-p:my-0 prose-p:text-muted-foreground/80 max-w-none"
+										dangerouslySetInnerHTML={{ __html: card.summary }}
+									/>
 								)}
 
 								{/* Stats - mais descritivas */}

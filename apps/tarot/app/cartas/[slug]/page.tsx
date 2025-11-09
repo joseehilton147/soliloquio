@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReadingType } from '@workspace/core/tarot'
-import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
+import { MysticalLoading, MysticalBreadcrumb, CardBadge, type BreadcrumbItem } from '@workspace/ui'
 import { Pencil, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -76,6 +76,16 @@ export default function CartaDetailPage({ params }: PageProps) {
 								sizes="(max-width: 1024px) 100vw, 380px"
 								priority
 							/>
+
+							{/* Card Type Badge - Canto Superior Direito */}
+							{card.cardType && (
+								<CardBadge
+									icon={Sparkles}
+									label={card.cardType}
+									position="top-right"
+									className="z-20"
+								/>
+							)}
 						</div>
 					)}
 
@@ -122,7 +132,10 @@ export default function CartaDetailPage({ params }: PageProps) {
 						<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 							Resumo
 						</h2>
-						<p className="mt-3 text-foreground leading-relaxed">{card.summary}</p>
+						<div
+							className="mt-3 prose prose-sm dark:prose-invert max-w-none prose-p:text-foreground prose-p:leading-relaxed"
+							dangerouslySetInnerHTML={{ __html: card.summary }}
+						/>
 					</div>
 
 					{/* Descrição */}
@@ -130,7 +143,10 @@ export default function CartaDetailPage({ params }: PageProps) {
 						<h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 							Descrição Detalhada
 						</h2>
-						<p className="mt-3 text-foreground leading-relaxed whitespace-pre-line">{card.description}</p>
+						<div
+							className="mt-3 prose prose-sm dark:prose-invert max-w-none prose-p:text-foreground prose-p:leading-relaxed"
+							dangerouslySetInnerHTML={{ __html: card.description }}
+						/>
 					</div>
 
 					{/* Significados - Grid */}
@@ -175,7 +191,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 						</h2>
 						{card.typesOfReading.length > 0 ? (
 							<div className="grid gap-4">
-								{card.typesOfReading.map((reading: ReadingType) => (
+								{card.typesOfReading.map((reading: any) => (
 									<div
 										key={reading.id}
 										className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 hover:shadow-lg hover:border-purple-500/20 transition-all"
@@ -184,7 +200,10 @@ export default function CartaDetailPage({ params }: PageProps) {
 											<span className="size-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600" />
 											{readingTypeLabels[reading.type] || reading.type}
 										</h3>
-										<p className="mt-3 text-foreground leading-relaxed">{reading.read}</p>
+										<div
+											className="mt-3 prose prose-sm dark:prose-invert max-w-none prose-p:text-foreground prose-p:leading-relaxed"
+											dangerouslySetInnerHTML={{ __html: reading.read }}
+										/>
 									</div>
 								))}
 							</div>
