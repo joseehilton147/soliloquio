@@ -68,7 +68,7 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
   {
     id: 'baralhos',
     label: 'Baralhos',
-    icon: 'game-icons:perspective-dice-six-faces-random',
+    icon: 'game-icons:card-draw',
     href: '/baralhos',
     type: 'link',
     position: 'left',
