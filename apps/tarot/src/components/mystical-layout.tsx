@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
-import { MysticalBackground, SacredEyeLogo } from '@workspace/ui'
+import { MysticalBackground, SacredEyeLogo, cn } from '@workspace/ui'
 import { AppHeader } from '@workspace/ui/components/organisms/app-header'
 import { LunarCalendar } from '@workspace/ui/components/organisms/lunar-calendar'
 import { GlobalSearch } from './global-search'
@@ -30,6 +30,22 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
 
   // Criar dock items com callback de busca
   const dockItems = createDockItems(() => setSearchOpen(true))
+
+  // Calcula padding para evitar que a dock cubra conteúdo
+  const getDockPadding = () => {
+    switch (settings.position) {
+      case 'bottom':
+        return 'pb-28' // Padding inferior para dock na parte de baixo
+      case 'top':
+        return 'pt-52' // Padding superior adicional (já tem pt-28 do header)
+      case 'left':
+        return 'pl-28' // Padding esquerdo para dock lateral
+      case 'right':
+        return 'pr-28' // Padding direito para dock lateral
+      default:
+        return 'pb-28'
+    }
+  }
 
   // Keyboard shortcut for search (Cmd/Ctrl + K)
   useEffect(() => {
@@ -77,7 +93,7 @@ export function MysticalLayout({ children }: MysticalLayoutProps) {
         apps={headerApps}
         rightContent={<LunarCalendar />}
       />
-      <main className="relative min-h-screen pt-28 p-6 md:p-12 overflow-hidden">
+      <main className={cn('relative min-h-screen pt-28 p-6 md:p-12 overflow-hidden', getDockPadding())}>
         {/* Mystical Background */}
         <MysticalBackground variant="stars" intensity="subtle" />
 
