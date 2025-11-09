@@ -1,21 +1,28 @@
 'use client'
 
-import { Search as SearchIcon, Sparkles, Layers, X, ImageIcon } from 'lucide-react'
+import { Search as SearchIcon, Sparkles, Layers, X, ImageIcon, Hash, Star, Tag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
 import { trpc } from '../lib/trpc'
+import { SearchFieldBadge } from './search-field-badge'
 
 interface GlobalSearchProps {
   open: boolean
   onClose: () => void
 }
 
+interface SearchMatch {
+  field: 'nome' | 'numerologia' | 'astrologia' | 'tag' | 'significado' | 'descrição'
+  value: string
+}
+
 /**
  * Global Search Modal - Fuzzy search para cartas e baralhos
  * Design místico com resultados agrupados por tipo
+ * Expandido para buscar: nome, tags, símbolos, numerologia, astrologia, significados
  */
 export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const router = useRouter()
@@ -25,31 +32,111 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   // Query cards and decks
   const { data: cardsData } = trpc.tarot.getAll.useQuery(
     { limit: 100, offset: 0 },
-    { enabled: query.length >= 2 }
+    { enabled: query.length >= 1 }
   )
   const { data: decks } = trpc.tarot.getDecks.useQuery(undefined, {
-    enabled: query.length >= 2,
+    enabled: query.length >= 1,
   })
 
+  // Advanced filter function for cards - busca em múltiplos campos
+  const filterCards = useCallback((cards: any[] | undefined) => {
+    if (!cards) return []
+
+    const searchTerm = query.toLowerCase().trim()
+
+    return cards.filter((card) => {
+      // Busca no nome
+      if (card.name.toLowerCase().includes(searchTerm)) return true
+
+      // Busca na numerologia
+      if (card.numerology?.toLowerCase().includes(searchTerm)) return true
+
+      // Busca na astrologia
+      if (card.astrology?.toLowerCase().includes(searchTerm)) return true
+
+      // Busca no tipo de carta (Arcano Maior, Arcano Menor, etc)
+      if (card.cardType?.toLowerCase().includes(searchTerm)) return true
+
+      // Busca no resumo
+      if (card.summary?.toLowerCase().includes(searchTerm)) return true
+
+      // Busca nos significados verticais (JsonValue → string[])
+      const verticalMeanings = card.verticalMeaning as unknown as string[]
+      if (Array.isArray(verticalMeanings)) {
+        if (verticalMeanings.some((meaning) =>
+          typeof meaning === 'string' && meaning.toLowerCase().includes(searchTerm)
+        )) return true
+      }
+
+      // Busca nos significados invertidos (JsonValue → string[])
+      const invertedMeanings = card.invertedMeaning as unknown as string[]
+      if (Array.isArray(invertedMeanings)) {
+        if (invertedMeanings.some((meaning) =>
+          typeof meaning === 'string' && meaning.toLowerCase().includes(searchTerm)
+        )) return true
+      }
+
+      return false
+    }).map((card) => {
+      // Determinar onde foi o match para mostrar badge
+      const matches: SearchMatch[] = []
+      const searchTerm = query.toLowerCase().trim()
+
+      if (card.name.toLowerCase().includes(searchTerm)) {
+        matches.push({ field: 'nome', value: card.name })
+      }
+      if (card.numerology?.toLowerCase().includes(searchTerm)) {
+        matches.push({ field: 'numerologia', value: card.numerology })
+      }
+      if (card.astrology?.toLowerCase().includes(searchTerm)) {
+        matches.push({ field: 'astrologia', value: card.astrology || '' })
+      }
+      if (card.cardType?.toLowerCase().includes(searchTerm)) {
+        matches.push({ field: 'tag', value: card.cardType })
+      }
+      if (card.summary?.toLowerCase().includes(searchTerm)) {
+        matches.push({ field: 'descrição', value: card.summary })
+      }
+
+      const verticalMeanings = card.verticalMeaning as unknown as string[]
+      if (Array.isArray(verticalMeanings) && verticalMeanings.some((m) =>
+        typeof m === 'string' && m.toLowerCase().includes(searchTerm)
+      )) {
+        matches.push({ field: 'significado', value: 'vertical' })
+      }
+
+      const invertedMeanings = card.invertedMeaning as unknown as string[]
+      if (Array.isArray(invertedMeanings) && invertedMeanings.some((m) =>
+        typeof m === 'string' && m.toLowerCase().includes(searchTerm)
+      )) {
+        matches.push({ field: 'significado', value: 'invertido' })
+      }
+
+      return { card, matches }
+    })
+  }, [query])
+
   // Filter results based on query
-  const filteredCards = (cardsData?.cards || []).filter((card) =>
-    card.name.toLowerCase().includes(query.toLowerCase())
-  )
+  const filteredCardsWithMatches = filterCards(cardsData?.cards)
 
   const filteredDecks = (decks || []).filter((deck) =>
-    deck.name.toLowerCase().includes(query.toLowerCase())
+    deck.name.toLowerCase().includes(query.toLowerCase()) ||
+    deck.description?.toLowerCase().includes(query.toLowerCase()) ||
+    deck.tradition?.toLowerCase().includes(query.toLowerCase())
   )
 
   // Combine results
   const allResults = [
-    ...filteredCards.map((card) => ({
+    ...filteredCardsWithMatches.map(({ card, matches }) => ({
       type: 'card' as const,
       id: card.id,
       name: card.name,
       slug: card.slug,
       description: card.summary,
       imageUrl: card.imageUrl,
+      cardType: card.cardType,
       icon: Sparkles,
+      matches,
     })),
     ...filteredDecks.map((deck) => ({
       type: 'deck' as const,
@@ -59,6 +146,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       description: deck.description,
       imageUrl: deck.imageUrl,
       icon: Layers,
+      matches: [] as SearchMatch[],
     })),
   ]
 
@@ -132,7 +220,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Buscar no oráculo sagrado..."
+              placeholder="Buscar nome, tipo, numerologia, astrologia, significados..."
               className="flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground/60"
               autoFocus
             />
@@ -148,7 +236,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 
           {/* Results místicos */}
           <div className="max-h-[32rem] overflow-y-auto p-3">
-            {query.length < 2 ? (
+            {query.length < 1 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="relative">
                   <div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />
@@ -160,8 +248,15 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                   Busque sabedoria nos arcanos
                 </p>
                 <p className="mt-2 text-xs text-muted-foreground/60">
-                  Digite pelo menos 2 caracteres
+                  Comece digitando para buscar
                 </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2 max-w-md">
+                  <SearchFieldBadge icon={Tag} label="Nome" />
+                  <SearchFieldBadge icon={Sparkles} label="Tipo de Carta" />
+                  <SearchFieldBadge icon={Hash} label="Numerologia" />
+                  <SearchFieldBadge icon={Star} label="Astrologia" />
+                  <SearchFieldBadge icon={Sparkles} label="Significados" />
+                </div>
               </div>
             ) : allResults.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -234,15 +329,57 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                           {result.name}
                         </p>
                         {result.description && (
-                          <p className="mt-1 text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed">
-                            {result.description}
-                          </p>
+                          <div
+                            className="mt-1 text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed prose prose-sm prose-p:my-0 prose-p:text-muted-foreground/80 max-w-none"
+                            dangerouslySetInnerHTML={{ __html: result.description }}
+                          />
                         )}
-                        <div className="mt-2 flex items-center gap-1.5">
-                          <span className="size-1 rounded-full bg-purple-500/70" />
-                          <p className="text-xs text-muted-foreground/60">
-                            {result.type === 'card' ? 'Arcano' : 'Baralho Sagrado'}
-                          </p>
+
+                        {/* Match badges - mostra onde foi encontrado */}
+                        <div className="mt-2 flex items-center gap-1.5 flex-wrap">
+                          {result.type === 'card' && result.cardType && (
+                            <SearchFieldBadge
+                              icon={Sparkles}
+                              label={result.cardType}
+                              variant="compact"
+                            />
+                          )}
+
+                          {result.matches && result.matches.length > 0 && (
+                            <>
+                              {result.type === 'card' && result.cardType && (
+                                <span className="text-muted-foreground/40">•</span>
+                              )}
+                              <div className="flex items-center gap-1 flex-wrap">
+                                {result.matches.slice(0, 2).map((match, i) => {
+                                  const iconMap = {
+                                    numerologia: Hash,
+                                    astrologia: Star,
+                                    significado: Sparkles,
+                                    tag: Tag,
+                                    nome: Tag,
+                                    descrição: Sparkles,
+                                  } as const
+
+                                  const Icon = iconMap[match.field as keyof typeof iconMap] || Tag
+
+                                  return (
+                                    <SearchFieldBadge
+                                      key={i}
+                                      icon={Icon}
+                                      label={match.field}
+                                      variant="compact"
+                                    />
+                                  )
+                                })}
+                                {result.matches.length > 2 && (
+                                  <span className="text-xs text-muted-foreground/60">
+                                    +{result.matches.length - 2}
+                                  </span>
+                                )}
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
 
