@@ -1,7 +1,8 @@
 'use client'
 
-import { Eye, Moon, Star, Sparkles, Hexagon, Circle, Triangle } from 'lucide-react'
+import { Moon, Star, Sparkles, Hexagon, Circle, Triangle, Eye } from 'lucide-react'
 import Link from 'next/link'
+import { SacredEyeLogo } from '@workspace/ui'
 
 export default function TarotHomePage() {
 	return (
@@ -20,32 +21,9 @@ export default function TarotHomePage() {
 
 			<div className="relative z-10 max-w-5xl mx-auto px-6 space-y-20">
 				{/* Hero - Sacred Eye */}
-				<div className="text-center space-y-8">
-					{/* Sacred Eye Symbol */}
-					<div className="relative inline-flex items-center justify-center">
-						{/* Outer hexagon rotating */}
-						<div className="absolute size-32 animate-spin-slow">
-							<Hexagon className="size-full text-purple-500/20" strokeWidth={0.5} />
-						</div>
-
-						{/* Middle circle pulsing */}
-						<div className="absolute size-24 animate-pulse">
-							<Circle className="size-full text-violet-500/30" strokeWidth={0.5} />
-						</div>
-
-						{/* Inner eye */}
-						<div className="relative flex items-center justify-center size-16 rounded-full bg-gradient-to-br from-purple-600/10 to-indigo-600/10 border border-purple-500/20 backdrop-blur-sm">
-							<Eye className="size-8 text-purple-600 dark:text-purple-400 animate-pulse" strokeWidth={1.5} />
-						</div>
-
-						{/* Sparkles orbiting */}
-						<div className="absolute size-40 animate-spin-slow [animation-duration:8s]">
-							<Sparkles className="absolute top-0 left-1/2 -translate-x-1/2 size-4 text-purple-400" />
-							<Sparkles className="absolute bottom-0 left-1/2 -translate-x-1/2 size-4 text-indigo-400" />
-							<Sparkles className="absolute left-0 top-1/2 -translate-y-1/2 size-4 text-violet-400" />
-							<Sparkles className="absolute right-0 top-1/2 -translate-y-1/2 size-4 text-purple-400" />
-						</div>
-					</div>
+				<div className="text-center space-y-12">
+					{/* Sacred Eye Logo */}
+					<SacredEyeLogo size="lg" />
 
 					{/* Sacred Title */}
 					<div className="space-y-4">
@@ -71,13 +49,13 @@ export default function TarotHomePage() {
 				</div>
 
 				{/* Three Pillars - Sacred Triad */}
-				<div className="grid md:grid-cols-3 gap-8 md:gap-12">
+				<div className="grid md:grid-cols-3 gap-8 md:gap-12 items-stretch">
 					{/* Pillar 1: Baralhos */}
 					<Link
 						href="/decks"
-						className="group relative"
+						className="group relative flex"
 					>
-						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-2">
+						<div className="flex flex-col h-full w-full text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-2">
 							{/* Sacred symbol */}
 							<div className="relative inline-flex items-center justify-center">
 								<div className="absolute size-20 animate-spin-slow [animation-duration:10s]">
@@ -98,7 +76,7 @@ export default function TarotHomePage() {
 							</div>
 
 							{/* Decorative dots */}
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex items-center justify-center gap-2 mt-auto">
 								<span className="size-1.5 rounded-full bg-purple-500/50" />
 								<span className="size-1 rounded-full bg-purple-500/30" />
 								<span className="size-0.5 rounded-full bg-purple-500/20" />
@@ -109,9 +87,9 @@ export default function TarotHomePage() {
 					{/* Pillar 2: Cartas */}
 					<Link
 						href="/cartas"
-						className="group relative"
+						className="group relative flex"
 					>
-						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/10 hover:border-violet-500/30 hover:-translate-y-2">
+						<div className="flex flex-col h-full w-full text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/10 hover:border-violet-500/30 hover:-translate-y-2">
 							{/* Sacred symbol */}
 							<div className="relative inline-flex items-center justify-center">
 								<div className="absolute size-20 animate-spin-slow [animation-duration:12s] [animation-direction:reverse]">
@@ -132,7 +110,7 @@ export default function TarotHomePage() {
 							</div>
 
 							{/* Decorative dots */}
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex items-center justify-center gap-2 mt-auto">
 								<span className="size-1.5 rounded-full bg-violet-500/50" />
 								<span className="size-1 rounded-full bg-violet-500/30" />
 								<span className="size-0.5 rounded-full bg-violet-500/20" />
@@ -141,8 +119,8 @@ export default function TarotHomePage() {
 					</Link>
 
 					{/* Pillar 3: Jornada */}
-					<div className="group relative">
-						<div className="text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 cursor-default">
+					<div className="group relative flex">
+						<div className="flex flex-col h-full w-full text-center space-y-6 p-8 rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/5 transition-all duration-500 cursor-default">
 							{/* Sacred symbol */}
 							<div className="relative inline-flex items-center justify-center">
 								<div className="absolute size-20 animate-spin-slow [animation-duration:14s]">
@@ -163,11 +141,13 @@ export default function TarotHomePage() {
 							</div>
 
 							{/* Coming soon badge */}
-							<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
-								<span className="size-1.5 rounded-full bg-indigo-500/70 animate-pulse" />
-								<span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
-									Em breve
-								</span>
+							<div className="flex items-center justify-center mt-auto">
+								<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20">
+									<span className="size-1.5 rounded-full bg-indigo-500/70 animate-pulse" />
+									<span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">
+										Em breve
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -209,22 +189,6 @@ export default function TarotHomePage() {
 					</div>
 				</div>
 			</div>
-
-			{/* Ambient animation styles */}
-			<style jsx>{`
-				@keyframes spin-slow {
-					from {
-						transform: rotate(0deg);
-					}
-					to {
-						transform: rotate(360deg);
-					}
-				}
-
-				.animate-spin-slow {
-					animation: spin-slow 20s linear infinite;
-				}
-			`}</style>
 		</div>
 	)
 }
