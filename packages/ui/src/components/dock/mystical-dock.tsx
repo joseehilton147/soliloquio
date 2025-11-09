@@ -114,16 +114,16 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 						{/* Background interno com blur */}
 						<div className={cn(
-							'rounded-2xl overflow-hidden',
+							'rounded-2xl overflow-visible',
 							'bg-background/98 backdrop-blur-2xl',
 							'shadow-2xl shadow-purple-500/30',
 							'min-w-[180px]',
 						)}>
 							{/* Glow interno místico */}
-							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none" />
+							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
 							{/* Shimmer effect */}
-							<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+							<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none overflow-hidden rounded-2xl" />
 
 							{/* Conteúdo do submenu aninhado */}
 							<div className="relative p-3 space-y-1.5">
@@ -316,16 +316,16 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 							{/* Background interno com blur */}
 							<div className={cn(
-								'rounded-2xl overflow-hidden',
+								'rounded-2xl overflow-visible',
 								'bg-background/98 backdrop-blur-2xl',
 								'shadow-2xl shadow-purple-500/30',
 								'min-w-[180px]',
 							)}>
 								{/* Glow interno místico */}
-								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none" />
+								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
 								{/* Shimmer effect */}
-								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none overflow-hidden rounded-2xl" />
 
 								{/* Conteúdo da Stack */}
 								<div className="relative p-3 space-y-2">
