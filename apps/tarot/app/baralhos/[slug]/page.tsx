@@ -14,7 +14,7 @@ interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
-export default function DeckDetailPage({ params }: PageProps) {
+export default function BaralhoDetailPage({ params }: PageProps) {
 	const { slug } = use(params)
 	const router = useRouter()
 	const [isDeleting, setIsDeleting] = useState(false)
@@ -22,7 +22,7 @@ export default function DeckDetailPage({ params }: PageProps) {
 
 	const deleteMutation = trpc.tarot.deleteDeck.useMutation({
 		onSuccess: () => {
-			router.push('/decks')
+			router.push('/baralhos')
 		},
 	})
 
@@ -47,7 +47,7 @@ export default function DeckDetailPage({ params }: PageProps) {
 	if (error || !deck) {
 		const breadcrumbItems: BreadcrumbItem[] = [
 			{ label: 'Início', href: '/' },
-			{ label: 'Baralhos', href: '/decks' },
+			{ label: 'Baralhos', href: '/baralhos' },
 			{ label: 'Não encontrado' },
 		]
 
@@ -65,7 +65,7 @@ export default function DeckDetailPage({ params }: PageProps) {
 
 	const breadcrumbItems: BreadcrumbItem[] = [
 		{ label: 'Início', href: '/' },
-		{ label: 'Baralhos', href: '/decks' },
+		{ label: 'Baralhos', href: '/baralhos' },
 		{ label: deck.name },
 	]
 
@@ -99,7 +99,7 @@ export default function DeckDetailPage({ params }: PageProps) {
 
 				<div className="flex gap-2">
 					<Link
-						href={`/decks/${deck.slug}/editar`}
+						href={`/baralhos/${deck.slug}/editar`}
 						className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
 					>
 						<Pencil className="size-4" />
@@ -150,7 +150,7 @@ export default function DeckDetailPage({ params }: PageProps) {
 					</div>
 				) : (
 					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{deck.cards.map((card: TarotCard) => (
+						{deck.cards.map((card: any) => (
 							<Link
 								key={card.id}
 								href={`/cartas/${card.slug}`}

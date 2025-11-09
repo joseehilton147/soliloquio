@@ -167,7 +167,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
       } else if (e.key === 'Enter' && allResults[selectedIndex]) {
         e.preventDefault()
         const result = allResults[selectedIndex]
-        const url = result.type === 'card' ? `/cartas/${result.slug}` : `/decks/${result.slug}`
+        const url = result.type === 'card' ? `/cartas/${result.slug}` : `/baralhos/${result.slug}`
         router.push(url)
         onClose()
       } else if (e.key === 'Escape') {
@@ -279,7 +279,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                   const url =
                     result.type === 'card'
                       ? `/cartas/${result.slug}`
-                      : `/decks/${result.slug}`
+                      : `/baralhos/${result.slug}`
 
                   return (
                     <Link

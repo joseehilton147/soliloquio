@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { trpc } from '../../src/lib/trpc'
 
-export default function DecksPage() {
+export default function BaralhosPage() {
 	const { data: decks, isLoading, error } = trpc.tarot.getDecks.useQuery()
 
 	// Loading místico fullscreen
@@ -31,7 +31,7 @@ export default function DecksPage() {
 					{decks.map((deck) => (
 						<Link
 							key={deck.id}
-							href={`/decks/${deck.slug}`}
+							href={`/baralhos/${deck.slug}`}
 							className="group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:shadow-purple-500/10 hover:border-purple-500/30 hover:-translate-y-1"
 						>
 							{/* Shimmer effect on hover */}
@@ -125,7 +125,7 @@ export default function DecksPage() {
 						Inicie sua jornada mística criando o primeiro baralho sagrado
 					</p>
 					<Link
-						href="/decks/novo"
+						href="/baralhos/novo"
 						className="group mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 transition-all hover:scale-105"
 					>
 						<Plus className="size-4 transition-transform group-hover:rotate-90" />

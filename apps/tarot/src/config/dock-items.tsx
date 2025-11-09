@@ -45,11 +45,11 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
     id: 'baralhos',
     label: 'Baralhos',
     icon: Layers,
-    href: '/decks',
+    href: '/baralhos',
     type: 'link',
     position: 'left',
     submenu: [
-      { label: 'Novo Baralho', href: '/decks/novo', icon: Plus },
+      { label: 'Novo Baralho', href: '/baralhos/novo', icon: Plus },
     ],
   },
   {
