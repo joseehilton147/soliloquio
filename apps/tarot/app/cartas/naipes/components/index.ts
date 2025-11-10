@@ -28,3 +28,9 @@ export { FourElementsSection } from './four-elements-section'
 export { NaipeStructureSection } from './naipe-structure-section'
 export { ArcanosReferenceSection } from './arcanos-reference-section'
 export { NaipesHeroSection } from './naipes-hero-section'
+export { NaipePageHero } from './naipe-page-hero'
+export { NaipeCardsGrid } from './naipe-cards-grid'
+
+// Types
+export type { NaipePageHeroProps } from './naipe-page-hero'
+export type { NaipeCardsGridProps } from './naipe-cards-grid'
