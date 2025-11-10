@@ -94,25 +94,15 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			const availableSpace = shouldOpenUpwards ? adjustedSpaceAbove : adjustedSpaceBelow
 			console.log('💠 Available Space (escolhido):', availableSpace)
 
-			// Subtrair paddings internos do modal para cálculo preciso:
-			// Ajustado para MAXIMIZAR espaço disponível (imagem 20.png):
-			// - Border gradient: 2px * 2 = 4px
-			// - Padding interno: 12px * 2 (p-3 top+bottom) = 24px
-			// - Header fase atual (título + desc + 3 métricas): ~150px
-			// - Header calendário (título + subtítulo): ~30px
-			// - Total headers flex-shrink-0: ~180px
-			// - Total fixo: 4 + 24 + 180 = 208px
-			// - Margem mínima interna: 20px
-			// Total a subtrair: ~220px (reduzido de 272px para maximizar lista)
-			const internalPadding = 190 // Reduzido de 240px para maximizar espaço da lista
-			const margins = 30 // Reduzido de 32px para margem mínima
-			const totalToSubtract = internalPadding + margins
+			// CORREÇÃO: NÃO subtrair paddings internos!
+			// Os headers flex-shrink-0 estão DENTRO do container com flexbox.
+			// O flexbox vai distribuir o espaço automaticamente entre headers e lista.
+			// Apenas deixar uma pequena margem de segurança (16px).
+			const safetyMargin = 16 // Margem de segurança mínima
 
-			console.log('🎯 Internal Padding (border + p-3 + headers):', internalPadding)
-			console.log('🎯 Margins + Offset:', margins)
-			console.log('🎯 Total to Subtract:', totalToSubtract)
+			console.log('🎯 Safety Margin:', safetyMargin)
 
-			const calculatedMaxHeight = Math.max(300, availableSpace - totalToSubtract)
+			const calculatedMaxHeight = Math.max(350, availableSpace - safetyMargin)
 			console.log('📊 MaxHeight Final:', calculatedMaxHeight)
 			console.warn('⚠️ Se modal ainda estiver cortado, envie print com esse console group aberto!')
 			console.groupEnd()
