@@ -1,10 +1,8 @@
-'use client'
-
+import { Suspense } from 'react'
 import { MysticalLoading } from '@workspace/ui'
 
-import { trpc } from '../../../../src/lib/trpc'
 import { ELEMENT_COLORS } from '../element-colors.data'
-import { NaipePageHero, NaipeCardsGrid } from '../components'
+import { NaipePageHero, NaipeContent } from '../components'
 
 /**
  * Página de Copas - Naipe de Água
@@ -18,16 +16,7 @@ import { NaipePageHero, NaipeCardsGrid } from '../components'
  * - DRY: Don't Repeat Yourself (cores e layout reutilizáveis)
  */
 export default function CopasPage() {
-	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })
-
-	// Filtrar apenas cartas de Copas
-	const copas = data?.cards.filter((card) => card.suit === 'COPAS') || []
 	const colors = ELEMENT_COLORS.agua
-
-	// Loading fullscreen místico
-	if (isLoading) {
-		return <MysticalLoading variant="fullscreen" size="xl" />
-	}
 
 	return (
 		<div className="relative min-h-screen">
@@ -44,7 +33,7 @@ export default function CopasPage() {
 			</div>
 
 			<div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
-				{/* Hero Imersivo */}
+				{/* Hero Imersivo - Renderizado estaticamente (SSR) */}
 				<NaipePageHero
 					title="Copas"
 					subtitle="Naipe de Água · Elemento das Emoções"
@@ -58,15 +47,10 @@ export default function CopasPage() {
 					symbol="♥"
 				/>
 
-				{/* Error State */}
-				{error && (
-					<div className="rounded-xl border border-destructive/50 bg-destructive/5 p-8 backdrop-blur-sm">
-						<p className="text-sm text-destructive">Erro ao carregar cartas: {error.message}</p>
-					</div>
-				)}
-
-				{/* Cards Grid */}
-				{!error && <NaipeCardsGrid cards={copas} colors={colors} symbol="♥" />}
+				{/* Conteúdo Dinâmico com Suspense - Streaming */}
+				<Suspense fallback={<MysticalLoading variant="fullscreen" size="xl" />}>
+					<NaipeContent suit="COPAS" colors={colors} symbol="♥" />
+				</Suspense>
 			</div>
 		</div>
 	)

@@ -1,6 +1,7 @@
 'use client'
 
 import { Icon } from '@iconify/react'
+
 import { cn } from '../../lib/utils'
 
 export interface FilterChipProps {
@@ -46,21 +47,21 @@ export function FilterChip({
 				// Estado ativo padrão
 				active &&
 					!isMystical && [
-						'bg-purple-600 hover:bg-purple-700',
-						'border-purple-600 hover:border-purple-700',
-						'text-white',
-						'shadow-lg shadow-purple-500/25',
-					],
+					'bg-purple-600 hover:bg-purple-700',
+					'border-purple-600 hover:border-purple-700',
+					'text-white',
+					'shadow-lg shadow-purple-500/25',
+				],
 				// Estado ativo místico
 				active &&
 					isMystical && [
-						'bg-gradient-to-r from-purple-600 to-indigo-600',
-						'border-purple-500/50',
-						'text-white',
-						'shadow-lg shadow-purple-500/30',
-						'hover:shadow-xl hover:shadow-purple-500/40',
-						'hover:scale-105',
-					],
+					'bg-gradient-to-r from-purple-600 to-indigo-600',
+					'border-purple-500/50',
+					'text-white',
+					'shadow-lg shadow-purple-500/30',
+					'hover:shadow-xl hover:shadow-purple-500/40',
+					'hover:scale-105',
+				],
 				className,
 			)}
 		>

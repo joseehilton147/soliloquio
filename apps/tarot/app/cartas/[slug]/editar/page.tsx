@@ -17,6 +17,7 @@ interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
+
 export default function EditarCartaPage({ params }: PageProps) {
 	const { slug } = use(params)
 	const router = useRouter()

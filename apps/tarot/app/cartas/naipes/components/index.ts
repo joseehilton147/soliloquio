@@ -30,6 +30,7 @@ export { ArcanosReferenceSection } from './arcanos-reference-section'
 export { NaipesHeroSection } from './naipes-hero-section'
 export { NaipePageHero } from './naipe-page-hero'
 export { NaipeCardsGrid } from './naipe-cards-grid'
+export { NaipeContent } from './naipe-content'
 
 // Types
 export type { NaipePageHeroProps } from './naipe-page-hero'

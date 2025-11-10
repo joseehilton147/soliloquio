@@ -14,6 +14,7 @@ interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
+
 export default function EditarBaralhoPage({ params }: PageProps) {
 	const { slug } = use(params)
 	const router = useRouter()

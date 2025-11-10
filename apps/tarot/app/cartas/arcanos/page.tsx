@@ -1,5 +1,3 @@
-'use client'
-
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'

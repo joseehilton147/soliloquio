@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { trpc } from '../../src/lib/trpc'
 
+
 export default function BaralhosPage() {
 	const { data: decks, isLoading, error } = trpc.tarot.getDecks.useQuery()
 

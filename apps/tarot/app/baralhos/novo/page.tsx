@@ -9,6 +9,7 @@ import { useState } from 'react'
 
 import { trpc } from '../../../src/lib/trpc'
 
+
 export default function NovoBaralhoPage() {
 	const router = useRouter()
 	const [isSubmitting, setIsSubmitting] = useState(false)

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { getLunarInfo, getNextMoonPhases, type LunarInfo } from '../../lib/lunar-calendar'
 import { cn } from '../../lib/utils'
+import { calculateAvailableSpace } from '../../lib/viewport-utils'
 import { MoonPhaseBadge } from '../molecules/moon-phase-badge'
 import { MoonPhaseListItem } from '../molecules/moon-phase-list-item'
 
@@ -49,25 +50,16 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			setCloseTimeout(null)
 		}
 
-		// Calcular espaço disponível e direção de abertura
+		// Calcular espaço disponível usando utility
 		if (triggerRef.current) {
-			const rect = triggerRef.current.getBoundingClientRect()
-			const viewportHeight = window.innerHeight
-			const spaceBelow = viewportHeight - rect.bottom
-			const spaceAbove = rect.top
+			const space = calculateAvailableSpace(triggerRef.current, {
+				margin: 16,
+				minHeight: 200,
+				offset: 16, // mt-4 = 16px
+			})
 
-			// Margem de segurança
-			const MARGIN = 16
-			const MIN_MODAL_HEIGHT = 200
-
-			// Decide se abre para cima ou para baixo
-			const shouldOpenUpwards = spaceBelow < MIN_MODAL_HEIGHT && spaceAbove > spaceBelow
-			setOpenUpwards(shouldOpenUpwards)
-
-			// Calcula altura máxima baseada no espaço disponível
-			const availableSpace = shouldOpenUpwards ? spaceAbove : spaceBelow
-			const calculatedMaxHeight = Math.max(MIN_MODAL_HEIGHT, availableSpace - MARGIN - 16) // 16px = mt-4
-			setMaxHeight(calculatedMaxHeight)
+			setOpenUpwards(space.shouldOpenUpwards)
+			setMaxHeight(space.maxHeight)
 		}
 
 		setIsOpen(true)
@@ -114,7 +106,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 				<div
 					className={cn(
 						'absolute right-0 animate-in fade-in duration-200 z-50',
-						openUpwards ? 'bottom-full mb-4 slide-in-from-bottom-2' : 'top-full mt-4 slide-in-from-top-2'
+						openUpwards ? 'bottom-full mb-4 slide-in-from-bottom-2' : 'top-full mt-4 slide-in-from-top-2',
 					)}
 					style={{ maxHeight: `${maxHeight}px` }}
 				>
@@ -202,11 +194,11 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 					{/* Seta indicadora - adapta à direção de abertura */}
 					<div className={cn(
 						'absolute right-8',
-						openUpwards ? 'top-full' : 'bottom-full'
+						openUpwards ? 'top-full' : 'bottom-full',
 					)}>
 						<div className={cn(
 							'border-8 border-transparent',
-							openUpwards ? 'border-t-purple-500' : 'border-b-purple-500'
+							openUpwards ? 'border-t-purple-500' : 'border-b-purple-500',
 						)} />
 					</div>
 				</div>

@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { useTagAutocomplete } from '../../../src/hooks/use-tag-autocomplete'
 import { trpc } from '../../../src/lib/trpc'
 
+
 export default function NovaCartaPage() {
 	const router = useRouter()
 	const [isSubmitting, setIsSubmitting] = useState(false)

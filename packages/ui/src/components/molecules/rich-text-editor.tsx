@@ -1,9 +1,10 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import { useEditor, EditorContent, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Icon } from '@iconify/react'
 import { useEffect } from 'react'
+
 import { cn } from '../../lib/utils'
 
 export interface RichTextEditorProps {

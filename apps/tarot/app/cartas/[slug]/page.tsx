@@ -13,6 +13,7 @@ interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
+
 export default function CartaDetailPage({ params }: PageProps) {
 	const { slug } = use(params)
 	const { data: card, isLoading, error } = trpc.tarot.getBySlug.useQuery(slug)

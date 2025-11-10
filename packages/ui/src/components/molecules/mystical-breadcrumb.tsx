@@ -44,7 +44,7 @@ export function MysticalBreadcrumb({
 										{isFirst && (
 											<Icon icon="lucide:home"
 												className="size-4 text-muted-foreground group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors"
-																							/>
+											/>
 										)}
 										<span className="text-muted-foreground group-hover/link:text-purple-600 dark:group-hover/link:text-purple-400 transition-colors">
 											{item.label}
@@ -69,7 +69,7 @@ export function MysticalBreadcrumb({
 										{isLast && showSparkles && (
 											<Icon icon="lucide:sparkles"
 												className="size-4 text-purple-600 dark:text-purple-400"
-																							/>
+											/>
 										)}
 
 										{item.label}
@@ -80,7 +80,7 @@ export function MysticalBreadcrumb({
 							{!isLast && (
 								<Icon icon="lucide:chevron-right"
 									className="size-4 text-muted-foreground/40"
-																		aria-hidden="true"
+									aria-hidden="true"
 								/>
 							)}
 						</li>
