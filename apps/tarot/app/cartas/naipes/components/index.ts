@@ -7,7 +7,7 @@
  * Hierarquia Design Atomic:
  * - Atoms: NaipeSymbol, ElementBadge, ZodiacInfo, ThemeInfo, NaipeCTA
  * - Molecules: NaipeHeader, NaipeInfo
- * - Organisms: NaipeCard, EducationalSection
+ * - Organisms: NaipeCard, EducationalSection, FourElementsSection, NaipeStructureSection
  */
 
 // Atoms
@@ -24,3 +24,5 @@ export { NaipeInfo } from './naipe-info'
 // Organisms
 export { NaipeCard } from './naipe-card'
 export { EducationalSection } from './educational-section'
+export { FourElementsSection } from './four-elements-section'
+export { NaipeStructureSection } from './naipe-structure-section'

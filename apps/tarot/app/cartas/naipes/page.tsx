@@ -2,7 +2,7 @@
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { NAIPES } from './naipes.data'
-import { NaipeCard, EducationalSection } from './components'
+import { NaipeCard, FourElementsSection, NaipeStructureSection } from './components'
 
 /**
  * Página dos 4 Naipes do Tarô
@@ -34,23 +34,7 @@ export default function NaipesPage() {
 				</p>
 			</div>
 
-			<EducationalSection
-				title="Por que 4 Naipes e 4 Elementos?"
-				icon="lucide:sparkles"
-				gradientFrom="purple"
-				gradientTo="violet"
-			>
-				<p>
-					A divisão em 4 naipes reflete uma sabedoria ancestral presente em diversas tradições:
-					os 4 elementos (Água, Fogo, Terra, Ar) que compõem toda a criação. Cada elemento
-					representa uma faceta da experiência humana - emoções, ação, matéria e pensamento.
-				</p>
-				<p>
-					Essa estrutura não é aleatória: ela espelha como vivemos nossas vidas através
-					dessas 4 dimensões fundamentais, sempre buscando equilíbrio entre sentir, agir,
-					construir e pensar.
-				</p>
-			</EducationalSection>
+			<FourElementsSection />
 
 			<div className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto">
 				{NAIPES.map((naipe) => (
@@ -58,30 +42,7 @@ export default function NaipesPage() {
 				))}
 			</div>
 
-			<EducationalSection
-				title="Estrutura de Cada Naipe"
-				gradientFrom="indigo"
-				gradientTo="blue"
-			>
-				<p>
-					Cada um dos 4 naipes contém 14 cartas, divididas em:
-				</p>
-				<ul className="space-y-2 ml-6">
-					<li className="flex items-start gap-3">
-						<span className="mt-1.5 size-1.5 rounded-full bg-indigo-500 flex-shrink-0" />
-						<span><strong>10 Cartas Numeradas</strong> (Ás a 10) - Representam a evolução de uma situação ou energia</span>
-					</li>
-					<li className="flex items-start gap-3">
-						<span className="mt-1.5 size-1.5 rounded-full bg-indigo-500 flex-shrink-0" />
-						<span><strong>4 Cartas da Corte</strong> (Valete, Cavaleiro, Rainha, Rei) - Representam pessoas, personalidades ou aspectos de nós mesmos</span>
-					</li>
-				</ul>
-				<p>
-					A combinação dessas 56 cartas (4 naipes × 14 cartas) forma os Arcanos Menores,
-					oferecendo uma rica tapeçaria de significados para compreender as situações
-					práticas da vida cotidiana.
-				</p>
-			</EducationalSection>
+			<NaipeStructureSection />
 		</div>
 	)
 }
