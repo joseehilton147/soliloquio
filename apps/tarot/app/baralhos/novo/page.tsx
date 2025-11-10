@@ -93,7 +93,7 @@ export default function NovoBaralhoPage() {
 						</div>
 
 						{imageUrl ? (
-							<div className="group relative aspect-square w-full rounded-lg overflow-hidden border-2 border-border/40 shadow-xl hover:shadow-purple-500/20 transition-all duration-300">
+							<div className="group relative aspect-[3/4] w-full rounded-lg overflow-hidden border-2 border-border/40 shadow-xl hover:shadow-purple-500/20 transition-all duration-300">
 								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 								<Image
 									src={imageUrl}
@@ -104,7 +104,7 @@ export default function NovoBaralhoPage() {
 								/>
 							</div>
 						) : (
-							<div className="aspect-square w-full rounded-lg border-2 border-dashed border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
+							<div className="aspect-[3/4] w-full rounded-lg border-2 border-dashed border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
 								<div className="text-center space-y-2">
 									<Icon icon="lucide:image" className="size-12 text-purple-500/40 mx-auto" />
 									<p className="text-sm text-muted-foreground">

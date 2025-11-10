@@ -65,7 +65,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 				<div className="lg:sticky lg:top-24 lg:self-start space-y-6">
 					{/* Card Image com efeito místico */}
 					{card.imageUrl && (
-						<div className="group relative aspect-[2/3] w-full max-w-sm mx-auto lg:mx-0 rounded-lg overflow-hidden border-2 border-border/40 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
+						<div className="group relative aspect-[3/4] w-full max-w-sm mx-auto lg:mx-0 rounded-lg overflow-hidden border-2 border-border/40 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
 							{/* Mystical glow effect */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
 							<Image

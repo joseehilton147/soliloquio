@@ -159,7 +159,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
 
 								{card.imageUrl && (
-									<div className="relative aspect-[2/3] w-full bg-gradient-to-br from-muted to-muted/50">
+									<div className="relative aspect-[3/4] w-full bg-gradient-to-br from-muted to-muted/50">
 										<Image
 											src={card.imageUrl}
 											alt={card.name}
