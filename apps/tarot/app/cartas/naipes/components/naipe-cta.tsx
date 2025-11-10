@@ -16,7 +16,7 @@ interface NaipeCTAProps {
 const CTA_COLOR_CLASSES = {
 	blue: 'text-blue-600 dark:text-blue-400',
 	red: 'text-red-600 dark:text-red-400',
-	stone: 'text-stone-600 dark:text-stone-400',
+	terra: 'text-yellow-600 dark:text-yellow-400',
 	slate: 'text-slate-600 dark:text-slate-400',
 } as const
 

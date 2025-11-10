@@ -14,7 +14,7 @@ interface ZodiacInfoProps {
 const ZODIAC_COLOR_CLASSES = {
 	blue: 'text-blue-700 dark:text-blue-300',
 	red: 'text-red-700 dark:text-red-300',
-	stone: 'text-stone-700 dark:text-stone-300',
+	terra: 'text-yellow-700 dark:text-yellow-300',
 	slate: 'text-slate-700 dark:text-slate-300',
 } as const
 

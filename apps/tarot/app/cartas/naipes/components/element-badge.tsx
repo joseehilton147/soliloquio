@@ -28,10 +28,10 @@ const ELEMENT_COLOR_CLASSES = {
 		icon: 'text-red-600 dark:text-red-400',
 		text: 'text-red-700 dark:text-red-300',
 	},
-	stone: {
-		bg: 'bg-stone-500/10',
-		icon: 'text-stone-600 dark:text-stone-400',
-		text: 'text-stone-700 dark:text-stone-300',
+	terra: {
+		bg: 'bg-yellow-500/10',
+		icon: 'text-yellow-600 dark:text-yellow-400',
+		text: 'text-yellow-700 dark:text-yellow-300',
 	},
 	slate: {
 		bg: 'bg-slate-500/10',

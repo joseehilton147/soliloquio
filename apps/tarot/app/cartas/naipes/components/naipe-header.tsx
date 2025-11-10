@@ -38,11 +38,11 @@ const COLOR_CLASSES = {
 		text: 'text-red-600/80 dark:text-red-400/80',
 		gradientDark: 'dark:from-red-400 dark:to-red-400',
 	},
-	stone: {
-		icon: 'text-stone-600 dark:text-stone-400',
-		bg: 'bg-gradient-to-br from-stone-600/20 to-stone-600/20',
-		text: 'text-stone-600/80 dark:text-stone-400/80',
-		gradientDark: 'dark:from-stone-400 dark:to-stone-400',
+	terra: {
+		icon: 'text-yellow-600 dark:text-yellow-400',
+		bg: 'bg-gradient-to-br from-yellow-600/20 to-amber-600/20',
+		text: 'text-yellow-600/80 dark:text-yellow-400/80',
+		gradientDark: 'dark:from-yellow-400 dark:to-amber-400',
 	},
 	slate: {
 		icon: 'text-slate-600 dark:text-slate-400',

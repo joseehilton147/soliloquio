@@ -47,7 +47,7 @@ export const NAIPES: readonly Naipe[] = [
 		symbol: '♦',
 		element: 'Terra',
 		elementIcon: 'mdi:mountain',
-		color: 'yellow',
+		color: 'terra',
 		gradient: 'from-yellow-600 to-amber-600',
 		bgGradient: 'from-yellow-500/10 via-amber-500/10 to-orange-500/10',
 		borderColor: 'border-yellow-500/30',
