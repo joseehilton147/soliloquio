@@ -91,10 +91,10 @@ export function NaipeHeader({
 					<Icon icon={elementIcon} className={`size-6 ${colorClasses.icon}`} />
 				</div>
 				<div>
-					<h3 className={`text-2xl font-bold bg-gradient-to-r ${gradient} ${colorClasses.gradientDark} bg-clip-text text-transparent`}>
+					<h3 className={`text-3xl md:text-4xl font-bold bg-gradient-to-r ${gradient} ${colorClasses.gradientDark} bg-clip-text text-transparent`}>
 						{name}
 					</h3>
-					<p className={`text-sm ${colorClasses.text} font-medium`}>
+					<p className={`text-base ${colorClasses.text} font-medium`}>
 						14 Cartas · Elemento {element}
 					</p>
 				</div>

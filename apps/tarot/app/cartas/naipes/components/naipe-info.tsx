@@ -52,7 +52,7 @@ export function NaipeInfo({
 }: NaipeInfoProps) {
 	return (
 		<div className="space-y-4">
-			<p className="text-foreground/80 leading-relaxed">
+			<p className="text-lg text-foreground/80 leading-relaxed">
 				{description}
 			</p>
 

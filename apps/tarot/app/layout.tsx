@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import '@workspace/ui/globals.css'
+import './tarot.css'
 import { Providers } from '../src/components/providers'
 import { TarotLayout } from '../src/components/tarot-layout'
 import { getAllFontsClassName } from '../config/fonts.config'

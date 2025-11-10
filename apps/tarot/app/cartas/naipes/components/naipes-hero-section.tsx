@@ -90,21 +90,21 @@ export function NaipesHeroSection() {
 			{/* Conteúdo */}
 			<div className="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
 				{/* Título místico */}
-				<h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+				<h1 className="text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000 tracking-wider">
 					Os 4 Naipes do Tarô
 				</h1>
 
 				{/* Subtítulo */}
 				<div className="flex items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150">
-					<Icon icon="lucide:sparkles" className="size-6 text-violet-400/70" />
-					<p className="text-lg text-purple-200/90 font-light tracking-wide">
+					<Icon icon="lucide:sparkles" className="size-7 text-violet-400/70" />
+					<p className="text-xl md:text-2xl text-purple-200/90 font-accent font-light tracking-wide">
 						Os 4 Elementos da Natureza Manifestados
 					</p>
-					<Icon icon="lucide:sparkles" className="size-6 text-violet-400/70" />
+					<Icon icon="lucide:sparkles" className="size-7 text-violet-400/70" />
 				</div>
 
 				{/* Descrição Principal */}
-				<p className="text-lg text-purple-200/80 leading-relaxed max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+				<p className="text-xl md:text-2xl text-purple-200/80 leading-relaxed max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
 					Os Arcanos Menores são divididos em <span className="text-purple-300 font-semibold">4 naipes místicos</span>,
 					cada um representando um dos elementos fundamentais da natureza e diferentes dimensões da experiência humana.
 					Cada naipe contém 14 cartas sagradas (do Ás ao Rei).
@@ -116,8 +116,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 hover:bg-blue-500/10 transition-all">
 						<Icon icon="mdi:water" className="size-8 text-blue-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-blue-300">Copas</p>
-							<p className="text-xs text-blue-400/70">Água · Emoções</p>
+							<p className="font-semibold text-blue-300 text-lg">Copas</p>
+							<p className="text-sm text-blue-400/70">Água · Emoções</p>
 						</div>
 					</div>
 
@@ -125,8 +125,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-all">
 						<Icon icon="mdi:fire" className="size-8 text-red-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-red-300">Paus</p>
-							<p className="text-xs text-red-400/70">Fogo · Ação</p>
+							<p className="font-semibold text-red-300 text-lg">Paus</p>
+							<p className="text-sm text-red-400/70">Fogo · Ação</p>
 						</div>
 					</div>
 
@@ -134,8 +134,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-stone-500/20 bg-stone-500/5 hover:bg-stone-500/10 transition-all">
 						<Icon icon="mdi:mountain" className="size-8 text-stone-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-stone-300">Ouros</p>
-							<p className="text-xs text-stone-400/70">Terra · Material</p>
+							<p className="font-semibold text-stone-300 text-lg">Ouros</p>
+							<p className="text-sm text-stone-400/70">Terra · Material</p>
 						</div>
 					</div>
 
@@ -143,8 +143,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-slate-500/20 bg-slate-500/5 hover:bg-slate-500/10 transition-all">
 						<Icon icon="mdi:weather-windy" className="size-8 text-slate-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-slate-300">Espadas</p>
-							<p className="text-xs text-slate-400/70">Ar · Intelecto</p>
+							<p className="font-semibold text-slate-300 text-lg">Espadas</p>
+							<p className="text-sm text-slate-400/70">Ar · Intelecto</p>
 						</div>
 					</div>
 				</div>

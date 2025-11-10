@@ -56,8 +56,8 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 						<span className="text-5xl">{symbol}</span>
 					</div>
 				</div>
-				<h3 className="mt-8 text-3xl md:text-4xl font-display font-semibold">Nenhuma carta encontrada</h3>
-				<p className="mt-4 text-lg md:text-xl font-body text-muted-foreground max-w-md leading-relaxed">
+				<h3 className="mt-8 text-3xl md:text-4xl font-semibold">Nenhuma carta encontrada</h3>
+				<p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-md leading-relaxed">
 					As cartas místicas aguardam para serem reveladas
 				</p>
 			</div>
@@ -128,12 +128,12 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 
 						{/* Content */}
 						<div className="relative p-6 space-y-3">
-							<h3 className={cn('text-2xl md:text-3xl font-display font-semibold group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:text-transparent transition-all', colors.gradient)}>
+							<h3 className={cn('text-2xl md:text-3xl font-semibold group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:text-transparent transition-all', colors.gradient)}>
 								{card.name}
 							</h3>
 
 							{/* Stats */}
-							<div className={cn('flex items-center gap-6 pt-3 text-sm font-body text-muted-foreground border-t', colors.border)}>
+							<div className={cn('flex items-center gap-6 pt-3 text-sm text-muted-foreground border-t', colors.border)}>
 								<div className="flex items-center gap-1.5">
 									<div className={cn('size-1.5 rounded-full', `bg-${colors.primary}-500/70`)} />
 									<span className="font-medium">{Array.isArray(card.verticalMeaning) ? card.verticalMeaning.length : 0}</span>

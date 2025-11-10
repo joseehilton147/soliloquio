@@ -1,0 +1,31 @@
+/**
+ * Estilos Específicos do Tarot
+ *
+ * Este arquivo contém estilos que são EXCLUSIVOS do app de Tarot,
+ * separados do packages/ui que é compartilhado por todo monorepo.
+ *
+ * FONTES MÍSTICAS:
+ * - Configuradas via config/fonts.config.ts
+ * - Aplicadas globalmente neste app via CSS variables
+ * - Outros apps do monorepo não são afetados
+ */
+
+/* Tipografia Mística - Aplicação Global */
+html {
+	font-family: var(--font-body), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Hierarquia de Títulos - Fonte Display Mística */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display), ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+/* Ênfase/Accent - Pode ser usada em subtítulos ou destaques */
+.font-accent {
+	font-family: var(--font-accent), ui-serif, Georgia, Cambria, serif;
+}
