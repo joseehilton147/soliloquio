@@ -274,7 +274,6 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
             ) : (
               <div className="space-y-1.5">
                 {allResults.map((result, index) => {
-                  const Icon = result.icon
                   const isSelected = index === selectedIndex
                   const url =
                     result.type === 'card'
@@ -316,9 +315,9 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                             )}
                           >
                             {result.imageUrl === null || result.imageUrl === undefined ? (
-                              <ImageIcon className="size-6 sm:size-8 text-white/50" strokeWidth={1.5} />
+                              <Icon icon="lucide:image" className="size-6 sm:size-8 text-white/50" />
                             ) : (
-                              <Icon className="size-6 sm:size-8 text-white" strokeWidth={2} />
+                              <Icon icon="lucide:sparkles" className="size-6 sm:size-8 text-white" />
                             )}
                           </div>
                         )}
@@ -353,20 +352,20 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
                               <div className="flex items-center gap-1 flex-wrap">
                                 {result.matches.slice(0, 2).map((match, i) => {
                                   const iconMap = {
-                                    numerologia: Hash,
-                                    astrologia: Star,
-                                    significado: Sparkles,
-                                    tag: Tag,
-                                    nome: Tag,
-                                    descrição: Sparkles,
+                                    numerologia: 'lucide:hash',
+                                    astrologia: 'lucide:star',
+                                    significado: 'lucide:sparkles',
+                                    tag: 'lucide:tag',
+                                    nome: 'lucide:tag',
+                                    descrição: 'lucide:sparkles',
                                   } as const
 
-                                  const Icon = iconMap[match.field as keyof typeof iconMap] || Tag
+                                  const iconString = iconMap[match.field as keyof typeof iconMap] || 'lucide:tag'
 
                                   return (
                                     <SearchFieldBadge
                                       key={i}
-                                      icon={Icon}
+                                      icon={iconString}
                                       label={match.field}
                                       variant="compact"
                                     />

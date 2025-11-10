@@ -2,7 +2,7 @@
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { NAIPES } from './naipes.data'
-import { NaipeCard, FourElementsSection, NaipeStructureSection } from './components'
+import { NaipeCard, FourElementsSection, NaipeStructureSection, ArcanosReferenceSection } from './components'
 
 /**
  * Página dos 4 Naipes do Tarô
@@ -43,6 +43,8 @@ export default function NaipesPage() {
 			</div>
 
 			<NaipeStructureSection />
+
+			<ArcanosReferenceSection />
 		</div>
 	)
 }

@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { trpc } from '../../../../src/lib/trpc'
+import { CartasHeroSection } from '../components'
 
 // Helper para obter símbolo e cor do naipe
 function getSuitInfo(suit: string | null) {
@@ -50,48 +51,20 @@ export default function ArcanosMenoresPage() {
 			</div>
 
 			<div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
-				{/* Hero Místico */}
-				<div className="text-center space-y-8">
-					{/* Sacred Symbol */}
-					<div className="relative inline-flex items-center justify-center">
-						<div className="absolute size-24 animate-spin-slow [animation-duration:10s] [animation-direction:reverse]">
-							<Icon icon="lucide:hexagon" className="size-full text-violet-500/20" />
-						</div>
-						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-							<Icon icon="lucide:flame" className="size-10 text-violet-600 dark:text-violet-400" />
-						</div>
-					</div>
-
-					{/* Title */}
-					<div className="space-y-3">
-						<h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-							<span className="block bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 dark:from-violet-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
-								Arcanos Menores
-							</span>
-						</h1>
-						<p className="text-lg md:text-xl text-muted-foreground font-light tracking-wide max-w-2xl mx-auto">
-							Os 4 elementos manifestados - Experiências cotidianas e lições práticas
-						</p>
-					</div>
-
-					{/* Mystical Quote */}
-					<div className="max-w-2xl mx-auto py-6 relative">
-						<div className="absolute top-0 left-0 text-5xl text-violet-500/10 font-serif">"</div>
-						<p className="text-base md:text-lg text-foreground/90 font-light italic leading-relaxed px-8">
-							Os Arcanos Menores são as nuances da vida. Água, Fogo, Terra e Ar dançam no palco da existência humana.
-						</p>
-						<div className="absolute bottom-0 right-0 text-5xl text-violet-500/10 font-serif rotate-180">"</div>
-					</div>
-
-					{/* Breadcrumb */}
-					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas/arcanos" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-							Arcanos
-						</Link>
-						<span className="text-violet-500/50">/</span>
-						<span className="text-foreground font-medium">Menores</span>
-					</div>
-				</div>
+				{/* Hero Imersivo */}
+				<CartasHeroSection
+					title="Arcanos Menores"
+					subtitle="Os 4 Elementos Manifestados"
+					description="Os Arcanos Menores são as nuances da vida. Água, Fogo, Terra e Ar dançam no palco da existência humana, revelando experiências cotidianas e lições práticas."
+					iconMain="lucide:sparkles"
+					symbolIcon1="mdi:water"
+					symbolIcon2="mdi:fire"
+					symbolIcon3="mdi:mountain"
+					symbolIcon4="mdi:weather-windy"
+					breadcrumbParent={{ label: 'Arcanos', href: '/cartas/arcanos' }}
+					breadcrumbCurrent="Menores"
+					colorScheme="indigo"
+				/>
 
 				{/* Error State */}
 				{error && (

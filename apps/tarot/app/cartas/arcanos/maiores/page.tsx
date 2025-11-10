@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { trpc } from '../../../../src/lib/trpc'
+import { CartasHeroSection } from '../components'
 
 export default function ArcanosMaioresPage() {
 	const { data, isLoading, error } = trpc.tarot.getAll.useQuery({ limit: 100 })
@@ -36,48 +37,20 @@ export default function ArcanosMaioresPage() {
 			</div>
 
 			<div className="relative z-10 max-w-7xl mx-auto px-6 py-12 space-y-16">
-				{/* Hero Místico */}
-				<div className="text-center space-y-8">
-					{/* Sacred Symbol */}
-					<div className="relative inline-flex items-center justify-center">
-						<div className="absolute size-24 animate-spin-slow [animation-duration:15s]">
-							<Icon icon="lucide:triangle" className="size-full text-violet-500/20" />
-						</div>
-						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-							<Icon icon="lucide:crown" className="size-10 text-violet-600 dark:text-violet-400" />
-						</div>
-					</div>
-
-					{/* Title */}
-					<div className="space-y-3">
-						<h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-							<span className="block bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 dark:from-violet-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
-								Arcanos Maiores
-							</span>
-						</h1>
-						<p className="text-lg md:text-xl text-muted-foreground font-light tracking-wide max-w-2xl mx-auto">
-							Os 22 caminhos da jornada do Louco - Grandes arquétipos universais
-						</p>
-					</div>
-
-					{/* Mystical Quote */}
-					<div className="max-w-2xl mx-auto py-6 relative">
-						<div className="absolute top-0 left-0 text-5xl text-violet-500/10 font-serif">"</div>
-						<p className="text-base md:text-lg text-foreground/90 font-light italic leading-relaxed px-8">
-							Os Arcanos Maiores são os grandes mistérios. Forças cósmicas que moldam destinos e revelam verdades eternas.
-						</p>
-						<div className="absolute bottom-0 right-0 text-5xl text-violet-500/10 font-serif rotate-180">"</div>
-					</div>
-
-					{/* Breadcrumb */}
-					<div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-						<Link href="/cartas/arcanos" className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-							Arcanos
-						</Link>
-						<span className="text-violet-500/50">/</span>
-						<span className="text-foreground font-medium">Maiores</span>
-					</div>
-				</div>
+				{/* Hero Imersivo */}
+				<CartasHeroSection
+					title="Arcanos Maiores"
+					subtitle="22 Caminhos da Jornada do Louco"
+					description="Os Arcanos Maiores são os grandes mistérios. Forças cósmicas que moldam destinos e revelam verdades eternas da jornada espiritual humana."
+					iconMain="lucide:crown"
+					symbolIcon1="game-icons:pentagram"
+					symbolIcon2="lucide:moon"
+					symbolIcon3="lucide:star"
+					symbolIcon4="game-icons:crystal-ball"
+					breadcrumbParent={{ label: 'Arcanos', href: '/cartas/arcanos' }}
+					breadcrumbCurrent="Maiores"
+					colorScheme="violet"
+				/>
 
 				{/* Error State */}
 				{error && (

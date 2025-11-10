@@ -34,7 +34,7 @@ export function useAutosave({
 	const [hasDraft, setHasDraft] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const previousDataRef = useRef<string>('')
-	const timeoutRef = useRef<NodeJS.Timeout>()
+	const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
 	// Chave do localStorage
 	const storageKey = `autosave_${key}`

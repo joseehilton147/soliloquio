@@ -19,7 +19,7 @@ export interface SearchFieldBadgeProps {
  * - compact: Usado nos resultados (mais compacto)
  */
 export function SearchFieldBadge({
-	icon: Icon,
+	icon,
 	label,
 	variant = 'default',
 	className,
@@ -32,7 +32,7 @@ export function SearchFieldBadge({
 				className,
 			)}
 		>
-			<Icon className={cn(variant === 'default' ? 'size-3' : 'size-2.5')} />
+			<Icon icon={icon} className={cn(variant === 'default' ? 'size-3' : 'size-2.5')} />
 			<span className="capitalize">{label}</span>
 		</span>
 	)
