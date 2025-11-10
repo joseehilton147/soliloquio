@@ -73,10 +73,16 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 			// Descontar header do spaceAbove para evitar overlap
 			const adjustedSpaceAbove = Math.max(0, space.spaceAbove - headerHeight)
-			const adjustedSpaceBelow = space.spaceBelow
+
+			// Descontar dock do spaceBelow (dock ocupa ~100-120px no fundo)
+			// Deixa margem de 40px até a dock para respiração visual
+			const dockHeight = 120
+			const dockMargin = 40
+			const adjustedSpaceBelow = Math.max(0, space.spaceBelow - dockHeight - dockMargin)
 
 			console.log('✂️ Adjusted Space Above (após descontar header):', adjustedSpaceAbove)
-			console.log('✂️ Adjusted Space Below:', adjustedSpaceBelow)
+			console.log('✂️ Adjusted Space Below (após descontar dock):', adjustedSpaceBelow)
+			console.log('🎪 Dock Height + Margin:', dockHeight + dockMargin)
 
 			// Recalcular direção com espaço ajustado
 			const shouldOpenUpwards = adjustedSpaceBelow < 200 && adjustedSpaceAbove > adjustedSpaceBelow
@@ -89,18 +95,17 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			console.log('💠 Available Space (escolhido):', availableSpace)
 
 			// Subtrair paddings internos do modal para cálculo preciso:
-			// Baseado na análise da imagem 19.png:
+			// Ajustado para MAXIMIZAR espaço disponível (imagem 20.png):
 			// - Border gradient: 2px * 2 = 4px
 			// - Padding interno: 12px * 2 (p-3 top+bottom) = 24px
-			// - Header fase atual (título + desc + 3 métricas): ~162px
-			// - Header calendário (título + subtítulo): ~36px
-			// - Total headers flex-shrink-0: ~198px
-			// - Total fixo: 4 + 24 + 198 = 226px
-			// - margin: 16px
-			// - offset: 16px (mt-4)
-			// Total a subtrair: 226 + 32 = 258px
-			const internalPadding = 240 // Aumentado para 240px baseado em medição real da imagem
-			const margins = 32 // 16 margin + 16 offset
+			// - Header fase atual (título + desc + 3 métricas): ~150px
+			// - Header calendário (título + subtítulo): ~30px
+			// - Total headers flex-shrink-0: ~180px
+			// - Total fixo: 4 + 24 + 180 = 208px
+			// - Margem mínima interna: 20px
+			// Total a subtrair: ~220px (reduzido de 272px para maximizar lista)
+			const internalPadding = 190 // Reduzido de 240px para maximizar espaço da lista
+			const margins = 30 // Reduzido de 32px para margem mínima
 			const totalToSubtract = internalPadding + margins
 
 			console.log('🎯 Internal Padding (border + p-3 + headers):', internalPadding)
