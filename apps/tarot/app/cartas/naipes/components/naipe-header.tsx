@@ -22,6 +22,37 @@ interface NaipeHeaderProps {
 }
 
 /**
+ * Mapeamento de cores para classes Tailwind
+ * Necessário para garantir que o JIT compiler detecte todas as classes
+ */
+const COLOR_CLASSES = {
+	blue: {
+		icon: 'text-blue-600 dark:text-blue-400',
+		bg: 'bg-gradient-to-br from-blue-600/20 to-blue-600/20',
+		text: 'text-blue-600/80 dark:text-blue-400/80',
+		gradientDark: 'dark:from-blue-400 dark:to-blue-400',
+	},
+	red: {
+		icon: 'text-red-600 dark:text-red-400',
+		bg: 'bg-gradient-to-br from-red-600/20 to-red-600/20',
+		text: 'text-red-600/80 dark:text-red-400/80',
+		gradientDark: 'dark:from-red-400 dark:to-red-400',
+	},
+	stone: {
+		icon: 'text-stone-600 dark:text-stone-400',
+		bg: 'bg-gradient-to-br from-stone-600/20 to-stone-600/20',
+		text: 'text-stone-600/80 dark:text-stone-400/80',
+		gradientDark: 'dark:from-stone-400 dark:to-stone-400',
+	},
+	slate: {
+		icon: 'text-slate-600 dark:text-slate-400',
+		bg: 'bg-gradient-to-br from-slate-600/20 to-slate-600/20',
+		text: 'text-slate-600/80 dark:text-slate-400/80',
+		gradientDark: 'dark:from-slate-400 dark:to-slate-400',
+	},
+} as const
+
+/**
  * Header do card de naipe - Molécula
  *
  * Componente burro que exibe o cabeçalho de um naipe contendo:
@@ -51,17 +82,19 @@ export function NaipeHeader({
 	borderColor,
 	symbol
 }: NaipeHeaderProps) {
+	const colorClasses = COLOR_CLASSES[color as keyof typeof COLOR_CLASSES]
+
 	return (
 		<div className="flex items-center justify-between">
 			<div className="flex items-center gap-3">
-				<div className={`inline-flex items-center justify-center size-12 rounded-full bg-gradient-to-br from-${color}-600/20 to-${color}-600/20 border-2 ${borderColor}`}>
-					<Icon icon={elementIcon} className={`size-6 text-${color}-600 dark:text-${color}-400`} />
+				<div className={`inline-flex items-center justify-center size-12 rounded-full ${colorClasses.bg} border-2 ${borderColor}`}>
+					<Icon icon={elementIcon} className={`size-6 ${colorClasses.icon}`} />
 				</div>
 				<div>
-					<h3 className={`text-2xl font-bold bg-gradient-to-r ${gradient} dark:from-${color}-400 dark:to-${color}-400 bg-clip-text text-transparent`}>
+					<h3 className={`text-2xl font-bold bg-gradient-to-r ${gradient} ${colorClasses.gradientDark} bg-clip-text text-transparent`}>
 						{name}
 					</h3>
-					<p className={`text-sm text-${color}-600/80 dark:text-${color}-400/80 font-medium`}>
+					<p className={`text-sm ${colorClasses.text} font-medium`}>
 						14 Cartas · Elemento {element}
 					</p>
 				</div>
