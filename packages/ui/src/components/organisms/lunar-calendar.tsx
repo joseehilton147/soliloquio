@@ -89,13 +89,17 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			console.log('💠 Available Space (escolhido):', availableSpace)
 
 			// Subtrair paddings internos do modal para cálculo preciso:
+			// Baseado na análise da imagem 19.png:
 			// - Border gradient: 2px * 2 = 4px
 			// - Padding interno: 12px * 2 (p-3 top+bottom) = 24px
-			// - Headers flex-shrink-0 (fase atual + título calendário): ~200px
+			// - Header fase atual (título + desc + 3 métricas): ~162px
+			// - Header calendário (título + subtítulo): ~36px
+			// - Total headers flex-shrink-0: ~198px
+			// - Total fixo: 4 + 24 + 198 = 226px
 			// - margin: 16px
 			// - offset: 16px (mt-4)
-			// Total a subtrair: ~248px
-			const internalPadding = 220 // Aumentado de 210 para 220 (mais conservador)
+			// Total a subtrair: 226 + 32 = 258px
+			const internalPadding = 240 // Aumentado para 240px baseado em medição real da imagem
 			const margins = 32 // 16 margin + 16 offset
 			const totalToSubtract = internalPadding + margins
 
@@ -160,8 +164,8 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 					style={{ maxHeight: `${maxHeight}px` }}
 				>
 					{/* Borda gradiente animada mística */}
-					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy h-full max-h-full">
-						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden h-full max-h-full flex flex-col">
+					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy max-h-full">
+						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden max-h-full flex flex-col">
 							{/* Glow interno */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
 
