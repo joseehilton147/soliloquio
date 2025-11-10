@@ -417,6 +417,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 	const [isVisible, setIsVisible] = useState(settings.visibility === 'always')
 	const [lastScrollY, setLastScrollY] = useState(0)
 	const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+	const dockRef = useRef<HTMLDivElement>(null)
 
 	const leftItems = items.filter((item) => item.position === 'left')
 	const rightItems = items.filter((item) => item.position === 'right')
@@ -442,6 +443,17 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		window.addEventListener('scroll', handleScroll, { passive: true })
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [settings.visibility, lastScrollY])
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dockRef.current && !dockRef.current.contains(event.target as Node)) {
+				setHoveredItem(null)
+			}
+		}
+
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [])
 
 	const getPositionClasses = () => {
 		switch (settings.position) {
@@ -654,6 +666,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 
 	return (
 		<div
+			ref={dockRef}
 			className={cn(
 				'fixed z-[9999] transition-all duration-300',
 				getPositionClasses(),
