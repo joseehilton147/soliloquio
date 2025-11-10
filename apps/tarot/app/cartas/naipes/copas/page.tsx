@@ -1,10 +1,9 @@
 'use client'
 
-import type { TarotCard } from '@workspace/core/tarot'
-import { MysticalLoading, CardBadge } from '@workspace/ui'
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { MysticalLoading, CardBadge } from '@workspace/ui'
 
 import { trpc } from '../../../../src/lib/trpc'
 
@@ -13,7 +12,7 @@ export default function CopasPage() {
 
 	// Filtrar apenas cartas de Copas
 	const copas = data?.cards.filter(
-		(card: any) => card.suit === 'COPAS'
+		(card) => card.suit === 'COPAS',
 	) || []
 
 	// Loading fullscreen místico
@@ -62,11 +61,11 @@ export default function CopasPage() {
 
 					{/* Mystical Quote */}
 					<div className="max-w-2xl mx-auto py-6 relative">
-						<div className="absolute top-0 left-0 text-5xl text-red-500/10 font-serif">"</div>
+						<div className="absolute top-0 left-0 text-5xl text-red-500/10 font-serif">&ldquo;</div>
 						<p className="text-base md:text-lg text-foreground/90 font-light italic leading-relaxed px-8">
 							Copas representa o reino do coração. Amor, emoções, relacionamentos e a profundidade do sentir.
 						</p>
-						<div className="absolute bottom-0 right-0 text-5xl text-red-500/10 font-serif rotate-180">"</div>
+						<div className="absolute bottom-0 right-0 text-5xl text-red-500/10 font-serif rotate-180">&rdquo;</div>
 					</div>
 
 					{/* Breadcrumb */}
@@ -164,8 +163,8 @@ export default function CopasPage() {
 							{/* Citação Mística */}
 							<div className="relative py-4 px-6 border-l-4 border-red-500/50 bg-red-500/5 rounded-r-lg">
 								<p className="text-sm text-foreground/90 italic leading-relaxed">
-									"As Copas nos ensinam que sentir profundamente é um poder, não uma fraqueza.
-									Meu copo transborda de emoções, e nelas encontro minha verdadeira essência."
+									&ldquo;As Copas nos ensinam que sentir profundamente é um poder, não uma fraqueza.
+									Meu copo transborda de emoções, e nelas encontro minha verdadeira essência.&rdquo;
 								</p>
 							</div>
 						</div>
@@ -197,7 +196,7 @@ export default function CopasPage() {
 						</div>
 
 						<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{copas.map((card: any) => (
+							{copas.map((card) => (
 								<Link
 									key={card.id}
 									href={`/cartas/${card.slug}`}
@@ -208,25 +207,27 @@ export default function CopasPage() {
 
 									{/* Card Image */}
 									<div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-red-900/20 via-rose-900/20 to-pink-900/20">
-										{card.imageUrl ? (
-											<>
-												<Image
-													src={card.imageUrl}
-													alt={card.name}
-													fill
-													className="object-cover transition-transform duration-500 group-hover:scale-110"
-													sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-												/>
-												{/* Gradient overlay for better text readability */}
-												<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-											</>
-										) : (
-											<div className="flex h-full items-center justify-center">
-												<div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-600/20 border border-red-500/30">
-													<span className="text-5xl">♥</span>
-												</div>
-											</div>
-										)}
+										{card.imageUrl
+											? (
+													<>
+														<Image
+															src={card.imageUrl}
+															alt={card.name}
+															fill
+															className="object-cover transition-transform duration-500 group-hover:scale-110"
+															sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+														/>
+														{/* Gradient overlay for better text readability */}
+														<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+													</>
+												)
+											: (
+													<div className="flex h-full items-center justify-center">
+														<div className="flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-600/20 border border-red-500/30">
+															<span className="text-5xl">♥</span>
+														</div>
+													</div>
+												)}
 
 										{/* Deck badge - aparece no hover */}
 										{card.deck && (
