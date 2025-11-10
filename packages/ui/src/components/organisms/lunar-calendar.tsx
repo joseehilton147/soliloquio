@@ -59,7 +59,14 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			})
 
 			setOpenUpwards(space.shouldOpenUpwards)
-			setMaxHeight(space.maxHeight)
+
+			// Subtrair paddings internos do modal para cálculo preciso:
+			// - Border gradient: 2px * 2 = 4px
+			// - Padding interno: 12px * 2 (p-3 top+bottom) = 24px
+			// - Headers flex-shrink-0 estimados: ~180px
+			// Total a subtrair: ~210px
+			const internalPadding = 210
+			setMaxHeight(Math.max(300, space.maxHeight - internalPadding))
 		}
 
 		setIsOpen(true)
@@ -105,14 +112,14 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			{isOpen && (
 				<div
 					className={cn(
-						'absolute right-0 animate-in fade-in duration-200 z-50',
+						'absolute right-0 animate-in fade-in duration-200 z-50 flex',
 						openUpwards ? 'bottom-full mb-4 slide-in-from-bottom-2' : 'top-full mt-4 slide-in-from-top-2',
 					)}
 					style={{ maxHeight: `${maxHeight}px` }}
 				>
 					{/* Borda gradiente animada mística */}
-					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy h-full">
-						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden h-full flex flex-col">
+					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy h-full max-h-full">
+						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden h-full max-h-full flex flex-col">
 							{/* Glow interno */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
 
