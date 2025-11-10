@@ -62,24 +62,53 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 				offset: 16, // mt-4 = 16px
 			})
 
+			// DEBUG: Log de valores para diagnóstico
+			console.group('🌙 [LUNAR-CALENDAR] Cálculo de Viewport')
+			console.log('🖥️ Viewport Height:', window.innerHeight)
+			console.log('📏 Header Height (dinâmico):', headerHeight)
+			console.log('📍 Trigger Top Position:', space.triggerRect.top)
+			console.log('📍 Trigger Bottom Position:', space.triggerRect.bottom)
+			console.log('📐 Space Above (bruto):', space.spaceAbove)
+			console.log('📐 Space Below (bruto):', space.spaceBelow)
+
 			// Descontar header do spaceAbove para evitar overlap
 			const adjustedSpaceAbove = Math.max(0, space.spaceAbove - headerHeight)
 			const adjustedSpaceBelow = space.spaceBelow
 
+			console.log('✂️ Adjusted Space Above (após descontar header):', adjustedSpaceAbove)
+			console.log('✂️ Adjusted Space Below:', adjustedSpaceBelow)
+
 			// Recalcular direção com espaço ajustado
 			const shouldOpenUpwards = adjustedSpaceBelow < 200 && adjustedSpaceAbove > adjustedSpaceBelow
+			console.log('⬆️ Should Open Upwards:', shouldOpenUpwards)
+
 			setOpenUpwards(shouldOpenUpwards)
 
 			// Calcular maxHeight baseado na direção correta
 			const availableSpace = shouldOpenUpwards ? adjustedSpaceAbove : adjustedSpaceBelow
+			console.log('💠 Available Space (escolhido):', availableSpace)
 
 			// Subtrair paddings internos do modal para cálculo preciso:
 			// - Border gradient: 2px * 2 = 4px
 			// - Padding interno: 12px * 2 (p-3 top+bottom) = 24px
-			// - Headers flex-shrink-0 estimados: ~180px
-			// Total a subtrair: ~210px
-			const internalPadding = 210
-			setMaxHeight(Math.max(300, availableSpace - internalPadding - 16 - 16)) // -16 margin -16 offset
+			// - Headers flex-shrink-0 (fase atual + título calendário): ~200px
+			// - margin: 16px
+			// - offset: 16px (mt-4)
+			// Total a subtrair: ~248px
+			const internalPadding = 220 // Aumentado de 210 para 220 (mais conservador)
+			const margins = 32 // 16 margin + 16 offset
+			const totalToSubtract = internalPadding + margins
+
+			console.log('🎯 Internal Padding (border + p-3 + headers):', internalPadding)
+			console.log('🎯 Margins + Offset:', margins)
+			console.log('🎯 Total to Subtract:', totalToSubtract)
+
+			const calculatedMaxHeight = Math.max(300, availableSpace - totalToSubtract)
+			console.log('📊 MaxHeight Final:', calculatedMaxHeight)
+			console.warn('⚠️ Se modal ainda estiver cortado, envie print com esse console group aberto!')
+			console.groupEnd()
+
+			setMaxHeight(calculatedMaxHeight)
 		}
 
 		setIsOpen(true)
@@ -192,7 +221,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 							</div>
 
 							{/* Lista de fases - Scrollbar místico customizado */}
-							<div className="relative space-y-1 flex-1 overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar min-h-0">
+							<div className="relative space-y-1 flex-1 overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar min-h-0 max-h-full">
 								{nextPhases.map((phaseData: ReturnType<typeof getNextMoonPhases>[number], index: number) => (
 									<MoonPhaseListItem
 										key={`${phaseData.phase}-${index}`}
