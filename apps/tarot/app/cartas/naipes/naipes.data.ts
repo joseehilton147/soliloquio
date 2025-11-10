@@ -6,10 +6,10 @@ import type { Naipe } from './naipes.types'
  * Cada naipe representa um elemento da alquimia/esoterismo:
  * - Copas (Água): Azul - Emoções e sentimentos
  * - Paus (Fogo): Vermelho - Ação e energia vital
- * - Ouros (Terra): Verde - Material e estabilidade
- * - Espadas (Ar): Amarelo - Intelecto e pensamento
+ * - Ouros (Terra): Marrom terracota - Material e estabilidade
+ * - Espadas (Ar): Cinza azulado claro - Intelecto e pensamento
  *
- * As cores seguem a tradição hermética da Golden Dawn
+ * As cores refletem a essência visual de cada elemento natural
  */
 export const NAIPES: readonly Naipe[] = [
 	{
@@ -47,11 +47,11 @@ export const NAIPES: readonly Naipe[] = [
 		symbol: '♦',
 		element: 'Terra',
 		elementIcon: 'mdi:mountain',
-		color: 'emerald',
-		gradient: 'from-emerald-600 to-green-600',
-		bgGradient: 'from-emerald-500/10 via-green-500/10 to-teal-500/10',
-		borderColor: 'border-emerald-500/30',
-		shadowColor: 'hover:shadow-emerald-500/20',
+		color: 'stone',
+		gradient: 'from-stone-600 to-amber-700',
+		bgGradient: 'from-stone-500/10 via-amber-600/10 to-orange-700/10',
+		borderColor: 'border-stone-500/30',
+		shadowColor: 'hover:shadow-stone-500/20',
 		description: 'O naipe do material, dinheiro, trabalho e estabilidade',
 		zodiac: 'Touro, Virgem, Capricórnio',
 		theme: 'Material, dinheiro, trabalho, estabilidade, prosperidade, segurança',
@@ -62,11 +62,11 @@ export const NAIPES: readonly Naipe[] = [
 		symbol: '♠',
 		element: 'Ar',
 		elementIcon: 'mdi:weather-windy',
-		color: 'amber',
-		gradient: 'from-amber-600 to-yellow-600',
-		bgGradient: 'from-amber-500/10 via-yellow-500/10 to-orange-500/10',
-		borderColor: 'border-amber-500/30',
-		shadowColor: 'hover:shadow-amber-500/20',
+		color: 'slate',
+		gradient: 'from-slate-400 to-gray-500',
+		bgGradient: 'from-slate-400/10 via-gray-400/10 to-zinc-400/10',
+		borderColor: 'border-slate-400/30',
+		shadowColor: 'hover:shadow-slate-400/20',
 		description: 'O naipe do intelecto, pensamento, comunicação e desafios',
 		zodiac: 'Gêmeos, Libra, Aquário',
 		theme: 'Intelecto, pensamento, comunicação, lógica, desafios mentais',
