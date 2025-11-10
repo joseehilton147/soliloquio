@@ -13,6 +13,11 @@
  * Paleta: Purple/Violet/Indigo com tons terrosos
  */
 :root {
+  /* Fontes Místicas - Configuradas via apps/tarot/config/fonts.config.ts */
+  --font-display: var(--font-cinzel);
+  --font-body: var(--font-philosopher);
+  --font-accent: var(--font-playfair);
+
   /* Dark mode permanente - cores místicas */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -50,6 +55,11 @@
 }
 
 @theme inline {
+  /* Fontes místicas */
+  --font-family-display: var(--font-display);
+  --font-family-body: var(--font-body);
+  --font-family-accent: var(--font-accent);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

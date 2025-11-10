@@ -129,9 +129,9 @@ export function NaipePageHero({
 			</div>
 
 			{/* Conteúdo */}
-			<div className="relative z-10 text-center space-y-6 max-w-3xl mx-auto">
+			<div className="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
 				{/* Breadcrumb */}
-				<div className="flex items-center justify-center gap-2 text-sm animate-in fade-in duration-1000">
+				<div className="flex items-center justify-center gap-2 text-base font-body animate-in fade-in duration-1000">
 					<Link href="/cartas/naipes" className={cn('transition-colors text-foreground/60', colors.breadcrumbHover)}>
 						Naipes
 					</Link>
@@ -153,19 +153,19 @@ export function NaipePageHero({
 				</div>
 
 				{/* Título místico */}
-				<h1 className={cn('text-5xl md:text-6xl font-bold bg-gradient-to-r bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000', colors.gradient)}>
+				<h1 className={cn('text-6xl md:text-7xl lg:text-8xl font-display font-bold bg-gradient-to-r bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000 tracking-wider', colors.gradient)}>
 					{title}
 				</h1>
 
 				{/* Subtítulo */}
 				<div className="flex items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150">
-					<Icon icon="lucide:sparkles" className={cn('size-6', colors.subtitle)} />
-					<p className={cn('text-lg font-light tracking-wide', colors.text)}>{subtitle}</p>
-					<Icon icon="lucide:sparkles" className={cn('size-6', colors.subtitle)} />
+					<Icon icon="lucide:sparkles" className={cn('size-7', colors.subtitle)} />
+					<p className={cn('text-xl md:text-2xl font-accent font-light tracking-wide', colors.text)}>{subtitle}</p>
+					<Icon icon="lucide:sparkles" className={cn('size-7', colors.subtitle)} />
 				</div>
 
 				{/* Descrição */}
-				<p className={cn('text-lg leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300', colors.description)}>
+				<p className={cn('text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto font-body animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300', colors.description)}>
 					{description}
 				</p>
 
