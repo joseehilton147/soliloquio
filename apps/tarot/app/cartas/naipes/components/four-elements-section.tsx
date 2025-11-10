@@ -34,7 +34,7 @@ export function FourElementsSection() {
 	}, [])
 
 	return (
-		<div className="relative max-w-4xl mx-auto overflow-hidden rounded-2xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-950/40 via-violet-950/30 to-indigo-950/40 backdrop-blur-sm">
+		<div className="relative overflow-hidden rounded-2xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-950/40 via-violet-950/30 to-indigo-950/40 backdrop-blur-sm">
 			{/* ═══════════════════════════════════════════════════════
 			    FUNDO MÍSTICO - Mandala Elemental
 			    ═══════════════════════════════════════════════════════ */}

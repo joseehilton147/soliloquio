@@ -34,7 +34,7 @@ export function NaipeStructureSection() {
 	}, [])
 
 	return (
-		<div className="relative max-w-4xl mx-auto overflow-hidden rounded-2xl border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-950/40 backdrop-blur-sm">
+		<div className="relative overflow-hidden rounded-2xl border-2 border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-950/40 backdrop-blur-sm">
 			{/* ═══════════════════════════════════════════════════════
 			    FUNDO MÍSTICO - Vórtex Portal
 			    ═══════════════════════════════════════════════════════ */}

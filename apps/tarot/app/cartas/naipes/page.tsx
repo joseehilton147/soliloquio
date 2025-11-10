@@ -2,7 +2,7 @@
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { NAIPES } from './naipes.data'
-import { NaipeCard, FourElementsSection, NaipeStructureSection, ArcanosReferenceSection } from './components'
+import { NaipeCard, NaipeStructureSection, ArcanosReferenceSection, NaipesHeroSection } from './components'
 
 /**
  * Página dos 4 Naipes do Tarô
@@ -23,18 +23,7 @@ export default function NaipesPage() {
 		<div className="space-y-8">
 			<MysticalBreadcrumb items={breadcrumbItems} showSparkles />
 
-			<div className="text-center space-y-4 max-w-3xl mx-auto">
-				<h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
-					Os 4 Naipes do Tarô
-				</h1>
-				<p className="text-lg text-muted-foreground leading-relaxed">
-					Os Arcanos Menores são divididos em 4 naipes, cada um representando um dos
-					elementos fundamentais da natureza e diferentes dimensões da experiência humana.
-					Cada naipe contém 14 cartas (do Ás ao Rei).
-				</p>
-			</div>
-
-			<FourElementsSection />
+			<NaipesHeroSection />
 
 			<div className="grid gap-6 md:grid-cols-2 max-w-6xl mx-auto">
 				{NAIPES.map((naipe) => (
