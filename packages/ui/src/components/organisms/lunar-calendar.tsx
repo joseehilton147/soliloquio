@@ -74,10 +74,10 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			// Descontar header do spaceAbove para evitar overlap
 			const adjustedSpaceAbove = Math.max(0, space.spaceAbove - headerHeight)
 
-			// Descontar dock do spaceBelow (dock ocupa ~100-120px no fundo)
-			// Deixa margem de 40px até a dock para respiração visual
-			const dockHeight = 120
-			const dockMargin = 40
+			// Calcular altura REAL da dock dinamicamente
+			const dockElement = document.getElementById('mystical-dock')
+			const dockHeight = dockElement?.getBoundingClientRect().height || 0
+			const dockMargin = 40 // Margem de respiração visual até a dock
 			const adjustedSpaceBelow = Math.max(0, space.spaceBelow - dockHeight - dockMargin)
 
 			console.log('✂️ Adjusted Space Above (após descontar header):', adjustedSpaceAbove)

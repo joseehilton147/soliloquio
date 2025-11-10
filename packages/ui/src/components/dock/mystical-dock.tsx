@@ -666,6 +666,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 
 	return (
 		<div
+			id="mystical-dock"
 			ref={dockRef}
 			className={cn(
 				'fixed z-[9999] transition-all duration-300',
