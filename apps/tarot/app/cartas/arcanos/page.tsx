@@ -55,15 +55,15 @@ export default function ArcanosPage() {
 					<div className="relative z-10 text-center space-y-6">
 						{/* Título */}
 						<div className="flex items-center justify-center gap-3">
-							<Icon icon="lucide:sparkles" className="size-6 text-fuchsia-400/70" />
-							<h3 className="text-2xl font-bold bg-gradient-to-r from-fuchsia-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(232,121,249,0.3)]">
+							<Icon icon="lucide:sparkles" className="size-7 text-fuchsia-400/70" />
+							<h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-fuchsia-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(232,121,249,0.3)]">
 								Descubra os 4 Naipes Elementais
 							</h3>
-							<Icon icon="lucide:sparkles" className="size-6 text-fuchsia-400/70" />
+							<Icon icon="lucide:sparkles" className="size-7 text-fuchsia-400/70" />
 						</div>
 
 						{/* Descrição */}
-						<p className="text-foreground/70 leading-relaxed max-w-2xl mx-auto">
+						<p className="text-xl md:text-2xl text-foreground/70 leading-relaxed max-w-3xl mx-auto">
 							Explore como <span className="text-fuchsia-300 font-semibold">Copas, Paus, Ouros e Espadas</span>{' '}
 							representam os 4 elementos da natureza (Água, Fogo, Terra, Ar) e as diferentes
 							dimensões da experiência humana nos Arcanos Menores.
@@ -71,19 +71,19 @@ export default function ArcanosPage() {
 
 						{/* Símbolos dos elementos */}
 						<div className="flex items-center justify-center gap-6 py-4">
-							<Icon icon="mdi:water" className="size-6 text-blue-400/70" />
-							<Icon icon="mdi:fire" className="size-6 text-red-400/70" />
-							<Icon icon="mdi:mountain" className="size-6 text-stone-400/70" />
-							<Icon icon="mdi:weather-windy" className="size-6 text-slate-400/70" />
+							<Icon icon="mdi:water" className="size-8 text-blue-400/70" />
+							<Icon icon="mdi:fire" className="size-8 text-red-400/70" />
+							<Icon icon="mdi:mountain" className="size-8 text-stone-400/70" />
+							<Icon icon="mdi:weather-windy" className="size-8 text-slate-400/70" />
 						</div>
 
 						{/* CTA */}
 						<Link
 							href="/cartas/naipes"
-							className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-fuchsia-600 via-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-fuchsia-500/30 transition-all hover:scale-105 group"
+							className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-fuchsia-600 via-purple-600 to-pink-600 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-fuchsia-500/30 transition-all hover:scale-105 group"
 						>
 							<span>Explorar os Naipes Místicos</span>
-							<Icon icon="lucide:arrow-right" className="size-4 group-hover:translate-x-1 transition-transform" />
+							<Icon icon="lucide:arrow-right" className="size-5 group-hover:translate-x-1 transition-transform" />
 						</Link>
 					</div>
 				</div>

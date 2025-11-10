@@ -119,7 +119,7 @@ export default function TarotHomePage() {
 							<div className="h-px w-12 bg-gradient-to-l from-transparent to-violet-500/50" />
 						</div>
 
-						<p className="text-sm text-purple-400/60 mt-8 tracking-wider">
+						<p className="text-base text-purple-400/60 mt-8 tracking-wider">
 							— Tábua de Esmeralda
 						</p>
 					</div>
@@ -171,7 +171,7 @@ export default function TarotHomePage() {
 								<h3 className="text-3xl font-bold bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent group-hover:from-purple-100 group-hover:to-indigo-100 transition-all">
 									Baralhos
 								</h3>
-								<p className="text-sm text-purple-300/70 leading-relaxed group-hover:text-purple-200/80 transition-colors">
+								<p className="text-base md:text-lg text-purple-300/70 leading-relaxed group-hover:text-purple-200/80 transition-colors">
 									Tradições ciganas e oráculos ancestrais.<br />
 									Cada deck é uma porta para sabedoria antiga.
 								</p>
@@ -214,7 +214,7 @@ export default function TarotHomePage() {
 								<h3 className="text-3xl font-bold bg-gradient-to-r from-violet-300 to-purple-300 bg-clip-text text-transparent group-hover:from-violet-100 group-hover:to-purple-100 transition-all">
 									Cartas
 								</h3>
-								<p className="text-sm text-violet-300/70 leading-relaxed group-hover:text-violet-200/80 transition-colors">
+								<p className="text-base md:text-lg text-violet-300/70 leading-relaxed group-hover:text-violet-200/80 transition-colors">
 									Arcanos maiores e menores revelados.<br />
 									Símbolos do inconsciente coletivo universal.
 								</p>
@@ -254,7 +254,7 @@ export default function TarotHomePage() {
 								<h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-violet-300 bg-clip-text text-transparent">
 									Jornada
 								</h3>
-								<p className="text-sm text-indigo-300/70 leading-relaxed">
+								<p className="text-base md:text-lg text-indigo-300/70 leading-relaxed">
 									Seu diário de aprendiz místico.<br />
 									Registro da caminhada iniciática pessoal.
 								</p>
@@ -262,9 +262,9 @@ export default function TarotHomePage() {
 
 							{/* Badge "Em breve" */}
 							<div className="flex items-center justify-center mt-auto">
-								<div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 backdrop-blur-sm">
+								<div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 backdrop-blur-sm">
 									<span className="size-2 rounded-full bg-indigo-400/70 animate-pulse [animation-duration:2s]" />
-									<span className="text-xs font-medium text-indigo-300/80 tracking-wider">
+									<span className="text-base font-medium text-indigo-300/80 tracking-wider">
 										EM BREVE
 									</span>
 								</div>
@@ -289,10 +289,10 @@ export default function TarotHomePage() {
 
 					{/* Texto místico */}
 					<div className="space-y-4 max-w-4xl mx-auto">
-						<p className="text-xs uppercase tracking-[0.3em] text-purple-400/60 font-light">
+						<p className="text-base uppercase tracking-[0.3em] text-purple-400/60 font-light">
 							Sabedoria Ancestral Cigana
 						</p>
-						<p className="text-lg md:text-xl text-purple-200/70 font-light leading-relaxed">
+						<p className="text-xl md:text-2xl text-purple-200/70 font-light leading-relaxed">
 							Este portal preserva conhecimentos herméticos, símbolos esotéricos e tradições místicas.<br />
 							Cada carta revela fragmentos do Akasha. Cada leitura, uma jornada interior.
 						</p>

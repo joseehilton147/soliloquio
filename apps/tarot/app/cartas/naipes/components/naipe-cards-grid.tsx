@@ -133,14 +133,14 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 							</h3>
 
 							{/* Stats */}
-							<div className={cn('flex items-center gap-6 pt-3 text-sm text-muted-foreground border-t', colors.border)}>
+							<div className={cn('flex items-center gap-6 pt-3 text-base text-muted-foreground border-t', colors.border)}>
 								<div className="flex items-center gap-1.5">
-									<div className={cn('size-1.5 rounded-full', `bg-${colors.primary}-500/70`)} />
+									<div className={cn('size-2 rounded-full', `bg-${colors.primary}-500/70`)} />
 									<span className="font-medium">{Array.isArray(card.verticalMeaning) ? card.verticalMeaning.length : 0}</span>
 									<span>significados</span>
 								</div>
 								<div className="flex items-center gap-1.5">
-									<div className={cn('size-1.5 rounded-full', `bg-${colors.secondary}-500/70`)} />
+									<div className={cn('size-2 rounded-full', `bg-${colors.secondary}-500/70`)} />
 									<span className="font-medium">{Array.isArray(card.typesOfReading) ? card.typesOfReading.length : 0}</span>
 									<span>leituras</span>
 								</div>

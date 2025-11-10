@@ -116,8 +116,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 hover:bg-blue-500/10 transition-all">
 						<Icon icon="mdi:water" className="size-8 text-blue-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-blue-300 text-lg">Copas</p>
-							<p className="text-sm text-blue-400/70">Água · Emoções</p>
+							<p className="font-semibold text-blue-300 text-xl">Copas</p>
+							<p className="text-base text-blue-400/70">Água · Emoções</p>
 						</div>
 					</div>
 
@@ -125,8 +125,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-all">
 						<Icon icon="mdi:fire" className="size-8 text-red-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-red-300 text-lg">Paus</p>
-							<p className="text-sm text-red-400/70">Fogo · Ação</p>
+							<p className="font-semibold text-red-300 text-xl">Paus</p>
+							<p className="text-base text-red-400/70">Fogo · Ação</p>
 						</div>
 					</div>
 
@@ -134,8 +134,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-stone-500/20 bg-stone-500/5 hover:bg-stone-500/10 transition-all">
 						<Icon icon="mdi:mountain" className="size-8 text-stone-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-stone-300 text-lg">Ouros</p>
-							<p className="text-sm text-stone-400/70">Terra · Material</p>
+							<p className="font-semibold text-stone-300 text-xl">Ouros</p>
+							<p className="text-base text-stone-400/70">Terra · Material</p>
 						</div>
 					</div>
 
@@ -143,8 +143,8 @@ export function NaipesHeroSection() {
 					<div className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-slate-500/20 bg-slate-500/5 hover:bg-slate-500/10 transition-all">
 						<Icon icon="mdi:weather-windy" className="size-8 text-slate-400 group-hover:scale-110 transition-transform" />
 						<div className="text-center">
-							<p className="font-semibold text-slate-300 text-lg">Espadas</p>
-							<p className="text-sm text-slate-400/70">Ar · Intelecto</p>
+							<p className="font-semibold text-slate-300 text-xl">Espadas</p>
+							<p className="text-base text-slate-400/70">Ar · Intelecto</p>
 						</div>
 					</div>
 				</div>
