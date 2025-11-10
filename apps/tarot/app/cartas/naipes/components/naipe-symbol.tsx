@@ -14,7 +14,7 @@ interface NaipeSymbolProps {
 const SYMBOL_COLOR_CLASSES = {
 	blue: 'text-blue-500/30',
 	red: 'text-red-500/30',
-	terra: 'text-yellow-500/30',
+	terra: 'text-stone-500/30',
 	slate: 'text-slate-500/30',
 } as const
 

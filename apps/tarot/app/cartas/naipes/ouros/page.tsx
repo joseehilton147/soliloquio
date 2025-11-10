@@ -34,12 +34,12 @@ export default function OurosPage() {
 			{/* Sacred Geometry Background */}
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
 				{/* Animated circles */}
-				<div className="absolute top-1/4 left-1/4 size-64 rounded-full border border-yellow-500/10 animate-pulse" />
+				<div className="absolute top-1/4 left-1/4 size-64 rounded-full border border-stone-500/10 animate-pulse" />
 				<div className="absolute top-1/3 right-1/4 size-96 rounded-full border border-amber-500/10 animate-pulse [animation-delay:1s]" />
 				<div className="absolute bottom-1/4 left-1/3 size-48 rounded-full border border-orange-500/10 animate-pulse [animation-delay:2s]" />
 
 				{/* Gradient orbs */}
-				<div className="absolute top-20 right-20 size-96 bg-gradient-to-br from-yellow-500/5 via-amber-500/5 to-transparent rounded-full blur-3xl" />
+				<div className="absolute top-20 right-20 size-96 bg-gradient-to-br from-stone-500/5 via-amber-500/5 to-transparent rounded-full blur-3xl" />
 				<div className="absolute bottom-20 left-20 size-96 bg-gradient-to-tr from-amber-500/5 via-orange-500/5 to-transparent rounded-full blur-3xl" />
 			</div>
 
