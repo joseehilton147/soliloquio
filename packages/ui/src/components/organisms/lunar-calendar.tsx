@@ -86,16 +86,16 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			{/* Dropdown Menu */}
 			{isOpen && (
 				<div
-					className="absolute top-full mt-4 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50"
+					className="absolute top-full mt-4 right-0 animate-in fade-in slide-in-from-top-2 duration-200 z-50 max-h-[85vh]"
 				>
 					{/* Borda gradiente animada mística */}
-					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
-						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden">
+					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy max-h-full">
+						<div className="rounded-2xl bg-background/98 backdrop-blur-2xl p-3 w-[480px] shadow-2xl shadow-purple-500/30 overflow-hidden max-h-full flex flex-col">
 							{/* Glow interno */}
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 rounded-2xl pointer-events-none" />
 
 							{/* Informações da Fase Atual */}
-							<div className="relative mb-3 pb-3 border-b border-white/5 space-y-2">
+							<div className="relative mb-3 pb-3 border-b border-white/5 space-y-2 flex-shrink-0">
 								<h3 className="text-sm font-semibold bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
 									{lunarInfo.phaseName}
 								</h3>
@@ -140,7 +140,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 							</div>
 
 							{/* Próximas Fases */}
-							<div className="relative mb-2">
+							<div className="relative mb-2 flex-shrink-0">
 								<h4 className="text-xs font-semibold text-foreground/80">
 									Calendário Lunar
 								</h4>
@@ -150,7 +150,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 							</div>
 
 							{/* Lista de fases - Scrollbar místico customizado */}
-							<div className="relative space-y-1 max-h-[320px] overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar">
+							<div className="relative space-y-1 flex-1 overflow-y-auto overflow-x-hidden pr-2 mystical-scrollbar min-h-0">
 								{nextPhases.map((phaseData: ReturnType<typeof getNextMoonPhases>[number], index: number) => (
 									<MoonPhaseListItem
 										key={`${phaseData.phase}-${index}`}
