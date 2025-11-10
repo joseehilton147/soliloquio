@@ -52,13 +52,25 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 		// Calcular espaço disponível usando utility
 		if (triggerRef.current) {
+			// Header fixo ocupa ~80px no topo (py-3 = 24px + conteúdo ~48px = ~72-80px)
+			const headerHeight = 80
+
 			const space = calculateAvailableSpace(triggerRef.current, {
 				margin: 16,
 				minHeight: 200,
 				offset: 16, // mt-4 = 16px
 			})
 
-			setOpenUpwards(space.shouldOpenUpwards)
+			// Descontar header do spaceAbove para evitar overlap
+			const adjustedSpaceAbove = Math.max(0, space.spaceAbove - headerHeight)
+			const adjustedSpaceBelow = space.spaceBelow
+
+			// Recalcular direção com espaço ajustado
+			const shouldOpenUpwards = adjustedSpaceBelow < 200 && adjustedSpaceAbove > adjustedSpaceBelow
+			setOpenUpwards(shouldOpenUpwards)
+
+			// Calcular maxHeight baseado na direção correta
+			const availableSpace = shouldOpenUpwards ? adjustedSpaceAbove : adjustedSpaceBelow
 
 			// Subtrair paddings internos do modal para cálculo preciso:
 			// - Border gradient: 2px * 2 = 4px
@@ -66,7 +78,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			// - Headers flex-shrink-0 estimados: ~180px
 			// Total a subtrair: ~210px
 			const internalPadding = 210
-			setMaxHeight(Math.max(300, space.maxHeight - internalPadding))
+			setMaxHeight(Math.max(300, availableSpace - internalPadding - 16 - 16)) // -16 margin -16 offset
 		}
 
 		setIsOpen(true)
