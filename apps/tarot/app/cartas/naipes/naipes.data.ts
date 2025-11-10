@@ -6,7 +6,7 @@ import type { Naipe } from './naipes.types'
  * Cada naipe representa um elemento da alquimia/esoterismo:
  * - Copas (Água): Azul - Emoções e sentimentos
  * - Paus (Fogo): Vermelho - Ação e energia vital
- * - Ouros (Terra): Marrom terracota - Material e estabilidade
+ * - Ouros (Terra): Amarelo/Dourado - Material e estabilidade
  * - Espadas (Ar): Cinza azulado claro - Intelecto e pensamento
  *
  * As cores refletem a essência visual de cada elemento natural
@@ -47,11 +47,11 @@ export const NAIPES: readonly Naipe[] = [
 		symbol: '♦',
 		element: 'Terra',
 		elementIcon: 'mdi:mountain',
-		color: 'stone',
-		gradient: 'from-stone-600 to-amber-700',
-		bgGradient: 'from-stone-500/10 via-amber-600/10 to-orange-700/10',
-		borderColor: 'border-stone-500/30',
-		shadowColor: 'hover:shadow-stone-500/20',
+		color: 'yellow',
+		gradient: 'from-yellow-600 to-amber-600',
+		bgGradient: 'from-yellow-500/10 via-amber-500/10 to-orange-500/10',
+		borderColor: 'border-yellow-500/30',
+		shadowColor: 'hover:shadow-yellow-500/20',
 		description: 'O naipe do material, dinheiro, trabalho e estabilidade',
 		zodiac: 'Touro, Virgem, Capricórnio',
 		theme: 'Material, dinheiro, trabalho, estabilidade, prosperidade, segurança',
