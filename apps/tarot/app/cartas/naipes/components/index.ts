@@ -1,0 +1,26 @@
+/**
+ * Barrel export para componentes de naipes
+ *
+ * Exporta todos os componentes atômicos, moleculares e organismos
+ * relacionados à visualização de naipes do Tarô.
+ *
+ * Hierarquia Design Atomic:
+ * - Atoms: NaipeSymbol, ElementBadge, ZodiacInfo, ThemeInfo, NaipeCTA
+ * - Molecules: NaipeHeader, NaipeInfo
+ * - Organisms: NaipeCard, EducationalSection
+ */
+
+// Atoms
+export { NaipeSymbol } from './naipe-symbol'
+export { ElementBadge } from './element-badge'
+export { ZodiacInfo } from './zodiac-info'
+export { ThemeInfo } from './theme-info'
+export { NaipeCTA } from './naipe-cta'
+
+// Molecules
+export { NaipeHeader } from './naipe-header'
+export { NaipeInfo } from './naipe-info'
+
+// Organisms
+export { NaipeCard } from './naipe-card'
+export { EducationalSection } from './educational-section'
