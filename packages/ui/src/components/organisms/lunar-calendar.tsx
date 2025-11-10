@@ -52,8 +52,9 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 		// Calcular espaço disponível usando utility
 		if (triggerRef.current) {
-			// Header fixo ocupa ~80px no topo (py-3 = 24px + conteúdo ~48px = ~72-80px)
-			const headerHeight = 80
+			// Calcular altura REAL do header dinamicamente
+			const headerElement = document.getElementById('app-header')
+			const headerHeight = headerElement?.getBoundingClientRect().height || 0
 
 			const space = calculateAvailableSpace(triggerRef.current, {
 				margin: 16,
