@@ -114,7 +114,7 @@ export default function ArcanosMaioresPage() {
 									<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
 									{/* Card Image */}
-									<div className="relative aspect-[2/3] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20">
+									<div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-purple-900/20 via-violet-900/20 to-indigo-900/20">
 										{card.imageUrl ? (
 											<>
 												<Image

@@ -41,7 +41,7 @@ export default function OurosPage() {
 					{/* Sacred Symbol */}
 					<div className="relative inline-flex items-center justify-center">
 						<div className="absolute size-24 animate-spin-slow [animation-duration:12s]">
-							<Square className="size-full text-yellow-500/20" strokeWidth={0.5} />
+							<Icon icon="lucide:square" className="size-full text-yellow-500/20" />
 						</div>
 						<div className="flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-500/20">
 							<span className="text-4xl">♦</span>
@@ -207,7 +207,7 @@ export default function OurosPage() {
 									<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
 									{/* Card Image */}
-									<div className="relative aspect-[2/3] w-full overflow-hidden bg-gradient-to-br from-yellow-900/20 via-amber-900/20 to-orange-900/20">
+									<div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-yellow-900/20 via-amber-900/20 to-orange-900/20">
 										{card.imageUrl ? (
 											<>
 												<Image
@@ -266,7 +266,7 @@ export default function OurosPage() {
 											<div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
 												{card.astrology && (
 													<div className="flex items-center gap-1.5">
-														<Star className="size-3 text-yellow-500/70 fill-yellow-500/20" />
+														<Icon icon="lucide:star" className="size-3 text-yellow-500/70" />
 														<span className="text-muted-foreground/70">Regência:</span>
 														<span>{card.astrology}</span>
 													</div>
