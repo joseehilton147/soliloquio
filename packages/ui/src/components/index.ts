@@ -17,3 +17,7 @@ export * from './organisms'
 
 // Re-export specialized components
 export * from './dock/mystical-dock'
+export * from './tabs/mystical-tabs'
+
+// Re-export hooks
+export * from '../hooks/use-tabs'
