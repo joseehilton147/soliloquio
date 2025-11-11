@@ -1,52 +1,48 @@
 'use client'
 
-import { SacredEyeLogo } from '@workspace/ui'
 import { Icon } from '@iconify/react'
+import { SacredEyeLogo } from '@workspace/ui'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function TarotHomePage() {
-	// Gera partículas apenas no cliente para evitar hydration mismatch
+	// Partículas reduzidas para melhor performance (15 ao invés de 30)
 	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>([])
 
 	useEffect(() => {
 		setParticles(
-			Array.from({ length: 30 }).map(() => ({
+			Array.from({ length: 15 }).map(() => ({
 				left: `${Math.random() * 100}%`,
 				top: `${Math.random() * 100}%`,
 				delay: `${Math.random() * 5}s`,
-				duration: `${10 + Math.random() * 10}s`,
-			}))
+				duration: `${15 + Math.random() * 15}s`,
+			})),
 		)
 	}, [])
 
 	return (
-		<div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+		<div className="relative min-h-screen flex flex-col items-center overflow-x-hidden bg-gradient-to-b from-background via-background to-purple-950/10">
 			{/* ═══════════════════════════════════════════════════════
-			    COSMIC NEBULA BACKGROUND - Vive e respira
+			    COSMIC BACKGROUND - Otimizado para Performance
 			    ═══════════════════════════════════════════════════════ */}
-			<div className="absolute inset-0 pointer-events-none">
-				{/* Nebulosa cósmica de fundo */}
-				<div className="absolute inset-0 bg-gradient-radial from-purple-900/20 via-indigo-950/10 to-background" />
+			<div className="fixed inset-0 pointer-events-none">
+				{/* Nebulosa cósmica sutil */}
+				<div className="absolute inset-0 bg-gradient-radial from-purple-900/10 via-indigo-950/5 to-transparent" />
 
-				{/* Vórtex portal - círculos concêntricos girando */}
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-					<div className="absolute size-[800px] rounded-full border border-purple-500/5 animate-spin-slow [animation-duration:60s]" />
-					<div className="absolute size-[700px] rounded-full border border-violet-500/10 animate-spin-slow [animation-duration:50s] [animation-direction:reverse]" />
-					<div className="absolute size-[600px] rounded-full border border-indigo-500/10 animate-spin-slow [animation-duration:40s]" />
-					<div className="absolute size-[500px] rounded-full border-2 border-purple-500/20 animate-spin-slow [animation-duration:30s] [animation-direction:reverse]" />
-					<div className="absolute size-[400px] rounded-full border border-violet-500/15 animate-spin-slow [animation-duration:25s]" />
+				{/* Vórtex minimalista - apenas 2 círculos */}
+				<div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
+					<div className="absolute size-[600px] rounded-full border border-purple-500/5 animate-spin-slow [animation-duration:80s]" />
+					<div className="absolute size-[400px] rounded-full border border-violet-500/8 animate-spin-slow [animation-duration:60s] [animation-direction:reverse]" />
 				</div>
 
-				{/* Energia radiante pulsante */}
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] bg-gradient-to-br from-purple-600/10 via-violet-600/5 to-transparent rounded-full blur-3xl animate-pulse [animation-duration:4s]" />
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] bg-gradient-to-tl from-indigo-600/10 via-purple-600/5 to-transparent rounded-full blur-2xl animate-pulse [animation-duration:3s] [animation-delay:1s]" />
+				{/* Energia sutil */}
+				<div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] bg-gradient-to-br from-purple-600/5 via-violet-600/3 to-transparent rounded-full blur-3xl animate-pulse [animation-duration:8s]" />
 
-				{/* Partículas místicas flutuantes - Poeira estelar */}
+				{/* Partículas místicas reduzidas */}
 				{particles.map((particle, i) => (
 					<div
 						key={i}
-						className="absolute size-1 rounded-full bg-purple-400/30 animate-float"
+						className="absolute size-1 rounded-full bg-purple-400/15 animate-float"
 						style={{
 							left: particle.left,
 							top: particle.top,
@@ -55,259 +51,187 @@ export default function TarotHomePage() {
 						}}
 					/>
 				))}
-
-				{/* Símbolos esotéricos sutis - Pentagrama, Lua, Estrelas */}
-				<div className="absolute top-20 right-20 opacity-5 animate-spin-slow [animation-duration:100s]">
-					<Icon icon="game-icons:pentagram" className="size-32 text-purple-500" />
-				</div>
-				<div className="absolute bottom-32 left-24 opacity-5 animate-pulse [animation-duration:8s]">
-					<Icon icon="lucide:moon" className="size-24 text-violet-500" />
-				</div>
-				<div className="absolute top-40 left-1/4 opacity-5 animate-spin-slow [animation-duration:80s] [animation-direction:reverse]">
-					<Icon icon="lucide:star" className="size-20 text-indigo-500" />
-				</div>
 			</div>
 
 			{/* ═══════════════════════════════════════════════════════
-			    CONTEÚDO PRINCIPAL - Portal Místico
+			    CONTEÚDO PRINCIPAL - Jornada Narrativa do Solilóquio
 			    ═══════════════════════════════════════════════════════ */}
-			<div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-16 space-y-24">
+			<div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16 space-y-24">
 
-				{/* ═══ PORTAL CENTRAL - Logo + Título (INTOCADO) ═══ */}
-				<div className="text-center space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-					{/* Sacred Eye Logo com halo místico */}
+				{/* ═══ ENTRADA - Logo + Título Balanceado ═══ */}
+				<div className="text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+					{/* Sacred Eye Logo místico girando */}
 					<div className="relative inline-block">
-						{/* Halo pulsante */}
-						<div className="absolute inset-0 -m-12 bg-gradient-to-br from-purple-500/20 via-violet-500/20 to-indigo-500/20 rounded-full blur-3xl animate-pulse [animation-duration:3s]" />
+						<div className="absolute inset-0 -m-8 bg-gradient-to-br from-purple-500/10 via-violet-500/8 to-indigo-500/10 rounded-full blur-2xl animate-pulse [animation-duration:5s]" />
 						<SacredEyeLogo size="lg" />
 					</div>
 
-					{/* Título Sagrado */}
-					<div className="space-y-6">
-						<h1 className="text-7xl md:text-8xl font-bold tracking-tight">
-							<span className="block bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+					{/* Título balanceado e legível */}
+					<div className="space-y-3">
+						<h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
+							<span
+								className="block bg-gradient-to-r from-purple-300 via-violet-300 to-indigo-300 bg-clip-text text-transparent"
+								style={{
+									filter: 'drop-shadow(0 0 25px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 50px rgba(139, 92, 246, 0.3))',
+								}}
+							>
 								Solilóquio
 							</span>
 						</h1>
-						<p className="text-2xl md:text-3xl text-purple-300/80 font-light tracking-[0.3em]">
-							Portal de Sabedoria Mística
-						</p>
-					</div>
-
-					{/* Quote Hermética - Redesenhada */}
-					<div className="max-w-3xl mx-auto py-12 relative">
-						{/* Ornamentos */}
-						<div className="absolute top-0 left-0 text-7xl text-purple-500/20 font-serif leading-none">"</div>
-						<div className="absolute bottom-0 right-0 text-7xl text-purple-500/20 font-serif leading-none rotate-180">"</div>
-
-						{/* Linha decorativa superior */}
-						<div className="flex items-center justify-center gap-3 mb-6">
-							<div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500/50" />
-							<Icon icon="game-icons:crystal-ball" className="size-4 text-purple-500/50" />
-							<div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-500/50" />
-						</div>
-
-						<p className="text-xl md:text-2xl text-purple-200/90 font-light italic leading-relaxed px-12">
-							Como acima, assim embaixo.<br />
-							Como dentro, assim fora.
-						</p>
-
-						{/* Linha decorativa inferior */}
-						<div className="flex items-center justify-center gap-3 mt-6">
-							<div className="h-px w-12 bg-gradient-to-r from-transparent to-violet-500/50" />
-							<Icon icon="game-icons:crystal-ball" className="size-4 text-violet-500/50" />
-							<div className="h-px w-12 bg-gradient-to-l from-transparent to-violet-500/50" />
-						</div>
-
-						<p className="text-base text-purple-400/60 mt-8 tracking-wider">
-							— Tábua de Esmeralda
+						<p className="text-base sm:text-lg text-purple-300/60 font-light italic tracking-wide">
+							<span className="text-purple-200/80">solus</span> (sozinho) + <span className="text-purple-200/80">loqui</span> (falar)
 						</p>
 					</div>
 				</div>
 
-				{/* ═══ TRILHA MÍSTICA - Caminho Sagrado ═══ */}
-				<div className="relative py-8">
-					{/* Linha de energia conectando os portais */}
-					<div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
+				{/* ═══ DEFINIÇÃO POÉTICA ═══ */}
+				<div className="max-w-2xl mx-auto space-y-6 animate-in fade-in duration-1000 [animation-delay:200ms]">
+					<div className="flex items-center justify-center gap-3">
+						<div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500/30" />
+						<Icon icon="lucide:sparkles" className="size-3 text-purple-500/40" />
+						<div className="h-px w-12 bg-gradient-to-l from-transparent to-purple-500/30" />
+					</div>
 
-					{/* Chakras de energia */}
-					<div className="relative flex items-center justify-center gap-12">
-						<span className="size-2 rounded-full bg-purple-400/60 animate-pulse [animation-duration:2s]" />
-						<span className="size-3 rounded-full bg-violet-400/70 animate-pulse [animation-duration:2s] [animation-delay:0.3s]" />
-						<span className="size-5 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 shadow-lg shadow-purple-500/50 animate-pulse [animation-duration:2s] [animation-delay:0.6s]" />
-						<span className="size-3 rounded-full bg-indigo-400/70 animate-pulse [animation-duration:2s] [animation-delay:0.9s]" />
-						<span className="size-2 rounded-full bg-indigo-400/60 animate-pulse [animation-duration:2s] [animation-delay:1.2s]" />
+					<div className="text-center space-y-4">
+						<p className="text-xl sm:text-2xl md:text-3xl text-purple-100/90 leading-relaxed font-light">
+							Um diálogo consigo mesmo.<br />
+							A arte milenar de se conhecer pela conversa interior.
+						</p>
+
+						<p className="text-base sm:text-lg text-purple-300/70 leading-relaxed">
+							Maquiavel escreveu solilóquios para explorar os dilemas da alma.
+							Aqui, você fará o mesmo - com as cartas como espelho do inconsciente.
+						</p>
 					</div>
 				</div>
 
-				{/* ═══ TRÊS PORTAIS MÍSTICOS - Entrada para as dimensões ═══ */}
-				<div className="grid md:grid-cols-3 gap-12 items-stretch">
+				{/* ═══ A JORNADA EM 3 ETAPAS ═══ */}
+				<div className="space-y-12 animate-in fade-in duration-1000 [animation-delay:400ms]">
+					<h2 className="text-2xl sm:text-3xl font-bold text-center bg-gradient-to-r from-purple-200 via-violet-200 to-indigo-200 bg-clip-text text-transparent">
+						A Jornada do Autoconhecimento
+					</h2>
 
-					{/* PORTAL 1: Baralhos - Tradições Ciganas */}
-					<Link
-						href="/baralhos"
-						className="group relative flex animate-in fade-in slide-in-from-bottom-12 duration-1000 [animation-delay:200ms]"
-					>
-						{/* Borda gradiente animada */}
-						<div className="absolute -inset-1 bg-gradient-to-r from-purple-600/50 via-violet-600/50 to-indigo-600/50 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-gradient-xy" />
-
-						<div className="relative flex flex-col h-full w-full text-center space-y-8 p-10 rounded-3xl border-2 border-purple-500/20 bg-gradient-to-br from-purple-950/40 via-background/90 to-background/90 backdrop-blur-xl transition-all duration-500 group-hover:border-purple-500/50 group-hover:shadow-2xl group-hover:shadow-purple-500/20 group-hover:-translate-y-3">
-
-							{/* Vórtex do portal */}
-							<div className="relative inline-flex items-center justify-center mx-auto">
-								{/* Anéis girantes */}
-								<div className="absolute size-28 rounded-full border-2 border-purple-500/20 animate-spin-slow [animation-duration:10s]" />
-								<div className="absolute size-24 rounded-full border border-purple-500/30 animate-spin-slow [animation-duration:8s] [animation-direction:reverse]" />
-								<div className="absolute size-20 rounded-full border border-purple-500/40 animate-spin-slow [animation-duration:6s]" />
-
-								{/* Núcleo do portal */}
-								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-purple-600/30 to-indigo-600/30 border-2 border-purple-500/50 shadow-lg shadow-purple-500/50 group-hover:shadow-purple-500/80 transition-all">
-									<Icon icon="game-icons:card-draw" className="size-8 text-purple-300 group-hover:text-purple-100 transition-colors" />
+					<div className="space-y-8">
+						{/* Etapa 1 */}
+						<div className="group p-6 rounded-xl border border-purple-500/15 bg-purple-950/20 backdrop-blur-sm hover:border-purple-500/30 hover:bg-purple-950/30 transition-all duration-300">
+							<div className="flex items-start gap-4">
+								<div className="flex-shrink-0 mt-1">
+									<div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-600/20 to-indigo-600/20 border border-purple-500/30">
+										<Icon icon="lucide:eye" className="size-5 text-purple-300/80" />
+									</div>
 								</div>
-							</div>
-
-							{/* Título e Descrição */}
-							<div className="space-y-3">
-								<h3 className="text-3xl font-bold bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent group-hover:from-purple-100 group-hover:to-indigo-100 transition-all">
-									Baralhos
-								</h3>
-								<p className="text-base md:text-lg text-purple-300/70 leading-relaxed group-hover:text-purple-200/80 transition-colors">
-									Tradições ciganas e oráculos ancestrais.<br />
-									Cada deck é uma porta para sabedoria antiga.
-								</p>
-							</div>
-
-							{/* Runas decorativas */}
-							<div className="flex items-center justify-center gap-3 mt-auto opacity-40 group-hover:opacity-60 transition-opacity">
-								<Icon icon="game-icons:rune-stone" className="size-4 text-purple-400" />
-								<span className="size-1 rounded-full bg-purple-400" />
-								<Icon icon="game-icons:rune-stone" className="size-4 text-purple-400" />
+								<div className="space-y-2">
+									<h3 className="text-lg sm:text-xl font-semibold text-purple-200">I. O Chamado Interior</h3>
+									<p className="text-sm sm:text-base text-purple-300/70 leading-relaxed">
+										Toda jornada começa com uma pergunta silenciosa. Um desejo de se compreender.
+										As cartas são o espelho que reflete o que já vive dentro de você.
+									</p>
+								</div>
 							</div>
 						</div>
-					</Link>
 
-					{/* PORTAL 2: Cartas - Arcanos Universais */}
-					<Link
-						href="/cartas/arcanos"
-						className="group relative flex animate-in fade-in slide-in-from-bottom-12 duration-1000 [animation-delay:400ms]"
-					>
-						{/* Borda gradiente animada */}
-						<div className="absolute -inset-1 bg-gradient-to-r from-violet-600/50 via-purple-600/50 to-indigo-600/50 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-gradient-xy" />
-
-						<div className="relative flex flex-col h-full w-full text-center space-y-8 p-10 rounded-3xl border-2 border-violet-500/20 bg-gradient-to-br from-violet-950/40 via-background/90 to-background/90 backdrop-blur-xl transition-all duration-500 group-hover:border-violet-500/50 group-hover:shadow-2xl group-hover:shadow-violet-500/20 group-hover:-translate-y-3">
-
-							{/* Vórtex do portal */}
-							<div className="relative inline-flex items-center justify-center mx-auto">
-								{/* Anéis girantes */}
-								<div className="absolute size-28 rounded-full border-2 border-violet-500/20 animate-spin-slow [animation-duration:12s] [animation-direction:reverse]" />
-								<div className="absolute size-24 rounded-full border border-violet-500/30 animate-spin-slow [animation-duration:10s]" />
-								<div className="absolute size-20 rounded-full border border-violet-500/40 animate-spin-slow [animation-duration:8s] [animation-direction:reverse]" />
-
-								{/* Núcleo do portal */}
-								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-violet-600/30 to-purple-600/30 border-2 border-violet-500/50 shadow-lg shadow-violet-500/50 group-hover:shadow-violet-500/80 transition-all">
-									<Icon icon="game-icons:card-random" className="size-8 text-violet-300 group-hover:text-violet-100 transition-colors" />
+						{/* Etapa 2 */}
+						<div className="group p-6 rounded-xl border border-violet-500/15 bg-violet-950/20 backdrop-blur-sm hover:border-violet-500/30 hover:bg-violet-950/30 transition-all duration-300">
+							<div className="flex items-start gap-4">
+								<div className="flex-shrink-0 mt-1">
+									<div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30">
+										<Icon icon="lucide:messages-square" className="size-5 text-violet-300/80" />
+									</div>
 								</div>
-							</div>
-
-							{/* Título e Descrição */}
-							<div className="space-y-3">
-								<h3 className="text-3xl font-bold bg-gradient-to-r from-violet-300 to-purple-300 bg-clip-text text-transparent group-hover:from-violet-100 group-hover:to-purple-100 transition-all">
-									Cartas
-								</h3>
-								<p className="text-base md:text-lg text-violet-300/70 leading-relaxed group-hover:text-violet-200/80 transition-colors">
-									Arcanos maiores e menores revelados.<br />
-									Símbolos do inconsciente coletivo universal.
-								</p>
-							</div>
-
-							{/* Hexagrama decorativo */}
-							<div className="flex items-center justify-center gap-3 mt-auto opacity-40 group-hover:opacity-60 transition-opacity">
-								<Icon icon="lucide:hexagon" className="size-4 text-violet-400" />
-								<span className="size-1 rounded-full bg-violet-400" />
-								<Icon icon="lucide:hexagon" className="size-4 text-violet-400" />
+								<div className="space-y-2">
+									<h3 className="text-lg sm:text-xl font-semibold text-violet-200">II. O Diálogo Sagrado</h3>
+									<p className="text-sm sm:text-base text-violet-300/70 leading-relaxed">
+										No silêncio, você fala consigo. As cartas respondem não com palavras alheias,
+										mas com símbolos que despertam sua própria sabedoria adormecida.
+									</p>
+								</div>
 							</div>
 						</div>
-					</Link>
 
-					{/* PORTAL 3: Jornada - Caminho do Iniciado */}
-					<div className="group relative flex animate-in fade-in slide-in-from-bottom-12 duration-1000 [animation-delay:600ms]">
-						{/* Borda gradiente suave (não clicável) */}
-						<div className="absolute -inset-1 bg-gradient-to-r from-indigo-600/30 via-violet-600/30 to-purple-600/30 rounded-3xl blur opacity-50" />
-
-						<div className="relative flex flex-col h-full w-full text-center space-y-8 p-10 rounded-3xl border-2 border-indigo-500/20 bg-gradient-to-br from-indigo-950/40 via-background/90 to-background/90 backdrop-blur-xl cursor-default">
-
-							{/* Vórtex do portal */}
-							<div className="relative inline-flex items-center justify-center mx-auto">
-								{/* Anéis girantes */}
-								<div className="absolute size-28 rounded-full border-2 border-indigo-500/20 animate-spin-slow [animation-duration:14s]" />
-								<div className="absolute size-24 rounded-full border border-indigo-500/30 animate-spin-slow [animation-duration:12s] [animation-direction:reverse]" />
-								<div className="absolute size-20 rounded-full border border-indigo-500/40 animate-spin-slow [animation-duration:10s]" />
-
-								{/* Núcleo do portal */}
-								<div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600/30 to-violet-600/30 border-2 border-indigo-500/50 shadow-lg shadow-indigo-500/30">
-									<Icon icon="game-icons:scroll-unfurled" className="size-8 text-indigo-300 animate-pulse [animation-duration:3s]" />
+						{/* Etapa 3 */}
+						<div className="group p-6 rounded-xl border border-indigo-500/15 bg-indigo-950/20 backdrop-blur-sm hover:border-indigo-500/30 hover:bg-indigo-950/30 transition-all duration-300">
+							<div className="flex items-start gap-4">
+								<div className="flex-shrink-0 mt-1">
+									<div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600/20 to-violet-600/20 border border-indigo-500/30">
+										<Icon icon="lucide:sparkles" className="size-5 text-indigo-300/80" />
+									</div>
 								</div>
-							</div>
-
-							{/* Título e Descrição */}
-							<div className="space-y-3">
-								<h3 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-violet-300 bg-clip-text text-transparent">
-									Jornada
-								</h3>
-								<p className="text-base md:text-lg text-indigo-300/70 leading-relaxed">
-									Seu diário de aprendiz místico.<br />
-									Registro da caminhada iniciática pessoal.
-								</p>
-							</div>
-
-							{/* Badge "Em breve" */}
-							<div className="flex items-center justify-center mt-auto">
-								<div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 backdrop-blur-sm">
-									<span className="size-2 rounded-full bg-indigo-400/70 animate-pulse [animation-duration:2s]" />
-									<span className="text-base font-medium text-indigo-300/80 tracking-wider">
-										EM BREVE
-									</span>
+								<div className="space-y-2">
+									<h3 className="text-lg sm:text-xl font-semibold text-indigo-200">III. A Revelação</h3>
+									<p className="text-sm sm:text-base text-indigo-300/70 leading-relaxed">
+										Ao fim, você não encontra respostas prontas, mas clareza sobre suas próprias perguntas.
+										O solilóquio revela não o futuro, mas quem você é agora.
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				{/* ═══ SABEDORIA ANCESTRAL - Footer Místico ═══ */}
-				<div className="text-center space-y-10 pb-16 animate-in fade-in duration-1000 [animation-delay:800ms]">
-					{/* Divider sagrado */}
-					<div className="relative py-8">
-						<div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
-						<div className="relative flex items-center justify-center gap-4">
-							<Icon icon="game-icons:crystal-ball" className="size-5 text-purple-500/50" />
-							<span className="size-1.5 rounded-full bg-purple-500/40" />
-							<Icon icon="lucide:eye" className="size-6 text-violet-500/50" />
-							<span className="size-1.5 rounded-full bg-violet-500/40" />
-							<Icon icon="game-icons:crystal-ball" className="size-5 text-indigo-500/50" />
-						</div>
+				{/* ═══ CITAÇÃO DE MAQUIAVEL ═══ */}
+				<div className="max-w-2xl mx-auto py-8 relative animate-in fade-in duration-1000 [animation-delay:600ms]">
+					<div className="absolute -top-4 left-4 text-5xl text-purple-500/10 font-serif leading-none">"</div>
+					<div className="absolute -bottom-4 right-4 text-5xl text-purple-500/10 font-serif leading-none rotate-180">"</div>
+
+					<div className="flex items-center justify-center gap-2 mb-4">
+						<div className="h-px w-10 bg-gradient-to-r from-transparent to-purple-500/20" />
+						<Icon icon="lucide:scroll" className="size-3 text-purple-500/30" />
+						<div className="h-px w-10 bg-gradient-to-l from-transparent to-purple-500/20" />
 					</div>
 
-					{/* Texto místico */}
-					<div className="space-y-4 max-w-4xl mx-auto">
-						<p className="text-base uppercase tracking-[0.3em] text-purple-400/60 font-light">
-							Sabedoria Ancestral Cigana
-						</p>
-						<p className="text-xl md:text-2xl text-purple-200/70 font-light leading-relaxed">
-							Este portal preserva conhecimentos herméticos, símbolos esotéricos e tradições místicas.<br />
-							Cada carta revela fragmentos do Akasha. Cada leitura, uma jornada interior.
+					<p className="text-base sm:text-lg md:text-xl text-purple-200/90 font-light italic leading-relaxed text-center px-6">
+						Quando a noite cai e estou sozinho,<br />
+						despo a roupa do dia e visto as roupas reais.<br />
+						Entro no mundo dos antigos e dialogo com eles.
+					</p>
+
+					<p className="text-xs sm:text-sm text-purple-400/50 mt-6 text-center tracking-wide">
+						— Nicolau Maquiavel (1513)
+					</p>
+				</div>
+
+				{/* ═══ CALL TO ACTION ═══ */}
+				<div className="text-center space-y-6 animate-in fade-in duration-1000 [animation-delay:800ms]">
+					<div className="space-y-3">
+						<h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-200 via-violet-200 to-indigo-200 bg-clip-text text-transparent">
+							Comece seu Solilóquio
+						</h2>
+						<p className="text-sm sm:text-base text-purple-300/60">
+							Entre no portal. Deixe as cartas guiarem sua conversa interior.
 						</p>
 					</div>
 
-					{/* Símbolos místicos finais */}
-					<div className="flex items-center justify-center gap-8 text-purple-400/30">
-						<Icon icon="lucide:moon" className="size-6 animate-pulse [animation-duration:4s]" />
-						<span className="size-1 rounded-full bg-current" />
-						<Icon icon="lucide:star" className="size-6 animate-pulse [animation-duration:4s] [animation-delay:1s]" />
-						<span className="size-1 rounded-full bg-current" />
-						<Icon icon="game-icons:pentagram" className="size-6 animate-pulse [animation-duration:4s] [animation-delay:2s]" />
-						<span className="size-1 rounded-full bg-current" />
-						<Icon icon="game-icons:crystal-ball" className="size-6 animate-pulse [animation-duration:4s] [animation-delay:3s]" />
+					<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+						<Link
+							href="/baralhos"
+							className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600/80 to-indigo-600/80 hover:from-purple-600 hover:to-indigo-600 text-white font-medium text-sm sm:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30"
+						>
+							<Icon icon="lucide:sparkles" className="size-4 group-hover:rotate-180 transition-transform duration-500" />
+							<span>Explorar Baralhos</span>
+						</Link>
+
+						<Link
+							href="/cartas/arcanos"
+							className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-purple-500/40 hover:border-purple-500/60 text-purple-200 hover:bg-purple-500/5 font-medium text-sm sm:text-base transition-all duration-300 hover:scale-105"
+						>
+							<Icon icon="lucide:book-open" className="size-4" />
+							<span>Conhecer os Arcanos</span>
+						</Link>
 					</div>
+				</div>
+
+				{/* ═══ FOOTER MINIMALISTA ═══ */}
+				<div className="text-center space-y-4 pt-12 pb-8 animate-in fade-in duration-1000 [animation-delay:1000ms]">
+					<div className="flex items-center justify-center gap-4 text-purple-400/20">
+						<Icon icon="lucide:moon" className="size-4 animate-pulse [animation-duration:5s]" />
+						<span className="size-0.5 rounded-full bg-current" />
+						<Icon icon="lucide:star" className="size-4 animate-pulse [animation-duration:5s] [animation-delay:1.5s]" />
+						<span className="size-0.5 rounded-full bg-current" />
+						<Icon icon="lucide:sparkles" className="size-4 animate-pulse [animation-duration:5s] [animation-delay:3s]" />
+					</div>
+					<p className="text-xs text-purple-400/40 tracking-wider">
+						Como dentro, assim fora
+					</p>
 				</div>
 			</div>
 		</div>
