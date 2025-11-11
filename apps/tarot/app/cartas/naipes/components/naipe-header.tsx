@@ -24,6 +24,7 @@ interface NaipeHeaderProps {
 /**
  * Mapeamento de cores para classes Tailwind
  * Necessário para garantir que o JIT compiler detecte todas as classes
+ * Sincronizado com element-colors.ts
  */
 const COLOR_CLASSES = {
 	blue: {
@@ -38,6 +39,12 @@ const COLOR_CLASSES = {
 		text: 'text-red-600/80 dark:text-red-400/80',
 		gradientDark: 'dark:from-red-400 dark:to-red-400',
 	},
+	amber: {
+		icon: 'text-amber-600 dark:text-amber-400',
+		bg: 'bg-gradient-to-br from-amber-600/20 to-amber-600/20',
+		text: 'text-amber-600/80 dark:text-amber-400/80',
+		gradientDark: 'dark:from-amber-400 dark:to-amber-400',
+	},
 	terra: {
 		icon: 'text-stone-600 dark:text-stone-400',
 		bg: 'bg-gradient-to-br from-stone-600/20 to-amber-600/20',
@@ -49,6 +56,12 @@ const COLOR_CLASSES = {
 		bg: 'bg-gradient-to-br from-slate-600/20 to-slate-600/20',
 		text: 'text-slate-600/80 dark:text-slate-400/80',
 		gradientDark: 'dark:from-slate-400 dark:to-slate-400',
+	},
+	purple: {
+		icon: 'text-purple-600 dark:text-purple-400',
+		bg: 'bg-gradient-to-br from-purple-600/20 to-purple-600/20',
+		text: 'text-purple-600/80 dark:text-purple-400/80',
+		gradientDark: 'dark:from-purple-400 dark:to-purple-400',
 	},
 } as const
 

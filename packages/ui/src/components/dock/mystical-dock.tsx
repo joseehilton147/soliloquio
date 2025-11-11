@@ -344,7 +344,7 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 				<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
 				{item.icon && <Icon icon={item.icon} className="relative size-4 text-purple-500/70 group-hover/sub:text-purple-500 group-hover/sub:scale-110 transition-all duration-200" />}
-				<span className="relative flex-1">{item.label}</span>
+				<span className="relative flex-1 whitespace-nowrap">{item.label}</span>
 
 				{hasChildren && (
 					<Icon icon="lucide:chevron-right" className="relative size-3.5 text-purple-500/50 group-hover/sub:text-purple-500 group-hover/sub:translate-x-0.5 transition-all duration-200" />
@@ -371,7 +371,7 @@ function SubmenuItem({ item, level, dockPosition, onHover }: SubmenuItemProps) {
 							'rounded-2xl overflow-visible',
 							'bg-background/98 backdrop-blur-2xl',
 							'shadow-2xl shadow-purple-500/30',
-							'min-w-[180px]',
+							'w-max',
 						)}>
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 

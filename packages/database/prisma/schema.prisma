@@ -103,3 +103,145 @@ model ReadingType {
 
   @@map("reading_types")
 }
+
+// ═══════════════════════════════════════════════════════
+// TIRAGENS - Spreads Customizadas por Usuário
+// ═══════════════════════════════════════════════════════
+
+// Categoria de tiragem
+enum SpreadCategory {
+  QUICK        // Tiragens rápidas (2 cartas)
+  INSIGHT      // Insights profundos (3 cartas)
+  RELATIONSHIP // Relacionamentos (5-6 cartas)
+  DECISION     // Tomada de decisão (6 cartas)
+  DEEP         // Análise profunda (10+ cartas)
+  CUSTOM       // Tiragens personalizadas
+}
+
+// Tipo de layout visual
+enum SpreadLayout {
+  LINEAR      // Linha horizontal
+  TRIANGLE    // Triângulo
+  CROSS       // Cruz
+  HORSESHOE   // Ferradura
+  CELTIC      // Cruz Celta específica
+  CIRCLE      // Círculo
+  CUSTOM      // Layout personalizado
+}
+
+// Tiragem Customizada criada por usuário
+model CustomSpread {
+  id             String         @id @default(uuid())
+
+  // TODO: Adicionar relação com User quando modelo for criado
+  // userId         String
+  // user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Metadados da tiragem
+  name           String         // Nome da tiragem
+  slug           String         @unique // URL-friendly (auto-gerado)
+  description    String         // Descrição geral
+  whenToUse      String         // Quando usar esta tiragem
+
+  // Classificação
+  category       SpreadCategory
+  layout         SpreadLayout
+  cardCount      Int            // Número de cartas
+  difficulty     Int?           // 1-5 estrelas
+  estimatedTime  Int?           // Minutos
+
+  // Visual
+  themeColor     String?        // Cor temática (hex)
+  icon           String?        // Ícone Iconify
+
+  // Metadados adicionais
+  source         String?        // Fonte/autor da tiragem
+  tags           String[]       // Tags para busca
+  isPublic       Boolean        @default(false) // Se é compartilhável
+
+  // Stats
+  usageCount     Int            @default(0)    // Quantas vezes foi usada
+  rating         Float?         // Avaliação média (1-5)
+  notes          String?        // Notas pessoais do criador
+
+  // Relacionamentos
+  positions      SpreadPosition[]
+  readings       SpreadReading[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([category])
+  @@index([isPublic])
+  // TODO: Adicionar index em userId quando modelo existir
+  // @@index([userId])
+  @@map("custom_spreads")
+}
+
+// Posição individual de carta em uma tiragem
+model SpreadPosition {
+  id          String       @id @default(uuid())
+
+  // Relação com tiragem
+  spreadId    String
+  spread      CustomSpread @relation(fields: [spreadId], references: [id], onDelete: Cascade)
+
+  // Ordem e identificação
+  order       Int          // Ordem de leitura (1, 2, 3...)
+  positionKey String       // ID único dentro da tiragem (ex: "passado", "presente")
+
+  // Significado
+  label       String       // Nome da posição ("Passado", "Obstáculo")
+  description String       // Descrição do significado
+
+  // Coordenadas visuais (0-100 em %)
+  x           Float        // Posição X no canvas
+  y           Float        // Posição Y no canvas
+  rotation    Int?         // Rotação em graus (0-360)
+
+  // Visual
+  emphasis    String?      // "center", "top", "bottom", "highlight"
+  connections Json?        // Array de positionKey conectados (linhas místicas)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([spreadId, positionKey])
+  @@index([spreadId, order])
+  @@map("spread_positions")
+}
+
+// Leitura realizada usando uma tiragem
+model SpreadReading {
+  id             String       @id @default(uuid())
+
+  // Relação com tiragem
+  spreadId       String
+  spread         CustomSpread @relation(fields: [spreadId], references: [id], onDelete: Cascade)
+
+  // TODO: Adicionar relação com User quando modelo for criado
+  // userId         String?
+  // user           User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Dados da leitura
+  question       String?      // Pergunta feita (opcional)
+  interpretation String?      // Interpretação/notas do usuário
+
+  // Cartas sorteadas (JSON com array de objetos)
+  // { positionId: string, cardId: string, isReversed: boolean }[]
+  drawnCards     Json
+
+  // Metadados
+  isFavorite     Boolean      @default(false)
+  tags           String[]     // Tags para organização
+
+  readAt         DateTime     @default(now())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([spreadId])
+  // TODO: Adicionar index em userId quando modelo existir
+  // @@index([userId])
+  @@index([readAt])
+  @@map("spread_readings")
+}

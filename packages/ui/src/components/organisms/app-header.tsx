@@ -79,7 +79,7 @@ export function AppHeader({ logo, apps, rightContent, onAppChange }: AppHeaderPr
 
 				{/* Center Column - App Switcher (absolutely centered) */}
 				<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-					<AppSwitcher apps={apps} onAppChange={onAppChange} />
+					<AppSwitcher apps={apps} columns={2} onAppChange={onAppChange} />
 				</div>
 
 				{/* Right Column - Custom Content Slot */}

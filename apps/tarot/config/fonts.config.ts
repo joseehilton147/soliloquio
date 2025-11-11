@@ -1,21 +1,25 @@
 /**
- * Sistema de Fontes Místicas - Configuração Centralizada
+ * Sistema de Fontes Místicas - Configuração Híbrida Otimizada
  *
- * Implementa sistema de fontes temáticas para o Tarô usando Google Fonts.
- * Arquitetura modular permite adicionar/remover fontes facilmente.
+ * Combina legibilidade máxima (WCAG AAA) com estética mística.
+ * Fontes testadas para acessibilidade e experiência imersiva.
  *
  * FONTES SELECIONADAS (Google Fonts):
  * ────────────────────────────────────────────────────────────
- * DISPLAY/TÍTULOS:
- * - Cinzel: Inspirada em inscrições romanas clássicas - majestosa
- * - Playfair Display: Drama vintage do século XVIII - elegante
- * - Cormorant Garamond: Serifas refinadas - sofisticação mística
- * - Marcellus: Evoca textos astrológicos antigos - atemporal
+ * DISPLAY/TÍTULOS (elegância + legibilidade):
+ * - EB Garamond: Clássica renascentista - máxima legibilidade ⭐
+ * - Cinzel: Romana antiga - majestosa mas legível
+ * - Spectral: Serifa moderna - mística e acessível
  *
- * CORPO DE TEXTO:
- * - Philosopher: Formas únicas, insights cósmicos - legível
- * - EB Garamond: Clássica renascentista - máxima legibilidade
- * - Cormorant: Versátil, funciona em títulos e corpo
+ * CORPO DE TEXTO (otimizado para leitura longa):
+ * - Lora: Raízes caligráficas - altamente legível em telas ⭐
+ * - Merriweather: Otimizada para web - curvas elegantes
+ * - Literata: Serifa moderna - excelente para textos longos
+ *
+ * ACESSIBILIDADE WCAG:
+ * - Tamanhos: 16px+ (AA), 18px+ (AAA)
+ * - Contraste: 4.5:1 texto normal, 3:1 texto grande
+ * - Evita fontes muito decorativas em corpo de texto
  *
  * COMO ADICIONAR NOVA FONTE:
  * ────────────────────────────────────────────────────────────
@@ -27,21 +31,28 @@
 
 import {
 	Cinzel,
-	Playfair_Display,
-	Cormorant_Garamond,
-	Marcellus,
-	Philosopher,
 	EB_Garamond,
-	Cormorant,
+	Literata,
+	Lora,
+	Merriweather,
+	Spectral,
 } from 'next/font/google'
 
 /**
  * ═══════════════════════════════════════════════
- * FONTES DE DISPLAY/TÍTULOS (Místicas, Impactantes)
+ * FONTES DE DISPLAY/TÍTULOS (Elegantes + Legíveis)
  * ═══════════════════════════════════════════════
  */
 
-/** Cinzel - Inscrições Romanas Clássicas */
+/** EB Garamond - Clássica Renascentista (MÁXIMA LEGIBILIDADE) ⭐ */
+export const ebGaramond = EB_Garamond({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700', '800'],
+	variable: '--font-eb-garamond',
+	display: 'swap',
+})
+
+/** Cinzel - Inscrições Romanas Clássicas (Majestosa) */
 export const cinzel = Cinzel({
 	subsets: ['latin'],
 	weight: ['400', '500', '600', '700'],
@@ -49,57 +60,41 @@ export const cinzel = Cinzel({
 	display: 'swap',
 })
 
-/** Playfair Display - Drama Vintage Século XVIII */
-export const playfairDisplay = Playfair_Display({
+/** Spectral - Serifa Elegante Moderna (Mística) */
+export const spectral = Spectral({
 	subsets: ['latin'],
-	weight: ['400', '500', '600', '700', '800', '900'],
-	variable: '--font-playfair',
-	display: 'swap',
-})
-
-/** Cormorant Garamond - Serifas Refinadas */
-export const cormorantGaramond = Cormorant_Garamond({
-	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700'],
-	variable: '--font-cormorant-garamond',
-	display: 'swap',
-})
-
-/** Marcellus - Textos Astrológicos Antigos */
-export const marcellus = Marcellus({
-	subsets: ['latin'],
-	weight: ['400'],
-	variable: '--font-marcellus',
+	weight: ['400', '500', '600', '700', '800'],
+	variable: '--font-spectral',
 	display: 'swap',
 })
 
 /**
  * ═══════════════════════════════════════════════
- * FONTES DE CORPO (Legíveis, Místicas mas Práticas)
+ * FONTES DE CORPO (Otimizadas para Leitura Longa)
  * ═══════════════════════════════════════════════
  */
 
-/** Philosopher - Insights Cósmicos */
-export const philosopher = Philosopher({
-	subsets: ['latin'],
-	weight: ['400', '700'],
-	variable: '--font-philosopher',
-	display: 'swap',
-})
-
-/** EB Garamond - Clássica Renascentista (Máxima Legibilidade) */
-export const ebGaramond = EB_Garamond({
+/** Lora - Raízes Caligráficas (ALTAMENTE LEGÍVEL) ⭐ */
+export const lora = Lora({
 	subsets: ['latin'],
 	weight: ['400', '500', '600', '700'],
-	variable: '--font-eb-garamond',
+	variable: '--font-lora',
 	display: 'swap',
 })
 
-/** Cormorant - Versátil (Títulos + Corpo) */
-export const cormorant = Cormorant({
+/** Merriweather - Otimizada para Telas (Elegante) */
+export const merriweather = Merriweather({
 	subsets: ['latin'],
-	weight: ['300', '400', '500', '600', '700'],
-	variable: '--font-cormorant',
+	weight: ['300', '400', '700', '900'],
+	variable: '--font-merriweather',
+	display: 'swap',
+})
+
+/** Literata - Serifa Moderna (Textos Longos) */
+export const literata = Literata({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700'],
+	variable: '--font-literata',
 	display: 'swap',
 })
 
@@ -113,80 +108,73 @@ export interface FontConfig {
 	readonly name: string
 	readonly description: string
 	readonly usage: 'display' | 'body' | 'both'
-	readonly font: ReturnType<typeof Cinzel>
+	readonly font: ReturnType<typeof EB_Garamond>
 	readonly cssVariable: string
 }
 
 /**
  * Catálogo de Fontes Místicas Disponíveis
- * Use este objeto para acessar qualquer fonte no sistema
+ * Combinação híbrida: legibilidade + misticismo
  */
 export const MYSTICAL_FONTS = {
+	ebGaramond: {
+		name: 'EB Garamond',
+		description: 'Clássica renascentista - máxima legibilidade para títulos ⭐',
+		usage: 'display',
+		font: ebGaramond,
+		cssVariable: '--font-eb-garamond',
+	},
 	cinzel: {
 		name: 'Cinzel',
-		description: 'Inscrições romanas clássicas - majestosa e atemporal',
+		description: 'Romana antiga - majestosa mas acessível',
 		usage: 'display',
 		font: cinzel,
 		cssVariable: '--font-cinzel',
 	},
-	playfair: {
-		name: 'Playfair Display',
-		description: 'Drama vintage do século XVIII - elegante e dramática',
+	spectral: {
+		name: 'Spectral',
+		description: 'Serifa moderna - mística e legível',
 		usage: 'display',
-		font: playfairDisplay,
-		cssVariable: '--font-playfair',
+		font: spectral,
+		cssVariable: '--font-spectral',
 	},
-	cormorantGaramond: {
-		name: 'Cormorant Garamond',
-		description: 'Serifas refinadas - sofisticação mística',
-		usage: 'display',
-		font: cormorantGaramond,
-		cssVariable: '--font-cormorant-garamond',
-	},
-	marcellus: {
-		name: 'Marcellus',
-		description: 'Textos astrológicos antigos - sabedoria ancestral',
-		usage: 'display',
-		font: marcellus,
-		cssVariable: '--font-marcellus',
-	},
-	philosopher: {
-		name: 'Philosopher',
-		description: 'Insights cósmicos - legível e contemplativa',
+	lora: {
+		name: 'Lora',
+		description: 'Raízes caligráficas - altamente legível para textos ⭐',
 		usage: 'body',
-		font: philosopher,
-		cssVariable: '--font-philosopher',
+		font: lora,
+		cssVariable: '--font-lora',
 	},
-	ebGaramond: {
-		name: 'EB Garamond',
-		description: 'Clássica renascentista - máxima legibilidade',
+	merriweather: {
+		name: 'Merriweather',
+		description: 'Otimizada para telas - curvas elegantes',
 		usage: 'body',
-		font: ebGaramond,
-		cssVariable: '--font-eb-garamond',
+		font: merriweather,
+		cssVariable: '--font-merriweather',
 	},
-	cormorant: {
-		name: 'Cormorant',
-		description: 'Versátil - funciona em títulos e corpo',
-		usage: 'both',
-		font: cormorant,
-		cssVariable: '--font-cormorant',
+	literata: {
+		name: 'Literata',
+		description: 'Serifa moderna - excelente para textos longos',
+		usage: 'body',
+		font: literata,
+		cssVariable: '--font-literata',
 	},
 } as const satisfies Record<string, FontConfig>
 
 /**
  * ═══════════════════════════════════════════════
- * FONTES ATIVAS (Defina aqui quais usar no sistema)
+ * FONTES ATIVAS (Combinação Híbrida Otimizada)
  * ═══════════════════════════════════════════════
  */
 
-/** Fonte principal para títulos/headings/display */
-export const FONT_DISPLAY = MYSTICAL_FONTS.cinzel
+/** Fonte principal para títulos/headings/display - Elegância clássica + Legibilidade */
+export const FONT_DISPLAY = MYSTICAL_FONTS.ebGaramond
 
-/** Fonte principal para corpo de texto */
-export const FONT_BODY = MYSTICAL_FONTS.philosopher
+/** Fonte principal para corpo de texto - Máxima legibilidade + Sutileza mística */
+export const FONT_BODY = MYSTICAL_FONTS.lora
 
-/** Fonte alternativa para ênfase */
-export const FONT_ACCENT = MYSTICAL_FONTS.playfair
+/** Fonte alternativa para ênfase - Impacto visual místico */
+export const FONT_ACCENT = MYSTICAL_FONTS.cinzel
 
 /**
  * Helper para obter className de todas as fontes

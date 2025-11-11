@@ -5,5 +5,6 @@
  * para o domínio do Tarot
  */
 
-export * from './schemas';
-export * from './types';
+export * from './schemas'
+export * from './types'
+export * from './spread'

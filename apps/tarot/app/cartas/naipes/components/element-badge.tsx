@@ -16,6 +16,7 @@ interface ElementBadgeProps {
 
 /**
  * Mapeamento de cores para elemento badge
+ * Sincronizado com element-colors.ts
  */
 const ELEMENT_COLOR_CLASSES = {
 	blue: {
@@ -28,6 +29,11 @@ const ELEMENT_COLOR_CLASSES = {
 		icon: 'text-red-600 dark:text-red-400',
 		text: 'text-red-700 dark:text-red-300',
 	},
+	amber: {
+		bg: 'bg-amber-500/10',
+		icon: 'text-amber-600 dark:text-amber-400',
+		text: 'text-amber-700 dark:text-amber-300',
+	},
 	terra: {
 		bg: 'bg-stone-500/10',
 		icon: 'text-stone-600 dark:text-stone-400',
@@ -37,6 +43,11 @@ const ELEMENT_COLOR_CLASSES = {
 		bg: 'bg-slate-500/10',
 		icon: 'text-slate-600 dark:text-slate-400',
 		text: 'text-slate-700 dark:text-slate-300',
+	},
+	purple: {
+		bg: 'bg-purple-500/10',
+		icon: 'text-purple-600 dark:text-purple-400',
+		text: 'text-purple-700 dark:text-purple-300',
 	},
 } as const
 

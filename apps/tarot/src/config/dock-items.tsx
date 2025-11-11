@@ -77,6 +77,77 @@ export const createDockItems = (onSearchOpen?: () => void): DockItem[] => [
     ],
   },
   {
+    id: 'tiragens',
+    label: 'Tiragens',
+    icon: 'game-icons:perspective-dice-six-faces-random',
+    href: '/tiragens',
+    type: 'link',
+    position: 'left',
+    submenu: [
+      // Rápidas (2 cartas)
+      {
+        label: 'Rápidas',
+        href: '/tiragens',
+        icon: 'lucide:zap',
+        children: [
+          { label: 'Liberar e Retirar', href: '/tiragens/liberar-e-retirar', icon: 'lucide:scale' },
+          { label: 'Dom e Obstáculo', href: '/tiragens/dom-e-obstaculo', icon: 'lucide:shield-check' },
+        ],
+      },
+
+      // Insight (3 cartas)
+      {
+        label: 'Insights',
+        href: '/tiragens',
+        icon: 'lucide:eye',
+        children: [
+          { label: 'Conselho do Universo', href: '/tiragens/conselho-do-universo', icon: 'lucide:sparkles' },
+          { label: 'Passado, Presente e Futuro', href: '/tiragens/passado-presente-futuro', icon: 'lucide:clock' },
+          { label: 'Mente, Corpo e Espírito', href: '/tiragens/mente-corpo-espirito', icon: 'lucide:heart-handshake' },
+        ],
+      },
+
+      // Relacionamentos (5-6 cartas)
+      {
+        label: 'Relacionamentos',
+        href: '/tiragens',
+        icon: 'lucide:heart',
+        children: [
+          { label: 'Relacionamento Existente', href: '/tiragens/relacionamento-existente', icon: 'lucide:users' },
+          { label: 'Potencial Relacionamento', href: '/tiragens/potencial-relacionamento', icon: 'lucide:user-plus' },
+        ],
+      },
+
+      // Outras (Decisão, Lei de Atração)
+      {
+        label: 'Decisão e Manifestação',
+        href: '/tiragens',
+        icon: 'lucide:git-fork',
+        children: [
+          { label: 'Tomando uma Decisão', href: '/tiragens/tomando-decisao', icon: 'lucide:signpost' },
+          { label: 'Lei de Atração', href: '/tiragens/lei-de-atracao', icon: 'lucide:zap' },
+        ],
+      },
+
+      // Profunda
+      {
+        label: 'Profunda',
+        href: '/tiragens',
+        icon: 'lucide:compass',
+        children: [
+          { label: 'A Cruz Celta', href: '/tiragens/cruz-celta', icon: 'lucide:crosshair' },
+        ],
+      },
+
+      // Crie sua própria
+      {
+        label: 'Crie Sua Própria',
+        href: '/tiragens/personalizada/nova',
+        icon: 'lucide:wand-2',
+      },
+    ],
+  },
+  {
     id: 'busca',
     label: 'Buscar (⌘K)',
     icon: 'game-icons:crystal-ball',
