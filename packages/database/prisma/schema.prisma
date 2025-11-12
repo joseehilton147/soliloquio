@@ -82,11 +82,12 @@ model TarotCard {
   imageUrl        String?       // Image path for the card
   verticalMeaning Json          // Array of strings (mantido para dados da carta)
   invertedMeaning Json          // Array of strings (mantido para dados da carta)
-  numerology      String
-  astrology       String?
-  typesOfReading  ReadingType[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  numerology        String
+  astrology         String?
+  reflectionMessage String?       // Mensagem introspectiva - pergunta para reflexão
+  typesOfReading    ReadingType[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
   // Slug único por deck (permite "o-mago" em decks diferentes)
   @@unique([deckId, slug])

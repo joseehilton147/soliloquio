@@ -54,6 +54,7 @@ export const tarotCardSchema = z.object({
   invertedMeaning: z.array(z.string()).min(1, 'Deve ter ao menos um significado invertido'),
   numerology: z.string(),
   astrology: z.string().optional().nullable(),
+  reflectionMessage: z.string().optional().nullable(),
   typesOfReading: z.array(readingTypeSchema).min(1, 'Deve ter ao menos um tipo de leitura'),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
