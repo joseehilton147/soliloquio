@@ -8,7 +8,7 @@ import superjson from 'superjson'
 
 import { trpc } from '../lib/trpc'
 import { DockSettingsProvider } from '../contexts/dock-settings-context'
-import { PageLoadingIndicator } from './page-loading-indicator'
+import { PageLoadingIndicator } from '@/shared/components'
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	const [queryClient] = useState(
