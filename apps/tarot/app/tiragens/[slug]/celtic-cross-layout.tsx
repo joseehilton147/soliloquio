@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from 'react'
 import type { ElementColors } from './element-colors'
 import type { TarotSpread } from '@workspace/core/tarot'
 import { CardFront } from './card-front'
@@ -40,6 +41,8 @@ export function CelticCrossLayout({
 	flippedCards,
 	onCardClick,
 }: CelticCrossLayoutProps) {
+	// Estado para controlar modo de visualização separada
+	const [splitMode, setSplitMode] = React.useState(false)
 
 	// Mapear posições por order (1-10)
 	const positionsByOrder = spread.positions.reduce((acc, pos) => {
@@ -69,44 +72,110 @@ export function CelticCrossLayout({
 	}
 
 	/**
-	 * Renderiza grupo central (cartas 1 e 2)
-	 * Carta 2 fica HORIZONTAL sobre a parte INFERIOR da carta 1
+	 * Renderiza grupo central (cartas 1 e 2) com interações místicas
+	 *
+	 * Interações:
+	 * 1. Hover: Carta 2 se afasta revelando carta 1
+	 * 2. Click na carta 1: Ativa split mode (cartas se separam)
+	 * 3. Click na carta 2: Flip normal
+	 * 4. Carta 2 auto-rotaciona para vertical quando flippada
 	 */
 	const renderCenterGroup = () => {
 		const pos1 = positionsByOrder[1]
 		const pos2 = positionsByOrder[2]
 		if (!pos1 || !pos2) return null
 
+		const isCard2Flipped = flippedCards.has(pos2.id)
+
 		return (
-			<div className="relative flex items-center justify-center">
-				{/* Carta 1 - Situação Atual (vertical, base - z-index menor) */}
-				<div className="relative z-10">
+			<div className="relative flex items-center justify-center group">
+
+				{/* Carta 1 - Situação Atual (vertical, base) */}
+				<div
+					className={`relative z-10 transition-all duration-700 cursor-pointer ${
+						splitMode ? 'translate-x-[-120px] scale-110 z-[15]' : ''
+					}`}
+					onClick={(e) => {
+						e.stopPropagation()
+						// Click direto na carta 1 = flip imediato
+						onCardClick(pos1.id)
+					}}
+					onMouseEnter={() => setSplitMode(true)}
+					onMouseLeave={() => {
+						// Só fecha split mode se nenhuma carta estiver flippada
+						if (!flippedCards.has(pos1.id) && !flippedCards.has(pos2.id)) {
+							setSplitMode(false)
+						}
+					}}
+				>
 					<CosmicCardStatic
 						position={pos1}
 						mysticalSymbol={mysticalSymbol}
 						colors={colors}
 						isSelected={selectedPosition === pos1.id}
 						isFlipped={flippedCards.has(pos1.id)}
-						onToggle={() => onCardClick(pos1.id)}
+						onToggle={() => {}} // Controlado pelo onClick do wrapper
 					/>
+
+					{/* Indicador sutil */}
+					{!flippedCards.has(pos1.id) && (
+						<div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+							<p className="text-xs text-white/60 whitespace-nowrap">
+								Clique para ler
+							</p>
+						</div>
+					)}
 				</div>
 
-				{/* Carta 2 - Desafio (horizontal, SOBRE carta 1 - z-index maior) */}
-				<div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-					<div className="rotate-90">
+				{/* Carta 2 - Desafio (horizontal/vertical conforme estado) */}
+				<div
+					className={`absolute z-20 transition-all duration-700 cursor-pointer ${
+						splitMode
+							? 'translate-x-[120px] scale-110 z-[15]'
+							: 'bottom-0 left-1/2 -translate-x-1/2 group-hover:translate-x-16 group-hover:translate-y-12'
+					}`}
+					onClick={(e) => {
+						e.stopPropagation()
+						// Click direto na carta 2 = flip imediato
+						onCardClick(pos2.id)
+					}}
+					onMouseEnter={() => setSplitMode(true)}
+					onMouseLeave={() => {
+						// Só fecha split mode se nenhuma carta estiver flippada
+						if (!flippedCards.has(pos1.id) && !flippedCards.has(pos2.id)) {
+							setSplitMode(false)
+						}
+					}}
+				>
+					<div
+						className={`transition-transform duration-700 ${
+							// Auto-rotaciona para vertical quando flippada OU em split mode
+							isCard2Flipped || splitMode ? 'rotate-0' : 'rotate-90'
+						}`}
+					>
 						<CosmicCardStatic
 							position={pos2}
 							mysticalSymbol={mysticalSymbol}
 							colors={colors}
 							isSelected={selectedPosition === pos2.id}
-							isFlipped={flippedCards.has(pos2.id)}
-							onToggle={() => onCardClick(pos2.id)}
+							isFlipped={isCard2Flipped}
+							onToggle={() => {}} // Controlado pelo onClick do wrapper
 						/>
 					</div>
+
+					{/* Indicador sutil */}
+					{!isCard2Flipped && (
+						<div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+							<p className="text-xs text-white/60 whitespace-nowrap">
+								Clique para ler
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 		)
 	}
+
 
 	return (
 		<div className="w-full min-h-screen flex items-center justify-center p-8">
