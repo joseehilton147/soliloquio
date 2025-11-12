@@ -33,6 +33,7 @@ export default function NovaCartaPage() {
 	const [invertedReading, setInvertedReading] = useState('')
 	const [numerology, setNumerology] = useState('')
 	const [astrology, setAstrology] = useState('')
+	const [reflectionMessage, setReflectionMessage] = useState('')
 
 	// Estados para novos campos
 	const [deckId, setDeckId] = useState<string | null>(null)
@@ -74,6 +75,7 @@ export default function NovaCartaPage() {
 				invertedMeaning: invertedMeanings,
 				numerology,
 				astrology: astrology || null,
+				reflectionMessage: reflectionMessage || null,
 				deckId: deckId || null,
 				cardType: cardType || null,
 				suit: suit || null,
@@ -118,7 +120,7 @@ export default function NovaCartaPage() {
 
 			<form onSubmit={handleSubmit} className="grid gap-6 lg:grid-cols-[380px_1fr]">
 				{/* Sidebar - Preview e Info Rápida */}
-				<div className="lg:sticky lg:top-24 lg:self-start space-y-4">
+				<div className="lg:sticky lg:top-[calc(var(--header-height)+1rem)] lg:self-start space-y-4">
 					{/* Preview da Imagem */}
 					<div className="rounded-xl border-2 border-purple-500/30 bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-indigo-500/10 p-5 backdrop-blur-sm shadow-lg shadow-purple-500/10">
 						<div className="flex items-center gap-2 mb-4">
@@ -208,6 +210,16 @@ export default function NovaCartaPage() {
 								<div>
 									<p className="text-muted-foreground mb-1">Astrologia</p>
 									<p className="font-semibold text-foreground">{astrology}</p>
+								</div>
+							)}
+
+							{reflectionMessage && (
+								<div className="pt-3 border-t border-amber-500/20">
+									<p className="text-amber-600 dark:text-amber-400 mb-2 flex items-center gap-1.5 text-sm font-medium">
+										<Icon icon="ph:owl-duotone" className="size-4" />
+										Reflexão
+									</p>
+									<p className="text-sm text-foreground/80 italic">{reflectionMessage}</p>
 								</div>
 							)}
 						</div>
@@ -304,6 +316,25 @@ export default function NovaCartaPage() {
 										placeholder="Ex: Mercúrio"
 									/>
 								</div>
+							</div>
+
+							<div>
+								<label htmlFor="reflectionMessage" className="block text-sm font-medium mb-2 text-foreground flex items-center gap-2">
+									<Icon icon="ph:owl-duotone" className="size-5 text-amber-600 dark:text-amber-400" />
+									Mensagem para Refletir
+								</label>
+								<textarea
+									id="reflectionMessage"
+									value={reflectionMessage}
+									onChange={(e) => setReflectionMessage(e.target.value)}
+									rows={3}
+									className="w-full rounded-lg border-2 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/60 transition-all placeholder:text-muted-foreground/50"
+									placeholder="Ex: Que energia você está permitindo entrar em sua vida agora?"
+								/>
+								<p className="text-xs text-muted-foreground mt-1.5 flex items-start gap-1.5">
+									<Icon icon="lucide:info" className="size-3.5 mt-0.5 shrink-0" />
+									<span>Pergunta introspectiva que convida o consulente à reflexão profunda sobre a mensagem da carta.</span>
+								</p>
 							</div>
 
 							<div>

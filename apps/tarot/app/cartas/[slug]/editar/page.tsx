@@ -38,6 +38,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 	const [invertedReading, setInvertedReading] = useState('')
 	const [numerology, setNumerology] = useState('')
 	const [astrology, setAstrology] = useState('')
+	const [reflectionMessage, setReflectionMessage] = useState('')
 
 	// Estados para novos campos
 	const [deckId, setDeckId] = useState<string | null>(null)
@@ -69,6 +70,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 			setName(card.name)
 			setNumerology(card.numerology)
 			setAstrology(card.astrology || '')
+			setReflectionMessage(card.reflectionMessage || '')
 			setVerticalMeanings(card.verticalMeaning as string[])
 			setInvertedMeanings(card.invertedMeaning as string[])
 			setSummary(card.summary || '')
@@ -118,6 +120,7 @@ export default function EditarCartaPage({ params }: PageProps) {
 					invertedMeaning: invertedMeanings,
 					numerology,
 					astrology: astrology || null,
+					reflectionMessage: reflectionMessage || null,
 					deckId: deckId || null,
 					cardType: cardType || null,
 					suit: suit || null,
@@ -372,6 +375,25 @@ export default function EditarCartaPage({ params }: PageProps) {
 										placeholder="Ex: Mercúrio"
 									/>
 								</div>
+							</div>
+
+							<div>
+								<label htmlFor="reflectionMessage" className="block text-sm font-medium mb-2 text-foreground flex items-center gap-2">
+									<Icon icon="ph:owl-duotone" className="size-5 text-amber-600 dark:text-amber-400" />
+									Mensagem para Refletir
+								</label>
+								<textarea
+									id="reflectionMessage"
+									value={reflectionMessage}
+									onChange={(e) => setReflectionMessage(e.target.value)}
+									rows={3}
+									className="w-full rounded-lg border-2 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/60 transition-all placeholder:text-muted-foreground/50"
+									placeholder="Ex: Que energia você está permitindo entrar em sua vida agora?"
+								/>
+								<p className="text-xs text-muted-foreground mt-1.5 flex items-start gap-1.5">
+									<Icon icon="lucide:info" className="size-3.5 mt-0.5 shrink-0" />
+									<span>Pergunta introspectiva que convida o consulente à reflexão profunda sobre a mensagem da carta.</span>
+								</p>
 							</div>
 
 							<div>

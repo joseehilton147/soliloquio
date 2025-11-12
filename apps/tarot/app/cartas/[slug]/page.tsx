@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { use } from 'react'
 
 import { trpc } from '../../../src/lib/trpc'
+import { ReflectionMessage } from './reflection-message'
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
@@ -63,7 +64,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 			{/* Layout Principal */}
 			<div className="grid gap-8 lg:grid-cols-[380px_1fr]">
 				{/* Sidebar - Imagem e Info Rápida */}
-				<div className="lg:sticky lg:top-24 lg:self-start space-y-6">
+				<div className="lg:sticky lg:top-[calc(var(--header-height)+1rem)] lg:self-start space-y-6">
 					{/* Card Image com efeito místico */}
 					{card.imageUrl && (
 						<div className="group relative aspect-[3/4] w-full max-w-sm mx-auto lg:mx-0 rounded-lg overflow-hidden border-2 border-border/40 shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
@@ -216,6 +217,13 @@ export default function CartaDetailPage({ params }: PageProps) {
 							</div>
 						)}
 					</div>
+
+					{/* Mensagem para Refletir */}
+					{card.reflectionMessage && (
+						<div className="mt-8">
+							<ReflectionMessage message={card.reflectionMessage} />
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
