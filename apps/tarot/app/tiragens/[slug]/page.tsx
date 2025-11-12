@@ -8,7 +8,7 @@
 import { notFound } from 'next/navigation'
 
 import { getSpreadBySlug } from '../../../src/data/spreads.data'
-import { TiragemPageClient } from './tiragem-client'
+import { TiragemClient as TiragemPageClient } from './components'
 
 interface TiragemPageProps {
 	params: Promise<{

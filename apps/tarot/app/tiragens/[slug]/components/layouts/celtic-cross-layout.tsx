@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import type { ElementColors } from './element-colors'
+import type { ElementColors } from '../../element-colors'
 import type { TarotSpread } from '@workspace/core/tarot'
 import { CardFront } from './card-front'
 import { CardBack } from './card-back'

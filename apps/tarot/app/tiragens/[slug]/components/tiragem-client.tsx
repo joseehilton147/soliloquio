@@ -22,13 +22,11 @@ import { useEffect, useState } from 'react'
 
 import { getCategoryById } from '../tiragens-categories.data'
 
-import { CosmicBackground } from './cosmic-background'
-import { CosmicCard } from './cosmic-card'
-import type { CategoryType } from './element-colors'
-import { getElement, getElementColors } from './element-colors'
-import { EnergyConnections } from './energy-connections'
-import { calculateContainerDimensions, recalculatePositions } from './spread-layout'
-import { CelticCrossLayout } from './celtic-cross-layout'
+import { CosmicBackground, EnergyConnections } from './effects'
+import { CosmicCard } from './cards'
+import type { CategoryType } from '../element-colors'
+import { getElement, getElementColors } from '../element-colors'
+import { calculateContainerDimensions, recalculatePositions, CelticCrossLayout } from './layouts'
 
 /**
  * Props do componente TiragemPageClient

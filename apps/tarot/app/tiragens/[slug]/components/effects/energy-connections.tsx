@@ -8,7 +8,7 @@
  */
 
 import type { TarotSpread } from '@workspace/core/tarot'
-import type { ElementColors, ElementType } from './element-colors'
+import type { ElementColors, ElementType } from '../../element-colors'
 
 /**
  * Props do componente EnergyConnections

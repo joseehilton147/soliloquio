@@ -7,7 +7,7 @@
  * @module CosmicBackground
  */
 
-import type { ElementColors } from './element-colors'
+import type { ElementColors } from '../../element-colors'
 
 /**
  * Props do componente CosmicBackground
