@@ -1,8 +1,7 @@
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
-import { ARCANOS } from './arcanos.data'
-import { ArcanoPortalCard, ArcanosHeroSection } from './components'
+import { ARCANOS, ArcanoPortalCard, ArcanosHeroSection } from '@/features/arcanos'
 
 /**
  * Página dos Arcanos do Tarô
