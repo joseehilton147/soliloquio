@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { use } from 'react'
 
 import { trpc } from '../../../src/lib/trpc'
-import { ReflectionMessage } from './reflection-message'
+import { ReflectionMessage } from './components'
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
