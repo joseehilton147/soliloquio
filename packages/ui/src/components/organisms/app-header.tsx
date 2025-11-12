@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 
 import { Logo, type LogoProps } from '../atoms/logo'
 import { AppSwitcher, type AppItem } from '../molecules/app-switcher'
@@ -47,6 +48,7 @@ export interface AppHeaderProps {
  */
 export function AppHeader({ logo, apps, rightContent, onAppChange }: AppHeaderProps) {
 	const pathname = usePathname()
+	const headerRef = useRef<HTMLElement>(null)
 
 	// Detecta app atual baseado na rota
 	const currentApp = apps.find((app) =>
@@ -57,8 +59,31 @@ export function AppHeader({ logo, apps, rightContent, onAppChange }: AppHeaderPr
 		throw new Error('AppHeader: at least one app must be provided')
 	}
 
+	// Atualiza CSS variable com altura real do header
+	useEffect(() => {
+		const updateHeaderHeight = () => {
+			if (headerRef.current) {
+				const height = headerRef.current.offsetHeight
+				document.documentElement.style.setProperty('--header-height', `${height}px`)
+			}
+		}
+
+		// Atualiza na montagem e quando o tamanho muda
+		updateHeaderHeight()
+
+		// Observer para mudanças de tamanho
+		const resizeObserver = new ResizeObserver(updateHeaderHeight)
+		if (headerRef.current) {
+			resizeObserver.observe(headerRef.current)
+		}
+
+		return () => {
+			resizeObserver.disconnect()
+		}
+	}, [])
+
 	return (
-		<header id="app-header" className="fixed top-0 inset-x-0 z-60">
+		<header ref={headerRef} id="app-header" className="fixed top-0 inset-x-0 z-60">
 			{/* Glass effect container */}
 			<div className="absolute inset-0 bg-background/60 backdrop-blur-xl border-b border-white/5" />
 
