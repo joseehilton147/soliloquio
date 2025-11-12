@@ -1,107 +1,101 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
 import { MysticalBackground, SacredEyeLogo } from '@workspace/ui'
+import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
 import { AppHeader } from '@workspace/ui/components/organisms/app-header'
 import { LunarCalendar } from '@workspace/ui/components/organisms/lunar-calendar'
 import { cn } from '@workspace/ui/lib/utils'
-import { GlobalSearch } from './global-search'
-import { useDockSettings } from '../contexts/dock-settings-context'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
 import { createDockItems } from '../config/dock-items'
 import { headerApps } from '../config/header-apps'
+import { useDockSettings } from '../contexts/dock-settings-context'
+import { GlobalSearch } from './global-search'
 
+const SEARCH_KEYBOARD_SHORTCUT = 'k'
+
+/**
+ * Props do componente MysticalLayout
+ *
+ * @property {React.ReactNode} children - Conteúdo da página a ser renderizado dentro do layout
+ */
 interface MysticalLayoutProps {
-  children: React.ReactNode
+	children: React.ReactNode
 }
 
 /**
- * Layout místico inspirado em Vercel/Superhuman
- * Design minimalista e espiritual
+ * Layout principal da aplicação Tarô com design místico e minimalista
  *
- * Todas as páginas: Header + conteúdo + Dock
+ * Este componente fornece a estrutura base para todas as páginas, incluindo:
+ * - Header fixo com logo, app switcher e calendário lunar
+ * - Conteúdo principal com espaçamento responsivo ao header dinâmico
+ * - Background místico condicional (exceto homepage)
+ * - Dock de navegação flutuante
+ * - Modal de busca global (Cmd/Ctrl + K)
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <MysticalLayout>
+ *   <TarotCardList />
+ * </MysticalLayout>
+ * ```
+ *
+ * @remarks
+ * - Usa CSS custom property `--header-height` para posicionamento dinâmico
+ * - Espaçamento horizontal e vertical de 1rem (16px) para respiro visual
+ * - Background místico é desabilitado na homepage para efeito imersivo
+ *
+ * @param {MysticalLayoutProps} props - Props do componente
+ * @returns {JSX.Element} Layout completo da aplicação
  */
-export function MysticalLayout({ children }: MysticalLayoutProps) {
-  const pathname = usePathname()
-  const [searchOpen, setSearchOpen] = useState(false)
-  const isHomePage = pathname === '/'
-  const { settings } = useDockSettings()
+export function MysticalLayout({ children }: MysticalLayoutProps): JSX.Element {
+	const pathname = usePathname()
+	const { settings: dockSettings } = useDockSettings()
+	const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
 
-  // Criar dock items com callback de busca
-  const dockItems = createDockItems(() => setSearchOpen(true))
+	const isHomePage = pathname === '/'
+	const shouldShowMysticalBackground = !isHomePage
+	const dockItems = createDockItems(() => setIsSearchModalOpen(true))
 
-  // Calcula padding para evitar que o header cubra conteúdo
-  // Header tem: py-3 (12px*2=24px) + conteúdo (~40-48px) + margem segurança ≈ 80-90px
-  // Usando !pt-32 (128px) para garantir espaço generoso
-  const getHeaderPadding = () => {
-    return '!pt-32' // 128px - força override com !important
-  }
+	useEffect(() => {
+		const handleGlobalSearchShortcut = (event: KeyboardEvent): void => {
+			const isSearchShortcut = (event.metaKey || event.ctrlKey) && event.key === SEARCH_KEYBOARD_SHORTCUT
 
-  // Calcula padding para evitar que a dock cubra conteúdo
-  // Dock tem: bottom-6 (24px) + p-3 (12px*2=24px) + size-14 (56px) + hover margin ≈ 120px
-  // Adiciona margem de segurança extra
-  const getDockPadding = () => {
-    switch (settings.position) {
-      case 'bottom':
-        return '!pb-40' // 160px - força override com !important
-      case 'top':
-        return '!pt-56' // 224px - força override (acumula com header)
-      case 'left':
-        return '!pl-32' // 128px - força override
-      case 'right':
-        return '!pr-32' // 128px - força override
-      default:
-        return '!pb-40'
-    }
-  }
+			if (isSearchShortcut) {
+				event.preventDefault()
+				setIsSearchModalOpen(true)
+			}
+		}
 
-  // Keyboard shortcut for search (Cmd/Ctrl + K)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        setSearchOpen(true)
-      }
-    }
+		window.addEventListener('keydown', handleGlobalSearchShortcut)
+		return () => window.removeEventListener('keydown', handleGlobalSearchShortcut)
+	}, [])
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [])
+	const closeSearchModal = (): void => setIsSearchModalOpen(false)
 
-  // Layout unificado: todas as páginas com dock
-  return (
-    <>
-      <AppHeader
-        logo={{
-          href: '/',
-          icon: <SacredEyeLogo size="sm" />,
-          text: 'Solilóquio',
-        }}
-        apps={headerApps}
-        rightContent={<LunarCalendar />}
-      />
-      <main className={cn(
-        'relative min-h-screen overflow-hidden',
-        getHeaderPadding(),
-        getDockPadding(),
-        // Home sem padding lateral para imersão total
-        isHomePage ? '' : 'p-6 md:p-12'
-      )}>
-        {/* Mystical Background - apenas em páginas não-home */}
-        {!isHomePage && <MysticalBackground variant="stars" intensity="subtle" />}
+	return (
+		<>
+			<AppHeader
+				logo={{
+					href: '/',
+					icon: <SacredEyeLogo size="sm" />,
+					text: 'Solilóquio',
+				}}
+				apps={headerApps}
+				rightContent={<LunarCalendar />}
+			/>
 
-        {/* Conteúdo */}
-        <div className={cn('relative', !isHomePage && 'z-10')}>
-          {children}
-        </div>
-      </main>
+			<main className="relative min-h-screen overflow-hidden px-4 pt-[calc(var(--header-height)+1rem)] pb-[calc(var(--dock-height)+2rem)]">
+				{shouldShowMysticalBackground && <MysticalBackground variant="stars" intensity="subtle" />}
 
-      {/* Mystical Dock - agora em todas as páginas */}
-      <MysticalDock items={dockItems} settings={settings} />
+				<div className={cn('relative', shouldShowMysticalBackground && 'z-10')}>{children}</div>
+			</main>
 
-      {/* Global Search Modal */}
-      <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
-    </>
-  )
+			<MysticalDock items={dockItems} settings={dockSettings} />
+
+			<GlobalSearch open={isSearchModalOpen} onClose={closeSearchModal} />
+		</>
+	)
 }
