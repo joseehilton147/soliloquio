@@ -12,7 +12,7 @@ import { cn } from '@workspace/ui/lib/utils'
 import { CardBack } from './card-back'
 import { CardFront } from './card-front'
 import { CardTooltip } from './card-tooltip'
-import type { ElementColors } from '../../../element-colors'
+import type { ElementColors } from '../../element-colors'
 
 /**
  * Props do componente CosmicCard

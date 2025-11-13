@@ -9,7 +9,7 @@
 
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
-import type { ElementColors } from '../../../element-colors'
+import type { ElementColors } from '../../element-colors'
 
 /**
  * Props do componente CardFront
