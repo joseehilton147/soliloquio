@@ -1,8 +1,7 @@
 import { Suspense } from 'react'
 import { MysticalLoading } from '@workspace/ui'
 
-import { ELEMENT_COLORS } from '../element-colors.data'
-import { NaipePageHero, NaipeContent } from '../components'
+import { ELEMENT_COLORS, NaipePageHero, NaipeContent } from '@/features/naipes'
 
 /**
  * Página de Paus - Naipe de Fogo

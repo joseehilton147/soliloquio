@@ -1,8 +1,7 @@
 'use client'
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { NAIPES } from './naipes.data'
-import { NaipeCard, NaipeStructureSection, ArcanosReferenceSection, NaipesHeroSection } from './components'
+import { NAIPES, NaipeCard, NaipeStructureSection, ArcanosReferenceSection, NaipesHeroSection } from '@/features/naipes'
 
 /**
  * Página dos 4 Naipes do Tarô
