@@ -20,13 +20,14 @@ import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-import { getCategoryById } from '@/features/tiragens'
-
-import { CosmicBackground, EnergyConnections } from './effects'
-import { CosmicCard } from './cards'
 import type { CategoryType } from '../element-colors'
 import { getElement, getElementColors } from '../element-colors'
+
+import { CosmicCard } from './cards'
+import { CosmicBackground, EnergyConnections } from './effects'
 import { calculateContainerDimensions, recalculatePositions, CelticCrossLayout } from './layouts'
+
+import { getCategoryById } from '@/features/tiragens'
 
 /**
  * Props do componente TiragemPageClient
@@ -86,18 +87,22 @@ interface Particle {
  * @returns {JSX.Element} Página completa da tiragem renderizada
  */
 export function TiragemPageClient({ spread }: TiragemPageClientProps) {
-	// Estados
 	const [selectedPosition, setSelectedPosition] = useState<string | null>(null)
 	const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set())
 
-	// Recalcula posições para evitar sobreposição
 	const optimizedPositions = recalculatePositions(spread)
 
-	// Calcula dimensões ideais do container
 	const containerDims = calculateContainerDimensions(spread.cardCount)
-	const [particles, setParticles] = useState<Particle[]>([])
+	const [particles] = useState<Particle[]>(() =>
+		Array.from({ length: 40 }).map(() => ({
+			left: `${Math.random() * 100}%`,
+			top: `${Math.random() * 100}%`,
+			delay: `${Math.random() * 8}s`,
+			duration: `${15 + Math.random() * 20}s`,
+			size: Math.random() * 3 + 0.5,
+		})),
+	)
 
-	// Detectar elemento e cores
 	const element = getElement(spread.category as CategoryType)
 	const colors = getElementColors(spread.category as CategoryType)
 
@@ -114,21 +119,6 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 						'profunda'
 
 	const category = getCategoryById(categoryId)
-
-	/**
-	 * Gera partículas flutuantes no background ao montar componente
-	 */
-	useEffect(() => {
-		setParticles(
-			Array.from({ length: 40 }).map(() => ({
-				left: `${Math.random() * 100}%`,
-				top: `${Math.random() * 100}%`,
-				delay: `${Math.random() * 8}s`,
-				duration: `${15 + Math.random() * 20}s`,
-				size: Math.random() * 3 + 0.5,
-			})),
-		)
-	}, [])
 
 	/**
 	 * Alterna o estado de flip de uma carta

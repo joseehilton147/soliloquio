@@ -1,5 +1,5 @@
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { TiragensCustomCTA, TiragensHeroSection } from './components'
+import { TiragensHeroSection, TiragensLearningPath } from './components'
 import { TarotTiragensTabs } from '@/components/tabs/tarot-tiragens-tabs'
 
 /**
@@ -41,10 +41,10 @@ export default function TiragensHomePage() {
 			<TarotTiragensTabs />
 
 			{/* ═══════════════════════════════════════════════════════
-			    CTA - CRIE SUA PRÓPRIA TIRAGEM
+			    JORNADA DE APRENDIZADO - 3 Níveis de Evolução
 			    ═══════════════════════════════════════════════════════ */}
 			<div className="py-16 animate-in fade-in duration-1000 delay-700">
-				<TiragensCustomCTA />
+				<TiragensLearningPath />
 			</div>
 
 			{/* ═══════════════════════════════════════════════════════

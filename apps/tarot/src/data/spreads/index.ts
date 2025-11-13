@@ -1,14 +1,12 @@
 /**
- * Tiragens Predefinidas de Tarot - Modularizadas por Categoria
+ * Tiragens Predefinidas de Tarot - 3 Tiragens Essenciais
  *
  * Baseado em: "Guia para Leitura Intuitiva" - Stefani Caponi
  *
- * Este módulo organiza todas as tiragens de tarot em categorias semânticas:
- * - quick: Tiragens rápidas de 1-3 cartas para insights do dia a dia
- * - insight: Tiragens para autoconhecimento e orientação espiritual
- * - decision: Tiragens focadas em escolhas e manifestação prática
- * - relationship: Tiragens para explorar conexões e amor
- * - deep: Tiragens avançadas para trabalho espiritual intenso
+ * Este módulo organiza as tiragens essenciais de tarot:
+ * - quick: Tiragem de 1 carta para respostas diretas (Sim ou Não)
+ * - insight: Tiragem de 3 cartas para orientação espiritual (Conselho do Universo)
+ * - deep: Tiragem de 10 cartas para análise profunda (Cruz Celta)
  *
  * Cada tiragem contém:
  * - Posições visuais (x, y) em porcentagem (0-100)
@@ -23,98 +21,32 @@ import type { TarotSpread } from '@workspace/core/tarot'
 // IMPORTS POR CATEGORIA
 // ═══════════════════════════════════════════════════════
 
-// Quick Spreads (1-3 cartas) - 5 spreads
-import {
-	SIM_OU_NAO,
-	LIBERAR_E_RETIRAR,
-	DOM_E_OBSTACULO,
-	CABECA_CORACAO_ESPIRITO,
-	MENSAGEM_DO_VENTO,
-} from './quick'
+// Quick Spreads (1 carta)
+import { SIM_OU_NAO } from './quick'
 
-// Insight Spreads (3-5 cartas) - 4 spreads
-import {
-	CONSELHO_DO_UNIVERSO,
-	PASSADO_PRESENTE_FUTURO,
-	MENTE_CORPO_ESPIRITO,
-	LEI_DE_ATRACAO,
-} from './insight'
+// Insight Spreads (3 cartas)
+import { CONSELHO_DO_UNIVERSO } from './insight'
 
-// Decision Spreads (3-6 cartas) - 6 spreads
-import {
-	PROBLEMA_FAZER_EVITAR,
-	PROS_E_CONTRAS,
-	MAGIA_MANIFESTADORA,
-	RAIZES_E_FRUTOS,
-	ENCRUZILHADAS,
-	TOMANDO_DECISAO,
-} from './decision'
-
-// Relationship Spreads (5-6 cartas) - 2 spreads
-import {
-	POTENCIAL_RELACIONAMENTO,
-	RELACIONAMENTO_EXISTENTE,
-} from './relationship'
-
-// Deep Spreads (7-10 cartas) - 5 spreads
-import {
-	JORNADA_DA_ALMA,
-	TRABALHO_DE_SOMBRA,
-	QUATRO_ESTACOES_DA_ALMA,
-	DESPERTAR_ESPIRITUAL,
-	CRUZ_CELTA,
-} from './deep'
+// Deep Spreads (10 cartas)
+import { CRUZ_CELTA } from './deep'
 
 // ═══════════════════════════════════════════════════════
-// ARRAY CONSOLIDADO - Todas as 22 Tiragens
+// ARRAY CONSOLIDADO - 3 Tiragens Essenciais
 // ═══════════════════════════════════════════════════════
 
 /**
  * Array com todas as tiragens disponíveis, ordenadas por número de cartas (cardCount).
  *
- * Total: 22 spreads distribuídos em 5 categorias
+ * Total: 3 spreads essenciais
  */
 export const ALL_SPREADS: TarotSpread[] = [
-	// 1 Carta
+	// 1 Carta - Resposta Direta
 	SIM_OU_NAO,
 
-	// 2 Cartas
-	LIBERAR_E_RETIRAR,
-	DOM_E_OBSTACULO,
-
-	// 3 Cartas
+	// 3 Cartas - Conselho Espiritual
 	CONSELHO_DO_UNIVERSO,
-	PASSADO_PRESENTE_FUTURO,
-	MENTE_CORPO_ESPIRITO,
-	CABECA_CORACAO_ESPIRITO,
-	MENSAGEM_DO_VENTO,
-	PROBLEMA_FAZER_EVITAR,
 
-	// 4 Cartas
-	PROS_E_CONTRAS,
-
-	// 5 Cartas
-	POTENCIAL_RELACIONAMENTO,
-	LEI_DE_ATRACAO,
-	MAGIA_MANIFESTADORA,
-	RAIZES_E_FRUTOS,
-
-	// 6 Cartas
-	RELACIONAMENTO_EXISTENTE,
-	ENCRUZILHADAS,
-	TOMANDO_DECISAO,
-
-	// 7 Cartas
-	JORNADA_DA_ALMA,
-	TRABALHO_DE_SOMBRA,
-
-	// 8 Cartas
-	QUATRO_ESTACOES_DA_ALMA,
-
-	// 9 Cartas
-	DESPERTAR_ESPIRITUAL,
-
-	// 10 Cartas
+	// 10 Cartas - Análise Profunda
 	CRUZ_CELTA,
 ]
 
@@ -143,13 +75,13 @@ export function getSpreadBySlug(slug: string): TarotSpread | undefined {
 /**
  * Filtra tiragens por categoria
  *
- * @param category - Categoria desejada: 'quick' | 'insight' | 'decision' | 'relationship' | 'deep'
+ * @param category - Categoria desejada: 'quick' | 'insight' | 'deep'
  * @returns Array com todas as tiragens da categoria especificada
  *
  * @example
  * ```ts
  * const quickSpreads = getSpreadsByCategory('quick')
- * console.log(quickSpreads.length) // 5
+ * console.log(quickSpreads.length) // 1
  * ```
  */
 export function getSpreadsByCategory(category: TarotSpread['category']): TarotSpread[] {
@@ -159,13 +91,13 @@ export function getSpreadsByCategory(category: TarotSpread['category']): TarotSp
 /**
  * Filtra tiragens por número exato de cartas
  *
- * @param count - Número de cartas desejado (1-10)
+ * @param count - Número de cartas desejado (1, 3 ou 10)
  * @returns Array com todas as tiragens que usam exatamente esse número de cartas
  *
  * @example
  * ```ts
- * const threecardSpreads = getSpreadsByCardCount(3)
- * console.log(threecardSpreads.length) // 6
+ * const oneCardSpreads = getSpreadsByCardCount(1)
+ * console.log(oneCardSpreads.length) // 1
  * ```
  */
 export function getSpreadsByCardCount(count: number): TarotSpread[] {
@@ -177,43 +109,10 @@ export function getSpreadsByCardCount(count: number): TarotSpread[] {
 // ═══════════════════════════════════════════════════════
 
 // Quick Spreads
-export {
-	SIM_OU_NAO,
-	LIBERAR_E_RETIRAR,
-	DOM_E_OBSTACULO,
-	CABECA_CORACAO_ESPIRITO,
-	MENSAGEM_DO_VENTO,
-}
+export { SIM_OU_NAO }
 
 // Insight Spreads
-export {
-	CONSELHO_DO_UNIVERSO,
-	PASSADO_PRESENTE_FUTURO,
-	MENTE_CORPO_ESPIRITO,
-	LEI_DE_ATRACAO,
-}
-
-// Decision Spreads
-export {
-	PROBLEMA_FAZER_EVITAR,
-	PROS_E_CONTRAS,
-	MAGIA_MANIFESTADORA,
-	RAIZES_E_FRUTOS,
-	ENCRUZILHADAS,
-	TOMANDO_DECISAO,
-}
-
-// Relationship Spreads
-export {
-	POTENCIAL_RELACIONAMENTO,
-	RELACIONAMENTO_EXISTENTE,
-}
+export { CONSELHO_DO_UNIVERSO }
 
 // Deep Spreads
-export {
-	JORNADA_DA_ALMA,
-	TRABALHO_DE_SOMBRA,
-	QUATRO_ESTACOES_DA_ALMA,
-	DESPERTAR_ESPIRITUAL,
-	CRUZ_CELTA,
-}
+export { CRUZ_CELTA }

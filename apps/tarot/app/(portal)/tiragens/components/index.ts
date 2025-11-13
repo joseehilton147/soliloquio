@@ -7,4 +7,4 @@
 
 export { TiragensHeroSection } from './tiragens-hero-section'
 export { TiragemCategoryPortalCard, type TiragemCategoryData } from './tiragem-category-portal-card'
-export { TiragensCustomCTA } from './tiragens-custom-cta'
+export { TiragensLearningPath } from './tiragens-learning-path'
