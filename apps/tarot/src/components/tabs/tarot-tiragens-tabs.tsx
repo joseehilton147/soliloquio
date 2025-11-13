@@ -1,7 +1,7 @@
 'use client'
 
 import { MysticalTabs } from '@workspace/ui'
-import { TiragemCategoryPortalCard } from '../../../app/tiragens/components'
+import { TiragemCategoryPortalCard } from '../../../app/(portal)/tiragens/components'
 import { ALL_CATEGORIES } from '@/features/tiragens'
 import { TIRAGENS_TABS_CONFIG, getTiragemTabSubtitle } from '../../config/tiragens-tabs.config'
 
