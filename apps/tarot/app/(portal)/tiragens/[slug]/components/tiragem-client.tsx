@@ -24,8 +24,10 @@ import type { CategoryType } from '../element-colors'
 import { getElement, getElementColors } from '../element-colors'
 
 import { CosmicCard } from './cards'
+import { CelticCrossGuide } from './celtic-cross-guide'
 import { CosmicBackground, EnergyConnections } from './effects'
 import { calculateContainerDimensions, recalculatePositions, CelticCrossLayout } from './layouts'
+import { UniverseAdviceGuide } from './universe-advice-guide'
 import { YesNoGuide } from './yes-no-guide'
 
 import { getCategoryById } from '@/features/tiragens'
@@ -479,78 +481,19 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 				</div>
 			)}
 
-			{/* ═══ CALL TO ACTION ═══ */}
-			<div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
-				<div className="relative p-12 rounded-2xl border-3 overflow-hidden text-center space-y-6"
-					style={{
-						borderColor: `rgba(${colors.rgb}, 0.4)`,
-						background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(10,10,10,0.95) 100%)',
-						boxShadow: `${colors.glow}, 0 12px 48px rgba(0,0,0,0.9)`,
-					}}
-				>
-					{/* Background mystical */}
-					<div className="absolute inset-0 pointer-events-none opacity-5">
-						<Icon icon={category?.mysticalSymbol || 'game-icons:spell-book'} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-96 text-white" />
-					</div>
-
-					<div className="relative space-y-6">
-						{/* Título */}
-						<h2 className={cn('text-4xl font-serif font-bold bg-gradient-to-br bg-clip-text text-transparent', colors.gradient)}
-							style={{ filter: `drop-shadow(${colors.glow})` }}
-						>
-							Pronto para Sua Jornada?
-						</h2>
-
-						{/* Descrição */}
-						<p className="text-base text-white/70 max-w-xl mx-auto leading-relaxed">
-							Prepare seu coração, formule sua pergunta com clareza e permita que as cartas revelem
-							o caminho iluminado pelo universo.
-						</p>
-
-						{/* Divider */}
-						<div className="flex items-center justify-center gap-3 py-4">
-							<div className="h-[1px] w-16 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
-								style={{ color: `rgba(${colors.rgb}, 0.8)` }}
-							/>
-							<Icon icon="lucide:sparkles" className="size-5 opacity-60 animate-pulse [animation-duration:3s]"
-								style={{ color: `rgba(${colors.rgb}, 1)` }}
-							/>
-							<div className="h-[1px] w-16 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
-								style={{ color: `rgba(${colors.rgb}, 0.8)` }}
-							/>
-						</div>
-
-						{/* Botões */}
-						<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-							{/* Botão Principal */}
-							<Link
-								href={`/tiragens/${spread.slug}/leitura`}
-								className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-medium transition-all duration-500 hover:scale-105"
-								style={{
-									background: `linear-gradient(135deg, rgba(${colors.rgb}, 0.9) 0%, rgba(${colors.rgb}, 0.7) 100%)`,
-									boxShadow: `${colors.glow}, 0 8px 24px rgba(0,0,0,0.6)`,
-									color: 'white',
-								}}
-							>
-								<Icon icon="lucide:play" className="size-5 group-hover:scale-110 transition-transform" />
-								<span>Iniciar Leitura Sagrada</span>
-							</Link>
-
-							{/* Botão Secundário */}
-							<button type="button"
-								className="inline-flex items-center gap-3 px-8 py-4 rounded-xl border-2 font-medium transition-all duration-300 hover:bg-white/5"
-								style={{
-									borderColor: `rgba(${colors.rgb}, 0.4)`,
-									color: 'white',
-								}}
-							>
-								<Icon icon="lucide:book-open" className="size-5" />
-								<span>Ver Exemplo</span>
-							</button>
-						</div>
-					</div>
+			{/* ═══ GUIA DE INTERPRETAÇÃO (CONSELHO DO UNIVERSO) ═══ */}
+			{spread.slug === 'conselho-do-universo' && (
+				<div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+					<UniverseAdviceGuide />
 				</div>
-			</div>
+			)}
+
+			{/* ═══ GUIA DE INTERPRETAÇÃO (CRUZ CELTA) ═══ */}
+			{spread.slug === 'cruz-celta' && (
+				<div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+					<CelticCrossGuide />
+				</div>
+			)}
 
 			{/* ═══ FOOTER COM TAGS E FONTE ═══ */}
 			<div className="relative z-10 max-w-5xl mx-auto px-6 pb-16">
