@@ -23,7 +23,7 @@ import {
 	SIM_OU_NAO,
 	TOMANDO_DECISAO,
 	TRABALHO_DE_SOMBRA,
-} from '../../src/data/spreads'
+} from '@/data/spreads'
 
 /**
  * Tiragens Categories Data

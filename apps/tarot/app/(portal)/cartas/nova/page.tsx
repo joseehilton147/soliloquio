@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { useTagAutocomplete } from '../../../src/hooks/use-tag-autocomplete'
+import { useTagAutocomplete } from '@/hooks/use-tag-autocomplete'
 import { trpc } from '@/lib/trpc'
 
 

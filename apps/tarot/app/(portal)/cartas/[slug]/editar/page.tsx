@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { use, useState, useEffect } from 'react'
 
 import { trpc } from '@/lib/trpc'
-import { useTagAutocomplete } from '../../../../src/hooks/use-tag-autocomplete'
+import { useTagAutocomplete } from '@/hooks/use-tag-autocomplete'
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
