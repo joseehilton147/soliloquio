@@ -5,7 +5,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CardBadge } from '@workspace/ui'
 import { cn } from '@workspace/ui/lib/utils'
-import type { ElementColorScheme } from '../element-colors.data'
+import type { NaipeColorScheme } from '@/shared/constants/element-colors'
+
+type ElementColorScheme = NaipeColorScheme
 
 interface Card {
 	id: string
@@ -51,7 +53,7 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 		return (
 			<div className="flex flex-col items-center justify-center py-24 text-center">
 				<div className="relative">
-					<div className={cn('absolute inset-0 animate-ping rounded-full', `bg-${colors.primary}-500/20`)} />
+					<div className={cn('absolute inset-0 animate-ping rounded-full', `bg-${colors.color}-500/20`)} />
 					<div className={cn('relative flex size-20 items-center justify-center rounded-full bg-gradient-to-br border', colors.iconBg, colors.iconBorder)}>
 						<span className="text-5xl">{symbol}</span>
 					</div>
@@ -70,9 +72,9 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 			<div className="relative py-8">
 				<div className={cn('absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent to-transparent', colors.divider)} />
 				<div className="relative flex items-center justify-center gap-6">
-					<span className={cn('size-1.5 rounded-full', `bg-${colors.primary}-500/50`)} />
-					<span className={cn('size-2 rounded-full', `bg-${colors.primary}-500/70`)} />
-					<span className={cn('size-3 rounded-full bg-gradient-to-br shadow-lg', colors.iconBg, `shadow-${colors.primary}-500/50`)} />
+					<span className={cn('size-1.5 rounded-full', `bg-${colors.color}-500/50`)} />
+					<span className={cn('size-2 rounded-full', `bg-${colors.color}-500/70`)} />
+					<span className={cn('size-3 rounded-full bg-gradient-to-br shadow-lg', colors.iconBg, `shadow-${colors.color}-500/50`)} />
 					<span className={cn('size-2 rounded-full', `bg-${colors.secondary}-500/70`)} />
 					<span className={cn('size-1.5 rounded-full', `bg-${colors.secondary}-500/50`)} />
 				</div>
@@ -135,7 +137,7 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 							{/* Stats */}
 							<div className={cn('flex items-center gap-6 pt-3 text-base text-muted-foreground border-t', colors.border)}>
 								<div className="flex items-center gap-1.5">
-									<div className={cn('size-2 rounded-full', `bg-${colors.primary}-500/70`)} />
+									<div className={cn('size-2 rounded-full', `bg-${colors.color}-500/70`)} />
 									<span className="font-medium">{Array.isArray(card.verticalMeaning) ? card.verticalMeaning.length : 0}</span>
 									<span>significados</span>
 								</div>
@@ -156,9 +158,9 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 				<div className="relative py-8">
 					<div className={cn('absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent to-transparent', colors.divider)} />
 					<div className="relative flex items-center justify-center gap-6">
-						<span className={cn('size-1.5 rounded-full', `bg-${colors.primary}-500/50`)} />
-						<span className={cn('size-2 rounded-full', `bg-${colors.primary}-500/70`)} />
-						<span className={cn('size-3 rounded-full bg-gradient-to-br shadow-lg', colors.iconBg, `shadow-${colors.primary}-500/50`)} />
+						<span className={cn('size-1.5 rounded-full', `bg-${colors.color}-500/50`)} />
+						<span className={cn('size-2 rounded-full', `bg-${colors.color}-500/70`)} />
+						<span className={cn('size-3 rounded-full bg-gradient-to-br shadow-lg', colors.iconBg, `shadow-${colors.color}-500/50`)} />
 						<span className={cn('size-2 rounded-full', `bg-${colors.secondary}-500/70`)} />
 						<span className={cn('size-1.5 rounded-full', `bg-${colors.secondary}-500/50`)} />
 					</div>

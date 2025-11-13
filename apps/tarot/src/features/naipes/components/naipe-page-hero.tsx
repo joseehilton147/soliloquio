@@ -4,7 +4,9 @@ import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
-import type { ElementColorScheme } from '../element-colors.data'
+import type { NaipeColorScheme } from '@/shared/constants/element-colors'
+
+type ElementColorScheme = NaipeColorScheme
 
 export interface NaipePageHeroProps {
 	title: string

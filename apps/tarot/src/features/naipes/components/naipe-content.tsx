@@ -1,8 +1,10 @@
 'use client'
 
 import { trpc } from '../../../../src/lib/trpc'
-import { type ElementColorScheme } from '../element-colors.data'
+import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 import { NaipeCardsGrid } from './naipe-cards-grid'
+
+type ElementColorScheme = NaipeColorScheme
 
 interface NaipeContentProps {
 	suit: 'COPAS' | 'PAUS' | 'OUROS' | 'ESPADAS'

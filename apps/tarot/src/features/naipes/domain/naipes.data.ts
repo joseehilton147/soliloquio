@@ -1,5 +1,4 @@
 import type { Naipe } from './naipes.types'
-import { ELEMENT_COLORS } from '../../../src/config/element-colors'
 
 /**
  * Dados dos 4 naipes do Tarô com suas propriedades elementais e simbólicas
@@ -11,7 +10,7 @@ import { ELEMENT_COLORS } from '../../../src/config/element-colors'
  * - Espadas (Ar): Cinza azulado claro - Intelecto e pensamento
  *
  * As cores refletem a essência visual de cada elemento natural.
- * Cores unificadas com o sistema de tiragens através de element-colors.ts
+ * Cores unificadas com o sistema centralizado em @/shared/constants/element-colors
  */
 export const NAIPES: readonly Naipe[] = [
 	{
