@@ -226,7 +226,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 				<div
 					ref={submenuRef}
 					className={cn(
-						'absolute z-[10100] animate-in fade-in duration-200',
+						'absolute z-10100 animate-in fade-in duration-200',
 						submenuPositionClasses,
 					)}
 					style={{
@@ -235,7 +235,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
 				>
-					<div className="relative rounded-2xl p-[2px] bg-linear-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
+					<div className="relative rounded-2xl p-0.5 bg-linear-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 						<div
 							className={cn(
 								'rounded-2xl overflow-visible',
@@ -244,7 +244,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 								'w-max',
 							)}
 						>
-							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
+							<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
 							<div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
 								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-linear-to-r from-transparent via-white/5 to-transparent" />
@@ -258,18 +258,17 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 						</div>
 					</div>
 
-					{/* Seta conectora - varia conforme direção do submenu */}
-					{level >= 1 ? (
-						// Children lateral (level >= 1): seta aponta para ESQUERDA ◀
-						<div className="absolute left-0 -translate-x-full -ml-0.5 top-1/2 -translate-y-1/2">
-							<div className="border-8 border-transparent border-r-purple-500" />
-						</div>
-					) : (
-						// Submenu principal (level 0): seta aponta para BAIXO ▼
-						<div className="absolute top-full mt-0.5 left-1/2 -translate-x-1/2">
-							<div className="border-8 border-transparent border-t-purple-500" />
-						</div>
-					)}
+					{level >= 1
+						? (
+							<div className="absolute left-0 -translate-x-full top-1/2 -translate-y-1/2">
+								<div className="border-8 border-transparent border-r-purple-500" />
+							</div>
+						)
+						: (
+							<div className="absolute top-full mt-0.5 left-1/2 -translate-x-1/2">
+								<div className="border-8 border-transparent border-t-purple-500" />
+							</div>
+						)}
 				</div>
 			)}
 		</div>
@@ -407,7 +406,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						className={cn(
 							'group relative flex items-center justify-center',
 							'size-14 rounded-xl',
-							'bg-gradient-to-br from-purple-500/10 to-indigo-500/10',
+							'bg-linear-to-br from-purple-500/10 to-indigo-500/10',
 							'border border-purple-500/20',
 							'hover:border-purple-500/40',
 							'hover:from-purple-500/20 hover:to-indigo-500/20',
@@ -459,8 +458,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 						'border transition-all duration-200',
 						'shadow-lg',
 						isActive
-							? 'bg-gradient-to-br from-purple-500/30 to-indigo-500/30 border-purple-500/60 shadow-purple-500/30'
-							: 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/20 shadow-purple-500/0',
+							? 'bg-linear-to-br from-purple-500/30 to-indigo-500/30 border-purple-500/60 shadow-purple-500/30'
+							: 'bg-linear-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/20 shadow-purple-500/0',
 						!isActive &&
 							'hover:border-purple-500/40 hover:from-purple-500/20 hover:to-indigo-500/20 hover:scale-110 hover:-translate-y-2 hover:shadow-purple-500/25',
 					)}
@@ -505,9 +504,9 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 							e.stopPropagation()
 							setHoveredItemId(null)
 						}}
-						className="absolute z-[10000] bottom-full mb-2 left-1/2 -translate-x-1/2 animate-in fade-in duration-300"
+						className="absolute z-10000 bottom-full mb-2 left-1/2 -translate-x-1/2 animate-in fade-in duration-300"
 					>
-						<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
+						<div className="relative rounded-2xl p-0.5 bg-linear-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 							<div
 								className={cn(
 									'rounded-2xl overflow-visible',
@@ -516,14 +515,14 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 									'min-w-[180px]',
 								)}
 							>
-								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
+								<div className="absolute inset-0 bg-linear-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
 								<div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-									<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+									<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-linear-to-r from-transparent via-white/5 to-transparent" />
 								</div>
 
 								<div className="relative p-3 space-y-2">
-									<div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
+									<div className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-linear-to-br from-purple-500/10 to-indigo-500/10 border border-purple-500/20">
 										<Icon icon={item.icon} className="size-5 text-purple-600 dark:text-purple-400" />
 										<span className="text-sm font-semibold text-foreground">{item.label}</span>
 									</div>
@@ -553,7 +552,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 			id="mystical-dock"
 			ref={dockRef}
 			className={cn(
-				'fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999]',
+				'fixed bottom-6 left-1/2 -translate-x-1/2 z-9999',
 				'transition-all duration-300',
 				isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none translate-y-4',
 			)}
