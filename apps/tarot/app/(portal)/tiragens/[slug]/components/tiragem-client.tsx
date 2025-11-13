@@ -1,15 +1,17 @@
 'use client'
 
 /**
- * Tiragem Page Client Component - REFATORADO
+ * Tiragem Page Client Component
  *
  * Componente principal da página de tiragem individual de tarot.
  * Orquestra todos os sub-componentes para criar uma experiência
  * imersiva de mesa de tarot real com:
- * - Background cósmico com estrelas e nebulosas
  * - Cartas interativas com flip 3D
  * - Linhas de conexão energéticas entre posições relacionadas
  * - Informações detalhadas sobre a tiragem
+ * - Guias educativos por tipo de tiragem
+ *
+ * Background herdado do MysticalLayout para uniformidade visual.
  *
  * @module TiragemPageClient
  */
@@ -18,7 +20,7 @@ import { Icon } from '@iconify/react'
 import type { TarotSpread } from '@workspace/core/tarot'
 import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import type { CategoryType } from '../element-colors'
 import { getElement, getElementColors } from '../element-colors'
@@ -44,33 +46,20 @@ interface TiragemPageClientProps {
 }
 
 /**
- * Interface para partículas flutuantes do background
- */
-interface Particle {
-	left: string
-	top: string
-	delay: string
-	duration: string
-	size: number
-}
-
-/**
  * Componente principal da página de tiragem individual
  *
  * Renderiza a experiência completa da tiragem incluindo:
- * - Background cósmico animado
  * - Cabeçalho com breadcrumb de navegação
  * - Hero section com título, ícone e descrição
  * - Seção "Quando Usar"
  * - Campo cósmico com cartas interativas e conexões energéticas
  * - Lista detalhada de todas as posições
  * - Call-to-action para iniciar leitura
- * - Footer com tags e fonte
+ * - Guias educativos interativos
  *
  * Gerencia estados de:
  * - Posição selecionada
  * - Cartas viradas (flipped)
- * - Partículas do background
  *
  * @example
  * ```tsx
@@ -96,20 +85,6 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 	const optimizedPositions = recalculatePositions(spread)
 
 	const containerDims = calculateContainerDimensions(spread.cardCount)
-	const [particles, setParticles] = useState<Particle[]>([])
-
-	// Gerar partículas apenas no cliente para evitar mismatch de hidratação
-	useEffect(() => {
-		setParticles(
-			Array.from({ length: 40 }).map(() => ({
-				left: `${Math.random() * 100}%`,
-				top: `${Math.random() * 100}%`,
-				delay: `${Math.random() * 8}s`,
-				duration: `${15 + Math.random() * 20}s`,
-				size: Math.random() * 3 + 0.5,
-			})),
-		)
-	}, [])
 
 	const element = getElement(spread.category as CategoryType)
 	const colors = getElementColors(spread.category as CategoryType)
@@ -156,42 +131,7 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 	}
 
 	return (
-		<div className="relative min-h-screen bg-gradient-to-b from-black via-gray-950 to-black">
-			{/* ═══ COSMIC BACKGROUND GLOBAL ═══ */}
-			<div className="fixed inset-0 pointer-events-none">
-				{/* Gradient radial base */}
-				<div className="absolute inset-0" style={{
-					background: `radial-gradient(ellipse at center, ${colors.smoke} 0%, transparent 70%)`,
-				}} />
-
-				{/* Partículas etéreas */}
-				{particles.map((particle, i) => (
-					<div
-						key={`particle-${i}`}
-						className="absolute rounded-full bg-white/40 animate-float blur-[0.5px]"
-						style={{
-							left: particle.left,
-							top: particle.top,
-							width: `${particle.size}px`,
-							height: `${particle.size}px`,
-							animationDelay: particle.delay,
-							animationDuration: particle.duration,
-							boxShadow: `0 0 ${particle.size * 4}px rgba(255, 255, 255, 0.3)`,
-						}}
-					/>
-				))}
-
-				{/* Círculos místicos concêntricos */}
-				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-					<div className="absolute size-[600px] rounded-full border opacity-5 animate-spin-slow [animation-duration:60s]"
-						style={{ borderColor: `rgba(${colors.rgb}, 0.3)` }}
-					/>
-					<div className="absolute size-[400px] rounded-full border opacity-5 animate-spin-slow [animation-duration:45s] [animation-direction:reverse]"
-						style={{ borderColor: `rgba(${colors.rgb}, 0.3)` }}
-					/>
-				</div>
-			</div>
-
+		<div className="relative min-h-screen">
 			{/* ═══ HEADER COM BREADCRUMB ═══ */}
 			<div className="relative z-10 max-w-7xl mx-auto px-6 pt-8 pb-4">
 				<Link
