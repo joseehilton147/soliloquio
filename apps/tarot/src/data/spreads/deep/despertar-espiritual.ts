@@ -1,0 +1,110 @@
+/**
+ * Despertar Espiritual (9 cartas)
+ *
+ * Layout: Mandala 3x3 (passado, presente, futuro espiritual)
+ * Propósito: Mapear jornada de despertar da consciência
+ */
+
+import type { TarotSpread } from '@workspace/core/tarot'
+
+export const DESPERTAR_ESPIRITUAL: TarotSpread = {
+	id: 'despertar-espiritual',
+	name: 'Despertar Espiritual',
+	slug: 'despertar-espiritual',
+	cardCount: 9,
+	category: 'deep',
+	layout: 'mandala',
+	description: 'Como O Lótus que desabrocha em 9 pétalas, esta tiragem-mandala revela a jornada do despertar espiritual em 9 estágios sagrados.',
+	whenToUse: 'Para processos de despertar espiritual, kundalini, transformação profunda da consciência.',
+	source: 'Inspirado no caminho do Louco pelos Arcanos Maiores',
+	difficulty: 5,
+	estimatedTime: 60,
+	themeColor: '#7C3AED',
+	icon: 'lucide:flame-kindling',
+	tags: ['despertar', 'iluminação', 'mandala', 'transformação', 'mestra'],
+	positions: [
+		{
+			id: 'passado-feridas',
+			order: 1,
+			label: 'Passado - Feridas',
+			description: 'Traumas e feridas do passado que iniciaram sua busca espiritual.',
+			x: 15,
+			y: 15,
+			rotation: 0,
+		},
+		{
+			id: 'passado-ilusoes',
+			order: 2,
+			label: 'Passado - Ilusões',
+			description: 'Crenças limitantes e ilusões que você já transcendeu.',
+			x: 50,
+			y: 15,
+			rotation: 0,
+		},
+		{
+			id: 'passado-primeira-luz',
+			order: 3,
+			label: 'Passado - Primeira Luz',
+			description: 'O momento de despertar, a primeira faísca de consciência além do ego.',
+			x: 85,
+			y: 15,
+			rotation: 0,
+		},
+		{
+			id: 'presente-sombra',
+			order: 4,
+			label: 'Presente - Sombra Atual',
+			description: 'Aspectos inconscientes que ainda precisa integrar agora.',
+			x: 15,
+			y: 50,
+			rotation: 0,
+		},
+		{
+			id: 'presente-essencia',
+			order: 5,
+			label: 'Presente - Essência',
+			description: 'Quem você realmente é além de todas as máscaras. Sua verdade mais profunda AGORA.',
+			x: 50,
+			y: 50,
+			rotation: 0,
+			emphasis: 'center',
+		},
+		{
+			id: 'presente-luz',
+			order: 6,
+			label: 'Presente - Luz Atual',
+			description: 'Sabedoria e consciência que você já conquistou no presente.',
+			x: 85,
+			y: 50,
+			rotation: 0,
+		},
+		{
+			id: 'futuro-bloqueio',
+			order: 7,
+			label: 'Futuro - Último Bloqueio',
+			description: 'O desafio final antes da iluminação plena.',
+			x: 15,
+			y: 85,
+			rotation: 0,
+		},
+		{
+			id: 'futuro-dons',
+			order: 8,
+			label: 'Futuro - Dons do Despertar',
+			description: 'Capacidades espirituais e dons que surgirão com seu despertar.',
+			x: 50,
+			y: 85,
+			rotation: 0,
+		},
+		{
+			id: 'futuro-servico',
+			order: 9,
+			label: 'Futuro - Serviço',
+			description: 'Como você usará sua consciência desperta para servir ao mundo.',
+			x: 85,
+			y: 85,
+			rotation: 0,
+			emphasis: 'bottom',
+		},
+	],
+}
