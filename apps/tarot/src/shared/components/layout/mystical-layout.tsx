@@ -5,15 +5,11 @@ import { MysticalDock } from '@workspace/ui/components/dock/mystical-dock'
 import { AppHeader } from '@workspace/ui/components/organisms/app-header'
 import { LunarCalendar } from '@workspace/ui/components/organisms/lunar-calendar'
 import { cn } from '@workspace/ui/lib/utils'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
 
-import { createDockItems } from '../../config/dock-items'
-import { headerApps } from '../../config/header-apps'
-import { useDockSettings } from '../../contexts/dock-settings-context'
-import { GlobalSearch } from './global-search'
-
-const SEARCH_KEYBOARD_SHORTCUT = 'k'
+import { createDockItems } from '../../../config/dock-items'
+import { headerApps } from '../../../config/header-apps'
+import { GlobalSearch } from '../global-search'
+import { useMysticalLayout } from './use-mystical-layout'
 
 /**
  * Props do componente MysticalLayout
@@ -46,34 +42,16 @@ interface MysticalLayoutProps {
  * - Usa CSS custom property `--header-height` para posicionamento dinâmico
  * - Espaçamento horizontal e vertical de 1rem (16px) para respiro visual
  * - Background místico é desabilitado na homepage para efeito imersivo
+ * - Lógica de estado gerenciada por hook `useMysticalLayout` (SoC)
  *
  * @param {MysticalLayoutProps} props - Props do componente
  * @returns {JSX.Element} Layout completo da aplicação
  */
 export function MysticalLayout({ children }: MysticalLayoutProps): JSX.Element {
-	const pathname = usePathname()
-	const { settings: dockSettings } = useDockSettings()
-	const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+	const { shouldShowMysticalBackground, dockSettings, isSearchModalOpen, closeSearchModal, openSearchModal } =
+		useMysticalLayout()
 
-	const isHomePage = pathname === '/'
-	const shouldShowMysticalBackground = !isHomePage
-	const dockItems = createDockItems(() => setIsSearchModalOpen(true))
-
-	useEffect(() => {
-		const handleGlobalSearchShortcut = (event: KeyboardEvent): void => {
-			const isSearchShortcut = (event.metaKey || event.ctrlKey) && event.key === SEARCH_KEYBOARD_SHORTCUT
-
-			if (isSearchShortcut) {
-				event.preventDefault()
-				setIsSearchModalOpen(true)
-			}
-		}
-
-		window.addEventListener('keydown', handleGlobalSearchShortcut)
-		return () => window.removeEventListener('keydown', handleGlobalSearchShortcut)
-	}, [])
-
-	const closeSearchModal = (): void => setIsSearchModalOpen(false)
+	const dockItems = createDockItems(openSearchModal)
 
 	return (
 		<>
