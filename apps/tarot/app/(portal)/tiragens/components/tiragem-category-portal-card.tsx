@@ -521,53 +521,32 @@ export function TiragemCategoryPortalCard({ category, reversed = false }: Tirage
 												/>
 											</div>
 
-											{/* Info principal: número de cartas */}
-											<div className="text-center">
+											{/* Info principal: número de cartas - Centralizado */}
+											<div className="text-center space-y-3">
 												<div className="flex items-center justify-center gap-2 text-white/70 group-hover/spread:text-white/90 transition-colors">
-													<span className="text-2xl font-serif font-bold"
+													<span className="text-3xl font-serif font-bold"
 														style={{
 															color: `rgba(${colors.rgb}, 1)`,
-															filter: `drop-shadow(0 0 8px ${colors.smoke})`,
+															filter: `drop-shadow(0 0 10px ${colors.smoke})`,
 														}}
 													>
 														{spread.cardCount}
 													</span>
-													<span className="text-sm uppercase tracking-wider text-white/60">
+													<span className="text-base uppercase tracking-wider text-white/60">
 														{spread.cardCount === 1 ? 'carta' : 'cartas'}
 													</span>
 												</div>
-											</div>
 
-											{/* Info secundária */}
-											<div className="flex items-center justify-center gap-3 text-xs text-white/50 group-hover/spread:text-white/70 transition-colors">
-												{spread.difficulty && (
-													<div className="flex items-center gap-1">
-														<Icon icon="game-icons:rolling-dices" className="size-3.5" />
-														<span className="uppercase tracking-wide">
-															{spread.difficulty === 1 ? 'Iniciante' : spread.difficulty === 2 ? 'Fácil' : spread.difficulty === 3 ? 'Médio' : spread.difficulty === 4 ? 'Avançado' : 'Mestra'}
-														</span>
-													</div>
-												)}
-												{spread.estimatedTime && spread.difficulty && (
-													<span className="opacity-30">•</span>
-												)}
-												{spread.estimatedTime && (
-													<div className="flex items-center gap-1">
-														<Icon icon="lucide:clock" className="size-3.5" />
-														<span>{spread.estimatedTime}min</span>
-													</div>
-												)}
-											</div>
-
-											{/* Sparkles ao hover */}
-											<div className="flex items-center justify-center opacity-0 group-hover/spread:opacity-100 transition-opacity duration-500">
-												<Icon icon="lucide:sparkles"
-													className="size-5 animate-pulse [animation-duration:2s]"
-													style={{
-														color: `rgba(${colors.rgb}, 0.7)`,
-														filter: `drop-shadow(0 0 8px ${colors.smoke})`,
-													}}
-												/>
+												{/* Sparkles ao hover */}
+												<div className="flex items-center justify-center opacity-0 group-hover/spread:opacity-100 transition-opacity duration-500">
+													<Icon icon="lucide:sparkles"
+														className="size-6 animate-pulse [animation-duration:2s]"
+														style={{
+															color: `rgba(${colors.rgb}, 0.8)`,
+															filter: `drop-shadow(0 0 10px ${colors.smoke})`,
+														}}
+													/>
+												</div>
 											</div>
 										</div>
 									</div>
