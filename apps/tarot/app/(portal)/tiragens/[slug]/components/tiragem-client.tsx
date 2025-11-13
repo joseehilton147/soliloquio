@@ -144,78 +144,161 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 			</div>
 
 			{/* ═══ HERO SECTION - TÍTULO E DESCRIÇÃO ═══ */}
-			<div className="relative z-10 max-w-5xl mx-auto px-6 pt-8 pb-12 text-center space-y-6">
-				{/* Ícone decorativo */}
-				<div className="flex justify-center">
-					<div className="relative">
-						<div className="absolute inset-0 -m-8 rounded-full blur-2xl animate-pulse [animation-duration:4s]"
-							style={{ background: `radial-gradient(circle, ${colors.smoke} 0%, transparent 70%)` }}
-						/>
-						<div className="relative size-20 rounded-full border-3 flex items-center justify-center"
-							style={{
-								borderColor: `rgba(${colors.rgb}, 0.4)`,
-								boxShadow: colors.glow,
-								background: 'radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%)',
-							}}
-						>
-							<Icon icon={spread.icon || 'game-icons:perspective-dice-six-faces-random'}
-								className="size-10 text-white/90"
-								style={{ filter: `drop-shadow(${colors.glow})` }}
+			<div className="relative z-10 max-w-6xl mx-auto px-6 pt-8 pb-12">
+				{/* Frame Místico Ornamentado */}
+				<div className="relative">
+					{/* Ornamentos dos Cantos */}
+					<div className="absolute inset-0 pointer-events-none">
+						{/* Canto superior esquerdo */}
+						<div className="absolute -top-4 -left-4">
+							<div className="size-24 border-t-4 border-l-4 rounded-tl-3xl opacity-30"
+								style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							/>
+							<Icon icon="game-icons:triquetra" className="absolute top-2 left-2 size-8 opacity-20"
+								style={{ color: `rgba(${colors.rgb}, 1)` }}
 							/>
 						</div>
-					</div>
-				</div>
-
-				{/* Título */}
-				<div className="space-y-3">
-					<h1 className={cn('text-5xl md:text-6xl font-serif font-bold tracking-wide bg-gradient-to-br bg-clip-text text-transparent', colors.gradient)}
-						style={{ filter: `drop-shadow(${colors.glow}) drop-shadow(0 4px 20px rgba(0,0,0,0.9))` }}
-					>
-						{spread.name}
-					</h1>
-
-					{/* Badge da categoria */}
-					{category && (
-						<div className="flex items-center justify-center gap-2 text-sm text-white/70">
-							<Icon icon={category.icon} className="size-5" style={{ color: `rgba(${colors.rgb}, 0.8)` }} />
-							<span>{category.name}</span>
-							<span className="opacity-50">•</span>
-							<span className="opacity-70">{category.subtitle}</span>
+						{/* Canto superior direito */}
+						<div className="absolute -top-4 -right-4">
+							<div className="size-24 border-t-4 border-r-4 rounded-tr-3xl opacity-30"
+								style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							/>
+							<Icon icon="game-icons:triquetra" className="absolute top-2 right-2 size-8 opacity-20 scale-x-[-1]"
+								style={{ color: `rgba(${colors.rgb}, 1)` }}
+							/>
 						</div>
-					)}
-				</div>
+						{/* Canto inferior esquerdo */}
+						<div className="absolute -bottom-4 -left-4">
+							<div className="size-24 border-b-4 border-l-4 rounded-bl-3xl opacity-30"
+								style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							/>
+							<Icon icon="game-icons:triquetra" className="absolute bottom-2 left-2 size-8 opacity-20 rotate-180"
+								style={{ color: `rgba(${colors.rgb}, 1)` }}
+							/>
+						</div>
+						{/* Canto inferior direito */}
+						<div className="absolute -bottom-4 -right-4">
+							<div className="size-24 border-b-4 border-r-4 rounded-br-3xl opacity-30"
+								style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							/>
+							<Icon icon="game-icons:triquetra" className="absolute bottom-2 right-2 size-8 opacity-20 rotate-180 scale-x-[-1]"
+								style={{ color: `rgba(${colors.rgb}, 1)` }}
+							/>
+						</div>
 
-				{/* Descrição */}
-				<p className="text-lg text-white/80 leading-relaxed max-w-3xl mx-auto font-light"
-					style={{ textShadow: '0 2px 15px rgba(0,0,0,0.9)' }}
-				>
-					{spread.description}
-				</p>
+						{/* Ornamentos laterais - linhas decorativas */}
+						<div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4">
+							<div className="flex flex-col gap-3">
+								<div className="size-3 rounded-full opacity-40" style={{ backgroundColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 15px ${colors.smoke}` }} />
+								<div className="size-2 rounded-full opacity-30" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+								<div className="size-3 rounded-full opacity-40" style={{ backgroundColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 15px ${colors.smoke}` }} />
+							</div>
+						</div>
+						<div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4">
+							<div className="flex flex-col gap-3">
+								<div className="size-3 rounded-full opacity-40" style={{ backgroundColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 15px ${colors.smoke}` }} />
+								<div className="size-2 rounded-full opacity-30" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+								<div className="size-3 rounded-full opacity-40" style={{ backgroundColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 15px ${colors.smoke}` }} />
+							</div>
+						</div>
+					</div>
 
-				{/* Divider místico */}
-				<div className="flex items-center justify-center gap-4 pt-4">
-					<div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
-						style={{ color: `rgba(${colors.rgb}, 0.8)` }}
-					/>
-					<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-ball'} className="size-6 opacity-40"
-						style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
-					/>
-					<div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
-						style={{ color: `rgba(${colors.rgb}, 0.8)` }}
-					/>
-				</div>
-
-				{/* Metadados */}
-				<div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-					{/* Número de Cartas */}
-					<div className="flex items-center gap-2 px-4 py-2 rounded-lg border"
+					{/* Container do Conteúdo */}
+					<div className="relative rounded-3xl border-2 overflow-hidden backdrop-blur-sm p-12"
 						style={{
-							borderColor: `rgba(${colors.rgb}, 0.3)`,
-							background: `rgba(${colors.rgb}, 0.1)`,
+							borderColor: `rgba(${colors.rgb}, 0.4)`,
+							background: `
+								radial-gradient(ellipse at 20% 30%, rgba(${colors.rgb}, 0.12) 0%, transparent 50%),
+								radial-gradient(ellipse at 80% 70%, rgba(${colors.rgb}, 0.12) 0%, transparent 50%),
+								linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(5,5,15,0.9) 50%, rgba(0,0,0,0.85) 100%)
+							`,
+							boxShadow: `
+								0 0 60px rgba(0,0,0,0.9),
+								inset 0 0 60px rgba(${colors.rgb}, 0.08),
+								0 0 0 1px rgba(255,255,255,0.05)
+							`,
 						}}
 					>
-						<Icon icon="game-icons:card-draw" className="size-5" style={{ color: `rgba(${colors.rgb}, 0.9)` }} />
-						<span className="text-white/80 font-medium">{spread.cardCount} {spread.cardCount === 1 ? 'carta' : 'cartas'}</span>
+						{/* Símbolo de fundo centralizado */}
+						<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03]">
+							<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-ball'} className="size-96 text-white" />
+						</div>
+
+						<div className="relative text-center space-y-6">
+							{/* Ícone decorativo */}
+							<div className="flex justify-center">
+								<div className="relative">
+									<div className="absolute inset-0 -m-8 rounded-full blur-2xl animate-pulse [animation-duration:4s]"
+										style={{ background: `radial-gradient(circle, ${colors.smoke} 0%, transparent 70%)` }}
+									/>
+									<div className="relative size-20 rounded-full border-3 flex items-center justify-center"
+										style={{
+											borderColor: `rgba(${colors.rgb}, 0.6)`,
+											boxShadow: colors.glow,
+											background: 'radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%)',
+										}}
+									>
+										<Icon icon={spread.icon || 'game-icons:perspective-dice-six-faces-random'}
+											className="size-10 text-white/90"
+											style={{ filter: `drop-shadow(${colors.glow})` }}
+										/>
+									</div>
+								</div>
+							</div>
+
+							{/* Título */}
+							<div className="space-y-3">
+								<h1 className={cn('text-5xl md:text-6xl font-serif font-bold tracking-wide bg-gradient-to-br bg-clip-text text-transparent', colors.gradient)}
+									style={{ filter: `drop-shadow(${colors.glow}) drop-shadow(0 4px 20px rgba(0,0,0,0.9))` }}
+								>
+									{spread.name}
+								</h1>
+
+								{/* Badge da categoria */}
+								{category && (
+									<div className="flex items-center justify-center gap-2 text-sm text-white/70">
+										<Icon icon={category.icon} className="size-5" style={{ color: `rgba(${colors.rgb}, 0.8)` }} />
+										<span>{category.name}</span>
+										<span className="opacity-50">•</span>
+										<span className="opacity-70">{category.subtitle}</span>
+									</div>
+								)}
+							</div>
+
+							{/* Descrição */}
+							<p className="text-lg text-white/80 leading-relaxed max-w-3xl mx-auto font-light"
+								style={{ textShadow: '0 2px 15px rgba(0,0,0,0.9)' }}
+							>
+								{spread.description}
+							</p>
+
+							{/* Divider místico */}
+							<div className="flex items-center justify-center gap-4 pt-4">
+								<div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
+									style={{ color: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+								<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-ball'} className="size-6 opacity-40"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
+								/>
+								<div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-current to-transparent opacity-40"
+									style={{ color: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+							</div>
+
+							{/* Metadados */}
+							<div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+								{/* Número de Cartas */}
+								<div className="flex items-center gap-2 px-4 py-2 rounded-lg border"
+									style={{
+										borderColor: `rgba(${colors.rgb}, 0.3)`,
+										background: `rgba(${colors.rgb}, 0.1)`,
+									}}
+								>
+									<Icon icon="game-icons:card-draw" className="size-5" style={{ color: `rgba(${colors.rgb}, 0.9)` }} />
+									<span className="text-white/80 font-medium">{spread.cardCount} {spread.cardCount === 1 ? 'carta' : 'cartas'}</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -259,77 +342,163 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 						</p>
 					</div>
 
-					{/* Mesa Mística - Background tipo Veludo/Altar */}
+					{/* Mesa Mística Elaborada - Altar Sagrado */}
 					<div className="relative max-w-7xl mx-auto">
-						{/* Ornamentos da Mesa */}
-						<div className="absolute inset-0 pointer-events-none rounded-3xl">
-							{/* Bordas ornamentadas - Cantos */}
-							<div className="absolute top-4 left-4">
-								<div className="size-12 border-t-2 border-l-2 rounded-tl-2xl opacity-20"
-									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+						{/* Ornamentos Externos - Grimório Antigo */}
+						<div className="absolute inset-0 pointer-events-none">
+							{/* Cantos com Triskelion Animados */}
+							<div className="absolute -top-6 -left-6">
+								<div className="size-32 border-t-4 border-l-4 rounded-tl-3xl opacity-40"
+									style={{ borderColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 20px ${colors.smoke}` }}
+								/>
+								<div className="size-24 border-t-2 border-l-2 rounded-tl-3xl absolute top-3 left-3 opacity-25"
+									style={{ borderColor: `rgba(${colors.rgb}, 1)` }}
+								/>
+								<Icon icon="game-icons:triskelion" className="absolute top-3 left-3 size-12 opacity-30 animate-spin-slow [animation-duration:30s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 15px ${colors.smoke})` }}
 								/>
 							</div>
-							<div className="absolute top-4 right-4">
-								<div className="size-12 border-t-2 border-r-2 rounded-tr-2xl opacity-20"
-									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							<div className="absolute -top-6 -right-6">
+								<div className="size-32 border-t-4 border-r-4 rounded-tr-3xl opacity-40"
+									style={{ borderColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 20px ${colors.smoke}` }}
+								/>
+								<Icon icon="game-icons:triskelion" className="absolute top-3 right-3 size-12 opacity-30 scale-x-[-1] animate-spin-slow [animation-duration:30s] [animation-direction:reverse]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 15px ${colors.smoke})` }}
 								/>
 							</div>
-							<div className="absolute bottom-4 left-4">
-								<div className="size-12 border-b-2 border-l-2 rounded-bl-2xl opacity-20"
-									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							<div className="absolute -bottom-6 -left-6">
+								<div className="size-32 border-b-4 border-l-4 rounded-bl-3xl opacity-40"
+									style={{ borderColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 20px ${colors.smoke}` }}
+								/>
+								<Icon icon="game-icons:triskelion" className="absolute bottom-3 left-3 size-12 opacity-30 rotate-180 animate-spin-slow [animation-duration:30s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 15px ${colors.smoke})` }}
 								/>
 							</div>
-							<div className="absolute bottom-4 right-4">
-								<div className="size-12 border-b-2 border-r-2 rounded-br-2xl opacity-20"
-									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+							<div className="absolute -bottom-6 -right-6">
+								<div className="size-32 border-b-4 border-r-4 rounded-br-3xl opacity-40"
+									style={{ borderColor: `rgba(${colors.rgb}, 1)`, boxShadow: `0 0 20px ${colors.smoke}` }}
+								/>
+								<Icon icon="game-icons:triskelion" className="absolute bottom-3 right-3 size-12 opacity-30 rotate-180 scale-x-[-1] animate-spin-slow [animation-duration:30s] [animation-direction:reverse]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 15px ${colors.smoke})` }}
 								/>
 							</div>
 
-							{/* Símbolos místicos nos cantos */}
-							<div className="absolute top-6 left-6">
-								<Icon icon="game-icons:crystal-ball" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							{/* Pentagramas Laterais Pulsantes */}
+							<div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 flex flex-col gap-8">
+								<Icon icon="game-icons:pentacle" className="size-10 opacity-25 animate-pulse [animation-duration:4s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 12px ${colors.smoke})` }}
+								/>
+								<Icon icon="game-icons:star-formation" className="size-8 opacity-20"
+									style={{ color: `rgba(${colors.rgb}, 1)` }}
+								/>
+								<Icon icon="game-icons:pentacle" className="size-10 opacity-25 animate-pulse [animation-duration:4s] [animation-delay:2s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 12px ${colors.smoke})` }}
+								/>
 							</div>
-							<div className="absolute top-6 right-6">
-								<Icon icon="game-icons:magic-swirl" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
-							</div>
-							<div className="absolute bottom-6 left-6">
-								<Icon icon="game-icons:star-formation" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
-							</div>
-							<div className="absolute bottom-6 right-6">
-								<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-shrine'} className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							<div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 flex flex-col gap-8">
+								<Icon icon="game-icons:pentacle" className="size-10 opacity-25 animate-pulse [animation-duration:4s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 12px ${colors.smoke})` }}
+								/>
+								<Icon icon="game-icons:star-formation" className="size-8 opacity-20"
+									style={{ color: `rgba(${colors.rgb}, 1)` }}
+								/>
+								<Icon icon="game-icons:pentacle" className="size-10 opacity-25 animate-pulse [animation-duration:4s] [animation-delay:2s]"
+									style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 12px ${colors.smoke})` }}
+								/>
 							</div>
 						</div>
 
-						{/* Background da Mesa */}
-						<div className="relative rounded-3xl border-2 overflow-hidden backdrop-blur-sm"
+						{/* Background da Mesa - Altar Sagrado */}
+						<div className="relative rounded-3xl border-4 overflow-hidden backdrop-blur-md"
 							style={{
-								borderColor: `rgba(${colors.rgb}, 0.3)`,
+								borderColor: `rgba(${colors.rgb}, 0.5)`,
 								background: `
-									radial-gradient(ellipse at 30% 20%, rgba(${colors.rgb}, 0.08) 0%, transparent 50%),
-									radial-gradient(ellipse at 70% 80%, rgba(${colors.rgb}, 0.08) 0%, transparent 50%),
-									linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(10, 10, 20, 0.9) 50%, rgba(0, 0, 0, 0.85) 100%)
+									radial-gradient(circle at 50% 50%, rgba(${colors.rgb}, 0.15) 0%, transparent 40%),
+									radial-gradient(ellipse at 25% 25%, rgba(${colors.rgb}, 0.12) 0%, transparent 50%),
+									radial-gradient(ellipse at 75% 75%, rgba(${colors.rgb}, 0.12) 0%, transparent 50%),
+									linear-gradient(135deg, rgba(5, 5, 15, 0.95) 0%, rgba(10, 10, 25, 0.98) 50%, rgba(5, 5, 15, 0.95) 100%)
 								`,
 								boxShadow: `
-									0 0 80px rgba(0, 0, 0, 0.8),
-									inset 0 0 80px rgba(${colors.rgb}, 0.05),
-									0 0 0 1px rgba(255, 255, 255, 0.03)
+									0 0 100px rgba(0, 0, 0, 0.9),
+									inset 0 0 100px rgba(${colors.rgb}, 0.12),
+									0 0 0 2px rgba(${colors.rgb}, 0.2),
+									0 0 40px ${colors.smoke}
 								`,
 							}}
 						>
-							{/* Textura de veludo/altar sutil */}
-							<div className="absolute inset-0 opacity-[0.015]"
+							{/* Círculos Concêntricos Místicos */}
+							<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10">
+								<div className="absolute size-[800px] rounded-full border-2 animate-spin-slow [animation-duration:60s]"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.6)`, boxShadow: `0 0 30px ${colors.smoke}` }}
+								/>
+								<div className="absolute size-[600px] rounded-full border animate-spin-slow [animation-duration:45s] [animation-direction:reverse]"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.5)` }}
+								/>
+								<div className="absolute size-[400px] rounded-full border-2 animate-spin-slow [animation-duration:30s]"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.6)`, boxShadow: `0 0 20px ${colors.smoke}` }}
+								/>
+							</div>
+
+							{/* Padrão Radiante */}
+							<div className="absolute inset-0 opacity-5" style={{
+								background: `repeating-conic-gradient(
+									from 0deg at 50% 50%,
+									transparent 0deg,
+									rgba(${colors.rgb}, 0.8) 2deg,
+									transparent 4deg,
+									transparent 18deg
+								)`
+							}} />
+
+							{/* Textura Veludo */}
+							<div className="absolute inset-0 opacity-[0.02]"
 								style={{
 									backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.5\' /%3E%3C/svg%3E")',
 									backgroundSize: '100px 100px',
 								}}
 							/>
 
-							{/* Inner glow sutil */}
-							<div className="absolute inset-0 rounded-3xl opacity-20"
+							{/* Símbolo Central */}
+							<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.04]">
+								<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-ball'} className="size-[600px] text-white" />
+							</div>
+
+							{/* Inner Glow */}
+							<div className="absolute inset-0 rounded-3xl opacity-30"
 								style={{
-									background: `radial-gradient(ellipse at center, transparent 0%, ${colors.smoke} 100%)`,
+									background: `radial-gradient(ellipse at center, transparent 20%, ${colors.smoke} 100%)`,
 								}}
 							/>
+
+							{/* Símbolos Cantos Internos */}
+							<div className="absolute inset-0 pointer-events-none p-8">
+								<div className="relative size-full">
+									<div className="absolute top-0 left-0 flex flex-col items-center gap-2">
+										<Icon icon="game-icons:crystal-ball" className="size-8 opacity-15"
+											style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
+										/>
+										<div className="h-12 w-px opacity-10" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+									</div>
+									<div className="absolute top-0 right-0 flex flex-col items-center gap-2">
+										<Icon icon="game-icons:magic-swirl" className="size-8 opacity-15"
+											style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
+										/>
+										<div className="h-12 w-px opacity-10" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+									</div>
+									<div className="absolute bottom-0 left-0 flex flex-col-reverse items-center gap-2">
+										<Icon icon="game-icons:star-formation" className="size-8 opacity-15"
+											style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
+										/>
+										<div className="h-12 w-px opacity-10" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+									</div>
+									<div className="absolute bottom-0 right-0 flex flex-col-reverse items-center gap-2">
+										<Icon icon={category?.decorativeIcon || 'game-icons:crystal-shrine'} className="size-8 opacity-15"
+											style={{ color: `rgba(${colors.rgb}, 1)`, filter: `drop-shadow(0 0 10px ${colors.smoke})` }}
+										/>
+										<div className="h-12 w-px opacity-10" style={{ backgroundColor: `rgba(${colors.rgb}, 1)` }} />
+									</div>
+								</div>
+							</div>
 
 							{/* Container do Campo Cósmico - Layout Adaptativo */}
 							<div className="relative p-12">
