@@ -20,7 +20,7 @@ import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-import { getCategoryById } from '../tiragens-categories.data'
+import { getCategoryById } from '@/features/tiragens'
 
 import { CosmicBackground, EnergyConnections } from './effects'
 import { CosmicCard } from './cards'

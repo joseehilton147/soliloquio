@@ -2,7 +2,7 @@
 
 import { MysticalTabs } from '@workspace/ui'
 import { TiragemCategoryPortalCard } from '../../../app/tiragens/components'
-import { ALL_CATEGORIES } from '../../../app/tiragens/tiragens-categories.data'
+import { ALL_CATEGORIES } from '@/features/tiragens'
 import { TIRAGENS_TABS_CONFIG, getTiragemTabSubtitle } from '../../config/tiragens-tabs.config'
 
 /**

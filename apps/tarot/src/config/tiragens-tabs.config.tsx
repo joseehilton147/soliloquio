@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 import type { MysticalTabItem } from '@workspace/ui'
-import { ALL_CATEGORIES } from '../../app/tiragens/tiragens-categories.data'
+import { ALL_CATEGORIES } from '@/features/tiragens'
 
 /**
  * Configuração de cores por elemento
