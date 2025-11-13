@@ -171,7 +171,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 
 	const submenuPositionClasses =
 		level > 1
-			? 'left-full ml-2 top-0'
+			? 'left-full ml-2 top-1/2 -translate-y-1/2'
 			: 'bottom-full mb-2 left-1/2 -translate-x-1/2'
 
 	return (
