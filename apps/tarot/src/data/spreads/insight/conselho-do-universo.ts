@@ -16,12 +16,10 @@ export const CONSELHO_DO_UNIVERSO: TarotSpread = {
 	layout: 'triangle',
 	description: 'Uma mensagem cósmica de três camadas: onde focar, que ação tomar e a sabedoria central que integra tudo.',
 	whenToUse: 'Quando buscar orientação direta do universo sobre situações complexas ou decisões importantes.',
-	source: 'Stefani Caponi',
 	difficulty: 2,
 	estimatedTime: 15,
 	themeColor: '#6366F1',
 	icon: 'lucide:sparkles',
-	tags: ['orientação', 'conselho', 'universo', 'sabedoria', 'ação'],
 	positions: [
 		{
 			id: 'foco',
