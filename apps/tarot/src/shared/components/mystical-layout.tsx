@@ -8,9 +8,9 @@ import { cn } from '@workspace/ui/lib/utils'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import { createDockItems } from '../config/dock-items'
-import { headerApps } from '../config/header-apps'
-import { useDockSettings } from '../contexts/dock-settings-context'
+import { createDockItems } from '../../config/dock-items'
+import { headerApps } from '../../config/header-apps'
+import { useDockSettings } from '../../contexts/dock-settings-context'
 import { GlobalSearch } from './global-search'
 
 const SEARCH_KEYBOARD_SHORTCUT = 'k'

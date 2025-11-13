@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
-import { trpc } from '../lib/trpc'
+import { trpc } from '../../lib/trpc'
 import { SearchFieldBadge } from './search-field-badge'
 
 interface GlobalSearchProps {
