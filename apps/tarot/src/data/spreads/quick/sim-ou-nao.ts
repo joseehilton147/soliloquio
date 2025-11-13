@@ -16,12 +16,10 @@ export const SIM_OU_NAO: TarotSpread = {
 	layout: 'single',
 	description: 'Tire uma única carta para obter uma resposta direta. Ideal para decisões simples do dia a dia que precisam de orientação rápida.',
 	whenToUse: 'Use quando tiver uma pergunta específica que possa ser respondida com sim ou não. Evite perguntas muito complexas ou abertas.',
-	source: 'Tradicional',
 	difficulty: 1,
 	estimatedTime: 5,
 	themeColor: '#64748B',
 	icon: 'lucide:target',
-	tags: ['rápida', 'direta', 'decisão', 'iniciante'],
 	positions: [
 		{
 			id: 'resposta',

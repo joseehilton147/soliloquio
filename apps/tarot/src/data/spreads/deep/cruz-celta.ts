@@ -16,12 +16,10 @@ export const CRUZ_CELTA: TarotSpread = {
 	layout: 'celtic',
 	description: 'A tiragem mestre do tarot. Uma análise profunda e completa que examina todos os ângulos de uma situação.',
 	whenToUse: 'Para questões complexas que requerem análise profunda. Reserve tempo e espaço sagrado para esta leitura.',
-	source: 'Tradicional',
 	difficulty: 5,
 	estimatedTime: 60,
 	themeColor: '#7C3AED',
 	icon: 'lucide:crosshair',
-	tags: ['avançada', 'completa', 'profunda', 'tradicional', 'mestra'],
 	positions: [
 		{
 			id: 'presente',
