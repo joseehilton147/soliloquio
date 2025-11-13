@@ -6,12 +6,12 @@ import { Icon } from '@iconify/react'
  * Guia Visual para Tiragem Conselho do Universo (3 cartas)
  *
  * Componente educativo e místico que ensina como interpretar
- * a tiragem de 3 cartas em formato triangular.
+ * a tiragem de 3 cartas seguindo a ordem de leitura.
  *
- * Estrutura: 2 cartas na base (Onde Focar + Ação a Tomar)
- *           + 1 carta no topo (Conselho Central)
+ * Estrutura: 1 carta no topo (Onde Focar)
+ *           + 2 cartas na base (Ação a Tomar + Conselho do Universo)
  *
- * Design: Cards coloridos, layout triangular, tipografia clara
+ * Design: Cards coloridos, ordem didática, tipografia clara
  */
 
 export function UniverseAdviceGuide() {
@@ -83,9 +83,9 @@ export function UniverseAdviceGuide() {
 
 	const readingTips = [
 		{
-			icon: 'lucide:triangle',
-			title: 'Leia em Formato Triangular',
-			text: 'Comece pelas duas da base (1 e 2), depois suba para o topo (3)',
+			icon: 'lucide:arrow-down',
+			title: 'Leia de Cima para Baixo',
+			text: 'Comece pela carta do topo (1 - Foco), depois leia as duas da base (2 - Ação e 3 - Conselho)',
 		},
 		{
 			icon: 'lucide:link',
@@ -95,7 +95,7 @@ export function UniverseAdviceGuide() {
 		{
 			icon: 'lucide:lightbulb',
 			title: 'Busque o Equilíbrio',
-			text: 'O conselho geralmente mostra como balancear foco e cautela',
+			text: 'O conselho geralmente mostra como balancear foco e ação',
 		},
 		{
 			icon: 'lucide:heart',
@@ -122,33 +122,31 @@ export function UniverseAdviceGuide() {
 					Como Interpretar as Três Cartas
 				</h2>
 				<p className="text-base text-violet-300/70 leading-relaxed">
-					Esta tiragem triangular oferece orientação completa: onde focar, o que evitar, e a sabedoria que une tudo.
+					Esta tiragem oferece orientação completa: onde focar sua energia, que ação tomar, e a sabedoria que integra tudo.
 				</p>
 			</div>
 
-			{/* Layout Triangular das Posições */}
+			{/* Layout das Posições - Ordem de Leitura */}
 			<div className="max-w-4xl mx-auto">
-				{/* Carta do Topo - Conselho (3) */}
+				{/* Carta do Topo - Foco (1) */}
 				<div className="flex justify-center mb-8">
 					<div className="w-full max-w-md">
-						{renderPositionCard(positions[2]!)}
+						{renderPositionCard(positions[0]!)}
 					</div>
 				</div>
 
-				{/* Cartas da Base - Foco (1) e Evitar (2) */}
+				{/* Cartas da Base - Ação (2) e Conselho (3) */}
 				<div className="grid md:grid-cols-2 gap-6">
-					{renderPositionCard(positions[0]!)}
 					{renderPositionCard(positions[1]!)}
+					{renderPositionCard(positions[2]!)}
 				</div>
 
 				{/* Linhas Conectoras (visual) */}
 				<div className="flex justify-center mt-4 mb-8 opacity-30">
 					<div className="flex items-center gap-2">
-						<div className="size-2 rounded-full bg-cyan-400" />
-						<div className="h-px w-16 bg-linear-to-r from-cyan-400 via-violet-400 to-violet-400" />
-						<div className="size-3 rounded-full bg-violet-400" />
-						<div className="h-px w-16 bg-linear-to-r from-violet-400 via-orange-400 to-orange-400" />
 						<div className="size-2 rounded-full bg-orange-400" />
+						<div className="h-px w-16 bg-linear-to-r from-orange-400 via-violet-400 to-violet-400" />
+						<div className="size-3 rounded-full bg-violet-400" />
 					</div>
 				</div>
 			</div>
