@@ -55,10 +55,10 @@ const ELEMENT_ICONS = {
 export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.map((category) => ({
 	id: category.id,
 	label: category.name,
-	icon: ELEMENT_ICONS[category.element],
+	icon: ELEMENT_ICONS[category.element as keyof typeof ELEMENT_ICONS],
 	count: category.spreads.length,
 	renderTab: ({ item, isActive, onClick }) => {
-		const colors = ELEMENT_COLORS[category.element]
+		const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
 
 		return (
 			<button
