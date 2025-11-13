@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react'
  * Componente educativo e místico que ensina como interpretar
  * a tiragem de 3 cartas em formato triangular.
  *
- * Estrutura: 2 cartas na base (Onde Focar + O Que Evitar)
+ * Estrutura: 2 cartas na base (Onde Focar + Ação a Tomar)
  *           + 1 carta no topo (Conselho Central)
  *
  * Design: Cards coloridos, layout triangular, tipografia clara
@@ -39,23 +39,23 @@ export function UniverseAdviceGuide() {
 		},
 		{
 			number: 2,
-			title: 'O Que Evitar',
-			emoji: '⚠️',
+			title: 'Ação a Tomar',
+			emoji: '⚡',
 			color: 'text-orange-300',
 			bgColor: 'from-orange-950/40 to-orange-900/20',
 			borderColor: 'border-orange-500/30 hover:border-orange-400/60',
-			icon: 'lucide:shield-alert',
-			description: 'Armadilhas, distrações ou padrões a evitar',
+			icon: 'lucide:zap',
+			description: 'A ação concreta e prática que você deve tomar',
 			details: [
-				'Alerta sobre comportamentos ou pensamentos limitantes',
-				'Identifica distrações que desviam do seu caminho',
-				'Aponta padrões repetitivos que sabotam seu progresso',
-				'Mostra onde você pode estar se autossabotando',
+				'Revela o passo concreto que transformará intenção em realidade',
+				'Mostra como colocar sua energia em movimento produtivo',
+				'Indica a ação que alinha você com o fluxo universal',
+				'Aponta o que fazer para manifestar o resultado desejado',
 			],
 			questions: [
-				'Que armadilha esta carta está me alertando?',
-				'Qual padrão devo conscientemente abandonar?',
-				'O que está me impedindo de avançar?',
+				'Que ação prática esta carta está me pedindo?',
+				'Como posso transformar meu foco em movimento?',
+				'Qual o primeiro passo concreto a dar?',
 			],
 		},
 		{
@@ -66,17 +66,17 @@ export function UniverseAdviceGuide() {
 			bgColor: 'from-violet-950/40 to-violet-900/20',
 			borderColor: 'border-violet-500/30 hover:border-violet-400/60',
 			icon: 'lucide:sparkles',
-			description: 'A sabedoria central que integra tudo',
+			description: 'A sabedoria central que integra foco e ação',
 			details: [
 				'A mensagem mais importante do universo para você agora',
-				'Integra as duas cartas anteriores em uma orientação clara',
-				'Oferece a perspectiva superior sobre a situação',
-				'Ilumina o próximo passo mais sábio a tomar',
+				'Integra onde focar e que ação tomar em sabedoria única',
+				'Oferece a perspectiva superior que ilumina o caminho',
+				'Revela como manifestar seus objetivos com fluidez',
 			],
 			questions: [
 				'Qual é a mensagem central do universo?',
-				'Como posso integrar foco e cautela?',
-				'Qual ação sábia devo tomar agora?',
+				'Como posso integrar foco e ação de forma harmoniosa?',
+				'Qual sabedoria maior está guiando meu caminho?',
 			],
 		},
 	]
@@ -195,8 +195,8 @@ export function UniverseAdviceGuide() {
 									expressar sua verdade autêntica
 								</p>
 								<p>
-									<span className="font-semibold text-orange-300">Carta 2 (Evitar):</span> 7 de Copas - evite
-									ilusões e fantasias que desviam você
+									<span className="font-semibold text-orange-300">Carta 2 (Ação):</span> 7 de Espadas - tome a
+									ação de se retirar de situações que não servem mais
 								</p>
 								<p>
 									<span className="font-semibold text-violet-300">Carta 3 (Conselho):</span> A Estrela - confie
@@ -205,8 +205,8 @@ export function UniverseAdviceGuide() {
 								<div className="pt-3 mt-3 border-t border-violet-500/20">
 									<p className="italic text-violet-300/60">
 										<Icon icon="lucide:quote" className="inline size-4 mr-1" />
-										Leitura integrada: Seja autêntico (Sol), não se perca em fantasias (7 de Copas), e confie
-										que sua verdade iluminará o caminho (Estrela).
+										Leitura integrada: Seja autêntico (Sol), retire-se estrategicamente do que não ressoa (7 de Espadas), e confie
+										que sua verdade atrairá renovação (Estrela).
 									</p>
 								</div>
 							</div>
