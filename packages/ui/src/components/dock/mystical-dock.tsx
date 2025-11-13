@@ -270,12 +270,12 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 
 					{/* Seta conectora - varia conforme direção do submenu */}
 					{level >= 1 ? (
-						// Children lateral (level >= 1): seta aponta para ESQUERDA
-						<div className="absolute right-full mr-0.5 top-1/2 -translate-y-1/2">
-							<div className="border-8 border-transparent border-l-purple-500" />
+						// Children lateral (level >= 1): seta aponta para ESQUERDA ◀
+						<div className="absolute left-0 -translate-x-full -ml-0.5 top-1/2 -translate-y-1/2">
+							<div className="border-8 border-transparent border-r-purple-500" />
 						</div>
 					) : (
-						// Submenu principal (level 0): seta aponta para BAIXO
+						// Submenu principal (level 0): seta aponta para BAIXO ▼
 						<div className="absolute top-full mt-0.5 left-1/2 -translate-x-1/2">
 							<div className="border-8 border-transparent border-t-purple-500" />
 						</div>
