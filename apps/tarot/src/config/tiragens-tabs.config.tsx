@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 import type { MysticalTabItem } from '@workspace/ui'
-import { ALL_CATEGORIES } from '../../app/tiragens/tiragens-categories.data'
+import { ALL_CATEGORIES } from '@/features/tiragens'
 
 /**
  * Configuração de cores por elemento
@@ -55,10 +55,10 @@ const ELEMENT_ICONS = {
 export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.map((category) => ({
 	id: category.id,
 	label: category.name,
-	icon: ELEMENT_ICONS[category.element],
+	icon: ELEMENT_ICONS[category.element as keyof typeof ELEMENT_ICONS],
 	count: category.spreads.length,
 	renderTab: ({ item, isActive, onClick }) => {
-		const colors = ELEMENT_COLORS[category.element]
+		const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
 
 		return (
 			<button
@@ -151,7 +151,7 @@ export function getTiragemTabSubtitle(activeTab: string) {
 	const category = ALL_CATEGORIES.find((cat) => cat.id === activeTab)
 	if (!category) return null
 
-	const colors = ELEMENT_COLORS[category.element]
+	const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
 
 	return (
 		<>

@@ -3,42 +3,30 @@
 import { Icon } from '@iconify/react'
 import { SacredEyeLogo } from '@workspace/ui'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function TarotHomePage() {
-	// Partículas reduzidas para melhor performance (15 ao invés de 30)
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>([])
-
-	useEffect(() => {
-		setParticles(
-			Array.from({ length: 15 }).map(() => ({
-				left: `${Math.random() * 100}%`,
-				top: `${Math.random() * 100}%`,
-				delay: `${Math.random() * 5}s`,
-				duration: `${15 + Math.random() * 15}s`,
-			})),
-		)
-	}, [])
+	const [particles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>(() =>
+		Array.from({ length: 15 }).map(() => ({
+			left: `${Math.random() * 100}%`,
+			top: `${Math.random() * 100}%`,
+			delay: `${Math.random() * 5}s`,
+			duration: `${15 + Math.random() * 15}s`,
+		})),
+	)
 
 	return (
 		<div className="relative min-h-screen flex flex-col items-center overflow-x-hidden bg-gradient-to-b from-background via-background to-purple-950/10">
-			{/* ═══════════════════════════════════════════════════════
-			    COSMIC BACKGROUND - Otimizado para Performance
-			    ═══════════════════════════════════════════════════════ */}
 			<div className="fixed inset-0 pointer-events-none">
-				{/* Nebulosa cósmica sutil */}
 				<div className="absolute inset-0 bg-gradient-radial from-purple-900/10 via-indigo-950/5 to-transparent" />
 
-				{/* Vórtex minimalista - apenas 2 círculos */}
 				<div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
 					<div className="absolute size-[600px] rounded-full border border-purple-500/5 animate-spin-slow [animation-duration:80s]" />
 					<div className="absolute size-[400px] rounded-full border border-violet-500/8 animate-spin-slow [animation-duration:60s] [animation-direction:reverse]" />
 				</div>
 
-				{/* Energia sutil */}
 				<div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[400px] bg-gradient-to-br from-purple-600/5 via-violet-600/3 to-transparent rounded-full blur-3xl animate-pulse [animation-duration:8s]" />
 
-				{/* Partículas místicas reduzidas */}
 				{particles.map((particle, i) => (
 					<div
 						key={i}
@@ -53,20 +41,14 @@ export default function TarotHomePage() {
 				))}
 			</div>
 
-			{/* ═══════════════════════════════════════════════════════
-			    CONTEÚDO PRINCIPAL - Jornada Narrativa do Solilóquio
-			    ═══════════════════════════════════════════════════════ */}
 			<div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16 space-y-24">
 
-				{/* ═══ ENTRADA - Logo + Título Balanceado ═══ */}
 				<div className="text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-					{/* Sacred Eye Logo místico girando */}
 					<div className="relative inline-block">
 						<div className="absolute inset-0 -m-8 bg-gradient-to-br from-purple-500/10 via-violet-500/8 to-indigo-500/10 rounded-full blur-2xl animate-pulse [animation-duration:5s]" />
 						<SacredEyeLogo size="lg" />
 					</div>
 
-					{/* Título balanceado e legível */}
 					<div className="space-y-3">
 						<h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
 							<span
@@ -84,7 +66,6 @@ export default function TarotHomePage() {
 					</div>
 				</div>
 
-				{/* ═══ DEFINIÇÃO POÉTICA ═══ */}
 				<div className="max-w-2xl mx-auto space-y-6 animate-in fade-in duration-1000 [animation-delay:200ms]">
 					<div className="flex items-center justify-center gap-3">
 						<div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500/30" />
@@ -105,14 +86,12 @@ export default function TarotHomePage() {
 					</div>
 				</div>
 
-				{/* ═══ A JORNADA EM 3 ETAPAS ═══ */}
 				<div className="space-y-12 animate-in fade-in duration-1000 [animation-delay:400ms]">
 					<h2 className="text-2xl sm:text-3xl font-bold text-center bg-gradient-to-r from-purple-200 via-violet-200 to-indigo-200 bg-clip-text text-transparent">
 						A Jornada do Autoconhecimento
 					</h2>
 
 					<div className="space-y-8">
-						{/* Etapa 1 */}
 						<div className="group p-6 rounded-xl border border-purple-500/15 bg-purple-950/20 backdrop-blur-sm hover:border-purple-500/30 hover:bg-purple-950/30 transition-all duration-300">
 							<div className="flex items-start gap-4">
 								<div className="flex-shrink-0 mt-1">
@@ -130,7 +109,6 @@ export default function TarotHomePage() {
 							</div>
 						</div>
 
-						{/* Etapa 2 */}
 						<div className="group p-6 rounded-xl border border-violet-500/15 bg-violet-950/20 backdrop-blur-sm hover:border-violet-500/30 hover:bg-violet-950/30 transition-all duration-300">
 							<div className="flex items-start gap-4">
 								<div className="flex-shrink-0 mt-1">
@@ -148,7 +126,6 @@ export default function TarotHomePage() {
 							</div>
 						</div>
 
-						{/* Etapa 3 */}
 						<div className="group p-6 rounded-xl border border-indigo-500/15 bg-indigo-950/20 backdrop-blur-sm hover:border-indigo-500/30 hover:bg-indigo-950/30 transition-all duration-300">
 							<div className="flex items-start gap-4">
 								<div className="flex-shrink-0 mt-1">
@@ -168,7 +145,6 @@ export default function TarotHomePage() {
 					</div>
 				</div>
 
-				{/* ═══ CITAÇÃO DE MAQUIAVEL ═══ */}
 				<div className="max-w-2xl mx-auto py-8 relative animate-in fade-in duration-1000 [animation-delay:600ms]">
 					<div className="absolute -top-4 left-4 text-5xl text-purple-500/10 font-serif leading-none">"</div>
 					<div className="absolute -bottom-4 right-4 text-5xl text-purple-500/10 font-serif leading-none rotate-180">"</div>
@@ -190,7 +166,6 @@ export default function TarotHomePage() {
 					</p>
 				</div>
 
-				{/* ═══ CALL TO ACTION ═══ */}
 				<div className="text-center space-y-6 animate-in fade-in duration-1000 [animation-delay:800ms]">
 					<div className="space-y-3">
 						<h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-200 via-violet-200 to-indigo-200 bg-clip-text text-transparent">
@@ -220,7 +195,6 @@ export default function TarotHomePage() {
 					</div>
 				</div>
 
-				{/* ═══ FOOTER MINIMALISTA ═══ */}
 				<div className="text-center space-y-4 pt-12 pb-8 animate-in fade-in duration-1000 [animation-delay:1000ms]">
 					<div className="flex items-center justify-center gap-4 text-purple-400/20">
 						<Icon icon="lucide:moon" className="size-4 animate-pulse [animation-duration:5s]" />
