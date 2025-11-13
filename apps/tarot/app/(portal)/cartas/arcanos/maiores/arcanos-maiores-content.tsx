@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { trpc } from '../../../../src/lib/trpc'
+import { trpc } from '@/lib/trpc'
 
 export function ArcanosMaioresContent() {
 	const { data, error } = trpc.tarot.getAll.useQuery({ limit: 100 })
