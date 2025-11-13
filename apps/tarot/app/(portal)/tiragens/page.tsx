@@ -53,13 +53,13 @@ export default function TiragensHomePage() {
 			<div className="max-w-4xl mx-auto text-center space-y-6 pt-12 pb-16">
 				{/* Ornamento místico */}
 				<div className="flex items-center justify-center gap-6">
-					<div className="h-px w-24 bg-gradient-to-r from-transparent via-fuchsia-500/20 to-transparent" />
+					<div className="h-px w-24 bg-linear-to-r from-transparent via-fuchsia-500/20 to-transparent" />
 					<div className="flex items-center gap-3">
-						<div className="size-2 rounded-full bg-fuchsia-400/30 animate-pulse [animation-duration:3s]" />
-						<div className="size-1.5 rounded-full bg-purple-400/30 animate-pulse [animation-duration:4s] [animation-delay:1s]" />
-						<div className="size-2 rounded-full bg-violet-400/30 animate-pulse [animation-duration:3.5s] [animation-delay:0.5s]" />
+						<div className="size-2 rounded-full bg-fuchsia-400/30 animate-pulse animation-duration-[3s]" />
+						<div className="size-1.5 rounded-full bg-purple-400/30 animate-pulse animation-duration-[4s] [animation-delay:1s]" />
+						<div className="size-2 rounded-full bg-violet-400/30 animate-pulse animation-duration-[3.5s] [animation-delay:0.5s]" />
 					</div>
-					<div className="h-px w-24 bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+					<div className="h-px w-24 bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />
 				</div>
 
 				{/* Citação final */}
@@ -79,11 +79,11 @@ export default function TiragensHomePage() {
 
 				{/* Símbolos finais */}
 				<div className="flex items-center justify-center gap-8 pt-6 opacity-20">
-					<div className="size-1 rounded-full bg-fuchsia-400 animate-pulse [animation-duration:5s]" />
-					<div className="size-0.5 rounded-full bg-purple-400 animate-pulse [animation-duration:6s] [animation-delay:2s]" />
-					<div className="size-1 rounded-full bg-violet-400 animate-pulse [animation-duration:5.5s] [animation-delay:1s]" />
-					<div className="size-0.5 rounded-full bg-fuchsia-400 animate-pulse [animation-duration:6.5s] [animation-delay:3s]" />
-					<div className="size-1 rounded-full bg-purple-400 animate-pulse [animation-duration:5s] [animation-delay:1.5s]" />
+					<div className="size-1 rounded-full bg-fuchsia-400 animate-pulse animation-duration-[5s]" />
+					<div className="size-0.5 rounded-full bg-purple-400 animate-pulse animation-duration-[6s] [animation-delay:2s]" />
+					<div className="size-1 rounded-full bg-violet-400 animate-pulse animation-duration-[5.5s] [animation-delay:1s]" />
+					<div className="size-0.5 rounded-full bg-fuchsia-400 animate-pulse animation-duration-[6.5s] [animation-delay:3s]" />
+					<div className="size-1 rounded-full bg-purple-400 animate-pulse animation-duration-[5s] [animation-delay:1.5s]" />
 				</div>
 			</div>
 		</div>
