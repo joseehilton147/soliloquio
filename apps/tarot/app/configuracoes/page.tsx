@@ -54,7 +54,7 @@ const VISIBILITY_OPTIONS: VisibilityOption[] = [
  *
  * @returns {JSX.Element} Página de configurações renderizada
  */
-export default function ConfiguracoesPage(): JSX.Element {
+export default function ConfiguracoesPage() {
 	const { settings, updateSettings } = useDockSettings()
 
 	const currentVisibilityOption = VISIBILITY_OPTIONS.find(
