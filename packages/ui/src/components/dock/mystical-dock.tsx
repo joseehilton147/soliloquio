@@ -169,22 +169,24 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 		}
 	}, [])
 
+	// CORREÇÃO DO BUG: Items de level >= 1 devem abrir seus submenus À DIREITA
+	// - level 0 = ícone da dock → submenu abre PARA CIMA ✅
+	// - level >= 1 = item dentro de submenu → submenu abre À DIREITA ✅
 	const submenuPositionClasses =
-		level > 1
+		level >= 1
 			? 'left-full ml-2 top-1/2'
 			: 'bottom-full mb-2 left-1/2'
 
 	// Calcula transform inline para posicionamento correto
 	const getTransformStyle = (): string => {
-		if (level > 1) {
-			// Children (level > 1): abre à DIREITA, centralizado verticalmente
+		if (level >= 1) {
+			// Submenu de level >= 1: abre à DIREITA, centralizado verticalmente
 			// translateX = ajuste horizontal para viewport
-			// translateY(-50%) = centraliza verticalmente em relação ao pai
+			// translateY(-50%) = centraliza verticalmente em relação ao pai (top-1/2)
 			return `translateX(${horizontalOffset}px) translateY(-50%)`
 		} else {
-			// Submenu principal (level 1): abre para CIMA, centralizado horizontalmente
-			// calc(-50% + offset) = centraliza horizontalmente + ajuste viewport
-			// translateY(0) = sem ajuste vertical
+			// Submenu da dock (level 0): abre para CIMA, centralizado horizontalmente
+			// calc(-50% + offset) = centraliza horizontalmente (left-1/2) + ajuste viewport
 			return `translate(calc(-50% + ${horizontalOffset}px), 0)`
 		}
 	}
