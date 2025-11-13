@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { Naipe } from '../naipes.types'
+import type { Naipe } from '../domain'
 import { NaipeHeader } from './naipe-header'
 import { NaipeInfo } from './naipe-info'
 import { NaipeCTA } from './naipe-cta'
