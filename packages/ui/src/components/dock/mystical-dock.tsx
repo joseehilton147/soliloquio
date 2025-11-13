@@ -171,8 +171,18 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 
 	const submenuPositionClasses =
 		level > 1
-			? 'left-full ml-2 top-1/2 -translate-y-1/2'
-			: 'bottom-full mb-2 left-1/2 -translate-x-1/2'
+			? 'left-full ml-2 top-1/2'
+			: 'bottom-full mb-2 left-1/2'
+
+	// Calcula transform inline incluindo translateY para children
+	const getTransformStyle = (): string => {
+		if (level > 1) {
+			// Children: translateX + translateY(-50%) para centralizar
+			return `translateX(${horizontalOffset}px) translateY(-50%)`
+		}
+		// Submenu principal: apenas translateX + translateX(-50%) do Tailwind
+		return `translateX(${horizontalOffset}px) translateX(-50%)`
+	}
 
 	return (
 		<div
@@ -223,7 +233,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 						submenuPositionClasses,
 					)}
 					style={{
-						transform: `translateX(${horizontalOffset}px)`,
+						transform: getTransformStyle(),
 					}}
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
