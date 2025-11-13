@@ -8,7 +8,10 @@
  */
 
 import type { TarotSpread } from '@workspace/core/tarot'
-import type { ElementColors, ElementType } from '../../element-colors'
+import type { ElementColorConfig, Element } from '@/shared/constants/element-colors'
+
+type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
+type ElementType = Element
 
 /**
  * Props do componente EnergyConnections

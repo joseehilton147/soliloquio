@@ -69,8 +69,8 @@ export function TiragensLearningPath() {
 		},
 	]
 
-	const getColorClasses = (color: string) => {
-		const colors: Record<string, { border: string; bg: string; text: string; shadow: string; glow: string }> = {
+	const getColorClasses = (color: string): { border: string; bg: string; text: string; shadow: string; glow: string } => {
+		const colorMap: Record<string, { border: string; bg: string; text: string; shadow: string; glow: string }> = {
 			slate: {
 				border: 'border-slate-500/30 hover:border-slate-400/60',
 				bg: 'from-slate-950/40 to-slate-900/20',
@@ -93,7 +93,7 @@ export function TiragensLearningPath() {
 				glow: 'rgba(168, 85, 247, 0.4)',
 			},
 		}
-		return colors[color] || colors.slate
+		return (colorMap[color] ?? colorMap.slate) as { border: string; bg: string; text: string; shadow: string; glow: string }
 	}
 
 	return (

@@ -1,8 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import type { ElementColors } from '../../element-colors'
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
 import type { TarotSpread } from '@workspace/core/tarot'
+
+type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
 import { CardFront } from '../cards/card-front'
 import { CardBack } from '../cards/card-back'
 

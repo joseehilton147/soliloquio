@@ -10,7 +10,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { ElementColors } from '../../element-colors'
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
+
+type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
 
 /**
  * Props do componente CosmicBackground

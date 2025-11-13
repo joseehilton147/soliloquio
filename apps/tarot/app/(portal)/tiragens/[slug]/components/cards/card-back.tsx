@@ -9,7 +9,9 @@
 
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
-import type { ElementColors } from '../../element-colors'
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
+
+type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
 
 /**
  * Props do componente CardBack

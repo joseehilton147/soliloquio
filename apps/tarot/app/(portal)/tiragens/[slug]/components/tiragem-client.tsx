@@ -22,8 +22,8 @@ import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import type { CategoryType } from '../element-colors'
-import { getElement, getElementColors } from '../element-colors'
+import type { CategoryType } from '@/shared/constants/element-colors'
+import { getCategoryElement, getCategoryColors, normalizeElementName } from '@/shared/constants/element-colors'
 
 import { CosmicCard } from './cards'
 import { CelticCrossGuide } from './celtic-cross-guide'
@@ -86,8 +86,15 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 
 	const containerDims = calculateContainerDimensions(spread.cardCount)
 
-	const element = getElement(spread.category as CategoryType)
-	const colors = getElementColors(spread.category as CategoryType)
+	const element = getCategoryElement(spread.category as CategoryType)
+	const rawColors = getCategoryColors(spread.category as CategoryType)
+
+	// Adapter para compatibilidade com interface antiga
+	const colors = {
+		...rawColors,
+		primary: rawColors.color,
+		glow: rawColors.neonGlow,
+	}
 
 	// Mapear categoria para ID de categoria
 	const categoryId =

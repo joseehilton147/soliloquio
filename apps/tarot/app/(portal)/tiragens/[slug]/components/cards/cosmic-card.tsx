@@ -12,7 +12,9 @@ import { cn } from '@workspace/ui/lib/utils'
 import { CardBack } from './card-back'
 import { CardFront } from './card-front'
 import { CardTooltip } from './card-tooltip'
-import type { ElementColors } from '../../element-colors'
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
+
+type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
 
 /**
  * Props do componente CosmicCard
