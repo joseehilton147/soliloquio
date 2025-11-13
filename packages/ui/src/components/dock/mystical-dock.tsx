@@ -115,9 +115,8 @@ function calculateHorizontalOffset(submenuRect: DOMRect, viewportWidth: number):
  * ```
  *
  * @param {SubmenuItemProps} props - Props do componente
- * @returns {JSX.Element} Item de submenu renderizado
  */
-function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
+function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const [isHovered, setIsHovered] = useState(false)
 	const [horizontalOffset, setHorizontalOffset] = useState(0)
 	const itemRef = useRef<HTMLDivElement>(null)
@@ -169,24 +168,15 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 		}
 	}, [])
 
-	// CORREÇÃO DO BUG: Items de level >= 1 devem abrir seus submenus À DIREITA
-	// - level 0 = ícone da dock → submenu abre PARA CIMA ✅
-	// - level >= 1 = item dentro de submenu → submenu abre À DIREITA ✅
 	const submenuPositionClasses =
 		level >= 1
 			? 'left-full ml-2 top-1/2'
 			: 'bottom-full mb-2 left-1/2'
 
-	// Calcula transform inline para posicionamento correto
 	const getTransformStyle = (): string => {
 		if (level >= 1) {
-			// Submenu de level >= 1: abre à DIREITA, centralizado verticalmente
-			// translateX = ajuste horizontal para viewport
-			// translateY(-50%) = centraliza verticalmente em relação ao pai (top-1/2)
 			return `translateX(${horizontalOffset}px) translateY(-50%)`
 		} else {
-			// Submenu da dock (level 0): abre para CIMA, centralizado horizontalmente
-			// calc(-50% + offset) = centraliza horizontalmente (left-1/2) + ajuste viewport
 			return `translate(calc(-50% + ${horizontalOffset}px), 0)`
 		}
 	}
@@ -203,7 +193,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 				className={cn(
 					'relative flex items-center gap-3 px-3 py-2.5 rounded-xl',
 					'text-sm font-medium',
-					'bg-gradient-to-br from-purple-500/5 to-indigo-500/5',
+					'bg-linear-to-br from-purple-500/5 to-indigo-500/5',
 					'border border-transparent',
 					'hover:from-purple-500/20 hover:via-violet-500/20 hover:to-indigo-500/20',
 					'hover:border-purple-500/40',
@@ -213,7 +203,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 					'group/sub overflow-hidden',
 				)}
 			>
-				<div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
+				<div className="absolute inset-0 bg-linear-to-r from-purple-500/0 via-violet-500/0 to-indigo-500/0 group-hover/sub:from-purple-500/10 group-hover/sub:via-violet-500/10 group-hover/sub:to-indigo-500/10 transition-all duration-300" />
 
 				{item.icon && (
 					<Icon
@@ -245,7 +235,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 					onMouseEnter={handleMouseEnter}
 					onMouseLeave={handleMouseLeave}
 				>
-					<div className="relative rounded-2xl p-[2px] bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
+					<div className="relative rounded-2xl p-[2px] bg-linear-to-r from-purple-500 via-violet-500 to-indigo-500 animate-gradient-xy">
 						<div
 							className={cn(
 								'rounded-2xl overflow-visible',
@@ -257,7 +247,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 							<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-violet-500/5 to-indigo-500/5 pointer-events-none rounded-2xl" />
 
 							<div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+								<div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-linear-to-r from-transparent via-white/5 to-transparent" />
 							</div>
 
 							<div className="relative p-3 space-y-1.5">
@@ -331,9 +321,8 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
  * - ResizeObserver mantém altura atualizada automaticamente
  *
  * @param {MysticalDockProps} props - Props do componente
- * @returns {JSX.Element} Dock de navegação renderizada
  */
-export function MysticalDock({ items, settings }: MysticalDockProps): JSX.Element {
+export function MysticalDock({ items, settings }: MysticalDockProps) {
 	const pathname = usePathname()
 	const dockRef = useRef<HTMLDivElement>(null)
 
@@ -397,7 +386,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps): JSX.Elemen
 		return () => document.removeEventListener('mousedown', handleClickOutside)
 	}, [])
 
-	const renderDockItem = (item: DockItem): JSX.Element => {
+	const renderDockItem = (item: DockItem) => {
 		const isActive = item.href && (pathname === item.href || pathname.startsWith(`${item.href}/`))
 		const isHovered = hoveredItemId === item.id
 		const hasSubmenu = Boolean(item.submenu?.length)
@@ -539,7 +528,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps): JSX.Elemen
 										<span className="text-sm font-semibold text-foreground">{item.label}</span>
 									</div>
 
-									<div className="h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+									<div className="h-px bg-linear-to-r from-transparent via-purple-500/30 to-transparent" />
 
 									<div className="space-y-1.5">
 										{item.submenu!.map((subitem, idx) => (
