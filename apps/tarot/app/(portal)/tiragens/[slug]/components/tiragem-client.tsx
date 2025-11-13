@@ -96,15 +96,20 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 	const optimizedPositions = recalculatePositions(spread)
 
 	const containerDims = calculateContainerDimensions(spread.cardCount)
-	const [particles] = useState<Particle[]>(() =>
-		Array.from({ length: 40 }).map(() => ({
-			left: `${Math.random() * 100}%`,
-			top: `${Math.random() * 100}%`,
-			delay: `${Math.random() * 8}s`,
-			duration: `${15 + Math.random() * 20}s`,
-			size: Math.random() * 3 + 0.5,
-		})),
-	)
+	const [particles, setParticles] = useState<Particle[]>([])
+
+	// Gerar partículas apenas no cliente para evitar mismatch de hidratação
+	useEffect(() => {
+		setParticles(
+			Array.from({ length: 40 }).map(() => ({
+				left: `${Math.random() * 100}%`,
+				top: `${Math.random() * 100}%`,
+				delay: `${Math.random() * 8}s`,
+				duration: `${15 + Math.random() * 20}s`,
+				size: Math.random() * 3 + 0.5,
+			})),
+		)
+	}, [])
 
 	const element = getElement(spread.category as CategoryType)
 	const colors = getElementColors(spread.category as CategoryType)

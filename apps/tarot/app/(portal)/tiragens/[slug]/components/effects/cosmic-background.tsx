@@ -7,6 +7,9 @@
  * @module CosmicBackground
  */
 
+'use client'
+
+import { useEffect, useState } from 'react'
 import type { ElementColors } from '../../element-colors'
 
 /**
@@ -21,6 +24,18 @@ interface CosmicBackgroundProps {
 	colors: ElementColors
 	/** Quantidade de estrelas no campo cósmico */
 	starCount?: number
+}
+
+/**
+ * Interface para dados de uma estrela
+ */
+interface Star {
+	left: string
+	top: string
+	size: number
+	opacity: number
+	delay: number
+	duration: number
 }
 
 /**
@@ -42,6 +57,22 @@ interface CosmicBackgroundProps {
  * @returns {JSX.Element} Background cósmico renderizado
  */
 export function CosmicBackground({ colors, starCount = 150 }: CosmicBackgroundProps) {
+	const [stars, setStars] = useState<Star[]>([])
+
+	// Gerar estrelas apenas no cliente para evitar mismatch de hidratação
+	useEffect(() => {
+		setStars(
+			Array.from({ length: starCount }).map(() => ({
+				left: `${Math.random() * 100}%`,
+				top: `${Math.random() * 100}%`,
+				size: Math.random() * 2 + 0.5,
+				opacity: Math.random() * 0.8 + 0.2,
+				delay: Math.random() * 5,
+				duration: 3 + Math.random() * 4,
+			})),
+		)
+	}, [starCount])
+
 	return (
 		<div className="absolute inset-0 rounded-3xl overflow-hidden"
 			style={{
@@ -54,27 +85,22 @@ export function CosmicBackground({ colors, starCount = 150 }: CosmicBackgroundPr
 		>
 			{/* Campo estrelado */}
 			<div className="absolute inset-0">
-				{Array.from({ length: starCount }).map((_, i) => {
-					const size = Math.random() * 2 + 0.5
-					const opacity = Math.random() * 0.8 + 0.2
-					const delay = Math.random() * 5
-					return (
-						<div
-							key={`star-${i}`}
-							className="absolute rounded-full bg-white animate-pulse"
-							style={{
-								left: `${Math.random() * 100}%`,
-								top: `${Math.random() * 100}%`,
-								width: `${size}px`,
-								height: `${size}px`,
-								opacity: opacity,
-								animationDelay: `${delay}s`,
-								animationDuration: `${3 + Math.random() * 4}s`,
-								boxShadow: `0 0 ${size * 3}px rgba(255, 255, 255, ${opacity * 0.6})`,
-							}}
-						/>
-					)
-				})}
+				{stars.map((star, i) => (
+					<div
+						key={`star-${i}`}
+						className="absolute rounded-full bg-white animate-pulse"
+						style={{
+							left: star.left,
+							top: star.top,
+							width: `${star.size}px`,
+							height: `${star.size}px`,
+							opacity: star.opacity,
+							animationDelay: `${star.delay}s`,
+							animationDuration: `${star.duration}s`,
+							boxShadow: `0 0 ${star.size * 3}px rgba(255, 255, 255, ${star.opacity * 0.6})`,
+						}}
+					/>
+				))}
 			</div>
 
 			{/* Nebulosas coloridas */}
