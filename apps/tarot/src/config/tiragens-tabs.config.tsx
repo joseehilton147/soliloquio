@@ -151,7 +151,7 @@ export function getTiragemTabSubtitle(activeTab: string) {
 	const category = ALL_CATEGORIES.find((cat) => cat.id === activeTab)
 	if (!category) return null
 
-	const colors = ELEMENT_COLORS[category.element]
+	const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
 
 	return (
 		<>
