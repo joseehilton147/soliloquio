@@ -26,6 +26,7 @@ import { getElement, getElementColors } from '../element-colors'
 import { CosmicCard } from './cards'
 import { CosmicBackground, EnergyConnections } from './effects'
 import { calculateContainerDimensions, recalculatePositions, CelticCrossLayout } from './layouts'
+import { YesNoGuide } from './yes-no-guide'
 
 import { getCategoryById } from '@/features/tiragens'
 
@@ -470,6 +471,13 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 					</div>
 				</div>
 			</div>
+
+			{/* ═══ GUIA DE INTERPRETAÇÃO (SIM OU NÃO) ═══ */}
+			{spread.slug === 'sim-ou-nao' && (
+				<div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+					<YesNoGuide />
+				</div>
+			)}
 
 			{/* ═══ CALL TO ACTION ═══ */}
 			<div className="relative z-10 max-w-3xl mx-auto px-6 py-16">
