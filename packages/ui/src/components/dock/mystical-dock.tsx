@@ -174,14 +174,19 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps): JSX.Element {
 			? 'left-full ml-2 top-1/2'
 			: 'bottom-full mb-2 left-1/2'
 
-	// Calcula transform inline incluindo translateY para children
+	// Calcula transform inline para posicionamento correto
 	const getTransformStyle = (): string => {
 		if (level > 1) {
-			// Children: translateX + translateY(-50%) para centralizar
+			// Children (level > 1): abre à DIREITA, centralizado verticalmente
+			// translateX = ajuste horizontal para viewport
+			// translateY(-50%) = centraliza verticalmente em relação ao pai
 			return `translateX(${horizontalOffset}px) translateY(-50%)`
+		} else {
+			// Submenu principal (level 1): abre para CIMA, centralizado horizontalmente
+			// calc(-50% + offset) = centraliza horizontalmente + ajuste viewport
+			// translateY(0) = sem ajuste vertical
+			return `translate(calc(-50% + ${horizontalOffset}px), 0)`
 		}
-		// Submenu principal: apenas translateX + translateX(-50%) do Tailwind
-		return `translateX(${horizontalOffset}px) translateX(-50%)`
 	}
 
 	return (
