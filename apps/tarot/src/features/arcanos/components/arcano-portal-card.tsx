@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { cn } from '@workspace/ui/lib/utils'
-import type { ArcanoType } from '../arcanos.types'
+import type { ArcanoType } from '../domain'
 
 interface ArcanoPortalCardProps {
 	arcano: ArcanoType
