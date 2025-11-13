@@ -51,7 +51,7 @@ const DockSettingsContext = createContext<DockSettingsContextType | undefined>(u
  * @param {React.ReactNode} props.children - Componentes filhos que terão acesso ao contexto
  * @returns {JSX.Element} Provider do contexto de configurações
  */
-export function DockSettingsProvider({ children }: { children: React.ReactNode }): JSX.Element {
+export function DockSettingsProvider({ children }: { children: React.ReactNode }) {
 	const [settings, setSettings] = useState<DockSettings>({
 		visibility: 'always',
 	})
