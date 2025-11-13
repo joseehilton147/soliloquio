@@ -259,8 +259,81 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 						</p>
 					</div>
 
-					{/* Container do Campo Cósmico - Layout Adaptativo */}
-					{spread.slug === 'cruz-celta' ? (
+					{/* Mesa Mística - Background tipo Veludo/Altar */}
+					<div className="relative max-w-7xl mx-auto">
+						{/* Ornamentos da Mesa */}
+						<div className="absolute inset-0 pointer-events-none rounded-3xl">
+							{/* Bordas ornamentadas - Cantos */}
+							<div className="absolute top-4 left-4">
+								<div className="size-12 border-t-2 border-l-2 rounded-tl-2xl opacity-20"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+							</div>
+							<div className="absolute top-4 right-4">
+								<div className="size-12 border-t-2 border-r-2 rounded-tr-2xl opacity-20"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+							</div>
+							<div className="absolute bottom-4 left-4">
+								<div className="size-12 border-b-2 border-l-2 rounded-bl-2xl opacity-20"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+							</div>
+							<div className="absolute bottom-4 right-4">
+								<div className="size-12 border-b-2 border-r-2 rounded-br-2xl opacity-20"
+									style={{ borderColor: `rgba(${colors.rgb}, 0.8)` }}
+								/>
+							</div>
+
+							{/* Símbolos místicos nos cantos */}
+							<div className="absolute top-6 left-6">
+								<Icon icon="game-icons:crystal-ball" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							</div>
+							<div className="absolute top-6 right-6">
+								<Icon icon="game-icons:magic-swirl" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							</div>
+							<div className="absolute bottom-6 left-6">
+								<Icon icon="game-icons:star-formation" className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							</div>
+							<div className="absolute bottom-6 right-6">
+								<Icon icon={category?.mysticalSymbol || 'game-icons:crystal-shrine'} className="size-6 opacity-10" style={{ color: `rgba(${colors.rgb}, 1)` }} />
+							</div>
+						</div>
+
+						{/* Background da Mesa */}
+						<div className="relative rounded-3xl border-2 overflow-hidden backdrop-blur-sm"
+							style={{
+								borderColor: `rgba(${colors.rgb}, 0.3)`,
+								background: `
+									radial-gradient(ellipse at 30% 20%, rgba(${colors.rgb}, 0.08) 0%, transparent 50%),
+									radial-gradient(ellipse at 70% 80%, rgba(${colors.rgb}, 0.08) 0%, transparent 50%),
+									linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(10, 10, 20, 0.9) 50%, rgba(0, 0, 0, 0.85) 100%)
+								`,
+								boxShadow: `
+									0 0 80px rgba(0, 0, 0, 0.8),
+									inset 0 0 80px rgba(${colors.rgb}, 0.05),
+									0 0 0 1px rgba(255, 255, 255, 0.03)
+								`,
+							}}
+						>
+							{/* Textura de veludo/altar sutil */}
+							<div className="absolute inset-0 opacity-[0.015]"
+								style={{
+									backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' /%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.5\' /%3E%3C/svg%3E")',
+									backgroundSize: '100px 100px',
+								}}
+							/>
+
+							{/* Inner glow sutil */}
+							<div className="absolute inset-0 rounded-3xl opacity-20"
+								style={{
+									background: `radial-gradient(ellipse at center, transparent 0%, ${colors.smoke} 100%)`,
+								}}
+							/>
+
+							{/* Container do Campo Cósmico - Layout Adaptativo */}
+							<div className="relative p-12">
+								{spread.slug === 'cruz-celta' ? (
 						/* Layout FIXO para Cruz Celta usando CSS Grid */
 						<CelticCrossLayout
 							spread={spread}
@@ -314,6 +387,9 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 							</div>
 						</div>
 					)}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
