@@ -1,6 +1,6 @@
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import { TiragensCustomCTA, TiragensHeroSection } from './components'
-import { TarotTiragensTabs } from '../../src/components/tabs/tarot-tiragens-tabs'
+import { TarotTiragensTabs } from '@/components/tabs/tarot-tiragens-tabs'
 
 /**
  * Página das Tiragens de Tarot
