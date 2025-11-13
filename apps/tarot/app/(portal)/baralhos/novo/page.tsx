@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { trpc } from '../../../src/lib/trpc'
+import { trpc } from '@/lib/trpc'
 
 
 export default function NovoBaralhoPage() {

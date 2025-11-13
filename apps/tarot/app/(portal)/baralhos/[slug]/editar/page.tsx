@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { use, useState, useEffect } from 'react'
 
-import { trpc } from '../../../../src/lib/trpc'
+import { trpc } from '@/lib/trpc'
 
 interface PageProps {
 	params: Promise<{ slug: string }>;

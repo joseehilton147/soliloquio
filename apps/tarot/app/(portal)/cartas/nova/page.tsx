@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { useTagAutocomplete } from '../../../src/hooks/use-tag-autocomplete'
-import { trpc } from '../../../src/lib/trpc'
+import { trpc } from '@/lib/trpc'
 
 
 export default function NovaCartaPage() {
