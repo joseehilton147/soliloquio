@@ -6,11 +6,24 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@vitest/eslint-plugin": "^1.6.4",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
+    "eslint-plugin-check-file": "^3.3.1",
+    "eslint-plugin-no-secrets": "^2.2.1",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react-you-might-not-need-an-effect": "^0.7.0",
+    "eslint-plugin-regexp": "^2.10.0",
+    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-sonarjs": "^3.0.5",
+    "eslint-plugin-testing-library": "^7.15.3",
+    "eslint-plugin-unicorn": "^62.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "tsx": "^4.19.2",
     "turbo": "^2.6.1",
@@ -25,5 +38,16 @@
   },
   "volta": {
     "node": "22.21.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix --max-warnings 0 --no-warn-ignored"
+    ],
+    "apps/**/*.{js,jsx}": [
+      "eslint --fix --max-warnings 0 --no-warn-ignored"
+    ],
+    "packages/**/src/**/*.{js,jsx}": [
+      "eslint --fix --max-warnings 0 --no-warn-ignored"
+    ]
   }
 }

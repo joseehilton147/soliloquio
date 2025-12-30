@@ -1,33 +1,79 @@
-import js from "@eslint/js"
-import jsxA11y from "eslint-plugin-jsx-a11y"
-import pluginReact from "eslint-plugin-react"
-import pluginReactHooks from "eslint-plugin-react-hooks"
-import reactYouMightNotNeedAnEffect from "eslint-plugin-react-you-might-not-need-an-effect"
-import tailwindcss from "eslint-plugin-tailwindcss"
-import globals from "globals"
-import tseslint from "typescript-eslint"
+/**
+ * @fileoverview Configuração ESLint para Bibliotecas React - Enterprise Anti AI-Smell
+ *
+ * Esta configuração estende a base enterprise com regras específicas para:
+ * - React 19+ (JSX Transform moderno)
+ * - React Hooks (regras recomendadas)
+ * - Acessibilidade (WCAG compliance)
+ * - Anti-patterns React
+ *
+ * Diferença da configuração Next.js:
+ * - Não inclui regras específicas de Next.js
+ * - Ideal para packages/ui e outras bibliotecas React compartilhadas
+ *
+ * @version 3.0.0
+ * @author Solilóquio Team
+ * @license MIT
+ *
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * PLUGINS ADICIONAIS (além da base)
+ * ═══════════════════════════════════════════════════════════════════════════════
+ *
+ * @plugin eslint-plugin-react - Regras React com flat config
+ * @plugin eslint-plugin-react-hooks - Regras de hooks
+ * @plugin eslint-plugin-jsx-a11y - Acessibilidade em JSX
+ * @plugin eslint-plugin-react-you-might-not-need-an-effect - Anti-patterns
+ */
 
-import { config as baseConfig } from "./base.js"
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect'
+import globals from 'globals'
+
+import { config as baseConfig } from './base.js'
 
 /**
- * Configuração ESLint para bibliotecas React.
+ * Configuração ESLint enterprise para bibliotecas React internas.
  *
- * Inclui todas as regras da configuração base, mais:
- * - React 19 com JSX transform moderno
- * - React Hooks com regras recomendadas
- * - Acessibilidade (jsx-a11y)
- * - Anti-pattern detection (you-might-not-need-an-effect)
- * - Tailwind CSS class ordering
+ * @description
+ * Combina a configuração base enterprise (14 plugins) com 4 plugins adicionais
+ * específicos para React. Total: 18 plugins.
  *
- * @type {import("eslint").Linter.Config}
+ * @example
+ * // Em packages/ui/eslint.config.js:
+ * import { config } from "@workspace/eslint-config/react-internal"
+ * export default config
+ *
+ * @type {import("eslint").Linter.Config[]}
  */
 export const config = [
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * CONFIGURAÇÃO BASE ENTERPRISE (14 PLUGINS)
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
 	...baseConfig,
-	js.configs.recommended,
-	...tseslint.configs.recommended,
+
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * REACT RECOMMENDED
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
 	pluginReact.configs.flat.recommended,
+
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * JSX ACCESSIBILITY (A11Y)
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
 	jsxA11y.flatConfigs.recommended,
 
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * LANGUAGE OPTIONS
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
 	{
 		languageOptions: {
 			...pluginReact.configs.flat.recommended.languageOptions,
@@ -38,86 +84,127 @@ export const config = [
 		},
 	},
 
-	// React Hooks + React You Might Not Need An Effect
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * REACT HOOKS + ANTI-PATTERNS
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
 	{
 		plugins: {
-			"react-hooks": pluginReactHooks,
-			"react-you-might-not-need-an-effect": reactYouMightNotNeedAnEffect,
+			'react-hooks': pluginReactHooks,
+			'react-you-might-not-need-an-effect': reactYouMightNotNeedAnEffect,
 		},
-		settings: { react: { version: "detect" } },
+		settings: {
+			react: {
+				version: 'detect',
+			},
+		},
 		rules: {
-			// ═══════════ REACT HOOKS ═══════════
 			...pluginReactHooks.configs.recommended.rules,
 
-			// React scope não é mais necessário com novo JSX transform
-			"react/react-in-jsx-scope": "off",
+			// ═══════════ REACT HOOKS (GALEX PATTERN) ═══════════
 
-			// Desabilitar prop-types (usamos TypeScript)
-			"react/prop-types": "off",
+			/**
+			 * @rule react-hooks/exhaustive-deps
+			 * @description Eleva para error (galex pattern)
+			 * @reason Deps faltantes causam bugs sutis - seja explícito
+			 */
+			'react-hooks/exhaustive-deps': 'error',
 
-			// ═══════════ ANTI-PATTERNS (You Might Not Need An Effect) ═══════════
+			// ═══════════ REACT CORE (GALEX PATTERN) ═══════════
 
-			// Derivar estado de props/state (computar durante render)
-			"react-you-might-not-need-an-effect/no-derived-state": "warn",
+			/**
+			 * @rule react/button-has-type
+			 * @description Força type explícito em buttons
+			 * @reason Previne submit acidental (galex pattern)
+			 */
+			'react/button-has-type': 'error',
 
-			// Chains de setState (efeitos em cascata)
-			"react-you-might-not-need-an-effect/no-chain-state-updates": "warn",
+			/**
+			 * @rule react/jsx-handler-names
+			 * @description Convenção de nomes para handlers
+			 * @reason Consistência: on* para props, handle* para handlers
+			 */
+			'react/jsx-handler-names': ['warn', {
+				eventHandlerPrefix: 'handle',
+				eventHandlerPropPrefix: 'on',
+				checkLocalVariables: false,
+			}],
 
-			// Event handlers (não usar useEffect para manipuladores de evento)
-			"react-you-might-not-need-an-effect/no-event-handler": "warn",
+			/**
+			 * @rule react/no-object-type-as-default-prop
+			 * @description Proíbe objetos como default prop
+			 * @reason Objetos como default causam re-renders
+			 */
+			'react/no-object-type-as-default-prop': 'error',
 
-			// Ajustar estado quando prop muda (usar key ou memoização)
-			"react-you-might-not-need-an-effect/no-adjust-state-on-prop-change": "warn",
+			'react/react-in-jsx-scope': 'off',
+			'react/prop-types': 'off',
+			'react/display-name': 'warn',
+			'react/jsx-no-target-blank': 'error',
 
-			// Resetar todo estado quando prop muda (usar key)
-			"react-you-might-not-need-an-effect/no-reset-all-state-on-prop-change": "warn",
+			'react/jsx-key': ['error', {
+				checkFragmentShorthand: true,
+				checkKeyMustBeforeSpread: true,
+				warnOnDuplicates: true,
+			}],
 
-			// Passar estado ao vivo para componente pai
-			"react-you-might-not-need-an-effect/no-pass-live-state-to-parent": "warn",
+			'react/no-unescaped-entities': 'warn',
 
-			// Passar dados para componente pai
-			"react-you-might-not-need-an-effect/no-pass-data-to-parent": "warn",
+			'react/self-closing-comp': ['error', {
+				component: true,
+				html: true,
+			}],
 
-			// Passar ref para componente pai
-			"react-you-might-not-need-an-effect/no-pass-ref-to-parent": "warn",
+			'react/jsx-curly-brace-presence': ['error', {
+				props: 'never',
+				children: 'never',
+			}],
 
-			// Inicializar estado (fazer fora do componente ou em useState)
-			"react-you-might-not-need-an-effect/no-initialize-state": "warn",
+			'react/jsx-boolean-value': ['error', 'never'],
+			'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
+			'react/hook-use-state': 'error',
+			'react/no-array-index-key': 'warn',
+			'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
 
-			// Gerenciar componente pai (antipadrão)
-			"react-you-might-not-need-an-effect/no-manage-parent": "warn",
+			// ═══════════ ANTI-PATTERNS ═══════════
 
-			// useEffect vazio (sem propósito)
-			"react-you-might-not-need-an-effect/no-empty-effect": "warn",
+			'react-you-might-not-need-an-effect/no-derived-state': 'warn',
+			'react-you-might-not-need-an-effect/no-chain-state-updates': 'warn',
+			'react-you-might-not-need-an-effect/no-event-handler': 'warn',
+			'react-you-might-not-need-an-effect/no-adjust-state-on-prop-change': 'warn',
+			'react-you-might-not-need-an-effect/no-reset-all-state-on-prop-change': 'warn',
+			'react-you-might-not-need-an-effect/no-pass-live-state-to-parent': 'warn',
+			'react-you-might-not-need-an-effect/no-pass-data-to-parent': 'warn',
+			'react-you-might-not-need-an-effect/no-pass-ref-to-parent': 'warn',
+			'react-you-might-not-need-an-effect/no-initialize-state': 'warn',
+			'react-you-might-not-need-an-effect/no-manage-parent': 'warn',
+			'react-you-might-not-need-an-effect/no-empty-effect': 'warn',
 		},
 	},
 
-	// ═══════════ TAILWIND CSS (TEMPORARIAMENTE DESABILITADO) ═══════════
-	//
-	// O plugin eslint-plugin-tailwindcss tem problemas de compatibilidade com Tailwind CSS v4.
-	// Versão beta (4.0.0-beta.0) instalada, mas ainda apresenta erros de resolução.
-	//
-	// Para reativar quando o plugin for totalmente compatível com Tailwind v4:
-	// 1. Descomentar a seção abaixo
-	// 2. Garantir que tailwindcss está instalado em cada app que usa UI components
-	// 3. Testar com: pnpm lint
-	//
-	// {
-	// 	plugins: {
-	// 		tailwindcss,
-	// 	},
-	// 	rules: {
-	// 		"tailwindcss/classnames-order": "warn",
-	// 		"tailwindcss/no-contradicting-classname": "error",
-	// 		"tailwindcss/no-custom-classname": "off",
-	// 		"tailwindcss/no-unnecessary-arbitrary-value": "warn",
-	// 	},
-	// 	settings: {
-	// 		tailwindcss: {
-	// 			config: "packages/ui/tailwind.config.ts",
-	// 			callees: ["cn", "cva", "clsx", "classnames"],
-	// 			tags: ["tw", "styled"],
-	// 		},
-	// 	},
-	// },
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * TYPESCRIPT + JSX FILES
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
+	{
+		files: ['**/*.tsx'],
+		rules: {
+			'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+		},
+	},
+
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 * IGNORES ESPECÍFICOS
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 */
+	{
+		ignores: [
+			'dist/**',
+			'build/**',
+			'.turbo/**',
+		],
+	},
 ]
