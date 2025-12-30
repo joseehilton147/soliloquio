@@ -6,6 +6,14 @@
 
 import type { TarotSpread } from '@workspace/core/tarot'
 
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
+
+/**
+ * Cores elementais para componentes de spread/tiragem
+ * Subconjunto de ElementColorConfig usado em visualizações cósmicas
+ */
+export type SpreadElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
+
 /**
  * Dados de uma categoria de tiragem
  */

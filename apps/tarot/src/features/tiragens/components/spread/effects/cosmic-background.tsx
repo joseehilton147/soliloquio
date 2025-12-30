@@ -11,20 +11,18 @@
 
 import { useEffect, useState } from 'react'
 
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
-
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
 
 /**
  * Props do componente CosmicBackground
  *
  * @interface CosmicBackgroundProps
- * @property {ElementColors} colors - Paleta de cores do elemento atual
+ * @property {SpreadElementColors} colors - Paleta de cores do elemento atual
  * @property {number} starCount - Quantidade de estrelas no campo (padrão: 150)
  */
 type CosmicBackgroundProps = {
 	/** Paleta de cores baseada no elemento (air, water, fire, earth, spirit) */
-	colors: ElementColors
+	colors: SpreadElementColors
 	/** Quantidade de estrelas no campo cósmico */
 	starCount?: number
 }

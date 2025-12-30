@@ -9,26 +9,25 @@
 
 import type { TarotSpread } from '@workspace/core/tarot'
 
-import type { ElementColorConfig, Element } from '@/shared/constants/element-colors'
+import type { Element } from '@/shared/constants/element-colors'
 
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
-type ElementType = Element
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
 
 /**
  * Props do componente EnergyConnections
  *
  * @interface EnergyConnectionsProps
  * @property {TarotSpread['positions']} positions - Array de posições da tiragem
- * @property {ElementColors} colors - Paleta de cores do elemento
- * @property {ElementType} element - Tipo do elemento para ID único do gradiente
+ * @property {SpreadElementColors} colors - Paleta de cores do elemento
+ * @property {Element} element - Tipo do elemento para ID único do gradiente
  */
 type EnergyConnectionsProps = {
 	/** Posições da tiragem com coordenadas e conexões */
 	positions: TarotSpread['positions']
 	/** Paleta de cores baseada no elemento */
-	colors: ElementColors
+	colors: SpreadElementColors
 	/** Tipo do elemento (air, water, fire, earth, spirit) */
-	element: ElementType
+	element: Element
 }
 
 /**

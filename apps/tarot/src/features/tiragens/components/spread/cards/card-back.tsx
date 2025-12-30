@@ -10,9 +10,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
-
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
 
 /**
  * Props do componente CardBack
@@ -27,7 +25,7 @@ type CardBackProps = {
 	/** Indicador visual especial */
 	emphasis?: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'highlight'
 	/** Paleta de cores baseada no elemento */
-	colors: ElementColors
+	colors: SpreadElementColors
 }
 
 /**

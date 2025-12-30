@@ -3,16 +3,14 @@
 import type { TarotSpread } from '@workspace/core/tarot'
 import * as React from 'react'
 
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
+
 import { CardBack } from '../cards/card-back'
 import { CardFront } from '../cards/card-front'
 
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
-
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
-
 type CelticCrossLayoutProps = {
 	spread: TarotSpread
-	colors: ElementColors
+	colors: SpreadElementColors
 	mysticalSymbol: string
 	selectedPosition: string | null
 	flippedCards: Set<string>
@@ -230,7 +228,7 @@ export function CelticCrossLayout({
 type CosmicCardStaticProps = {
 	position: TarotSpread['positions'][number]
 	mysticalSymbol: string
-	colors: ElementColors
+	colors: SpreadElementColors
 	isSelected: boolean
 	isFlipped: boolean
 	onToggle: () => void

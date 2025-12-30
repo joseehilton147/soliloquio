@@ -11,13 +11,11 @@
 import type { TarotSpread } from '@workspace/core/tarot'
 import { cn } from '@workspace/ui/lib/utils'
 
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
+
 import { CardBack } from './card-back'
 import { CardFront } from './card-front'
 import { CardTooltip } from './card-tooltip'
-
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
-
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
 
 /**
  * Props do componente CosmicCard
@@ -25,7 +23,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @interface CosmicCardProps
  * @property {TarotSpread['positions'][number]} position - Dados da posição da carta
  * @property {string} mysticalSymbol - Ícone místico para o elemento
- * @property {ElementColors} colors - Paleta de cores do elemento
+ * @property {SpreadElementColors} colors - Paleta de cores do elemento
  * @property {boolean} isSelected - Se a carta está selecionada
  * @property {boolean} isFlipped - Se a carta está virada (mostrando verso)
  * @property {() => void} onToggle - Callback ao clicar na carta
@@ -36,7 +34,7 @@ type CosmicCardProps = {
 	/** Ícone do Iconify para símbolo místico */
 	mysticalSymbol: string
 	/** Paleta de cores baseada no elemento */
-	colors: ElementColors
+	colors: SpreadElementColors
 	/** Indica se a carta está atualmente selecionada */
 	isSelected: boolean
 	/** Indica se a carta está virada (mostrando explicação) */

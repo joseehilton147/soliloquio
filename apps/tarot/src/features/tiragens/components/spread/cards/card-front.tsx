@@ -10,9 +10,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
-
-type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
+import type { SpreadElementColors } from '../../../domain/tiragens.types'
 
 /**
  * Props do componente CardFront
@@ -21,7 +19,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @property {number} order - Número da ordem da posição (1, 2, 3...)
  * @property {string} label - Nome/label da posição
  * @property {string} mysticalSymbol - Ícone místico a ser exibido
- * @property {ElementColors} colors - Paleta de cores do elemento
+ * @property {SpreadElementColors} colors - Paleta de cores do elemento
  * @property {boolean} isSelected - Se a carta está selecionada
  */
 type CardFrontProps = {
@@ -32,7 +30,7 @@ type CardFrontProps = {
 	/** Ícone do Iconify para símbolo místico */
 	mysticalSymbol: string
 	/** Paleta de cores baseada no elemento */
-	colors: ElementColors
+	colors: SpreadElementColors
 	/** Indica se a carta está atualmente selecionada */
 	isSelected: boolean
 }
