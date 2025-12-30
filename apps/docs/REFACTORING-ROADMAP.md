@@ -216,7 +216,7 @@ Ver detalhes em `apps/tarot/REVISAO_EM_ANDAMENTO.md`
 
 **Escopo**: Reativar regras ESLint desabilitadas incrementalmente
 
-**Status**: ⏳ PENDENTE (pode ser executada em paralelo)
+**Status**: ✅ CONCLUÍDA - 2025-12-30 (Sessão 15)
 
 **Contexto**: Na Sessão 10, foram criados overrides temporários para permitir commits.
 Total de ~1.294 erros suprimidos que precisam ser corrigidos.
@@ -275,7 +275,7 @@ Total de ~1.294 erros suprimidos que precisam ser corrigidos.
 
 **Escopo**: Organizar features com estrutura consistente
 
-**Status**: 🔄 EM ANDAMENTO - 2025-12-30 (10%)
+**Status**: ✅ CONCLUÍDA - 2025-12-30 (Sessão 14)
 
 **Estrutura alvo para cada feature:**
 ```
@@ -294,14 +294,14 @@ src/features/[feature]/
 └── index.ts             # Barrel export
 ```
 
-**Features existentes (análise da Sessão 11):**
+**Features existentes (concluídas na Sessão 14):**
 - [x] `arcanos/` - ✅ Completo (domain + components)
 - [x] `naipes/` - ✅ Completo (15 componentes Atomic Design)
-- [ ] `tiragens/` - ⚠️ Parcial (consolidar 15 componentes de `app/` para `src/features/`)
+- [x] `tiragens/` - ✅ Consolidado (19 componentes em subpastas estruturadas)
 
-**Features a criar:**
-- [ ] `baralhos/` - Gestão de decks (CRUD)
-- [ ] `cartas/` - Cartas individuais (CRUD)
+**Features criadas (Sessão 14):**
+- [x] `baralhos/` - ✅ Gestão de decks (DeckCard, HeroSection)
+- [x] `cartas/` - ✅ Cartas individuais (ReflectionMessage)
 
 **Componentes a consolidar em tiragens:**
 1. `app/(portal)/tiragens/components/` → `src/features/tiragens/components/page/`
@@ -327,7 +327,19 @@ src/features/[feature]/
 
 **Escopo**: Organizar types seguindo DDD do Tomador
 
-**Estrutura alvo:**
+**Status**: ✅ CONCLUÍDA - 2025-12-30 (Sessão 15)
+
+**O que foi feito:**
+- [x] Remoção de código morto (`naipe-colors.config.ts`)
+- [x] Criação de `dock-settings.types.ts` para tipos de contexto
+- [x] Eliminação de aliases redundantes (`ElementColorScheme`)
+- [x] Extração de `NaipeCardData` para domínio correto
+- [x] Centralização de `SpreadElementColors` (eliminando 7 duplicações)
+- [x] Criação de `src/types/index.ts` (barrel de tipos globais)
+- [x] Verificação de hooks (`use-autosave.ts` já exporta tipos genéricos)
+- [x] Verificação de configs (já bem tipados)
+
+**Estrutura final:**
 ```
 src/types/
 ├── arcanos/
@@ -530,6 +542,63 @@ component-name/
 
 ## Registro de Progresso
 
+### [2025-12-30] Sessão 15 - Fases 1.75 e 3 CONCLUÍDAS
+
+**FASE 3 FINALIZADA (100%)**
+- ✅ Verificação de configs (`dock-items.tsx`, `header-apps.tsx`) - já bem tipados
+- ✅ Verificação de hooks (`use-autosave.ts`, `use-tag-autocomplete.ts`) - já bem tipados
+- ✅ `use-autosave.ts` já exporta `AutosaveOptions<T>` e `AutosaveReturn<T>` (exemplar)
+- ✅ Validação via IDE diagnostics - 0 erros
+
+**FASE 1.75 FINALIZADA (100%)**
+- ✅ Correção de 3 erros `import/order` em arquivos de features
+- ✅ Grupos de imports: Externos → Internos relativos (`../`) → Internos alias (`@/`)
+- ✅ 10 regras ESLint reativadas no total
+
+**Commits:** `d44a322`, `b73af52`
+
+---
+
+### [2025-12-30] Sessão 14 - Fase 2 CONCLUÍDA + Fase 3 Progresso
+
+**FASE 2 CONSOLIDADA (100%)**
+- ✅ Commit de 51 arquivos com migração para feature folders
+- ✅ 22 componentes movidos de `app/(portal)/` para `src/features/`
+- ✅ Criação de 5 features completas (arcanos, naipes, tiragens, baralhos, cartas)
+- ✅ 19 componentes de tiragens consolidados em subpastas
+
+**FASE 3 PROGRESSO (35%)**
+- ✅ Remoção de `naipe-colors.config.ts` (código morto)
+- ✅ Criação de `dock-settings.types.ts`
+- ✅ Centralização de `SpreadElementColors` (7 duplicações eliminadas)
+- ✅ Criação de `src/types/index.ts` (barrel)
+
+**Commits:** `8ee8f61`, `36fea17`, `b831547`, `d79ba3e`
+
+---
+
+### [2025-12-30] Sessão 13 - Fase 3 Iniciada + no-explicit-any
+
+**FASE 3 INICIADA (15%)**
+- ✅ Refatoração de `use-autosave.ts` para generics `<T>`
+- ✅ Criação de `TarotCardFromRouter` (inferência tRPC)
+- ✅ Correção de 7 erros `no-explicit-any` em 5 arquivos
+
+**Commit:** `7571571`
+
+---
+
+### [2025-12-30] Sessão 12 - Fase 2 Progresso + ESLint Reativado
+
+**FASE 2 PROGRESSO (80%)**
+- ✅ Consolidação de 19 componentes de Tiragens
+- ✅ Criação da feature Baralhos e Cartas
+
+**FASE 1.75 PROGRESSO (20%)**
+- ✅ 8 regras ESLint reativadas
+
+---
+
 ### [2025-12-30] Sessão 11 - Fase 2 Feature Folders (Início)
 
 **FASE 2 INICIADA (10%)**
@@ -671,5 +740,5 @@ component-name/
 
 ---
 
-*Última atualização: 2025-12-30 (Sessão 11)*
-*Versão: 1.1*
+*Última atualização: 2025-12-30 (Sessão 15)*
+*Versão: 1.2*
