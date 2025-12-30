@@ -33,7 +33,7 @@ Após ler, me diga: (1) Em qual fase estamos, (2) O que foi feito, (3) Próximo 
 | **1.5** | TanStack Libraries | ✅ CONCLUÍDA | 100% |
 | **1.75** | ESLint Compliance | 🔄 EM ANDAMENTO | 23% (9 regras) |
 | **2** | Feature Folders | ✅ CONCLUÍDA | 100% |
-| **3** | Sistema de Types | 🔄 EM ANDAMENTO | 15% |
+| **3** | Sistema de Types | 🔄 EM ANDAMENTO | 35% |
 | 4 | Frameworks de Qualidade | ⏳ Pendente | 0% |
 | 5 | Testes | ⏳ Pendente | 0% |
 
@@ -195,32 +195,36 @@ src/features/
 
 ## Histórico de Sessões
 
-### Sessão 14 - 2025-12-30 (Fase 2 Commits Finalizados + TypeScript Fixes)
+### Sessão 14 - 2025-12-30 (Fase 2 Finalizada + Fase 3 Progresso)
 
 **FASE 2 CONSOLIDADA (100%)**
 
-**O que foi feito - Feature Folders Commitados:**
+**O que foi feito - Feature Folders:**
 1. Commit de 51 arquivos com migração para feature folders
 2. 22 componentes movidos de `app/(portal)/` para `src/features/`
-3. Correção de erro TypeScript: `colors.primary` → `colors.color` em naipe-page-hero.tsx
-4. Correção de namespace JSX → inferência automática em mystical-layout.tsx
-5. Organização de tiragens em subpastas: page/, spread/cards/, spread/effects/, spread/guides/, spread/layouts/
+3. Correção de erro TypeScript: `colors.primary` → `colors.color`
+4. Correção de namespace JSX → inferência automática
+5. Organização de tiragens em subpastas estruturadas
 
-**Arquivos criados/organizados:**
-- `src/features/baralhos/` - domain + components
-- `src/features/cartas/` - domain + components
-- `src/features/tiragens/components/page/` - TiragensHeroSection, etc.
-- `src/features/tiragens/components/spread/` - CosmicCard, CelticCrossLayout, etc.
-- `src/features/tiragens/domain/tiragens.types.ts`
+**FASE 3 PROGRESSO (35%)**
 
-**Commit:**
+**O que foi feito - Sistema de Types:**
+1. Remoção de `naipe-colors.config.ts` (código morto/duplicado)
+2. Criação de `dock-settings.types.ts` para tipos do contexto
+3. Eliminação de aliases `ElementColorScheme` redundantes em 3 componentes
+4. Extração de `NaipeCardData` para `naipes.types.ts` (domínio correto)
+5. Atualização do barrel `naipes/domain/index.ts`
+
+**Commits:**
 ```
+36fea17 refactor(tipos): consolidar sistema de types e eliminar duplicação
 8ee8f61 refactor(arquitetura): concluir Fase 2 - migração para feature folders
+3d8dfa2 docs(contexto): atualizar para Sessão 14
 ```
 
-**Status:** Branch main 4 commits ahead de origin/main
+**Status:** Branch main 6 commits ahead de origin/main
 
-**Próximo:** Push to origin ou continuar Fase 3 (Sistema de Types)
+**Próximo:** Continuar Fase 3 - TypeScript unsafe rules ou mais consolidações
 
 ---
 
@@ -463,5 +467,5 @@ Para QUALQUER projeto, use este padrão:
 
 ---
 
-*Última atualização: 2025-12-30 (Sessão 14 - Fase 2 Commits Finalizados)*
+*Última atualização: 2025-12-30 (Sessão 14 - Fase 3 em 35%)*
 *Atualizar sempre que: (1) Concluir item, (2) Mudar de fase, (3) Finalizar sessão*
