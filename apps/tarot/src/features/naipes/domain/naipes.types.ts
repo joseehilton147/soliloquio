@@ -1,4 +1,19 @@
 /**
+ * Representa uma carta de naipe para exibição em grids
+ * Tipo simplificado usado em listagens e componentes de UI
+ */
+export type NaipeCardData = {
+	id: string
+	slug: string | null
+	name: string
+	imageUrl?: string | null
+	deck?: { name: string } | null
+	numerology?: number | string | boolean | null
+	verticalMeaning?: unknown
+	typesOfReading?: unknown
+}
+
+/**
  * Representa um naipe do Tarô com suas propriedades visuais e simbólicas
  */
 export type Naipe = {

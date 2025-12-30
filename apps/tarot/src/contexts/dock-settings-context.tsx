@@ -2,18 +2,9 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
+import type { DockSettings, DockSettingsContextType } from './dock-settings.types'
+
 const DOCK_SETTINGS_STORAGE_KEY = 'soliloquio-dock-settings'
-
-type DockVisibility = 'always' | 'auto-hide'
-
-type DockSettings = {
-	visibility: DockVisibility
-}
-
-type DockSettingsContextType = {
-	settings: DockSettings
-	updateSettings: (settings: Partial<DockSettings>) => void
-}
 
 const DockSettingsContext = createContext<DockSettingsContextType | undefined>(undefined)
 

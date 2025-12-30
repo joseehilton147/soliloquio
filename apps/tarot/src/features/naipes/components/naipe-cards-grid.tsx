@@ -8,22 +8,11 @@ import Link from 'next/link'
 
 import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 
-type ElementColorScheme = NaipeColorScheme
-
-type Card = {
-	id: string
-	slug: string | null
-	name: string
-	imageUrl?: string | null
-	deck?: { name: string } | null
-	numerology?: number | string | boolean | null
-	verticalMeaning?: unknown
-	typesOfReading?: unknown
-}
+import type { NaipeCardData } from '../domain/naipes.types'
 
 export type NaipeCardsGridProps = {
-	cards: Card[]
-	colors: ElementColorScheme
+	cards: NaipeCardData[]
+	colors: NaipeColorScheme
 	symbol: string
 }
 

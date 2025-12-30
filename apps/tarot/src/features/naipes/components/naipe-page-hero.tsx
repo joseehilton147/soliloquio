@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react'
 
 import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 
-type ElementColorScheme = NaipeColorScheme
-
 export type NaipePageHeroProps = {
 	title: string
 	subtitle: string
@@ -18,7 +16,7 @@ export type NaipePageHeroProps = {
 	symbolIcon2: string
 	symbolIcon3: string
 	symbolIcon4: string
-	colors: ElementColorScheme
+	colors: NaipeColorScheme
 	symbol: string
 }
 

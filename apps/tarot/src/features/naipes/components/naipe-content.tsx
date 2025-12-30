@@ -6,11 +6,9 @@ import { NaipeCardsGrid } from './naipe-cards-grid'
 
 import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 
-type ElementColorScheme = NaipeColorScheme
-
 type NaipeContentProps = {
 	suit: 'COPAS' | 'PAUS' | 'OUROS' | 'ESPADAS'
-	colors: ElementColorScheme
+	colors: NaipeColorScheme
 	symbol: string
 }
 
