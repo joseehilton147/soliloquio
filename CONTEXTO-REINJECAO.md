@@ -195,6 +195,35 @@ src/features/
 
 ## Histórico de Sessões
 
+### Sessão 14 - 2025-12-30 (Fase 2 Commits Finalizados + TypeScript Fixes)
+
+**FASE 2 CONSOLIDADA (100%)**
+
+**O que foi feito - Feature Folders Commitados:**
+1. Commit de 51 arquivos com migração para feature folders
+2. 22 componentes movidos de `app/(portal)/` para `src/features/`
+3. Correção de erro TypeScript: `colors.primary` → `colors.color` em naipe-page-hero.tsx
+4. Correção de namespace JSX → inferência automática em mystical-layout.tsx
+5. Organização de tiragens em subpastas: page/, spread/cards/, spread/effects/, spread/guides/, spread/layouts/
+
+**Arquivos criados/organizados:**
+- `src/features/baralhos/` - domain + components
+- `src/features/cartas/` - domain + components
+- `src/features/tiragens/components/page/` - TiragensHeroSection, etc.
+- `src/features/tiragens/components/spread/` - CosmicCard, CelticCrossLayout, etc.
+- `src/features/tiragens/domain/tiragens.types.ts`
+
+**Commit:**
+```
+8ee8f61 refactor(arquitetura): concluir Fase 2 - migração para feature folders
+```
+
+**Status:** Branch main 4 commits ahead de origin/main
+
+**Próximo:** Push to origin ou continuar Fase 3 (Sistema de Types)
+
+---
+
 ### Sessão 13 - 2025-12-30 (Fase 3 Iniciada + Fase 1.75 Progresso)
 
 **FASE 3 INICIADA (15%)**
@@ -434,5 +463,5 @@ Para QUALQUER projeto, use este padrão:
 
 ---
 
-*Última atualização: 2025-12-30 (Sessão 12 - Fase 2 CONCLUÍDA)*
+*Última atualização: 2025-12-30 (Sessão 14 - Fase 2 Commits Finalizados)*
 *Atualizar sempre que: (1) Concluir item, (2) Mudar de fase, (3) Finalizar sessão*
