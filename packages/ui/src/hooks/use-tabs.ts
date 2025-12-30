@@ -2,12 +2,12 @@
 
 import { useState, useCallback } from 'react'
 
-export interface UseTabsOptions {
+export type UseTabsOptions = {
 	defaultTab?: string
 	onChange?: (tabId: string) => void
 }
 
-export interface UseTabsReturn {
+export type UseTabsReturn = {
 	activeTab: string
 	setActiveTab: (tabId: string) => void
 	isActive: (tabId: string) => boolean
@@ -32,12 +32,12 @@ export function useTabs({ defaultTab, onChange }: UseTabsOptions = {}): UseTabsR
 			setActiveTabState(tabId)
 			onChange?.(tabId)
 		},
-		[onChange]
+		[onChange],
 	)
 
 	const isActive = useCallback(
 		(tabId: string) => activeTab === tabId,
-		[activeTab]
+		[activeTab],
 	)
 
 	return {

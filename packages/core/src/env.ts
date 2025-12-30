@@ -3,24 +3,24 @@
  * SEMPRE deve dar erro se variável não existir
  */
 
-function getEnvVar(key: string): string {
-  const value = process.env[key];
-
-  if (!value) {
-    throw new Error(
-      `❌ Variável de ambiente "${key}" não configurada!\n` +
-      `Configure em .env.local ou nas variáveis de ambiente do sistema.`
-    );
-  }
-
-  return value;
-}
-
 export function getApiUrl(): string {
-  // Sem fallbacks - se não configurou, erro explícito
-  return getEnvVar('NEXT_PUBLIC_API_URL');
+	const value = process.env.NEXT_PUBLIC_API_URL
+	if (!value) {
+		throw new Error(
+			'❌ Variável de ambiente "NEXT_PUBLIC_API_URL" não configurada!\n' +
+			'Configure em .env.local ou nas variáveis de ambiente do sistema.',
+		)
+	}
+	return value
 }
 
 export function getDatabaseUrl(): string {
-  return getEnvVar('DATABASE_URL');
+	const value = process.env.DATABASE_URL
+	if (!value) {
+		throw new Error(
+			'❌ Variável de ambiente "DATABASE_URL" não configurada!\n' +
+			'Configure em .env.local ou nas variáveis de ambiente do sistema.',
+		)
+	}
+	return value
 }

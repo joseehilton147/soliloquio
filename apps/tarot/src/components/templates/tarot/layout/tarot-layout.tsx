@@ -2,6 +2,10 @@
 
 import { MysticalLayout } from '@/shared/components'
 
-export function TarotLayout({ children }: { children: React.ReactNode }) {
+type TarotLayoutProps = {
+	children: React.ReactNode
+}
+
+export function TarotLayout({ children }: TarotLayoutProps) {
 	return <MysticalLayout>{children}</MysticalLayout>
 }

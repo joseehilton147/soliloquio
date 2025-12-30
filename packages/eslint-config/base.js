@@ -783,6 +783,24 @@ export const config = [
 
 	/**
 	 * ═══════════════════════════════════════════════════════════════════════════
+	 * PACKAGES OVERRIDE - BARRELS PERMITIDOS
+	 * ═══════════════════════════════════════════════════════════════════════════
+	 *
+	 * Packages compartilhados PRECISAM de um ponto de entrada (index.ts).
+	 * Isso é diferente de app code onde barrels são anti-pattern.
+	 *
+	 * @reason Packages definem exports no package.json que apontam para index.ts
+	 * @see https://nodejs.org/api/packages.html#package-entry-points
+	 */
+	{
+		files: ['**/index.ts', 'src/**/index.ts'],
+		rules: {
+			'no-barrel-files/no-barrel-files': 'off',
+		},
+	},
+
+	/**
+	 * ═══════════════════════════════════════════════════════════════════════════
 	 * IGNORES GLOBAIS
 	 * ═══════════════════════════════════════════════════════════════════════════
 	 */

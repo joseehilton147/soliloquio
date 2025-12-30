@@ -1,7 +1,7 @@
 /**
  * Representa um tipo de Arcano do Tarô com suas propriedades místicas
  */
-export interface ArcanoType {
+export type ArcanoType = {
 	/** Identificador único */
 	id: 'maiores' | 'menores'
 	/** Nome do tipo de arcano */
@@ -31,10 +31,10 @@ export interface ArcanoType {
 	/** Citação mística */
 	quote: string
 	/** Pontos-chave */
-	keyPoints: Array<{
+	keyPoints: {
 		title: string
 		description: string
-	}>
+	}[]
 	/** URL de navegação */
 	href: string
 }

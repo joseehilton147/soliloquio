@@ -1,11 +1,11 @@
 'use client'
 
-import { MysticalLoading } from '@workspace/ui'
 import { Icon } from '@iconify/react'
+import { MysticalLoading } from '@workspace/ui'
 import Image from 'next/image'
 import Link from 'next/link'
-import { trpc } from '@/lib/trpc'
 
+import { trpc } from '@/lib/trpc'
 
 export default function BaralhosPage() {
 	const { data: decks, isLoading, error } = trpc.tarot.getDecks.useQuery()
@@ -200,7 +200,7 @@ export default function BaralhosPage() {
 				)}
 
 				{/* Empty state */}
-				{decks && decks.length === 0 && (
+				{decks?.length === 0 && (
 					<div className="flex flex-col items-center justify-center py-24 text-center">
 						<div className="relative">
 							<div className="absolute inset-0 animate-ping rounded-full bg-purple-500/20" />

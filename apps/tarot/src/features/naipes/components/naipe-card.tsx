@@ -1,33 +1,15 @@
 import Link from 'next/link'
+
 import type { Naipe } from '../domain'
+
+import { NaipeCTA } from './naipe-cta'
 import { NaipeHeader } from './naipe-header'
 import { NaipeInfo } from './naipe-info'
-import { NaipeCTA } from './naipe-cta'
 
-/**
- * Props do componente NaipeCard
- */
-interface NaipeCardProps {
-	/** Dados completos do naipe */
+type NaipeCardProps = {
 	naipe: Naipe
 }
 
-/**
- * Card de naipe - Organismo
- *
- * Componente burro que exibe um card completo de naipe combinando:
- * - Header (ícone, nome, símbolo)
- * - Info (descrição, elemento, zodíaco, temas)
- * - CTA (botão explorar)
- *
- * Segue Design Atomic como organismo que compõe moléculas e átomos.
- * Wrapped em Link para navegação.
- *
- * @example
- * ```tsx
- * <NaipeCard naipe={NAIPES[0]} />
- * ```
- */
 export function NaipeCard({ naipe }: NaipeCardProps) {
 	return (
 		<Link

@@ -3,220 +3,224 @@
  * Endpoints para gerenciamento das cartas de Tarot
  */
 
-import { z } from 'zod';
-import { router, publicProcedure } from '../trpc';
-import { createTarotCardSchema, updateTarotCardSchema } from '@workspace/core/tarot';
-import { generateSlug } from '../../lib/slug';
+import { createTarotCardSchema, updateTarotCardSchema } from '@workspace/core/tarot'
+import { z } from 'zod'
+
+import { generateSlug } from '../../lib/slug'
+import { router, publicProcedure } from '../trpc'
+
+const CARD_NOT_FOUND = 'Carta não encontrada'
+const DECK_NOT_FOUND = 'Baralho não encontrado'
 
 export const tarotRouter = router({
-  /**
+	/**
    * Buscar todas as cartas
    */
-  getAll: publicProcedure
-    .input(
-      z
-        .object({
-          limit: z.number().min(1).max(100).default(50),
-          offset: z.number().min(0).default(0),
-        })
-        .optional()
-    )
-    .query(async ({ ctx, input }) => {
-      const { limit = 50, offset = 0 } = input || {};
+	getAll: publicProcedure
+		.input(
+			z
+				.object({
+					limit: z.number().min(1).max(100).default(50),
+					offset: z.number().min(0).default(0),
+				})
+				.optional(),
+		)
+		.query(async ({ ctx, input }) => {
+			const { limit = 50, offset = 0 } = input || {}
 
-      const [cards, total] = await Promise.all([
-        ctx.prisma.tarotCard.findMany({
-          take: limit,
-          skip: offset,
-          include: {
-            typesOfReading: true,
-            deck: true,
-          },
-          orderBy: {
-            numerology: 'asc',
-          },
-        }),
-        ctx.prisma.tarotCard.count(),
-      ]);
+			const [cards, total] = await Promise.all([
+				ctx.prisma.tarotCard.findMany({
+					take: limit,
+					skip: offset,
+					include: {
+						typesOfReading: true,
+						deck: true,
+					},
+					orderBy: {
+						numerology: 'asc',
+					},
+				}),
+				ctx.prisma.tarotCard.count(),
+			])
 
-      return {
-        cards,
-        pagination: {
-          total,
-          limit,
-          offset,
-          hasMore: offset + limit < total,
-        },
-      };
-    }),
+			return {
+				cards,
+				pagination: {
+					total,
+					limit,
+					offset,
+					hasMore: offset + limit < total,
+				},
+			}
+		}),
 
-  /**
+	/**
    * Buscar carta por ID
    */
-  getById: publicProcedure.input(z.string().uuid()).query(async ({ ctx, input }) => {
-    const card = await ctx.prisma.tarotCard.findUnique({
-      where: { id: input },
-      include: {
-        typesOfReading: true,
-      },
-    });
+	getById: publicProcedure.input(z.string().uuid()).query(async ({ ctx, input }) => {
+		const card = await ctx.prisma.tarotCard.findUnique({
+			where: { id: input },
+			include: {
+				typesOfReading: true,
+			},
+		})
 
-    if (!card) {
-      throw new Error('Carta não encontrada');
-    }
+		if (!card) {
+			throw new Error(CARD_NOT_FOUND)
+		}
 
-    return card;
-  }),
+		return card
+	}),
 
-  /**
+	/**
    * Buscar carta por nome
    * Nota: Como name não é único, retorna a primeira carta encontrada
    */
-  getByName: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const card = await ctx.prisma.tarotCard.findFirst({
-      where: { name: input },
-      include: {
-        typesOfReading: true,
-      },
-    });
+	getByName: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+		const card = await ctx.prisma.tarotCard.findFirst({
+			where: { name: input },
+			include: {
+				typesOfReading: true,
+			},
+		})
 
-    if (!card) {
-      throw new Error('Carta não encontrada');
-    }
+		if (!card) {
+			throw new Error(CARD_NOT_FOUND)
+		}
 
-    return card;
-  }),
+		return card
+	}),
 
-  /**
+	/**
    * Buscar carta por slug
    * Nota: Como slug não é único globalmente (apenas por deck),
    * retorna a primeira carta encontrada com esse slug
    */
-  getBySlug: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const card = await ctx.prisma.tarotCard.findFirst({
-      where: { slug: input },
-      include: {
-        typesOfReading: true,
-        deck: true,
-      },
-    });
+	getBySlug: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+		const card = await ctx.prisma.tarotCard.findFirst({
+			where: { slug: input },
+			include: {
+				typesOfReading: true,
+				deck: true,
+			},
+		})
 
-    if (!card) {
-      throw new Error('Carta não encontrada');
-    }
+		if (!card) {
+			throw new Error(CARD_NOT_FOUND)
+		}
 
-    return card;
-  }),
+		return card
+	}),
 
-  /**
+	/**
    * Criar nova carta
    */
-  create: publicProcedure
-    .input(createTarotCardSchema)
-    .mutation(async ({ ctx, input }) => {
-      const { typesOfReading, ...cardData } = input;
+	create: publicProcedure
+		.input(createTarotCardSchema)
+		.mutation(async ({ ctx, input }) => {
+			const { typesOfReading, ...cardData } = input
 
-      // Generate slug from card name
-      const slug = generateSlug(cardData.name);
+			// Generate slug from card name
+			const slug = generateSlug(cardData.name)
 
-      const card = await ctx.prisma.tarotCard.create({
-        data: {
-          ...cardData,
-          slug,
-          typesOfReading: {
-            create: typesOfReading.map((reading) => ({
-              type: reading.type,
-              read: reading.read,
-            })),
-          },
-        },
-        include: {
-          typesOfReading: true,
-        },
-      });
+			const card = await ctx.prisma.tarotCard.create({
+				data: {
+					...cardData,
+					slug,
+					typesOfReading: {
+						create: typesOfReading.map((reading) => ({
+							type: reading.type,
+							read: reading.read,
+						})),
+					},
+				},
+				include: {
+					typesOfReading: true,
+				},
+			})
 
-      return card;
-    }),
+			return card
+		}),
 
-  /**
+	/**
    * Atualizar carta existente
    */
-  update: publicProcedure
-    .input(
-      z.object({
-        id: z.string().uuid(),
-        data: updateTarotCardSchema,
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { id, data } = input;
-      const { typesOfReading, ...cardData } = data;
+	update: publicProcedure
+		.input(
+			z.object({
+				id: z.string().uuid(),
+				data: updateTarotCardSchema,
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			const { id, data } = input
+			const { typesOfReading, ...cardData } = data
 
-      // Generate new slug if name is being updated
-      const dataWithSlug = cardData.name
-        ? { ...cardData, slug: generateSlug(cardData.name) }
-        : cardData;
+			// Generate new slug if name is being updated
+			const dataWithSlug = cardData.name
+				? { ...cardData, slug: generateSlug(cardData.name) }
+				: cardData
 
-      // Se typesOfReading foi fornecido, deletar os antigos e criar novos
-      if (typesOfReading) {
-        await ctx.prisma.readingType.deleteMany({
-          where: { cardId: id },
-        });
-      }
+			// Se typesOfReading foi fornecido, deletar os antigos e criar novos
+			if (typesOfReading) {
+				await ctx.prisma.readingType.deleteMany({
+					where: { cardId: id },
+				})
+			}
 
-      const card = await ctx.prisma.tarotCard.update({
-        where: { id },
-        data: {
-          ...dataWithSlug,
-          ...(typesOfReading && {
-            typesOfReading: {
-              create: typesOfReading.map((reading) => ({
-                type: reading.type,
-                read: reading.read,
-              })),
-            },
-          }),
-          updatedAt: new Date(),
-        },
-        include: {
-          typesOfReading: true,
-        },
-      });
+			const card = await ctx.prisma.tarotCard.update({
+				where: { id },
+				data: {
+					...dataWithSlug,
+					...(typesOfReading && {
+						typesOfReading: {
+							create: typesOfReading.map((reading) => ({
+								type: reading.type,
+								read: reading.read,
+							})),
+						},
+					}),
+					updatedAt: new Date(),
+				},
+				include: {
+					typesOfReading: true,
+				},
+			})
 
-      return card;
-    }),
+			return card
+		}),
 
-  /**
+	/**
    * Deletar carta
    */
-  delete: publicProcedure.input(z.string().uuid()).mutation(async ({ ctx, input }) => {
-    await ctx.prisma.tarotCard.delete({
-      where: { id: input },
-    });
+	delete: publicProcedure.input(z.string().uuid()).mutation(async ({ ctx, input }) => {
+		await ctx.prisma.tarotCard.delete({
+			where: { id: input },
+		})
 
-    return { success: true };
-  }),
+		return { success: true }
+	}),
 
-  /**
+	/**
    * Buscar tags com fuzzy search (para autocomplete)
    */
-  searchTags: publicProcedure
-    .input(
-      z.object({
-        deckId: z.string().uuid(),
-        type: z.enum(['vertical', 'inverted']),
-        query: z.string().min(1),
-        limit: z.number().min(1).max(20).default(10),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      const { deckId, type, query, limit } = input;
+	searchTags: publicProcedure
+		.input(
+			z.object({
+				deckId: z.string().uuid(),
+				type: z.enum(['vertical', 'inverted']),
+				query: z.string().min(1),
+				limit: z.number().min(1).max(20).default(10),
+			}),
+		)
+		.query(async ({ ctx, input }) => {
+			const { deckId, type, query, limit } = input
 
-      // Fuzzy search usando pg_trgm com similarity
-      // similarity() retorna valor entre 0 e 1 (quanto maior, mais similar)
-      const tags = await ctx.prisma.$queryRaw<
-        Array<{ id: string; value: string; usageCount: number; similarity: number }>
-      >`
+			// Fuzzy search usando pg_trgm com similarity
+			// similarity() retorna valor entre 0 e 1 (quanto maior, mais similar)
+			const tags = await ctx.prisma.$queryRaw<
+				{ id: string; value: string; usageCount: number; similarity: number }[]
+			>`
         SELECT
           id,
           value,
@@ -228,135 +232,133 @@ export const tarotRouter = router({
           AND similarity(value, ${query}) > 0.2
         ORDER BY similarity DESC, "usageCount" DESC
         LIMIT ${limit}
-      `;
+      `
 
-      return tags;
-    }),
+			return tags
+		}),
 
-  /**
+	/**
    * Buscar todos os decks disponíveis
    */
-  getDecks: publicProcedure.query(async ({ ctx }) => {
-    const decks = await ctx.prisma.tarotDeck.findMany({
-      orderBy: {
-        year: 'asc',
-      },
-      include: {
-        _count: {
-          select: {
-            cards: true,
-            tags: true,
-          },
-        },
-      },
-    });
+	getDecks: publicProcedure.query(async ({ ctx }) => {
+		const decks = await ctx.prisma.tarotDeck.findMany({
+			orderBy: {
+				year: 'asc',
+			},
+			include: {
+				_count: {
+					select: {
+						cards: true,
+						tags: true,
+					},
+				},
+			},
+		})
 
-    return decks;
-  }),
+		return decks
+	}),
 
-  /**
+	/**
    * Buscar deck por slug
    */
-  getDeckBySlug: publicProcedure
-    .input(z.string())
-    .query(async ({ ctx, input }) => {
-      const deck = await ctx.prisma.tarotDeck.findUnique({
-        where: { slug: input },
-        include: {
-          cards: {
-            include: {
-              typesOfReading: true,
-            },
-            orderBy: {
-              numerology: 'asc',
-            },
-          },
-          _count: {
-            select: {
-              cards: true,
-              tags: true,
-            },
-          },
-        },
-      });
+	getDeckBySlug: publicProcedure
+		.input(z.string())
+		.query(async ({ ctx, input }) => {
+			const deck = await ctx.prisma.tarotDeck.findUnique({
+				where: { slug: input },
+				include: {
+					cards: {
+						include: {
+							typesOfReading: true,
+						},
+						orderBy: {
+							numerology: 'asc',
+						},
+					},
+					_count: {
+						select: {
+							cards: true,
+							tags: true,
+						},
+					},
+				},
+			})
 
-      if (!deck) {
-        throw new Error('Baralho não encontrado');
-      }
+			if (!deck) {
+				throw new Error(DECK_NOT_FOUND)
+			}
 
-      return deck;
-    }),
+			return deck
+		}),
 
-  /**
+	/**
    * Criar novo deck
    */
-  createDeck: publicProcedure
-    .input(
-      z.object({
-        name: z.string().min(1),
-        description: z.string().optional(),
-        publisher: z.string().optional(),
-        year: z.number().optional(),
-        tradition: z.string().optional(),
-        imageUrl: z.string().optional(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const slug = generateSlug(input.name);
+	createDeck: publicProcedure
+		.input(
+			z.object({
+				name: z.string().min(1),
+				description: z.string().optional(),
+				publisher: z.string().optional(),
+				year: z.number().optional(),
+				tradition: z.string().optional(),
+				imageUrl: z.string().optional(),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			const slug = generateSlug(input.name)
 
-      const deck = await ctx.prisma.tarotDeck.create({
-        data: {
-          ...input,
-          slug,
-        },
-      });
+			const deck = await ctx.prisma.tarotDeck.create({
+				data: {
+					...input,
+					slug,
+				},
+			})
 
-      return deck;
-    }),
+			return deck
+		}),
 
-  /**
+	/**
    * Atualizar deck
    */
-  updateDeck: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        data: z.object({
-          name: z.string().min(1).optional(),
-          description: z.string().optional(),
-          publisher: z.string().optional(),
-          year: z.number().optional(),
-          tradition: z.string().optional(),
-          imageUrl: z.string().optional(),
-        }),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const updateData: any = { ...input.data };
+	updateDeck: publicProcedure
+		.input(
+			z.object({
+				id: z.string(),
+				data: z.object({
+					name: z.string().min(1).optional(),
+					description: z.string().optional(),
+					publisher: z.string().optional(),
+					year: z.number().optional(),
+					tradition: z.string().optional(),
+					imageUrl: z.string().optional(),
+				}),
+			}),
+		)
+		.mutation(async ({ ctx, input }) => {
+			const { name, ...restData } = input.data
 
-      // Se o nome mudou, gera novo slug
-      if (input.data.name) {
-        updateData.slug = generateSlug(input.data.name);
-      }
+			// Se o nome mudou, gera novo slug
+			const deck = await ctx.prisma.tarotDeck.update({
+				where: { id: input.id },
+				data: name
+					? { ...restData, name, slug: generateSlug(name) }
+					: restData,
+			})
 
-      const deck = await ctx.prisma.tarotDeck.update({
-        where: { id: input.id },
-        data: updateData,
-      });
+			return deck
+		}),
 
-      return deck;
-    }),
-
-  /**
+	/**
    * Deletar deck
    */
-  deleteDeck: publicProcedure
-    .input(z.string())
-    .mutation(async ({ ctx, input }) => {
-      await ctx.prisma.tarotDeck.delete({
-        where: { id: input },
-      });
+	deleteDeck: publicProcedure
+		.input(z.string())
+		.mutation(async ({ ctx, input }) => {
+			await ctx.prisma.tarotDeck.delete({
+				where: { id: input },
+			})
 
-      return { success: true };
-    }),
-});
+			return { success: true }
+		}),
+})

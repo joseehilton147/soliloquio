@@ -1,15 +1,16 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import Image from 'next/image'
-import Link from 'next/link'
 import { CardBadge } from '@workspace/ui'
 import { cn } from '@workspace/ui/lib/utils'
+import Image from 'next/image'
+import Link from 'next/link'
+
 import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 
 type ElementColorScheme = NaipeColorScheme
 
-interface Card {
+type Card = {
 	id: string
 	slug: string | null
 	name: string
@@ -20,34 +21,12 @@ interface Card {
 	typesOfReading?: unknown
 }
 
-export interface NaipeCardsGridProps {
+export type NaipeCardsGridProps = {
 	cards: Card[]
 	colors: ElementColorScheme
 	symbol: string
 }
 
-/**
- * Grid de Cartas de Naipe - Organismo
- *
- * Grid místico que exibe todas as cartas de um naipe específico.
- * Reutiliza o sistema de cores dos elementos.
- *
- * Características:
- * - Layout responsivo (1/2/3 colunas)
- * - Hover effects místicos
- * - Shimmer effect on hover
- * - Badges de deck e numerologia
- * - Cores específicas do elemento
- *
- * @example
- * ```tsx
- * <NaipeCardsGrid
- *   cards={copas}
- *   colors={ELEMENT_COLORS.agua}
- *   symbol="♥"
- * />
- * ```
- */
 export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 	if (cards.length === 0) {
 		return (
@@ -68,7 +47,6 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 
 	return (
 		<>
-			{/* Sacred Path Divider */}
 			<div className="relative py-8">
 				<div className={cn('absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent to-transparent', colors.divider)} />
 				<div className="relative flex items-center justify-center gap-6">
@@ -87,54 +65,47 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 						href={card.slug ? `/cartas/${card.slug}` : '#'}
 						className={cn(
 							'group relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-background via-background to-muted/10 transition-all hover:shadow-2xl hover:-translate-y-1',
-							colors.cardHover
+							colors.cardHover,
 						)}
 					>
-						{/* Shimmer effect on hover */}
 						<div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
 
-						{/* Card Image */}
 						<div className={cn('relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br', colors.cardBg)}>
 							{card.imageUrl
 								? (
-										<>
-											<Image
-												src={card.imageUrl}
-												alt={card.name}
-												fill
-												className="object-cover transition-transform duration-500 group-hover:scale-110"
-												sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-											/>
-											{/* Gradient overlay for better text readability */}
-											<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-										</>
-									)
+									<>
+										<Image
+											src={card.imageUrl}
+											alt={card.name}
+											fill
+											className="object-cover transition-transform duration-500 group-hover:scale-110"
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+										/>
+										<div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+									</>
+								)
 								: (
-										<div className="flex h-full items-center justify-center">
-											<div className={cn('flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br border', colors.iconBg, colors.iconBorder)}>
-												<span className="text-5xl">{symbol}</span>
-											</div>
+									<div className="flex h-full items-center justify-center">
+										<div className={cn('flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br border', colors.iconBg, colors.iconBorder)}>
+											<span className="text-5xl">{symbol}</span>
 										</div>
-									)}
+									</div>
+								)}
 
-							{/* Deck badge */}
 							{card.deck && (
 								<CardBadge icon="lucide:layers" label={card.deck.name} position="top-left" />
 							)}
 
-							{/* Numerology Badge */}
 							{card.numerology !== null && card.numerology !== undefined && (
 								<CardBadge icon="lucide:hash" label={String(card.numerology)} position="top-right" />
 							)}
 						</div>
 
-						{/* Content */}
 						<div className="relative p-6 space-y-3">
 							<h3 className={cn('text-2xl md:text-3xl font-semibold group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:text-transparent transition-all', colors.gradient)}>
 								{card.name}
 							</h3>
 
-							{/* Stats */}
 							<div className={cn('flex items-center gap-6 pt-3 text-base text-muted-foreground border-t', colors.border)}>
 								<div className="flex items-center gap-1.5">
 									<div className={cn('size-2 rounded-full', `bg-${colors.color}-500/70`)} />
@@ -152,9 +123,7 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 				))}
 			</div>
 
-			{/* Mystical Footer */}
 			<div className="relative py-12">
-				{/* Sacred Path Divider */}
 				<div className="relative py-8">
 					<div className={cn('absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent to-transparent', colors.divider)} />
 					<div className="relative flex items-center justify-center gap-6">
@@ -166,7 +135,6 @@ export function NaipeCardsGrid({ cards, colors, symbol }: NaipeCardsGridProps) {
 					</div>
 				</div>
 
-				{/* Mystical Symbols */}
 				<div className="flex items-center justify-center gap-6 text-muted-foreground/30">
 					<Icon icon="lucide:star" className="size-5" strokeWidth={1} />
 					<span className="size-1 rounded-full bg-current" />

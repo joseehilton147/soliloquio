@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 
 import { cn } from '../../lib/utils'
 
-export interface CardBadgeProps {
+export type CardBadgeProps = {
 	icon: string
 	label: string
 	position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'

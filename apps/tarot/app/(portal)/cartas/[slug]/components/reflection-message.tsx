@@ -3,7 +3,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
-interface ReflectionMessageProps {
+type ReflectionMessageProps = {
 	message: string
 	className?: string
 }
@@ -41,7 +41,7 @@ export function ReflectionMessage({ message, className }: ReflectionMessageProps
 				// Hover effect - leve glow
 				'hover:shadow-2xl hover:shadow-amber-500/30 dark:hover:shadow-amber-500/20',
 				'hover:border-amber-500/60 dark:hover:border-amber-500/40',
-				className
+				className,
 			)}
 		>
 			{/* Background Pattern - Estrelas sutis */}
@@ -70,7 +70,7 @@ export function ReflectionMessage({ message, className }: ReflectionMessageProps
 							// Sombra e glow
 							'shadow-lg shadow-amber-500/40',
 							// Animação de pulsação suave
-							'animate-pulse-slow'
+							'animate-pulse-slow',
 						)}
 					>
 						<Icon
@@ -89,7 +89,7 @@ export function ReflectionMessage({ message, className }: ReflectionMessageProps
 								'text-lg font-semibold uppercase tracking-wider',
 								'bg-gradient-to-r from-amber-700 via-orange-600 to-amber-700',
 								'dark:from-amber-400 dark:via-orange-400 dark:to-amber-400',
-								'bg-clip-text text-transparent'
+								'bg-clip-text text-transparent',
 							)}
 						>
 							Para Refletir
@@ -115,7 +115,7 @@ export function ReflectionMessage({ message, className }: ReflectionMessageProps
 							'before:text-3xl after:text-3xl',
 							'before:text-amber-500/60 after:text-amber-500/60',
 							'before:mr-1 after:ml-1',
-							'before:leading-none after:leading-none'
+							'before:leading-none after:leading-none',
 						)}
 					>
 						{message}

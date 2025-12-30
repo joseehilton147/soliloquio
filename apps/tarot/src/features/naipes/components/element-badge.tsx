@@ -1,23 +1,12 @@
 import { Icon } from '@iconify/react'
 
-/**
- * Props do componente ElementBadge
- */
-interface ElementBadgeProps {
-	/** Ícone do elemento (Iconify) */
+type ElementBadgeProps = {
 	icon: string
-	/** Nome do elemento */
 	element: string
-	/** Cor do naipe (Tailwind color name) */
 	color: string
-	/** Classes de borda customizadas */
 	borderColor: string
 }
 
-/**
- * Mapeamento de cores para elemento badge
- * Sincronizado com element-colors.ts
- */
 const ELEMENT_COLOR_CLASSES = {
 	blue: {
 		bg: 'bg-blue-500/10',
@@ -51,22 +40,6 @@ const ELEMENT_COLOR_CLASSES = {
 	},
 } as const
 
-/**
- * Badge de elemento - Átomo
- *
- * Componente burro que exibe o badge de um elemento com ícone e nome.
- * Usado para mostrar qual elemento (Água, Fogo, Terra, Ar) está associado ao naipe.
- *
- * @example
- * ```tsx
- * <ElementBadge
- *   icon="mdi:water"
- *   element="Água"
- *   color="blue"
- *   borderColor="border-blue-500/30"
- * />
- * ```
- */
 export function ElementBadge({ icon, element, color, borderColor }: ElementBadgeProps) {
 	const colorClasses = ELEMENT_COLOR_CLASSES[color as keyof typeof ELEMENT_COLOR_CLASSES]
 

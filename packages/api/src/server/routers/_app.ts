@@ -3,11 +3,12 @@
  * Combina todos os sub-routers
  */
 
-import { router } from '../trpc';
-import { tarotRouter } from './tarot';
+import { router } from '../trpc'
+
+import { tarotRouter } from './tarot'
 
 export const appRouter = router({
-  tarot: tarotRouter,
-});
+	tarot: tarotRouter,
+})
 
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter

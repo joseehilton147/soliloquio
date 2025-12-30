@@ -19,9 +19,9 @@ import { useEffect, useState } from 'react'
  * Inspirado em: Modern Witch Tarot, Dark Mansion Tarot, Ethereal Visions
  */
 export function TiragensHeroSection() {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string; size: number }>>([])
-	const [crystals, setCrystals] = useState<Array<{ left: string; top: string; delay: string; rotation: number }>>([])
-	const [candles, setCandles] = useState<Array<{ left: string; bottom: string; delay: string }>>([])
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string; size: number }[]>([])
+	const [crystals, setCrystals] = useState<{ left: string; top: string; delay: string; rotation: number }[]>([])
+	const [candles, setCandles] = useState<{ left: string; bottom: string; delay: string }[]>([])
 
 	useEffect(() => {
 		// Partículas etéreas (mais sutis, como poeira estelar)
@@ -32,7 +32,7 @@ export function TiragensHeroSection() {
 				delay: `${Math.random() * 8}s`,
 				duration: `${15 + Math.random() * 20}s`,
 				size: Math.random() * 3 + 1,
-			}))
+			})),
 		)
 
 		// Cristais flutuantes (geometric shapes)
@@ -42,7 +42,7 @@ export function TiragensHeroSection() {
 				top: `${Math.random() * 100}%`,
 				delay: `${Math.random() * 5}s`,
 				rotation: Math.random() * 360,
-			}))
+			})),
 		)
 
 		// Velas místicas na base
@@ -51,7 +51,7 @@ export function TiragensHeroSection() {
 				left: `${15 + Math.random() * 70}%`,
 				bottom: `${Math.random() * 20}%`,
 				delay: `${Math.random() * 3}s`,
-			}))
+			})),
 		)
 	}, [])
 

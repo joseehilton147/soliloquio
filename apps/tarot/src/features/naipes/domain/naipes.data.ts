@@ -26,7 +26,7 @@ export const NAIPES: readonly Naipe[] = [
 		description: 'O naipe das emoções, sentimentos, amor e intuição',
 		zodiac: 'Câncer, Escorpião, Peixes',
 		theme: 'Emoções, relacionamentos, amor, intuição, sentimentos profundos',
-		href: '/cartas/naipes/copas'
+		href: '/cartas/naipes/copas',
 	},
 	{
 		name: 'Paus',
@@ -41,7 +41,7 @@ export const NAIPES: readonly Naipe[] = [
 		description: 'O naipe da ação, paixão, criatividade e energia vital',
 		zodiac: 'Áries, Leão, Sagitário',
 		theme: 'Ação, paixão, criatividade, energia, iniciativa, força vital',
-		href: '/cartas/naipes/paus'
+		href: '/cartas/naipes/paus',
 	},
 	{
 		name: 'Ouros',
@@ -56,7 +56,7 @@ export const NAIPES: readonly Naipe[] = [
 		description: 'O naipe do material, dinheiro, trabalho e estabilidade',
 		zodiac: 'Touro, Virgem, Capricórnio',
 		theme: 'Material, dinheiro, trabalho, estabilidade, prosperidade, segurança',
-		href: '/cartas/naipes/ouros'
+		href: '/cartas/naipes/ouros',
 	},
 	{
 		name: 'Espadas',
@@ -71,6 +71,6 @@ export const NAIPES: readonly Naipe[] = [
 		description: 'O naipe do intelecto, pensamento, comunicação e desafios',
 		zodiac: 'Gêmeos, Libra, Aquário',
 		theme: 'Intelecto, pensamento, comunicação, lógica, desafios mentais',
-		href: '/cartas/naipes/espadas'
-	}
+		href: '/cartas/naipes/espadas',
+	},
 ] as const

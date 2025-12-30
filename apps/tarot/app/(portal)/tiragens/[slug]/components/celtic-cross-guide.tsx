@@ -230,14 +230,14 @@ export function CelticCrossGuide() {
 			{/* Tabs de Navegação */}
 			<div className="max-w-2xl mx-auto">
 				<div className="flex gap-2 p-2 rounded-xl bg-black/40 border border-violet-500/20">
-					{(Object.keys(sections) as Array<keyof typeof sections>).map((key) => {
+					{(Object.keys(sections) as (keyof typeof sections)[]).map((key) => {
 						const section = sections[key]
 						const isActive = activeTab === key
 						return (
 							<button
 								key={key}
 								type="button"
-								onClick={() => setActiveTab(key)}
+								onClick={() => { setActiveTab(key) }}
 								className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
 									isActive
 										? 'bg-gradient-to-br from-violet-600/30 to-purple-600/20 text-white border-2 border-violet-500/50'

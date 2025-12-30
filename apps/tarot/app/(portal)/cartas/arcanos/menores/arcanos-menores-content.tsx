@@ -1,7 +1,7 @@
 'use client'
 
-import { CardBadge } from '@workspace/ui'
 import { Icon } from '@iconify/react'
+import { CardBadge } from '@workspace/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,7 +9,7 @@ import { trpc } from '@/lib/trpc'
 
 // Helper para obter símbolo e cor do naipe
 function getSuitInfo(suit: string | null) {
-	if (!suit) return null
+	if (!suit) {return null}
 
 	const suitMap = {
 		COPAS: { symbol: '♥', label: 'Copas', color: 'text-red-500' },

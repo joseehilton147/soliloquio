@@ -6,7 +6,7 @@ import { cn } from '../../lib/utils'
 import { TagInput, type TagSuggestion } from '../atoms/tag-input'
 import { Tag } from '../molecules/tag'
 
-export interface DynamicTagInputProps {
+export type DynamicTagInputProps = {
 	value: string[];
 	onChange: (tags: string[]) => void;
 	placeholder?: string;
@@ -77,7 +77,7 @@ export function DynamicTagInput({
 							key={index}
 							value={tag}
 							variant={variant}
-							onRemove={() => handleRemoveTag(index)}
+							onRemove={() => { handleRemoveTag(index) }}
 						/>
 					))}
 				</div>

@@ -15,7 +15,7 @@ type DockVisibility = 'always' | 'auto-hide'
  * @property {string} label - Título exibido ao usuário
  * @property {string} description - Descrição detalhada do comportamento
  */
-interface VisibilityOption {
+type VisibilityOption = {
 	value: DockVisibility
 	label: string
 	description: string
@@ -95,7 +95,7 @@ export default function ConfiguracoesPage() {
 								return (
 									<button
 										key={option.value}
-										onClick={() => handleVisibilityChange(option.value)}
+										onClick={() => { handleVisibilityChange(option.value) }}
 										className={cn(
 											'group relative overflow-hidden rounded-2xl p-6 text-left',
 											'border-2 transition-all duration-200',

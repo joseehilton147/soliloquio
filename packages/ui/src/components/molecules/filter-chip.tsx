@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 
 import { cn } from '../../lib/utils'
 
-export interface FilterChipProps {
+export type FilterChipProps = {
 	label: string
 	active?: boolean
 	count?: number

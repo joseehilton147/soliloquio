@@ -3,12 +3,12 @@
  * Compartilhado entre todos os routers
  */
 
-import { prisma } from '@workspace/database/client';
+import { prisma } from '@workspace/database/client'
 
 export async function createContext() {
-  return {
-    prisma,
-  };
+	return {
+		prisma,
+	}
 }
 
-export type Context = Awaited<ReturnType<typeof createContext>>;
+export type Context = Awaited<ReturnType<typeof createContext>>

@@ -9,12 +9,12 @@
  * @example generateSlug("A Roda da Fortuna") => "a-roda-da-fortuna"
  */
 export function generateSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize('NFD') // Decompose accented characters
-    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
-    .replace(/[^a-z0-9\s-]/g, '') // Remove special chars except spaces and hyphens
-    .trim()
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/-+/g, '-'); // Replace multiple hyphens with single hyphen
+	return text
+		.toLowerCase()
+		.normalize('NFD') // Decompose accented characters
+		.replaceAll(/[\u0300-\u036F]/g, '') // Remove diacritics
+		.replaceAll(/[^a-z0-9\s-]/g, '') // Remove special chars except spaces and hyphens
+		.trim()
+		.replaceAll(/\s+/g, '-') // Replace spaces with hyphens
+		.replaceAll(/-+/g, '-') // Replace multiple hyphens with single hyphen
 }

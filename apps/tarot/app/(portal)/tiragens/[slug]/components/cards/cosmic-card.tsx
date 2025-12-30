@@ -7,11 +7,14 @@
  * @module CosmicCard
  */
 
+'use client'
 import type { TarotSpread } from '@workspace/core/tarot'
 import { cn } from '@workspace/ui/lib/utils'
+
 import { CardBack } from './card-back'
 import { CardFront } from './card-front'
 import { CardTooltip } from './card-tooltip'
+
 import type { ElementColorConfig } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
@@ -27,7 +30,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @property {boolean} isFlipped - Se a carta está virada (mostrando verso)
  * @property {() => void} onToggle - Callback ao clicar na carta
  */
-interface CosmicCardProps {
+type CosmicCardProps = {
 	/** Dados completos da posição (id, label, descrição, coordenadas, etc) */
 	position: TarotSpread['positions'][number]
 	/** Ícone do Iconify para símbolo místico */
@@ -116,9 +119,9 @@ export function CosmicCard({
 				'relative w-48 h-64 transition-all duration-700 preserve-3d',
 				isFlipped && 'rotate-y-180',
 				isSelected && 'scale-110 z-50',
-				!isSelected && !isFlipped && 'hover:scale-105'
+				!isSelected && !isFlipped && 'hover:scale-105',
 			)}
-				style={{ transformStyle: 'preserve-3d' }}
+			style={{ transformStyle: 'preserve-3d' }}
 			>
 				{/* Frente da carta (verso místico) */}
 				<CardFront

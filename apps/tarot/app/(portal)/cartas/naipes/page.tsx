@@ -1,6 +1,7 @@
 'use client'
 
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
+
 import { NAIPES, NaipeCard, NaipeStructureSection, ArcanosReferenceSection, NaipesHeroSection } from '@/features/naipes'
 
 /**

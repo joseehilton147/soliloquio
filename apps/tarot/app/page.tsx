@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 export default function TarotHomePage() {
-	const [particles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>(() =>
+	const [particles] = useState<{ left: string; top: string; delay: string; duration: string }[]>(() =>
 		Array.from({ length: 15 }).map(() => ({
 			left: `${Math.random() * 100}%`,
 			top: `${Math.random() * 100}%`,

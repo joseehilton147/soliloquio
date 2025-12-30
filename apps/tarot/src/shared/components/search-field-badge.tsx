@@ -3,21 +3,13 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
-export interface SearchFieldBadgeProps {
+export type SearchFieldBadgeProps = {
 	icon: string
 	label: string
 	variant?: 'default' | 'compact'
 	className?: string
 }
 
-/**
- * Badge místico para campos de busca
- * Usado tanto no estado inicial quanto nos resultados de match
- *
- * Variantes:
- * - default: Usado no estado inicial (tamanho normal)
- * - compact: Usado nos resultados (mais compacto)
- */
 export function SearchFieldBadge({
 	icon,
 	label,

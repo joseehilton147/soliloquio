@@ -1,11 +1,10 @@
+'use client'
 import { Icon } from '@iconify/react'
-import { cn } from '@workspace/ui/lib/utils'
 import type { MysticalTabItem } from '@workspace/ui'
+import { cn } from '@workspace/ui/lib/utils'
+
 import { ALL_CATEGORIES } from '@/features/tiragens'
 
-/**
- * Configuração de cores por elemento
- */
 const ELEMENT_COLORS = {
 	air: {
 		active: 'bg-slate-500/20 border-slate-400/60 text-slate-200',
@@ -47,12 +46,7 @@ const ELEMENT_ICONS = {
 	spirit: 'game-icons:magic-swirl',
 } as const
 
-/**
- * Configuração de tabs para Tiragens
- *
- * Converte categorias em tabs com estilização específica de tarot.
- */
-export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.map((category) => ({
+export const TIRAGENS_TABS_CONFIG: MysticalTabItem[] = ALL_CATEGORIES.map((category) => ({
 	id: category.id,
 	label: category.name,
 	icon: ELEMENT_ICONS[category.element as keyof typeof ELEMENT_ICONS],
@@ -67,7 +61,7 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 				className={cn(
 					'group relative flex flex-col items-center gap-3 px-6 py-4 rounded-xl border-2 transition-all duration-500',
 					'hover:scale-105 hover:shadow-lg',
-					isActive ? colors.active : colors.inactive
+					isActive ? colors.active : colors.inactive,
 				)}
 				style={{
 					boxShadow: isActive
@@ -75,7 +69,6 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 						: '0 4px 12px rgba(0,0,0,0.3)',
 				}}
 			>
-				{/* Glow pulsante quando ativo */}
 				{isActive && (
 					<div
 						className="absolute inset-0 -m-2 rounded-xl blur-xl animate-pulse [animation-duration:3s] pointer-events-none"
@@ -85,7 +78,6 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 					/>
 				)}
 
-				{/* Ícone do elemento */}
 				<div className="relative">
 					<Icon
 						icon={item.icon!}
@@ -96,12 +88,11 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 					/>
 				</div>
 
-				{/* Nome da categoria */}
 				<div className="relative text-center space-y-1">
 					<h3
 						className={cn(
 							'text-base font-bold tracking-wide transition-all duration-300',
-							isActive && `bg-gradient-to-r ${colors.gradient} bg-clip-text text-transparent`
+							isActive && `bg-gradient-to-r ${colors.gradient} bg-clip-text text-transparent`,
 						)}
 						style={{
 							filter: isActive ? `drop-shadow(0 0 8px ${colors.glow})` : 'none',
@@ -114,11 +105,10 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 					</p>
 				</div>
 
-				{/* Símbolo místico */}
 				<div
 					className={cn(
 						'absolute -top-2 -right-2 opacity-0 transition-opacity duration-500',
-						isActive && 'opacity-100'
+						isActive && 'opacity-100',
 					)}
 				>
 					<Icon
@@ -130,7 +120,6 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 					/>
 				</div>
 
-				{/* Borda interna brilhante quando ativo */}
 				{isActive && (
 					<div
 						className="absolute inset-0 rounded-xl pointer-events-none"
@@ -144,12 +133,9 @@ export const TIRAGENS_TABS_CONFIG: MysticalTabItem<string>[] = ALL_CATEGORIES.ma
 	},
 }))
 
-/**
- * Subtítulo dinâmico baseado na tab ativa
- */
 export function getTiragemTabSubtitle(activeTab: string) {
 	const category = ALL_CATEGORIES.find((cat) => cat.id === activeTab)
-	if (!category) return null
+	if (!category) {return null}
 
 	const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
 
@@ -159,7 +145,7 @@ export function getTiragemTabSubtitle(activeTab: string) {
 			<div
 				className={cn(
 					'px-4 py-1.5 rounded-full bg-gradient-to-r bg-clip-text text-transparent font-bold',
-					colors.gradient
+					colors.gradient,
 				)}
 				style={{
 					filter: `drop-shadow(0 0 8px ${colors.glow})`,

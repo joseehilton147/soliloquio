@@ -2,7 +2,7 @@ import type { MoonPhase } from '../../lib/lunar-calendar'
 import { cn } from '../../lib/utils'
 import { MoonPhaseIcon } from '../atoms/moon-phase-icon'
 
-export interface MoonPhaseListItemProps {
+export type MoonPhaseListItemProps = {
 	phase: MoonPhase
 	phaseName: string
 	date: Date
@@ -17,28 +17,28 @@ export interface MoonPhaseListItemProps {
 export function MoonPhaseListItem({ phase, phaseName, date, className }: MoonPhaseListItemProps) {
 	const formatDate = (d: Date) => {
 		// Data completa com dia da semana
-		const weekdayStr = new Intl.DateTimeFormat('pt-BR', {
+		const weekdayString = new Intl.DateTimeFormat('pt-BR', {
 			weekday: 'long',
 		}).format(d)
 
 		// Data completa: dia de mês de ano
-		const dateStr = new Intl.DateTimeFormat('pt-BR', {
+		const dateString = new Intl.DateTimeFormat('pt-BR', {
 			day: 'numeric',
 			month: 'long',
 			year: 'numeric',
 		}).format(d)
 
 		// Horário completo: hora:minuto
-		const timeStr = new Intl.DateTimeFormat('pt-BR', {
+		const timeString = new Intl.DateTimeFormat('pt-BR', {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
 		}).format(d)
 
 		// Capitalizar primeira letra do dia da semana
-		const weekday = weekdayStr.charAt(0).toUpperCase() + weekdayStr.slice(1)
+		const weekday = weekdayString.charAt(0).toUpperCase() + weekdayString.slice(1)
 
-		return `${weekday}, ${dateStr} às ${timeStr}`
+		return `${weekday}, ${dateString} às ${timeString}`
 	}
 
 	return (

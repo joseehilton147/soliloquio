@@ -5,12 +5,12 @@
  * Camada de domínio pura, sem dependências de UI.
  */
 
-export * from './naipes.data'
-export * from './naipes.types'
-export * from './naipe-colors.config'
-
 // Re-exporta ELEMENT_COLORS do arquivo centralizado com mapeamento de naipes
 import { getNaipeColors } from '@/shared/constants/element-colors'
+
+export * from './naipes.data'
+export type * from './naipes.types'
+export * from './naipe-colors.config'
 
 /**
  * Configuração de cores dos elementos para páginas de naipes

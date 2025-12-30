@@ -1,5 +1,17 @@
 **SEMPRE RESPONDA EM PORTUGUÊS BRASILEIRO**
 
+## REGRAS DE REVISÃO
+
+**Para revisões de código, SEMPRE leia e siga:** `@REGRAS-REVISAO.md`
+
+Este arquivo contém as 18 regras obrigatórias para qualquer revisão de código no projeto.
+
+**CRÍTICO**: Após AUTO-COMPACT, peça reinjeção das regras.
+
+---
+
+## MCPs DISPONÍVEIS
+
 Um ponto importante, SEMPRE use os MCP's disponiveis para termos um fluxo mais integrado, temos os seguintres MCP's:
 
 - Context7: O Context7 MCP extrai documentação atualizada e específica da versão e exemplos de código diretamente do código-fonte — e os coloca diretamente no seu prompt. Adicione 'use context7' SEMPRE ao seu prompt.
@@ -132,10 +144,10 @@ console.log('[DEBUG] Resultado:', result);
 ### Antes de Responder
 - [ ] Li a estrutura com view?
 - [ ] Analisei arquivos relacionados?
-- [ ] Verifiquei se existe no Weflux?
+- [ ] Verifiquei se existe no packages/ui?
 - [ ] Usei TypeScript sem any?
 - [ ] Imports são named exports?
-- [ ] Estou modificando apenas apps/tomador ou packages?
+- [ ] Estou modificando apenas apps/tarot ou packages?
 
 ### Após Modificações
 - [ ] Código segue padrões do projeto?
@@ -380,8 +392,8 @@ Dúvida? -> PERGUNTE
 ## ARMADILHAS COMUNS
 
 - **NÃO** assuma estrutura de pastas - sempre verifique
-- **NÃO** crie componentes sem checar shadcn ou se já existe
-- **NÃO** modifique outros apps além do tomador
+- **NÃO** crie componentes sem checar shadcn/packages/ui ou se já existe
+- **NÃO** modifique outros apps além do tarot (a menos que pedido)
 - **NÃO** use pnpm dev/build - servidor já está rodando
 - **NÃO** faça grandes mudanças sem validar incrementalmente
 - **NÃO** assuma que o servidor está rodando - sempre verifique na primeira interação

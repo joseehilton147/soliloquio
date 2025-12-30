@@ -12,12 +12,12 @@ import { Icon } from '@iconify/react'
  * Acessibilidade: Alto contraste, texto legível, hierarquia visual
  */
 
-interface CardExample {
+type CardExample = {
 	name: string
 	note?: string
 }
 
-interface GuideSection {
+type GuideSection = {
 	title: string
 	emoji: string
 	color: string

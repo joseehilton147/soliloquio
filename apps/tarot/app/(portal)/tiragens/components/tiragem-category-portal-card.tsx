@@ -2,11 +2,11 @@
 
 import { Icon } from '@iconify/react'
 import type { TarotSpread } from '@workspace/core/tarot'
+import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { cn } from '@workspace/ui/lib/utils'
 
-export interface TiragemCategoryData {
+export type TiragemCategoryData = {
 	id: string
 	name: string
 	subtitle: string
@@ -20,7 +20,7 @@ export interface TiragemCategoryData {
 	mysticalSymbol: string
 }
 
-interface TiragemCategoryPortalCardProps {
+type TiragemCategoryPortalCardProps = {
 	category: TiragemCategoryData
 	reversed?: boolean
 }
@@ -98,7 +98,7 @@ const ELEMENT_ICONS = {
  * - Visual premium/VIP
  */
 export function TiragemCategoryPortalCard({ category, reversed = false }: TiragemCategoryPortalCardProps) {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string; size: number }>>([])
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string; size: number }[]>([])
 	const colors = COLOR_CLASSES[category.color]
 
 	useEffect(() => {
@@ -109,7 +109,7 @@ export function TiragemCategoryPortalCard({ category, reversed = false }: Tirage
 				delay: `${Math.random() * 6}s`,
 				duration: `${12 + Math.random() * 15}s`,
 				size: Math.random() * 2.5 + 0.5,
-			}))
+			})),
 		)
 	}, [])
 
@@ -129,7 +129,7 @@ export function TiragemCategoryPortalCard({ category, reversed = false }: Tirage
 					'relative overflow-hidden rounded-2xl backdrop-blur-sm transition-all duration-700',
 					'shadow-[0_20px_80px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)]',
 					'group-hover:shadow-[0_25px_100px_rgba(0,0,0,0.9)]',
-					'group-hover:scale-[1.01]'
+					'group-hover:scale-[1.01]',
 				)}
 				style={{
 					boxShadow: colors.neonGlow,
@@ -290,7 +290,7 @@ export function TiragemCategoryPortalCard({ category, reversed = false }: Tirage
 						{/* Título e subtítulo */}
 						<div className="flex-1 space-y-3 pt-2">
 							<h2
-								className={cn('text-5xl font-serif font-bold tracking-wide bg-gradient-to-r bg-clip-text text-transparent', `${colors.gradient}`)}
+								className={cn('text-5xl font-serif font-bold tracking-wide bg-gradient-to-r bg-clip-text text-transparent', colors.gradient)}
 								style={{
 									filter: `drop-shadow(${colors.textGlow}) drop-shadow(0 2px 10px rgba(0,0,0,0.8))`,
 								}}
@@ -355,7 +355,7 @@ export function TiragemCategoryPortalCard({ category, reversed = false }: Tirage
 								<div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-current to-transparent opacity-60"
 									style={{
 										color: `rgb(${colors.rgb})`,
-										boxShadow: `0 0 10px ${colors.smoke}`
+										boxShadow: `0 0 10px ${colors.smoke}`,
 									}}
 								/>
 								<h3 className={cn('text-lg uppercase tracking-[0.3em] font-bold bg-gradient-to-r bg-clip-text text-transparent', colors.gradient)}

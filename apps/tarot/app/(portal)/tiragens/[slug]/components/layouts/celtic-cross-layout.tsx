@@ -1,14 +1,16 @@
 'use client'
 
-import * as React from 'react'
-import type { ElementColorConfig } from '@/shared/constants/element-colors'
 import type { TarotSpread } from '@workspace/core/tarot'
+import * as React from 'react'
+
+import { CardBack } from '../cards/card-back'
+import { CardFront } from '../cards/card-front'
+
+import type { ElementColorConfig } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
-import { CardFront } from '../cards/card-front'
-import { CardBack } from '../cards/card-back'
 
-interface CelticCrossLayoutProps {
+type CelticCrossLayoutProps = {
 	spread: TarotSpread
 	colors: ElementColors
 	mysticalSymbol: string
@@ -47,17 +49,17 @@ export function CelticCrossLayout({
 	const [splitMode, setSplitMode] = React.useState(false)
 
 	// Mapear posições por order (1-10)
-	const positionsByOrder = spread.positions.reduce((acc, pos) => {
-		acc[pos.order] = pos
-		return acc
-	}, {} as Record<number, typeof spread.positions[0]>)
+	const positionsByOrder = spread.positions.reduce<Record<number, typeof spread.positions[0]>>((accumulator, pos) => {
+		accumulator[pos.order] = pos
+		return accumulator
+	}, {})
 
 	/**
 	 * Renderiza carta individual com posicionamento absoluto
 	 */
 	const renderCard = (order: number, className?: string, style?: React.CSSProperties) => {
 		const position = positionsByOrder[order]
-		if (!position) return null
+		if (!position) {return null}
 
 		return (
 			<div className={className} style={style}>
@@ -67,7 +69,7 @@ export function CelticCrossLayout({
 					colors={colors}
 					isSelected={selectedPosition === position.id}
 					isFlipped={flippedCards.has(position.id)}
-					onToggle={() => onCardClick(position.id)}
+					onToggle={() => { onCardClick(position.id) }}
 				/>
 			</div>
 		)
@@ -85,7 +87,7 @@ export function CelticCrossLayout({
 	const renderCenterGroup = () => {
 		const pos1 = positionsByOrder[1]
 		const pos2 = positionsByOrder[2]
-		if (!pos1 || !pos2) return null
+		if (!pos1 || !pos2) {return null}
 
 		const isCard2Flipped = flippedCards.has(pos2.id)
 
@@ -102,7 +104,7 @@ export function CelticCrossLayout({
 						// Click direto na carta 1 = flip imediato
 						onCardClick(pos1.id)
 					}}
-					onMouseEnter={() => setSplitMode(true)}
+					onMouseEnter={() => { setSplitMode(true) }}
 					onMouseLeave={() => {
 						// Só fecha split mode se nenhuma carta estiver flippada
 						if (!flippedCards.has(pos1.id) && !flippedCards.has(pos2.id)) {
@@ -141,7 +143,7 @@ export function CelticCrossLayout({
 						// Click direto na carta 2 = flip imediato
 						onCardClick(pos2.id)
 					}}
-					onMouseEnter={() => setSplitMode(true)}
+					onMouseEnter={() => { setSplitMode(true) }}
 					onMouseLeave={() => {
 						// Só fecha split mode se nenhuma carta estiver flippada
 						if (!flippedCards.has(pos1.id) && !flippedCards.has(pos2.id)) {
@@ -177,7 +179,6 @@ export function CelticCrossLayout({
 			</div>
 		)
 	}
-
 
 	return (
 		<div className="w-full min-h-screen flex items-center justify-center p-8">
@@ -226,7 +227,7 @@ export function CelticCrossLayout({
  * Variante do CosmicCard SEM positioning absoluto
  * Para uso em Grid Layouts onde o parent controla posição
  */
-interface CosmicCardStaticProps {
+type CosmicCardStaticProps = {
 	position: TarotSpread['positions'][number]
 	mysticalSymbol: string
 	colors: ElementColors

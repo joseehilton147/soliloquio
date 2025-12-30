@@ -1,12 +1,13 @@
 'use client'
 
 import { Icon } from '@iconify/react'
+import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { cn } from '@workspace/ui/lib/utils'
+
 import type { ArcanoType } from '../domain'
 
-interface ArcanoPortalCardProps {
+type ArcanoPortalCardProps = {
 	arcano: ArcanoType
 	reversed?: boolean
 }
@@ -49,7 +50,7 @@ const COLOR_CLASSES = {
 } as const
 
 export function ArcanoPortalCard({ arcano, reversed = false }: ArcanoPortalCardProps) {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>([])
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string }[]>([])
 	const colors = COLOR_CLASSES[arcano.color as keyof typeof COLOR_CLASSES]
 
 	useEffect(() => {
@@ -59,7 +60,7 @@ export function ArcanoPortalCard({ arcano, reversed = false }: ArcanoPortalCardP
 				top: `${Math.random() * 100}%`,
 				delay: `${Math.random() * 5}s`,
 				duration: `${8 + Math.random() * 8}s`,
-			}))
+			})),
 		)
 	}, [])
 
@@ -71,7 +72,7 @@ export function ArcanoPortalCard({ arcano, reversed = false }: ArcanoPortalCardP
 			'group relative overflow-hidden rounded-2xl border-2 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500',
 			colors.border,
 			arcano.bgGradient,
-			arcano.shadowColor
+			arcano.shadowColor,
 		)}>
 			<div className="absolute inset-0 pointer-events-none overflow-hidden">
 				<div className={cn('absolute inset-0 bg-gradient-radial to-transparent', colors.nebula)} />
@@ -156,7 +157,7 @@ export function ArcanoPortalCard({ arcano, reversed = false }: ArcanoPortalCardP
 					className={cn(
 						'inline-flex items-center gap-2 rounded-lg bg-gradient-to-r px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 group-hover:gap-3 duration-300',
 						arcano.gradient,
-						arcano.shadowColor
+						arcano.shadowColor,
 					)}
 				>
 					<span>Explorar {arcano.name}</span>

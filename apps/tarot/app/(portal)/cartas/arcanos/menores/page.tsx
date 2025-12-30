@@ -1,8 +1,9 @@
-import { Suspense } from 'react'
 import { MysticalLoading } from '@workspace/ui'
+import { Suspense } from 'react'
+
+import { ArcanosMenoresContent } from './arcanos-menores-content'
 
 import { CartasHeroSection } from '@/features/arcanos'
-import { ArcanosMenoresContent } from './arcanos-menores-content'
 
 export default function ArcanosMenoresPage() {
 	return (

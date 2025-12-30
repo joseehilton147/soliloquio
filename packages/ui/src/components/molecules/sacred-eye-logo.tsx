@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { cn } from '../../lib/utils'
 
-export interface SacredEyeLogoProps {
+export type SacredEyeLogoProps = {
 	/**
 	 * Tamanho do logo
 	 * - sm: Header/navbar (40px)

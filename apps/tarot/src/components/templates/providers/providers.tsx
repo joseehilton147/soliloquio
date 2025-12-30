@@ -6,11 +6,15 @@ import { ThemeProvider } from 'next-themes'
 import { useState, Suspense } from 'react'
 import superjson from 'superjson'
 
-import { trpc } from '../lib/trpc'
-import { DockSettingsProvider } from '../contexts/dock-settings-context'
+import { DockSettingsProvider } from '@/contexts/dock-settings-context'
+import { trpc } from '@/lib/trpc'
 import { PageLoadingIndicator } from '@/shared/components'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+type ProvidersProps = {
+	children: React.ReactNode
+}
+
+export function Providers({ children }: ProvidersProps) {
 	const [queryClient] = useState(
 		() =>
 			new QueryClient({

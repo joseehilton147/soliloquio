@@ -21,7 +21,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @property {ElementColors} colors - Paleta de cores do elemento
  * @property {boolean} show - Se o tooltip deve ser exibido
  */
-interface CardTooltipProps {
+type CardTooltipProps = {
 	/** Texto do label a ser mostrado */
 	label: string
 	/** Paleta de cores baseada no elemento */
@@ -55,7 +55,7 @@ interface CardTooltipProps {
  * @returns {JSX.Element} Tooltip renderizado
  */
 export function CardTooltip({ label, colors, show }: CardTooltipProps) {
-	if (!show) return null
+	if (!show) {return null}
 
 	return (
 		<div className={cn(

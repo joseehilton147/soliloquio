@@ -1,31 +1,17 @@
 import { Icon } from '@iconify/react'
+
 import { NaipeSymbol } from './naipe-symbol'
 
-/**
- * Props do componente NaipeHeader
- */
-interface NaipeHeaderProps {
-	/** Ícone do elemento */
+type NaipeHeaderProps = {
 	elementIcon: string
-	/** Nome do naipe */
 	name: string
-	/** Elemento associado */
 	element: string
-	/** Cor do naipe (Tailwind color name) */
 	color: string
-	/** Classes de gradiente */
 	gradient: string
-	/** Classes de borda */
 	borderColor: string
-	/** Símbolo Unicode do naipe */
 	symbol: string
 }
 
-/**
- * Mapeamento de cores para classes Tailwind
- * Necessário para garantir que o JIT compiler detecte todas as classes
- * Sincronizado com element-colors.ts
- */
 const COLOR_CLASSES = {
 	blue: {
 		icon: 'text-blue-600 dark:text-blue-400',
@@ -65,27 +51,6 @@ const COLOR_CLASSES = {
 	},
 } as const
 
-/**
- * Header do card de naipe - Molécula
- *
- * Componente burro que exibe o cabeçalho de um naipe contendo:
- * - Ícone do elemento em círculo
- * - Nome do naipe e informações
- * - Símbolo do naipe
- *
- * @example
- * ```tsx
- * <NaipeHeader
- *   elementIcon="mdi:water"
- *   name="Copas"
- *   element="Água"
- *   color="blue"
- *   gradient="from-blue-600 to-cyan-600"
- *   borderColor="border-blue-500/30"
- *   symbol="♥"
- * />
- * ```
- */
 export function NaipeHeader({
 	elementIcon,
 	name,
@@ -93,7 +58,7 @@ export function NaipeHeader({
 	color,
 	gradient,
 	borderColor,
-	symbol
+	symbol,
 }: NaipeHeaderProps) {
 	const colorClasses = COLOR_CLASSES[color as keyof typeof COLOR_CLASSES]
 

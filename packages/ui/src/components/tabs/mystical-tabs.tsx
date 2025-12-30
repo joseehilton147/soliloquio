@@ -1,11 +1,12 @@
 'use client'
 
-import { ReactNode } from 'react'
 import { Icon } from '@iconify/react'
-import { cn } from '../../lib/utils'
-import { useTabs } from '../../hooks/use-tabs'
+import { type ReactNode } from 'react'
 
-export interface MysticalTabItem<T extends string = string> {
+import { useTabs } from '../../hooks/use-tabs'
+import { cn } from '../../lib/utils'
+
+export type MysticalTabItem<T extends string = string> = {
 	id: T
 	label: string
 	icon?: string
@@ -18,7 +19,7 @@ export interface MysticalTabItem<T extends string = string> {
 	}) => ReactNode
 }
 
-export interface MysticalTabsProps<T extends string = string> {
+export type MysticalTabsProps<T extends string = string> = {
 	/** Lista de tabs */
 	tabs: MysticalTabItem<T>[]
 	/** Tab ativa por padrão */
@@ -95,7 +96,7 @@ export function MysticalTabs<T extends string = string>({
 				<div
 					className={cn(
 						'relative flex flex-wrap items-center justify-center gap-4 p-6 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm',
-						tabsClassName
+						tabsClassName,
 					)}
 					style={{
 						boxShadow: '0 8px 32px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.4)',
@@ -128,7 +129,7 @@ export function MysticalTabs<T extends string = string>({
 							return tab.renderTab({
 								item: tab,
 								isActive: active,
-								onClick: () => setActiveTab(tab.id as string),
+								onClick: () => { setActiveTab(tab.id as string) },
 							})
 						}
 
@@ -136,12 +137,12 @@ export function MysticalTabs<T extends string = string>({
 						return (
 							<button
 								key={tab.id}
-								onClick={() => setActiveTab(tab.id as string)}
+								onClick={() => { setActiveTab(tab.id as string) }}
 								className={cn(
 									'group relative flex flex-col items-center gap-3 px-6 py-4 rounded-xl border-2 transition-all',
 									'hover:scale-105 hover:shadow-lg',
 									tabClassName,
-									active && activeTabClassName
+									active && activeTabClassName,
 								)}
 								style={{
 									transitionDuration: `${transitionDuration}ms`,

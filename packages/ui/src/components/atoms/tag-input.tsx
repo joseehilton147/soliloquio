@@ -4,22 +4,21 @@ import * as React from 'react'
 
 import { cn } from '../../lib/utils'
 
-export interface TagSuggestion {
+export type TagSuggestion = {
 	id: string;
 	value: string;
 	usageCount: number;
 	similarity?: number;
 }
 
-export interface TagInputProps
-	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export type TagInputProps = {
 	onAddTag?: (value: string) => void;
 	// Autocomplete props
 	suggestions?: TagSuggestion[];
 	isLoadingSuggestions?: boolean;
 	onQueryChange?: (query: string) => void;
 	existingTags?: string[];
-}
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>
 
 /**
  * Átomo: Input para adicionar tags com autocomplete integrado
@@ -58,14 +57,14 @@ export const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 				return
 			}
 
-			if (!onQueryChange) return
+			if (!onQueryChange) {return}
 
 			const timer = setTimeout(() => {
 				onQueryChange(value)
 				setIsOpen(true)
 			}, 300) // Debounce de 300ms
 
-			return () => clearTimeout(timer)
+			return () => { clearTimeout(timer) }
 		}, [value, onQueryChange])
 
 		// Fechar dropdown ao clicar fora
@@ -82,47 +81,57 @@ export const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 			}
 
 			document.addEventListener('mousedown', handleClickOutside)
-			return () => document.removeEventListener('mousedown', handleClickOutside)
+			return () => { document.removeEventListener('mousedown', handleClickOutside) }
 		}, [])
 
 		const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 			// Navegação com setas
-			if (e.key === 'ArrowDown') {
-				e.preventDefault()
-				setSelectedIndex((prev) =>
-					prev < filteredSuggestions.length - 1 ? prev + 1 : prev,
-				)
-			} else if (e.key === 'ArrowUp') {
-				e.preventDefault()
-				setSelectedIndex((prev) => (prev > 0 ? prev - 1 : 0))
-			}
-			// Enter: adicionar tag
-			else if (e.key === 'Enter') {
-				e.preventDefault()
+			switch (e.key) {
+				case 'ArrowDown': {
+					e.preventDefault()
+					setSelectedIndex((previous) =>
+						previous < filteredSuggestions.length - 1 ? previous + 1 : previous,
+					)
 
-				// Se há sugestões abertas e uma selecionada, usar a sugestão
-				if (isOpen && filteredSuggestions.length > 0) {
-					const selectedSuggestion = filteredSuggestions[selectedIndex]
-					if (selectedSuggestion && onAddTag) {
-						onAddTag(selectedSuggestion.value)
-						setValue('')
-						setIsOpen(false)
-						setSelectedIndex(0)
-					}
+					break
 				}
-				// Caso contrário, adicionar o texto digitado
-				else {
-					const trimmedValue = value.trim()
-					if (trimmedValue && onAddTag) {
-						onAddTag(trimmedValue)
-						setValue('')
-						setIsOpen(false)
-					}
+				case 'ArrowUp': {
+					e.preventDefault()
+					setSelectedIndex((previous) => (previous > 0 ? previous - 1 : 0))
+
+					break
 				}
-			}
-			// Escape: fechar dropdown
-			else if (e.key === 'Escape') {
-				setIsOpen(false)
+				case 'Enter': {
+					e.preventDefault()
+
+					// Se há sugestões abertas e uma selecionada, usar a sugestão
+					if (isOpen && filteredSuggestions.length > 0) {
+						const selectedSuggestion = filteredSuggestions[selectedIndex]
+						if (selectedSuggestion && onAddTag) {
+							onAddTag(selectedSuggestion.value)
+							setValue('')
+							setIsOpen(false)
+							setSelectedIndex(0)
+						}
+					}
+					// Caso contrário, adicionar o texto digitado
+					else {
+						const trimmedValue = value.trim()
+						if (trimmedValue && onAddTag) {
+							onAddTag(trimmedValue)
+							setValue('')
+							setIsOpen(false)
+						}
+					}
+
+					break
+				}
+				case 'Escape': {
+					setIsOpen(false)
+
+					break
+				}
+			// No default
 			}
 		}
 
@@ -144,7 +153,7 @@ export const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 					ref={internalRef}
 					type="text"
 					value={value}
-					onChange={(e) => setValue(e.target.value)}
+					onChange={(e) => { setValue(e.target.value) }}
 					onKeyDown={handleKeyDown}
 					className={cn(
 						'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm',
@@ -174,7 +183,7 @@ export const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 										<button
 											key={suggestion.id}
 											type="button"
-											onClick={() => handleSuggestionClick(suggestion)}
+											onClick={() => { handleSuggestionClick(suggestion) }}
 											className={cn(
 												'w-full text-left px-3 py-2 text-sm rounded-sm cursor-pointer',
 												'hover:bg-accent hover:text-accent-foreground',

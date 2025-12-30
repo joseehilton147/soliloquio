@@ -1,7 +1,7 @@
 import type { MoonPhase } from '../../lib/lunar-calendar'
 import { cn } from '../../lib/utils'
 
-export interface MoonPhaseIconProps {
+export type MoonPhaseIconProps = {
 	phase: MoonPhase
 	size?: 'sm' | 'md' | 'lg'
 	className?: string

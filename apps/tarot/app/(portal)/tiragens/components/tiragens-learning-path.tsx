@@ -18,7 +18,7 @@ import { useEffect, useState } from 'react'
  * - Referência ao livro guia
  */
 export function TiragensLearningPath() {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string; size: number }>>([])
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string; size: number }[]>([])
 
 	useEffect(() => {
 		// Partículas de sabedoria estelar
@@ -29,7 +29,7 @@ export function TiragensLearningPath() {
 				delay: `${Math.random() * 6}s`,
 				duration: `${12 + Math.random() * 15}s`,
 				size: Math.random() * 2.5 + 0.5,
-			}))
+			})),
 		)
 	}, [])
 

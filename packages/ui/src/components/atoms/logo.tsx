@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { cn } from '../../lib/utils'
 
-export interface LogoProps {
+export type LogoProps = {
 	href?: string
 	icon?: React.ReactNode
 	text: string

@@ -9,7 +9,7 @@
 /**
  * Resultado do cálculo de espaço disponível no viewport
  */
-export interface ViewportSpaceCalculation {
+export type ViewportSpaceCalculation = {
 	/** Espaço disponível acima do elemento (em pixels) */
 	spaceAbove: number
 	/** Espaço disponível abaixo do elemento (em pixels) */
@@ -33,7 +33,7 @@ export interface ViewportSpaceCalculation {
 /**
  * Opções para configurar o cálculo de espaço disponível
  */
-export interface ViewportSpaceOptions {
+export type ViewportSpaceOptions = {
 	/** Margem de segurança ao redor do viewport (padrão: 16px) */
 	margin?: number
 	/** Altura mínima desejada para o elemento flutuante (padrão: 200px) */

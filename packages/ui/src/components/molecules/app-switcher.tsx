@@ -16,7 +16,7 @@ import { cn } from '../../lib/utils'
  * @property {boolean} available - Se o app está disponível ou "Em breve"
  * @property {string} [description] - Descrição opcional do app
  */
-export interface AppItem {
+export type AppItem = {
 	id: string
 	name: string
 	icon: string
@@ -39,7 +39,7 @@ export type GridColumns = 1 | 2 | 3 | 4
  * @property {(appId: string) => void} [onAppChange] - Callback ao selecionar app
  * @property {string} [className] - Classes CSS adicionais
  */
-export interface AppSwitcherProps {
+export type AppSwitcherProps = {
 	apps: AppItem[]
 	columns?: GridColumns
 	onAppChange?: (appId: string) => void
@@ -133,7 +133,7 @@ export function AppSwitcher({
 	apps,
 	columns = 1,
 	onAppChange,
-	className
+	className,
 }: AppSwitcherProps) {
 	const [isOpen, setIsOpen] = useState(false)
 	const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null)
@@ -218,10 +218,10 @@ export function AppSwitcher({
 											key={app.id}
 											href={app.available ? app.href : '#'}
 											onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-												if (!app.available) {
-													e.preventDefault()
-												} else {
+												if (app.available) {
 													handleAppClick(app)
+												} else {
+													e.preventDefault()
 												}
 											}}
 											className={cn(

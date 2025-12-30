@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 
 import { cn } from '../../lib/utils'
 
-export interface MysticalLoadingProps {
+export type MysticalLoadingProps = {
 	/**
 	 * Variant do loading
 	 * - inline: Loading pequeno para uso inline (padrão)

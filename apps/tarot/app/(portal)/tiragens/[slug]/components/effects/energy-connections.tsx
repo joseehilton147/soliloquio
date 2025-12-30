@@ -8,6 +8,7 @@
  */
 
 import type { TarotSpread } from '@workspace/core/tarot'
+
 import type { ElementColorConfig, Element } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
@@ -21,7 +22,7 @@ type ElementType = Element
  * @property {ElementColors} colors - Paleta de cores do elemento
  * @property {ElementType} element - Tipo do elemento para ID único do gradiente
  */
-interface EnergyConnectionsProps {
+type EnergyConnectionsProps = {
 	/** Posições da tiragem com coordenadas e conexões */
 	positions: TarotSpread['positions']
 	/** Paleta de cores baseada no elemento */
@@ -73,7 +74,7 @@ export function EnergyConnections({ positions, colors, element }: EnergyConnecti
 			{positions.map((position) =>
 				position.connectedTo?.map((targetId) => {
 					const target = positions.find((p) => p.id === targetId)
-					if (!target) return null
+					if (!target) {return null}
 
 					return (
 						<line
@@ -92,7 +93,7 @@ export function EnergyConnections({ positions, colors, element }: EnergyConnecti
 							}}
 						/>
 					)
-				})
+				}),
 			)}
 		</svg>
 	)

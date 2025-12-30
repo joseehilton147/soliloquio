@@ -11,7 +11,7 @@
  * - Ar (Espadas): Cinza/Prata - Intelecto
  */
 
-export interface NaipeColorConfig {
+export type NaipeColorConfig = {
 	readonly name: string
 	readonly key: 'blue' | 'red' | 'terra' | 'slate'
 	readonly tailwindBase: string

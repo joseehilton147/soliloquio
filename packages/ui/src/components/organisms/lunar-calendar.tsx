@@ -9,7 +9,7 @@ import { calculateAvailableSpace } from '../../lib/viewport-utils'
 import { MoonPhaseBadge } from '../molecules/moon-phase-badge'
 import { MoonPhaseListItem } from '../molecules/moon-phase-list-item'
 
-export interface LunarCalendarProps {
+export type LunarCalendarProps = {
 	className?: string
 }
 
@@ -41,7 +41,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 
 		// Atualizar a cada hora
 		const interval = setInterval(updateLunarInfo, 1000 * 60 * 60)
-		return () => clearInterval(interval)
+		return () => { clearInterval(interval) }
 	}, [])
 
 	const handleMouseEnter = () => {
@@ -53,7 +53,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 		// Calcular espaço disponível usando utility
 		if (triggerRef.current) {
 			// Calcular altura REAL do header dinamicamente
-			const headerElement = document.getElementById('app-header')
+			const headerElement = document.querySelector('#app-header')
 			const headerHeight = headerElement?.getBoundingClientRect().height || 0
 
 			const space = calculateAvailableSpace(triggerRef.current, {
@@ -75,7 +75,7 @@ export function LunarCalendar({ className }: LunarCalendarProps) {
 			const adjustedSpaceAbove = Math.max(0, space.spaceAbove - headerHeight)
 
 			// Calcular altura REAL da dock dinamicamente
-			const dockElement = document.getElementById('mystical-dock')
+			const dockElement = document.querySelector('#mystical-dock')
 			const dockHeight = dockElement?.getBoundingClientRect().height || 0
 			const dockMargin = 40 // Margem de respiração visual até a dock
 			const adjustedSpaceBelow = Math.max(0, space.spaceBelow - dockHeight - dockMargin)

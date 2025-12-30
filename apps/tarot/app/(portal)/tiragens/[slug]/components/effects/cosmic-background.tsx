@@ -10,6 +10,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+
 import type { ElementColorConfig } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
@@ -21,7 +22,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @property {ElementColors} colors - Paleta de cores do elemento atual
  * @property {number} starCount - Quantidade de estrelas no campo (padrão: 150)
  */
-interface CosmicBackgroundProps {
+type CosmicBackgroundProps = {
 	/** Paleta de cores baseada no elemento (air, water, fire, earth, spirit) */
 	colors: ElementColors
 	/** Quantidade de estrelas no campo cósmico */
@@ -31,7 +32,7 @@ interface CosmicBackgroundProps {
 /**
  * Interface para dados de uma estrela
  */
-interface Star {
+type Star = {
 	left: string
 	top: string
 	size: number

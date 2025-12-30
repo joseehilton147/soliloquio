@@ -1,5 +1,5 @@
-import { Suspense } from 'react'
 import { MysticalLoading } from '@workspace/ui'
+import { Suspense } from 'react'
 
 import { ELEMENT_COLORS, NaipePageHero, NaipeContent } from '@/features/naipes'
 

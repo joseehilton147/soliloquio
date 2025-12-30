@@ -9,6 +9,7 @@
 
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
+
 import type { ElementColorConfig } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
@@ -23,7 +24,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
  * @property {ElementColors} colors - Paleta de cores do elemento
  * @property {boolean} isSelected - Se a carta está selecionada
  */
-interface CardFrontProps {
+type CardFrontProps = {
 	/** Número da ordem da posição na tiragem */
 	order: number
 	/** Nome/label descritivo da posição */
@@ -66,18 +67,18 @@ export function CardFront({ order, label, mysticalSymbol, colors, isSelected }: 
 		<div className={cn(
 			'absolute inset-0 rounded-xl border-3 overflow-hidden backface-hidden',
 			'transition-all duration-700',
-			isSelected ? 'shadow-2xl' : 'shadow-xl'
+			isSelected ? 'shadow-2xl' : 'shadow-xl',
 		)}
-			style={{
-				borderColor: `rgba(${colors.rgb}, ${isSelected ? '1' : '0.5'})`,
-				background: `
+		style={{
+			borderColor: `rgba(${colors.rgb}, ${isSelected ? '1' : '0.5'})`,
+			background: `
 					linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(15,15,15,0.98) 50%, rgba(0,0,0,0.98) 100%),
 					radial-gradient(ellipse at center, rgba(${colors.rgb}, 0.08) 0%, transparent 70%)
 				`,
-				boxShadow: isSelected
-					? `${colors.glow}, 0 0 40px ${colors.smoke}, 0 25px 70px rgba(0,0,0,0.95), inset 0 0 30px ${colors.smoke}`
-					: `0 0 25px ${colors.smoke}, 0 12px 45px rgba(0,0,0,0.85), inset 0 0 20px rgba(0,0,0,0.5)`,
-			}}
+			boxShadow: isSelected
+				? `${colors.glow}, 0 0 40px ${colors.smoke}, 0 25px 70px rgba(0,0,0,0.95), inset 0 0 30px ${colors.smoke}`
+				: `0 0 25px ${colors.smoke}, 0 12px 45px rgba(0,0,0,0.85), inset 0 0 20px rgba(0,0,0,0.5)`,
+		}}
 		>
 			{/* Ornamentos místicos da carta */}
 			<div className="absolute inset-0 flex flex-col items-center justify-between p-4">

@@ -25,24 +25,24 @@ export const ARCANOS: readonly ArcanoType[] = [
 		description: [
 			'Os Arcanos Maiores representam a jornada espiritual do ser humano, desde O Louco (0) até O Mundo (21). São 22 portais sagrados que ilustram os grandes temas da existência, arquétipos universais e lições profundas que transcendem o tempo.',
 			'Cada carta é um espelho da alma, refletindo aspectos fundamentais da consciência humana: amor (Os Amantes), sabedoria (O Eremita), transformação (A Morte), equilíbrio (A Justiça) e iluminação (O Sol). Juntas, narram a evolução espiritual da humanidade.',
-			'Quando um Arcano Maior aparece em uma leitura, ele traz mensagens de grande importância, eventos marcantes e lições kármicas que moldam o destino. São as cartas do despertar espiritual.'
+			'Quando um Arcano Maior aparece em uma leitura, ele traz mensagens de grande importância, eventos marcantes e lições kármicas que moldam o destino. São as cartas do despertar espiritual.',
 		],
 		quote: 'Os Arcanos Maiores são espelhos da alma, refletindo nossa jornada de autoconhecimento e evolução espiritual através dos portais do tempo.',
 		keyPoints: [
 			{
 				title: 'Simbolismo Ancestral',
-				description: 'Contêm símbolos milenares, arquétipos junguianos e sabedoria hermética transmitida através das eras'
+				description: 'Contêm símbolos milenares, arquétipos junguianos e sabedoria hermética transmitida através das eras',
 			},
 			{
 				title: 'Jornada do Louco',
-				description: 'Narram a odisseia da consciência humana, desde a inocência até a iluminação completa'
+				description: 'Narram a odisseia da consciência humana, desde a inocência até a iluminação completa',
 			},
 			{
 				title: 'Lições Kármicas',
-				description: 'Revelam grandes temas existenciais, ciclos de vida e transformações inevitáveis do espírito'
-			}
+				description: 'Revelam grandes temas existenciais, ciclos de vida e transformações inevitáveis do espírito',
+			},
 		],
-		href: '/cartas/arcanos/maiores'
+		href: '/cartas/arcanos/maiores',
 	},
 	{
 		id: 'menores',
@@ -60,23 +60,23 @@ export const ARCANOS: readonly ArcanoType[] = [
 		description: [
 			'Os Arcanos Menores representam situações cotidianas, escolhas práticas e influências que moldam nosso dia a dia. São 56 cartas divididas em 4 naipes elementais (Água, Fogo, Terra, Ar), cada um revelando uma dimensão da experiência humana.',
 			'Enquanto os Arcanos Maiores mostram as grandes diretrizes espirituais e lições kármicas, os Menores revelam como essas energias se manifestam no nosso livre arbítrio, nas nossas atitudes, relacionamentos, trabalho e desafios diários.',
-			'Cada naipe contém 14 cartas: números de Ás a 10 (evolução da energia) e 4 figuras da corte (Valete, Cavaleiro, Rainha, Rei) que representam pessoas reais ou aspectos da nossa personalidade.'
+			'Cada naipe contém 14 cartas: números de Ás a 10 (evolução da energia) e 4 figuras da corte (Valete, Cavaleiro, Rainha, Rei) que representam pessoas reais ou aspectos da nossa personalidade.',
 		],
 		quote: 'Os Arcanos Menores são o campo de ação da nossa vontade, onde exercemos nossas escolhas e construímos nosso destino com as mãos.',
 		keyPoints: [
 			{
 				title: 'Vida Prática',
-				description: 'Representam situações do cotidiano, escolhas pessoais e o desenrolar dos eventos diários'
+				description: 'Representam situações do cotidiano, escolhas pessoais e o desenrolar dos eventos diários',
 			},
 			{
 				title: '4 Elementos',
-				description: 'Cada naipe conecta-se profundamente a Água (emoções), Fogo (ação), Terra (material) ou Ar (pensamento)'
+				description: 'Cada naipe conecta-se profundamente a Água (emoções), Fogo (ação), Terra (material) ou Ar (pensamento)',
 			},
 			{
 				title: 'Livre Arbítrio',
-				description: 'Mostram como exercemos nossa vontade, tomamos decisões e co-criamos nossa realidade'
-			}
+				description: 'Mostram como exercemos nossa vontade, tomamos decisões e co-criamos nossa realidade',
+			},
 		],
-		href: '/cartas/arcanos/menores'
-	}
+		href: '/cartas/arcanos/menores',
+	},
 ] as const

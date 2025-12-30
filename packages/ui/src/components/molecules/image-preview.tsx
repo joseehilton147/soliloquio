@@ -7,7 +7,7 @@ import * as React from 'react'
 import { cn } from '../../lib/utils'
 import { Button } from '../atoms/button'
 
-export interface ImagePreviewProps {
+export type ImagePreviewProps = {
 	imageUrl: string;
 	onRemove: () => void;
 	className?: string;

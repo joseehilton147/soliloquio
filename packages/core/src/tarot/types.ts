@@ -1,45 +1,43 @@
 /**
  * Tipos TypeScript para o domínio do Tarot
- * Baseados nos schemas Zod e compatíveis com Prisma
+ * Tipos complementares não gerados pelos schemas Zod
  */
-
-export type { TarotCard, ReadingType, CreateTarotCard, UpdateTarotCard, ReadingTypeValue } from './schemas';
 
 /**
  * Filtros para busca de cartas
  */
-export interface TarotCardFilters {
-  name?: string;
-  numerology?: string;
-  astrology?: string;
+export type TarotCardFilters = {
+	name?: string;
+	numerology?: string;
+	astrology?: string;
 }
 
 /**
  * Opções de ordenação
  */
-export type TarotCardOrderBy = 'name' | 'numerology' | 'createdAt' | 'updatedAt';
+export type TarotCardOrderBy = 'name' | 'numerology' | 'createdAt' | 'updatedAt'
 
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = 'asc' | 'desc'
 
 /**
  * Parâmetros de paginação
  */
-export interface PaginationParams {
-  page?: number;
-  limit?: number;
-  orderBy?: TarotCardOrderBy;
-  order?: SortOrder;
+export type PaginationParams = {
+	page?: number;
+	limit?: number;
+	orderBy?: TarotCardOrderBy;
+	order?: SortOrder;
 }
 
 /**
  * Resultado paginado
  */
-export interface PaginatedResult<T> {
-  data: T[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
+export type PaginatedResult<T> = {
+	data: T[];
+	pagination: {
+		page: number;
+		limit: number;
+		total: number;
+		totalPages: number;
+	};
 }

@@ -17,8 +17,8 @@ import { useEffect, useState } from 'react'
  * - Neon glow effects
  */
 export function TiragensCustomCTA() {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string; size: number }>>([])
-	const [orbitingSymbols, setOrbitingSymbols] = useState<Array<{ angle: number; delay: string }>>([])
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string; size: number }[]>([])
+	const [orbitingSymbols, setOrbitingSymbols] = useState<{ angle: number; delay: string }[]>([])
 
 	useEffect(() => {
 		// Partículas de poeira estelar
@@ -29,7 +29,7 @@ export function TiragensCustomCTA() {
 				delay: `${Math.random() * 8}s`,
 				duration: `${15 + Math.random() * 20}s`,
 				size: Math.random() * 3 + 0.5,
-			}))
+			})),
 		)
 
 		// Símbolos orbitando o centro
@@ -37,7 +37,7 @@ export function TiragensCustomCTA() {
 			Array.from({ length: 6 }).map((_, i) => ({
 				angle: (i * 360) / 6,
 				delay: `${i * 0.5}s`,
-			}))
+			})),
 		)
 	}, [])
 

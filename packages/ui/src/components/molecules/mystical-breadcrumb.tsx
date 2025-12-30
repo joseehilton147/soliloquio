@@ -5,12 +5,12 @@ import Link from 'next/link'
 
 import { cn } from '../../lib/utils'
 
-export interface BreadcrumbItem {
+export type BreadcrumbItem = {
 	label: string
 	href?: string // undefined para o último item (página atual)
 }
 
-export interface MysticalBreadcrumbProps {
+export type MysticalBreadcrumbProps = {
 	items: BreadcrumbItem[]
 	className?: string
 	showSparkles?: boolean // Mostrar Sparkle na página atual

@@ -2,7 +2,7 @@ import type { MoonPhase } from '../../lib/lunar-calendar'
 import { cn } from '../../lib/utils'
 import { MoonPhaseIcon } from '../atoms/moon-phase-icon'
 
-export interface MoonPhaseBadgeProps {
+export type MoonPhaseBadgeProps = {
 	phase: MoonPhase
 	phaseName: string
 	className?: string

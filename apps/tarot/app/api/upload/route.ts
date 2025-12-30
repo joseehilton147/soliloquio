@@ -1,8 +1,8 @@
-import { existsSync } from 'fs'
-import { writeFile, mkdir, unlink } from 'fs/promises'
-import { join } from 'path'
+import { existsSync } from 'node:fs'
+import { writeFile, mkdir, unlink } from 'node:fs/promises'
+import { join } from 'node:path'
 
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
 	try {
@@ -36,18 +36,18 @@ export async function POST(request: NextRequest) {
 
 		// Criar nome de arquivo seguro
 		const timestamp = Date.now()
-		const originalName = file.name.toLowerCase().replace(/[^a-z0-9.-]/g, '-')
+		const originalName = file.name.toLowerCase().replaceAll(/[^a-z0-9.-]/g, '-')
 		const fileName = `${timestamp}-${originalName}`
 
 		// Caminho para salvar o arquivo
-		const uploadDir = join(process.cwd(), 'public', 'images', 'cartas')
+		const uploadDirectory = join(process.cwd(), 'public', 'images', 'cartas')
 
 		// Criar diretório se não existir
-		if (!existsSync(uploadDir)) {
-			await mkdir(uploadDir, { recursive: true })
+		if (!existsSync(uploadDirectory)) {
+			await mkdir(uploadDirectory, { recursive: true })
 		}
 
-		const filePath = join(uploadDir, fileName)
+		const filePath = join(uploadDirectory, fileName)
 
 		// Converter File para Buffer e salvar
 		const bytes = await file.arrayBuffer()
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 		if (oldImageUrl && oldImageUrl.startsWith('/images/cartas/')) {
 			try {
 				const oldFileName = oldImageUrl.replace('/images/cartas/', '')
-				const oldFilePath = join(uploadDir, oldFileName)
+				const oldFilePath = join(uploadDirectory, oldFileName)
 
 				// Verificar se arquivo existe antes de deletar
 				if (existsSync(oldFilePath)) {

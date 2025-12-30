@@ -1,8 +1,8 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
-import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -10,10 +10,9 @@ import { use, useState } from 'react'
 
 import { trpc } from '@/lib/trpc'
 
-interface PageProps {
+type PageProps = {
 	params: Promise<{ slug: string }>;
 }
-
 
 export default function BaralhoDetailPage({ params }: PageProps) {
 	const { slug } = use(params)
@@ -137,60 +136,62 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 					Cartas do Baralho
 				</h2>
 
-				{deck.cards.length === 0 ? (
-					<div className="rounded-lg border border-border/40 bg-muted/20 p-12 text-center">
-						<p className="text-sm text-muted-foreground">
-							Este baralho ainda não possui cartas cadastradas
-						</p>
-						<Link
-							href="/cartas/nova"
-							className="mt-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all"
-						>
-							Adicionar Primeira Carta
-						</Link>
-					</div>
-				) : (
-					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-						{deck.cards.map((card: any) => (
+				{deck.cards.length === 0
+					? (
+						<div className="rounded-lg border border-border/40 bg-muted/20 p-12 text-center">
+							<p className="text-sm text-muted-foreground">
+								Este baralho ainda não possui cartas cadastradas
+							</p>
 							<Link
-								key={card.id}
-								href={`/cartas/${card.slug}`}
-								className="group relative overflow-hidden rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 transition-all hover:shadow-xl hover:border-purple-500/20"
+								href="/cartas/nova"
+								className="mt-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all"
 							>
-								<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-								{card.imageUrl && (
-									<div className="relative aspect-[3/4] w-full bg-gradient-to-br from-muted to-muted/50">
-										<Image
-											src={card.imageUrl}
-											alt={card.name}
-											fill
-											className="object-cover transition-transform duration-300 group-hover:scale-105"
-											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-										/>
-										<div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-									</div>
-								)}
-
-								<div className="relative p-6 space-y-3">
-									<div className="flex items-start justify-between gap-2">
-										<h3 className="text-xl font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex-1">
-											{card.name}
-										</h3>
-										<Icon icon="lucide:sparkles" className="size-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-									</div>
-									<p className="text-xs text-muted-foreground">
-										Numerologia: {card.numerology}
-										{card.astrology && ` • ${card.astrology}`}
-									</p>
-									<p className="line-clamp-2 text-sm text-muted-foreground">
-										{card.summary}
-									</p>
-								</div>
+								Adicionar Primeira Carta
 							</Link>
-						))}
-					</div>
-				)}
+						</div>
+					)
+					: (
+						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+							{deck.cards.map((card: any) => (
+								<Link
+									key={card.id}
+									href={`/cartas/${card.slug}`}
+									className="group relative overflow-hidden rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 transition-all hover:shadow-xl hover:border-purple-500/20"
+								>
+									<div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+									{card.imageUrl && (
+										<div className="relative aspect-[3/4] w-full bg-gradient-to-br from-muted to-muted/50">
+											<Image
+												src={card.imageUrl}
+												alt={card.name}
+												fill
+												className="object-cover transition-transform duration-300 group-hover:scale-105"
+												sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+											/>
+											<div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+										</div>
+									)}
+
+									<div className="relative p-6 space-y-3">
+										<div className="flex items-start justify-between gap-2">
+											<h3 className="text-xl font-semibold group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex-1">
+												{card.name}
+											</h3>
+											<Icon icon="lucide:sparkles" className="size-4 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+										</div>
+										<p className="text-xs text-muted-foreground">
+											Numerologia: {card.numerology}
+											{card.astrology && ` • ${card.astrology}`}
+										</p>
+										<p className="line-clamp-2 text-sm text-muted-foreground">
+											{card.summary}
+										</p>
+									</div>
+								</Link>
+							))}
+						</div>
+					)}
 			</div>
 		</div>
 	)

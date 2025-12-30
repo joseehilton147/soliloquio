@@ -104,7 +104,7 @@ export const literata = Literata({
  * ═══════════════════════════════════════════════
  */
 
-export interface FontConfig {
+export type FontConfig = {
 	readonly name: string
 	readonly description: string
 	readonly usage: 'display' | 'body' | 'both'

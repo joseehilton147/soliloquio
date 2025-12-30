@@ -45,7 +45,7 @@ export type SpreadLayout =
  *
  * Define onde a carta aparece visualmente e o que ela representa
  */
-export interface SpreadPosition {
+export type SpreadPosition = {
 	/** ID único da posição */
 	id: string
 
@@ -79,7 +79,7 @@ export interface SpreadPosition {
  *
  * Define uma tiragem com todas suas posições e metadados
  */
-export interface TarotSpread {
+export type TarotSpread = {
 	/** ID único da tiragem */
 	id: string
 
@@ -131,7 +131,7 @@ export interface TarotSpread {
  *
  * Extends TarotSpread com campos específicos de usuário
  */
-export interface CustomSpread extends TarotSpread {
+export type CustomSpread = {
 	/** ID do usuário criador */
 	userId: string
 
@@ -152,14 +152,14 @@ export interface CustomSpread extends TarotSpread {
 
 	/** Notas pessoais do criador */
 	notes?: string
-}
+} & TarotSpread
 
 /**
  * Resultado de uma tiragem realizada
  *
  * Armazena as cartas sorteadas e interpretações
  */
-export interface SpreadReading {
+export type SpreadReading = {
 	/** ID único da leitura */
 	id: string
 
@@ -173,11 +173,11 @@ export interface SpreadReading {
 	readAt: Date
 
 	/** Cartas sorteadas (ID da carta + posição) */
-	cards: Array<{
+	cards: {
 		positionId: string
 		cardId: string
 		isReversed: boolean
-	}>
+	}[]
 
 	/** Pergunta feita (opcional) */
 	question?: string
@@ -195,7 +195,7 @@ export interface SpreadReading {
 /**
  * Validação de tiragem customizada
  */
-export interface SpreadValidation {
+export type SpreadValidation = {
 	isValid: boolean
 	errors: string[]
 	warnings: string[]
@@ -204,7 +204,7 @@ export interface SpreadValidation {
 /**
  * Configurações visuais do canvas de tiragem
  */
-export interface SpreadCanvasConfig {
+export type SpreadCanvasConfig = {
 	/** Largura do canvas em px */
 	width: number
 

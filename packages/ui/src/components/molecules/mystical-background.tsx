@@ -2,7 +2,7 @@
 
 import { cn } from '../../lib/utils'
 
-export interface MysticalBackgroundProps {
+export type MysticalBackgroundProps = {
 	variant?: 'stars' | 'constellation' | 'orbs' | 'minimal'
 	intensity?: 'subtle' | 'medium' | 'strong'
 	className?: string

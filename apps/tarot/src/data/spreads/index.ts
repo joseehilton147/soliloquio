@@ -22,13 +22,13 @@ import type { TarotSpread } from '@workspace/core/tarot'
 // ═══════════════════════════════════════════════════════
 
 // Quick Spreads (1 carta)
+import { CRUZ_CELTA } from './deep'
+import { CONSELHO_DO_UNIVERSO } from './insight'
 import { SIM_OU_NAO } from './quick'
 
 // Insight Spreads (3 cartas)
-import { CONSELHO_DO_UNIVERSO } from './insight'
 
 // Deep Spreads (10 cartas)
-import { CRUZ_CELTA } from './deep'
 
 // ═══════════════════════════════════════════════════════
 // ARRAY CONSOLIDADO - 3 Tiragens Essenciais
@@ -109,10 +109,11 @@ export function getSpreadsByCardCount(count: number): TarotSpread[] {
 // ═══════════════════════════════════════════════════════
 
 // Quick Spreads
-export { SIM_OU_NAO }
 
 // Insight Spreads
-export { CONSELHO_DO_UNIVERSO }
 
 // Deep Spreads
-export { CRUZ_CELTA }
+
+export { SIM_OU_NAO } from './quick'
+export { CONSELHO_DO_UNIVERSO } from './insight'
+export { CRUZ_CELTA } from './deep'

@@ -7,7 +7,7 @@
 
 import type { TarotSpread } from '@workspace/core/tarot'
 
-export interface CalculatedPosition {
+export type CalculatedPosition = {
 	x: number // percentual 0-100
 	y: number // percentual 0-100
 	rotation?: number
@@ -37,7 +37,7 @@ export function calculateContainerDimensions(cardCount: number): {
 	// Para todas as tiragens, usa altura mínima da viewport
 	return {
 		minHeight: 'calc(100vh - 8rem)', // Desconta header/padding
-		aspectRatio: cardCount <= 5 ? 'landscape' : 'square'
+		aspectRatio: cardCount <= 5 ? 'landscape' : 'square',
 	}
 }
 
@@ -93,13 +93,13 @@ function getCelticCrossLayout(): CalculatedPosition[] {
 		{
 			x: centerX,     // 38%
 			y: centerY,     // 50%
-			rotation: 0     // Vertical
+			rotation: 0,     // Vertical
 		},  // Carta 1: Situação Presente
 
 		{
 			x: centerX,     // 38% (mesma posição da carta 1)
 			y: centerY,     // 50% (mesma posição da carta 1)
-			rotation: 90    // Horizontal (cruzada sobre a 1)
+			rotation: 90,    // Horizontal (cruzada sobre a 1)
 		},  // Carta 2: Obstáculo/Cruzamento
 
 		// ════════════════════════════════════════════════════════
@@ -108,25 +108,25 @@ function getCelticCrossLayout(): CalculatedPosition[] {
 		{
 			x: centerX,     // 38% (alinhada com centro)
 			y: 20,          // 20% (ACIMA do centro - y menor)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 3: Coroa/Consciência (TOPO da cruz)
 
 		{
 			x: 68,          // 68% (DIREITA do centro)
 			y: centerY,     // 50% (alinhada com centro)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 4: Futuro Próximo (DIREITA da cruz)
 
 		{
 			x: centerX,     // 38% (alinhada com centro)
 			y: 80,          // 80% (ABAIXO do centro - y maior)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 5: Fundação/Base (BASE da cruz)
 
 		{
 			x: 8,           // 8% (ESQUERDA do centro)
 			y: centerY,     // 50% (alinhada com centro)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 6: Passado Recente (ESQUERDA da cruz)
 
 		// ════════════════════════════════════════════════════════
@@ -136,25 +136,25 @@ function getCelticCrossLayout(): CalculatedPosition[] {
 		{
 			x: staffX,      // 85%
 			y: 80,          // 80% (BASE da coluna - y maior)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 7: Consulente (mais embaixo)
 
 		{
 			x: staffX,      // 85%
 			y: 60,          // 60% (meio-baixo da coluna)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 8: Entorno/Ambiente
 
 		{
 			x: staffX,      // 85%
 			y: 40,          // 40% (meio-cima da coluna)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 9: Esperanças/Medos
 
 		{
 			x: staffX,      // 85%
 			y: 20,          // 20% (TOPO da coluna - y menor)
-			rotation: 0
+			rotation: 0,
 		},  // Carta 10: Desfecho Final (mais acima)
 	]
 }
@@ -192,7 +192,7 @@ function getUniverseAdviceLayout(): CalculatedPosition[] {
  * Sistema dinâmico que funciona para qualquer tiragem
  */
 function optimizeExistingPositions(spread: TarotSpread): CalculatedPosition[] {
-	const positions = spread.positions.map(pos => ({
+	const positions = spread.positions.map((pos) => ({
 		x: pos.x,
 		y: pos.y,
 		rotation: pos.rotation,
@@ -201,7 +201,7 @@ function optimizeExistingPositions(spread: TarotSpread): CalculatedPosition[] {
 	// Threshold de colisão baseado no tamanho da carta
 	const COLLISION_THRESHOLD = Math.max(
 		CARD_CONFIG.widthPercent + CARD_CONFIG.minSpacingX,
-		CARD_CONFIG.heightPercent + CARD_CONFIG.minSpacingY
+		CARD_CONFIG.heightPercent + CARD_CONFIG.minSpacingY,
 	)
 
 	// Múltiplas passadas para garantir não-sobreposição
@@ -216,7 +216,7 @@ function optimizeExistingPositions(spread: TarotSpread): CalculatedPosition[] {
 
 				// Calcula distância Euclidiana
 				const distance = Math.sqrt(
-					Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2)
+					Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2),
 				)
 
 				// Se muito próximos, afasta
@@ -245,7 +245,7 @@ function optimizeExistingPositions(spread: TarotSpread): CalculatedPosition[] {
 		}
 
 		// Se nenhuma colisão detectada, para
-		if (!hasCollision) break
+		if (!hasCollision) {break}
 	}
 
 	return positions
@@ -259,97 +259,113 @@ export function generateGridLayout(cardCount: number): CalculatedPosition[] {
 	const positions: CalculatedPosition[] = []
 
 	// Layouts otimizados por número de cartas
-	if (cardCount === 1) {
+	switch (cardCount) {
+		case 1: {
 		// Carta única centrada
-		positions.push({ x: 50, y: 50, rotation: 0 })
+			positions.push({ x: 50, y: 50, rotation: 0 })
 
-	} else if (cardCount === 2) {
+			break
+		}
+		case 2: {
 		// Duas cartas lado a lado
-		positions.push(
-			{ x: 30, y: 50, rotation: 0 },
-			{ x: 70, y: 50, rotation: 0 }
-		)
+			positions.push(
+				{ x: 30, y: 50, rotation: 0 },
+				{ x: 70, y: 50, rotation: 0 },
+			)
 
-	} else if (cardCount === 3) {
+			break
+		}
+		case 3: {
 		// Três cartas em linha (Passado, Presente, Futuro)
-		positions.push(
-			{ x: 20, y: 50, rotation: 0 },
-			{ x: 50, y: 50, rotation: 0 },
-			{ x: 80, y: 50, rotation: 0 }
-		)
+			positions.push(
+				{ x: 20, y: 50, rotation: 0 },
+				{ x: 50, y: 50, rotation: 0 },
+				{ x: 80, y: 50, rotation: 0 },
+			)
 
-	} else if (cardCount === 4) {
+			break
+		}
+		case 4: {
 		// Grid 2x2 ou cruz simples
-		positions.push(
-			{ x: 25, y: 30, rotation: 0 },
-			{ x: 75, y: 30, rotation: 0 },
-			{ x: 25, y: 70, rotation: 0 },
-			{ x: 75, y: 70, rotation: 0 }
-		)
+			positions.push(
+				{ x: 25, y: 30, rotation: 0 },
+				{ x: 75, y: 30, rotation: 0 },
+				{ x: 25, y: 70, rotation: 0 },
+				{ x: 75, y: 70, rotation: 0 },
+			)
 
-	} else if (cardCount === 5) {
+			break
+		}
+		case 5: {
 		// Pentagrama (5 pontas)
-		const radius = 38
-		const centerX = 50
-		const centerY = 50
-		for (let i = 0; i < 5; i++) {
-			const angle = (i * 72 - 90) * (Math.PI / 180)
-			positions.push({
-				x: centerX + radius * Math.cos(angle),
-				y: centerY + radius * Math.sin(angle),
-				rotation: 0,
-			})
-		}
+			const radius = 38
+			const centerX = 50
+			const centerY = 50
+			for (let i = 0; i < 5; i++) {
+				const angle = (i * 72 - 90) * (Math.PI / 180)
+				positions.push({
+					x: centerX + radius * Math.cos(angle),
+					y: centerY + radius * Math.sin(angle),
+					rotation: 0,
+				})
+			}
 
-	} else if (cardCount === 6) {
+			break
+		}
+		case 6: {
 		// Duas fileiras de 3
-		const y1 = 35
-		const y2 = 65
-		const xs = [20, 50, 80]
+			const y1 = 35
+			const y2 = 65
+			const xs = [20, 50, 80]
 
-		xs.forEach(x => positions.push({ x, y: y1, rotation: 0 }))
-		xs.forEach(x => positions.push({ x, y: y2, rotation: 0 }))
+			xs.forEach((x) => positions.push({ x, y: y1, rotation: 0 }))
+			xs.forEach((x) => positions.push({ x, y: y2, rotation: 0 }))
 
-	} else if (cardCount === 7) {
-		// Hexagrama + centro
-		const radius = 38
-		const centerX = 50
-		const centerY = 50
-
-		// Centro
-		positions.push({ x: centerX, y: centerY, rotation: 0 })
-
-		// 6 ao redor
-		for (let i = 0; i < 6; i++) {
-			const angle = (i * 60 - 90) * (Math.PI / 180)
-			positions.push({
-				x: centerX + radius * Math.cos(angle),
-				y: centerY + radius * Math.sin(angle),
-				rotation: 0,
-			})
+			break
 		}
+		case 7: {
+		// Hexagrama + centro
+			const radius = 38
+			const centerX = 50
+			const centerY = 50
 
-	} else {
+			// Centro
+			positions.push({ x: centerX, y: centerY, rotation: 0 })
+
+			// 6 ao redor
+			for (let i = 0; i < 6; i++) {
+				const angle = (i * 60 - 90) * (Math.PI / 180)
+				positions.push({
+					x: centerX + radius * Math.cos(angle),
+					y: centerY + radius * Math.sin(angle),
+					rotation: 0,
+				})
+			}
+
+			break
+		}
+		default: {
 		// Grid genérico para 8+ cartas
-		const cols = Math.ceil(Math.sqrt(cardCount))
-		const rows = Math.ceil(cardCount / cols)
+			const cols = Math.ceil(Math.sqrt(cardCount))
+			const rows = Math.ceil(cardCount / cols)
 
-		// Padding adaptativo
-		const paddingX = 12
-		const paddingY = 15
+			// Padding adaptativo
+			const paddingX = 12
+			const paddingY = 15
 
-		// Espaçamento entre cartas
-		const spaceX = (100 - 2 * paddingX) / (cols - 1 || 1)
-		const spaceY = (100 - 2 * paddingY) / (rows - 1 || 1)
+			// Espaçamento entre cartas
+			const spaceX = (100 - 2 * paddingX) / (cols - 1 || 1)
+			const spaceY = (100 - 2 * paddingY) / (rows - 1 || 1)
 
-		for (let i = 0; i < cardCount; i++) {
-			const col = i % cols
-			const row = Math.floor(i / cols)
-			positions.push({
-				x: paddingX + col * spaceX,
-				y: paddingY + row * spaceY,
-				rotation: 0,
-			})
+			for (let i = 0; i < cardCount; i++) {
+				const col = i % cols
+				const row = Math.floor(i / cols)
+				positions.push({
+					x: paddingX + col * spaceX,
+					y: paddingY + row * spaceY,
+					rotation: 0,
+				})
+			}
 		}
 	}
 
@@ -361,8 +377,8 @@ export function generateGridLayout(cardCount: number): CalculatedPosition[] {
  * Mais cartas = cartas menores para caberem na tela
  */
 export function getCardScale(cardCount: number): string {
-	if (cardCount <= 3) return 'scale-100'
-	if (cardCount <= 6) return 'scale-90'
-	if (cardCount <= 10) return 'scale-80'
+	if (cardCount <= 3) {return 'scale-100'}
+	if (cardCount <= 6) {return 'scale-90'}
+	if (cardCount <= 10) {return 'scale-80'}
 	return 'scale-75'
 }

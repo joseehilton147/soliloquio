@@ -8,7 +8,7 @@ import { FileDropZone } from '../molecules/file-drop-zone'
 import { FilePreview } from '../molecules/file-preview'
 import { ImagePreview } from '../molecules/image-preview'
 
-export interface ImageUploaderProps {
+export type ImageUploaderProps = {
 	onUploadComplete: (imageUrl: string) => void;
 	onUploadError?: (error: string) => void;
 	uploadEndpoint?: string;
@@ -108,16 +108,8 @@ export function ImageUploader({
 					? (
 						<ImagePreview imageUrl={existingImageUrl} onRemove={handleRemoveExisting} />
 					)
-					: !file
+					: file
 						? (
-							<FileDropZone
-								onFileSelect={handleFileSelect}
-								accept={accept}
-								maxSize={maxSize}
-								disabled={disabled}
-							/>
-						)
-						: (
 							<div className="space-y-2">
 								<FilePreview file={file} onRemove={handleRemove} />
 								{uploadedUrl && (
@@ -126,6 +118,14 @@ export function ImageUploader({
 									</p>
 								)}
 							</div>
+						)
+						: (
+							<FileDropZone
+								onFileSelect={handleFileSelect}
+								accept={accept}
+								maxSize={maxSize}
+								disabled={disabled}
+							/>
 						)}
 		</div>
 	)

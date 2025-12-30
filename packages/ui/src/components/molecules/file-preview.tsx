@@ -7,7 +7,7 @@ import * as React from 'react'
 import { cn } from '../../lib/utils'
 import { Button } from '../atoms/button'
 
-export interface FilePreviewProps {
+export type FilePreviewProps = {
 	file: File;
 	onRemove: () => void;
 	className?: string;
@@ -37,8 +37,8 @@ export function FilePreview({ file, onRemove, className }: FilePreviewProps) {
 	}, [file])
 
 	const formatFileSize = (bytes: number): string => {
-		if (bytes < 1024) return `${bytes} B`
-		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+		if (bytes < 1024) {return `${bytes} B`}
+		if (bytes < 1024 * 1024) {return `${(bytes / 1024).toFixed(1)} KB`}
 		return `${(bytes / 1024 / 1024).toFixed(1)} MB`
 	}
 

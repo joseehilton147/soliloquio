@@ -19,7 +19,7 @@ const VIEWPORT_SAFETY_MARGIN_PX = 16
  * @property {string} [icon] - Ícone do Iconify (opcional)
  * @property {DockSubitem[]} [children] - Subitens aninhados (opcional)
  */
-export interface DockSubitem {
+export type DockSubitem = {
 	label: string
 	href: string
 	icon?: string
@@ -38,7 +38,7 @@ export interface DockSubitem {
  * @property {DockSubitem[]} [submenu] - Itens do submenu (opcional)
  * @property {'left' | 'right'} [position] - Posição no grupo (padrão: 'left')
  */
-export interface DockItem {
+export type DockItem = {
 	id: string
 	label: string
 	icon: string
@@ -54,7 +54,7 @@ export interface DockItem {
  *
  * @property {'always' | 'auto-hide'} visibility - Comportamento de visibilidade
  */
-export interface DockSettings {
+export type DockSettings = {
 	visibility: 'always' | 'auto-hide'
 }
 
@@ -64,7 +64,7 @@ export interface DockSettings {
  * @property {DockItem[]} items - Lista de itens da dock
  * @property {DockSettings} settings - Configurações de visibilidade
  */
-interface MysticalDockProps {
+type MysticalDockProps = {
 	items: DockItem[]
 	settings: DockSettings
 }
@@ -76,7 +76,7 @@ interface MysticalDockProps {
  * @property {number} level - Profundidade atual do aninhamento (1-indexed)
  * @property {(hovering: boolean) => void} [onHover] - Callback de hover (opcional)
  */
-interface SubmenuItemProps {
+type SubmenuItemProps = {
 	item: DockSubitem
 	level: number
 	onHover?: (hovering: boolean) => void
@@ -126,17 +126,17 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 	const hasChildren = Boolean(item.children?.length) && level < MAX_SUBMENU_DEPTH
 
 	useEffect(() => {
-		if (!isHovered || !hasChildren || !submenuRef.current) return
+		if (!isHovered || !hasChildren || !submenuRef.current) {return}
 
 		const timeout = setTimeout(() => {
-			if (!submenuRef.current) return
+			if (!submenuRef.current) {return}
 
 			const submenuRect = submenuRef.current.getBoundingClientRect()
 			const offset = calculateHorizontalOffset(submenuRect, window.innerWidth)
 			setHorizontalOffset(offset)
 		}, 10)
 
-		return () => clearTimeout(timeout)
+		return () => { clearTimeout(timeout) }
 	}, [isHovered, hasChildren])
 
 	const handleMouseEnter = (event: React.MouseEvent): void => {
@@ -174,11 +174,7 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 			: 'bottom-full mb-2 left-1/2'
 
 	const getTransformStyle = (): string => {
-		if (level >= 1) {
-			return `translateX(${horizontalOffset}px) translateY(-50%)`
-		} else {
-			return `translate(calc(-50% + ${horizontalOffset}px), 0)`
-		}
+		return level >= 1 ? `translateX(${horizontalOffset}px) translateY(-50%)` : `translate(calc(-50% + ${horizontalOffset}px), 0)`
 	}
 
 	return (
@@ -251,8 +247,8 @@ function SubmenuItem({ item, level, onHover }: SubmenuItemProps) {
 							</div>
 
 							<div className="relative p-3 space-y-1.5">
-								{item.children!.map((child, idx) => (
-									<SubmenuItem key={`${child.href}-${idx}`} item={child} level={level + 1} />
+								{item.children!.map((child, index) => (
+									<SubmenuItem key={`${child.href}-${index}`} item={child} level={level + 1} />
 								))}
 							</div>
 						</div>
@@ -371,7 +367,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		}
 
 		window.addEventListener('scroll', handleScroll, { passive: true })
-		return () => window.removeEventListener('scroll', handleScroll)
+		return () => { window.removeEventListener('scroll', handleScroll) }
 	}, [settings.visibility, lastScrollY])
 
 	useEffect(() => {
@@ -382,7 +378,7 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 		}
 
 		document.addEventListener('mousedown', handleClickOutside)
-		return () => document.removeEventListener('mousedown', handleClickOutside)
+		return () => { document.removeEventListener('mousedown', handleClickOutside) }
 	}, [])
 
 	const renderDockItem = (item: DockItem) => {
@@ -530,8 +526,8 @@ export function MysticalDock({ items, settings }: MysticalDockProps) {
 									<div className="h-px bg-linear-to-r from-transparent via-purple-500/30 to-transparent" />
 
 									<div className="space-y-1.5">
-										{item.submenu!.map((subitem, idx) => (
-											<SubmenuItem key={`${subitem.href}-${idx}`} item={subitem} level={1} />
+										{item.submenu!.map((subitem, index) => (
+											<SubmenuItem key={`${subitem.href}-${index}`} item={subitem} level={1} />
 										))}
 									</div>
 								</div>

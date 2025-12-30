@@ -33,7 +33,7 @@ export type ElementalTheme = 'mystical' | 'classic' | 'nature' | 'cosmic'
 /**
  * Configuração completa de cores de um elemento
  */
-export interface ElementColorConfig {
+export type ElementColorConfig = {
 	/** Nome do elemento em português */
 	readonly name: string
 	/** Nome do naipe correspondente (se houver) */

@@ -7,10 +7,11 @@
 
 import { notFound } from 'next/navigation'
 
-import { getSpreadBySlug } from '@/data/spreads'
 import { TiragemClient as TiragemPageClient } from './components'
 
-interface TiragemPageProps {
+import { getSpreadBySlug } from '@/data/spreads'
+
+type TiragemPageProps = {
 	params: Promise<{
 		slug: string
 	}>

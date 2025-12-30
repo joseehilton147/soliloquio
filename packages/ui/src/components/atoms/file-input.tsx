@@ -4,10 +4,9 @@ import * as React from 'react'
 
 import { cn } from '../../lib/utils'
 
-export interface FileInputProps
-	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> {
+export type FileInputProps = {
 	onFileSelect?: (file: File | null) => void;
-}
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'>
 
 /**
  * Átomo: Input de arquivo nativo estilizado

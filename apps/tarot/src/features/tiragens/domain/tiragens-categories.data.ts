@@ -1,4 +1,5 @@
 import type { TiragemCategoryData } from './components'
+
 import {
 	ALL_SPREADS,
 	CONSELHO_DO_UNIVERSO,

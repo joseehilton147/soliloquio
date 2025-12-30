@@ -1,6 +1,7 @@
+'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
-export interface AutosaveOptions {
+export type AutosaveOptions = {
 	key: string // Chave única para identificar o draft (ex: 'carta-nova', 'carta-edit-123')
 	data: any // Dados do formulário
 	interval?: number // Intervalo de auto-save em ms (padrão: 5000ms = 5s)
@@ -9,7 +10,7 @@ export interface AutosaveOptions {
 	enabled?: boolean // Se o auto-save está habilitado (padrão: true)
 }
 
-export interface AutosaveReturn {
+export type AutosaveReturn = {
 	lastSaved: Date | null
 	hasDraft: boolean
 	clearDraft: () => void
@@ -28,7 +29,7 @@ export function useAutosave({
 	interval = 5000, // 5 segundos
 	onSave,
 	onRestore,
-	enabled = true
+	enabled = true,
 }: AutosaveOptions): AutosaveReturn {
 	const [lastSaved, setLastSaved] = useState<Date | null>(null)
 	const [hasDraft, setHasDraft] = useState(false)
@@ -41,7 +42,7 @@ export function useAutosave({
 
 	// Verifica se há draft salvo ao montar
 	useEffect(() => {
-		if (!enabled) return
+		if (!enabled) {return}
 
 		const savedDraft = localStorage.getItem(storageKey)
 		if (savedDraft) {
@@ -53,13 +54,13 @@ export function useAutosave({
 
 	// Salva o draft
 	const saveDraft = useCallback(() => {
-		if (!enabled) return
+		if (!enabled) {return}
 
 		try {
 			setIsSaving(true)
 			const draft = {
 				data,
-				timestamp: new Date().toISOString()
+				timestamp: new Date().toISOString(),
 			}
 			localStorage.setItem(storageKey, JSON.stringify(draft))
 			setLastSaved(new Date())
@@ -87,7 +88,7 @@ export function useAutosave({
 	const restoreDraft = useCallback(() => {
 		try {
 			const savedDraft = localStorage.getItem(storageKey)
-			if (!savedDraft) return null
+			if (!savedDraft) {return null}
 
 			const parsed = JSON.parse(savedDraft)
 			onRestore?.(parsed.data)
@@ -100,7 +101,7 @@ export function useAutosave({
 
 	// Auto-save quando os dados mudarem
 	useEffect(() => {
-		if (!enabled) return
+		if (!enabled) {return}
 
 		const currentData = JSON.stringify(data)
 
@@ -129,14 +130,14 @@ export function useAutosave({
 
 	// Salva ao sair da página (beforeunload)
 	useEffect(() => {
-		if (!enabled) return
+		if (!enabled) {return}
 
 		const handleBeforeUnload = () => {
 			saveDraft()
 		}
 
 		window.addEventListener('beforeunload', handleBeforeUnload)
-		return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+		return () => { window.removeEventListener('beforeunload', handleBeforeUnload) }
 	}, [enabled, saveDraft])
 
 	return {
@@ -145,6 +146,6 @@ export function useAutosave({
 		clearDraft,
 		saveDraft,
 		restoreDraft,
-		isSaving
+		isSaving,
 	}
 }

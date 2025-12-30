@@ -1,7 +1,7 @@
 'use client'
 
-import { CardBadge } from '@workspace/ui'
 import { Icon } from '@iconify/react'
+import { CardBadge } from '@workspace/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 

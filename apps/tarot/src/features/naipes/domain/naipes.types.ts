@@ -1,7 +1,7 @@
 /**
  * Representa um naipe do Tarô com suas propriedades visuais e simbólicas
  */
-export interface Naipe {
+export type Naipe = {
 	/** Nome do naipe (Copas, Paus, Ouros, Espadas) */
 	name: string
 	/** Símbolo Unicode do naipe (♥ ♣ ♦ ♠) */

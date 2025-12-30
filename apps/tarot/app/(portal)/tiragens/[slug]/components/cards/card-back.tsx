@@ -9,6 +9,7 @@
 
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
+
 import type { ElementColorConfig } from '@/shared/constants/element-colors'
 
 type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { glow: string }
@@ -16,7 +17,7 @@ type ElementColors = Pick<ElementColorConfig, 'rgb' | 'smoke' | 'neonGlow'> & { 
 /**
  * Props do componente CardBack
  */
-interface CardBackProps {
+type CardBackProps = {
 	/** Número da ordem da posição na tiragem */
 	order: number
 	/** Nome/label descritivo da posição */
@@ -45,13 +46,13 @@ export function CardBack({ order, label, description, emphasis, colors }: CardBa
 	return (
 		<div className={cn(
 			'absolute inset-0 rounded-xl border-3 overflow-hidden backface-hidden rotate-y-180',
-			'transition-all duration-500'
+			'transition-all duration-500',
 		)}
-			style={{
-				borderColor: `rgba(${colors.rgb}, 0.6)`,
-				background: 'linear-gradient(135deg, rgba(10,10,10,0.98) 0%, rgba(0,0,0,0.95) 100%)',
-				boxShadow: `${colors.glow}, 0 20px 60px rgba(0,0,0,0.9)`,
-			}}
+		style={{
+			borderColor: `rgba(${colors.rgb}, 0.6)`,
+			background: 'linear-gradient(135deg, rgba(10,10,10,0.98) 0%, rgba(0,0,0,0.95) 100%)',
+			boxShadow: `${colors.glow}, 0 20px 60px rgba(0,0,0,0.9)`,
+		}}
 		>
 			<div className="h-full p-4 flex flex-col items-center justify-center text-center space-y-2 overflow-auto">
 				{/* Número */}

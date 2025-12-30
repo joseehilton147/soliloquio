@@ -1,23 +1,23 @@
+'use client'
 import { Icon } from '@iconify/react'
 
-// Helper para formatar tempo decorrido
 function formatTimeAgo(date: Date): string {
 	const seconds = Math.floor((Date.now() - date.getTime()) / 1000)
 
-	if (seconds < 60) return 'há alguns segundos'
+	if (seconds < 60) {return 'ha alguns segundos'}
 	if (seconds < 3600) {
 		const minutes = Math.floor(seconds / 60)
-		return `há ${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}`
+		return `ha ${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}`
 	}
-	if (seconds < 86400) {
+	if (seconds < 86_400) {
 		const hours = Math.floor(seconds / 3600)
-		return `há ${hours} ${hours === 1 ? 'hora' : 'horas'}`
+		return `ha ${hours} ${hours === 1 ? 'hora' : 'horas'}`
 	}
-	const days = Math.floor(seconds / 86400)
-	return `há ${days} ${days === 1 ? 'dia' : 'dias'}`
+	const days = Math.floor(seconds / 86_400)
+	return `ha ${days} ${days === 1 ? 'dia' : 'dias'}`
 }
 
-interface DraftRecoveryProps {
+type DraftRecoveryProps = {
 	hasDraft: boolean
 	lastSaved: Date | null
 	onRestore: () => void
@@ -25,42 +25,35 @@ interface DraftRecoveryProps {
 	isSaving?: boolean
 }
 
-/**
- * Componente que mostra banner de recuperação de draft
- * Aparece quando há um draft salvo automaticamente
- */
 export function DraftRecovery({
 	hasDraft,
 	lastSaved,
 	onRestore,
 	onDiscard,
-	isSaving = false
+	isSaving = false,
 }: DraftRecoveryProps) {
-	if (!hasDraft) return null
+	if (!hasDraft) {return null}
 
-	const savedTimeAgo = lastSaved ? formatTimeAgo(lastSaved) : 'há algum tempo'
+	const savedTimeAgo = lastSaved ? formatTimeAgo(lastSaved) : 'ha algum tempo'
 
 	return (
 		<div className="mb-6 rounded-xl border border-violet-500/30 bg-gradient-to-r from-violet-500/5 via-purple-500/5 to-indigo-500/5 p-4 backdrop-blur-sm">
 			<div className="flex items-start gap-4">
-				{/* Icon */}
 				<div className="flex size-10 items-center justify-center rounded-full bg-violet-500/10 border border-violet-500/20">
 					<Icon icon="lucide:alert-circle" className="size-5 text-violet-600 dark:text-violet-400" />
 				</div>
 
-				{/* Content */}
 				<div className="flex-1 space-y-3">
 					<div>
 						<h3 className="font-semibold text-foreground">
 							Rascunho encontrado
 						</h3>
 						<p className="text-sm text-muted-foreground mt-1">
-							Você tem um rascunho salvo automaticamente {savedTimeAgo}.
+							Voce tem um rascunho salvo automaticamente {savedTimeAgo}.
 							Deseja recuperar ou descartar?
 						</p>
 					</div>
 
-					{/* Actions */}
 					<div className="flex items-center gap-3">
 						<button
 							type="button"
@@ -82,7 +75,6 @@ export function DraftRecovery({
 					</div>
 				</div>
 
-				{/* Auto-save indicator */}
 				{isSaving && (
 					<div className="flex items-center gap-2 text-xs text-muted-foreground">
 						<div className="size-2 rounded-full bg-violet-500 animate-pulse" />
@@ -94,14 +86,11 @@ export function DraftRecovery({
 	)
 }
 
-interface AutosaveIndicatorProps {
+type AutosaveIndicatorProps = {
 	lastSaved: Date | null
 	isSaving: boolean
 }
 
-/**
- * Indicador de auto-save no footer ou topo do formulário
- */
 export function AutosaveIndicator({ lastSaved, isSaving }: AutosaveIndicatorProps) {
 	if (isSaving) {
 		return (
@@ -125,7 +114,7 @@ export function AutosaveIndicator({ lastSaved, isSaving }: AutosaveIndicatorProp
 	return (
 		<div className="flex items-center gap-2 text-sm text-muted-foreground">
 			<Icon icon="lucide:clock" className="size-4" />
-			<span>Aguardando mudanças...</span>
+			<span>Aguardando mudancas...</span>
 		</div>
 	)
 }

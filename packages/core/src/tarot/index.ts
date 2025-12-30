@@ -5,6 +5,43 @@
  * para o domínio do Tarot
  */
 
-export * from './schemas'
-export * from './types'
-export * from './spread'
+// Schemas e Enums
+export {
+	CardSuitEnum,
+	ReadingTypeEnum,
+	readingTypeSchema,
+	tarotCardSchema,
+	createTarotCardSchema,
+	updateTarotCardSchema,
+} from './schemas'
+
+// Types dos schemas
+export type {
+	CardSuitValue,
+	ReadingTypeValue,
+	ReadingType,
+	TarotCard,
+	CreateTarotCard,
+	UpdateTarotCard,
+} from './schemas'
+
+// Types de filtros e paginação
+export type {
+	TarotCardFilters,
+	TarotCardOrderBy,
+	SortOrder,
+	PaginationParams,
+	PaginatedResult,
+} from './types'
+
+// Types de spreads (tiragens)
+export type {
+	SpreadCategory,
+	SpreadLayout,
+	SpreadPosition,
+	TarotSpread,
+	CustomSpread,
+	SpreadReading,
+	SpreadValidation,
+	SpreadCanvasConfig,
+} from './spread/types'

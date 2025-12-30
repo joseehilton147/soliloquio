@@ -6,7 +6,7 @@ import * as React from 'react'
 import { cn } from '../../lib/utils'
 import { FileInput } from '../atoms/file-input'
 
-export interface FileDropZoneProps {
+export type FileDropZoneProps = {
 	onFileSelect: (file: File | null) => void;
 	accept?: string;
 	maxSize?: number; // em bytes
@@ -77,7 +77,7 @@ export function FileDropZone({
 		e.stopPropagation()
 		setIsDragging(false)
 
-		if (disabled) return
+		if (disabled) {return}
 
 		const file = e.dataTransfer.files[0]
 		handleFile(file || null)

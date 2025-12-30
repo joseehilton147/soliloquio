@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react'
 
 import { cn } from '../../lib/utils'
 
-export interface CurrentAppBadgeProps {
+export type CurrentAppBadgeProps = {
 	name: string
 	icon: string
 	className?: string

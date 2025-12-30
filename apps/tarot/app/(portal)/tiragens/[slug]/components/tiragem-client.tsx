@@ -22,9 +22,6 @@ import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import type { CategoryType } from '@/shared/constants/element-colors'
-import { getCategoryElement, getCategoryColors, normalizeElementName } from '@/shared/constants/element-colors'
-
 import { CosmicCard } from './cards'
 import { CelticCrossGuide } from './celtic-cross-guide'
 import { CosmicBackground, EnergyConnections } from './effects'
@@ -33,6 +30,8 @@ import { UniverseAdviceGuide } from './universe-advice-guide'
 import { YesNoGuide } from './yes-no-guide'
 
 import { getCategoryById } from '@/features/tiragens'
+import { getCategoryElement, getCategoryColors, normalizeElementName } from '@/shared/constants/element-colors'
+import type { CategoryType } from '@/shared/constants/element-colors'
 
 /**
  * Props do componente TiragemPageClient
@@ -40,7 +39,7 @@ import { getCategoryById } from '@/features/tiragens'
  * @interface TiragemPageClientProps
  * @property {TarotSpread} spread - Dados completos da tiragem de tarot
  */
-interface TiragemPageClientProps {
+type TiragemPageClientProps = {
 	/** Configuração completa da tiragem (posições, descrição, categoria, etc) */
 	spread: TarotSpread
 }
@@ -116,8 +115,8 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 	 * @param {string} positionId - ID da posição a ser alternada
 	 */
 	const toggleCardFlip = (positionId: string): void => {
-		setFlippedCards((prev) => {
-			const newSet = new Set(prev)
+		setFlippedCards((previous) => {
+			const newSet = new Set(previous)
 			if (newSet.has(positionId)) {
 				newSet.delete(positionId)
 			} else {
@@ -454,7 +453,7 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 									rgba(${colors.rgb}, 0.8) 2deg,
 									transparent 4deg,
 									transparent 18deg
-								)`
+								)`,
 							}} />
 
 							{/* Textura Veludo */}
@@ -510,59 +509,59 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 							{/* Container do Campo Cósmico - Layout Adaptativo */}
 							<div className="relative p-12">
 								{spread.slug === 'cruz-celta' ? (
-						/* Layout FIXO para Cruz Celta usando CSS Grid */
-						<CelticCrossLayout
-							spread={spread}
-							colors={colors}
-							mysticalSymbol={category?.mysticalSymbol || 'game-icons:crystal-ball'}
-							selectedPosition={selectedPosition}
-							flippedCards={flippedCards}
-							onCardClick={handleCardClick}
-						/>
-					) : (
-						/* Layout dinâmico para outras tiragens */
-						<div
-							className="relative w-full max-w-7xl mx-auto flex items-center justify-center overflow-visible"
-							style={{ minHeight: containerDims.minHeight }}
-						>
-							{/* Background Cósmico Profundo */}
-							<CosmicBackground colors={colors} starCount={150} />
+								/* Layout FIXO para Cruz Celta usando CSS Grid */
+									<CelticCrossLayout
+										spread={spread}
+										colors={colors}
+										mysticalSymbol={category?.mysticalSymbol || 'game-icons:crystal-ball'}
+										selectedPosition={selectedPosition}
+										flippedCards={flippedCards}
+										onCardClick={handleCardClick}
+									/>
+								) : (
+								/* Layout dinâmico para outras tiragens */
+									<div
+										className="relative w-full max-w-7xl mx-auto flex items-center justify-center overflow-visible"
+										style={{ minHeight: containerDims.minHeight }}
+									>
+										{/* Background Cósmico Profundo */}
+										<CosmicBackground colors={colors} starCount={150} />
 
-							{/* Container das cartas com posição relativa ao tamanho */}
-							<div className="relative w-full h-full transition-all duration-500">
-								{/* Linhas de conexão energéticas */}
-								<EnergyConnections
-									positions={spread.positions}
-									colors={colors}
-									element={element}
-								/>
+										{/* Container das cartas com posição relativa ao tamanho */}
+										<div className="relative w-full h-full transition-all duration-500">
+											{/* Linhas de conexão energéticas */}
+											<EnergyConnections
+												positions={spread.positions}
+												colors={colors}
+												element={element}
+											/>
 
-								{/* Cartas cósmicas interativas */}
-								{spread.positions.map((position, index) => {
-									// Usa posição otimizada (evita sobreposição)
-									const optimizedPos = optimizedPositions[index]
-									const positionWithOptimizedCoords = {
-										...position,
-										x: optimizedPos?.x ?? position.x,
-										y: optimizedPos?.y ?? position.y,
-										rotation: optimizedPos?.rotation ?? position.rotation,
-									}
+											{/* Cartas cósmicas interativas */}
+											{spread.positions.map((position, index) => {
+												// Usa posição otimizada (evita sobreposição)
+												const optimizedPos = optimizedPositions[index]
+												const positionWithOptimizedCoords = {
+													...position,
+													x: optimizedPos?.x ?? position.x,
+													y: optimizedPos?.y ?? position.y,
+													rotation: optimizedPos?.rotation ?? position.rotation,
+												}
 
-									return (
-										<CosmicCard
-											key={position.id}
-											position={positionWithOptimizedCoords}
-											mysticalSymbol={category?.mysticalSymbol || 'game-icons:crystal-ball'}
-											colors={colors}
-											isSelected={selectedPosition === position.id}
-											isFlipped={flippedCards.has(position.id)}
-											onToggle={() => handleCardClick(position.id)}
-										/>
-									)
-								})}
-							</div>
-						</div>
-					)}
+												return (
+													<CosmicCard
+														key={position.id}
+														position={positionWithOptimizedCoords}
+														mysticalSymbol={category?.mysticalSymbol || 'game-icons:crystal-ball'}
+														colors={colors}
+														isSelected={selectedPosition === position.id}
+														isFlipped={flippedCards.has(position.id)}
+														onToggle={() => { handleCardClick(position.id) }}
+													/>
+												)
+											})}
+										</div>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
@@ -585,7 +584,7 @@ export function TiragemPageClient({ spread }: TiragemPageClientProps) {
 						{spread.positions.map((position) => (
 							<div key={position.id}
 								className="group relative p-6 rounded-xl border-2 overflow-hidden transition-all duration-500 hover:scale-102 cursor-pointer"
-								onClick={() => setSelectedPosition(position.id)}
+								onClick={() => { setSelectedPosition(position.id) }}
 								style={{
 									borderColor: selectedPosition === position.id
 										? `rgba(${colors.rgb}, 0.6)`

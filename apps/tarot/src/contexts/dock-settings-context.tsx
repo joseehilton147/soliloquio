@@ -6,51 +6,17 @@ const DOCK_SETTINGS_STORAGE_KEY = 'soliloquio-dock-settings'
 
 type DockVisibility = 'always' | 'auto-hide'
 
-/**
- * Configurações de visibilidade da dock de navegação
- *
- * @property {DockVisibility} visibility - Controla quando a dock é exibida
- */
-interface DockSettings {
+type DockSettings = {
 	visibility: DockVisibility
 }
 
-/**
- * Contexto para gerenciamento de configurações da dock
- *
- * @property {DockSettings} settings - Configurações atuais da dock
- * @property {(settings: Partial<DockSettings>) => void} updateSettings - Função para atualizar configurações
- */
-interface DockSettingsContextType {
+type DockSettingsContextType = {
 	settings: DockSettings
 	updateSettings: (settings: Partial<DockSettings>) => void
 }
 
 const DockSettingsContext = createContext<DockSettingsContextType | undefined>(undefined)
 
-/**
- * Provider de contexto para configurações da dock de navegação
- *
- * Este componente gerencia o estado global das configurações da dock,
- * persistindo as preferências do usuário no localStorage.
- *
- * @component
- * @example
- * ```tsx
- * <DockSettingsProvider>
- *   <App />
- * </DockSettingsProvider>
- * ```
- *
- * @remarks
- * - As configurações são automaticamente salvas no localStorage
- * - A dock está sempre posicionada na parte inferior da tela
- * - Visibilidade pode ser 'always' (sempre visível) ou 'auto-hide' (oculta ao rolar)
- *
- * @param {Object} props - Props do componente
- * @param {React.ReactNode} props.children - Componentes filhos que terão acesso ao contexto
- * @returns {JSX.Element} Provider do contexto de configurações
- */
 export function DockSettingsProvider({ children }: { children: React.ReactNode }) {
 	const [settings, setSettings] = useState<DockSettings>({
 		visibility: 'always',
@@ -94,26 +60,6 @@ export function DockSettingsProvider({ children }: { children: React.ReactNode }
 	)
 }
 
-/**
- * Hook para acessar configurações da dock de navegação
- *
- * @throws {Error} Se usado fora do DockSettingsProvider
- *
- * @example
- * ```tsx
- * function MyComponent() {
- *   const { settings, updateSettings } = useDockSettings()
- *
- *   return (
- *     <button onClick={() => updateSettings({ visibility: 'auto-hide' })}>
- *       Toggle Visibility
- *     </button>
- *   )
- * }
- * ```
- *
- * @returns {DockSettingsContextType} Configurações e função de atualização
- */
 export function useDockSettings(): DockSettingsContextType {
 	const context = useContext(DockSettingsContext)
 

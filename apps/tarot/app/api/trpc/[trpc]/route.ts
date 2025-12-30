@@ -7,10 +7,10 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { appRouter, createContext } from '@workspace/api/server'
 import { NextResponse } from 'next/server'
 
-const handler = (req: Request) =>
+const handler = (request: Request) =>
 	fetchRequestHandler({
 		endpoint: '/api/trpc',
-		req,
+		req: request,
 		router: appRouter,
 		createContext,
 	})

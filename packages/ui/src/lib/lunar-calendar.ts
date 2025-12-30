@@ -7,7 +7,7 @@ import * as Astronomy from 'astronomy-engine'
 
 export type MoonPhase = 'new' | 'waxing-crescent' | 'first-quarter' | 'waxing-gibbous' | 'full' | 'waning-gibbous' | 'last-quarter' | 'waning-crescent'
 
-export interface LunarInfo {
+export type LunarInfo = {
 	phase: MoonPhase
 	phaseName: string
 	phaseEmoji: string
@@ -27,7 +27,7 @@ export interface LunarInfo {
  * Baseado no ciclo sinódico: 29.53058867 dias
  */
 function calculateMoonAge(date: Date): number {
-	const SYNODIC_MONTH = 29.53058867
+	const SYNODIC_MONTH = 29.530_588_67
 	const KNOWN_NEW_MOON = new Date('2000-01-06 18:14:00 UTC') // Lua nova conhecida
 
 	const diff = date.getTime() - KNOWN_NEW_MOON.getTime()
@@ -55,16 +55,16 @@ const PHASE_DESCRIPTIONS: Record<MoonPhase, string> = {
  * Determina a fase da lua baseada na idade
  */
 function getMoonPhaseFromAge(age: number): { phase: MoonPhase; phaseName: string; phaseEmoji: string; phaseDescription: string } {
-	const phases: Array<{ max: number; phase: MoonPhase; name: string; emoji: string }> = [
-		{ max: 1.84566, phase: 'new', name: 'Lua Nova', emoji: '🌑' },
-		{ max: 5.53699, phase: 'waxing-crescent', name: 'Lua Crescente', emoji: '🌒' },
-		{ max: 9.22831, phase: 'first-quarter', name: 'Quarto Crescente', emoji: '🌓' },
-		{ max: 12.91963, phase: 'waxing-gibbous', name: 'Gibosa Crescente', emoji: '🌔' },
-		{ max: 16.61096, phase: 'full', name: 'Lua Cheia', emoji: '🌕' },
-		{ max: 20.30228, phase: 'waning-gibbous', name: 'Gibosa Minguante', emoji: '🌖' },
-		{ max: 23.99361, phase: 'last-quarter', name: 'Quarto Minguante', emoji: '🌗' },
-		{ max: 27.68493, phase: 'waning-crescent', name: 'Lua Minguante', emoji: '🌘' },
-		{ max: 29.53059, phase: 'new', name: 'Lua Nova', emoji: '🌑' },
+	const phases: { max: number; phase: MoonPhase; name: string; emoji: string }[] = [
+		{ max: 1.845_66, phase: 'new', name: 'Lua Nova', emoji: '🌑' },
+		{ max: 5.536_99, phase: 'waxing-crescent', name: 'Lua Crescente', emoji: '🌒' },
+		{ max: 9.228_31, phase: 'first-quarter', name: 'Quarto Crescente', emoji: '🌓' },
+		{ max: 12.919_63, phase: 'waxing-gibbous', name: 'Gibosa Crescente', emoji: '🌔' },
+		{ max: 16.610_96, phase: 'full', name: 'Lua Cheia', emoji: '🌕' },
+		{ max: 20.302_28, phase: 'waning-gibbous', name: 'Gibosa Minguante', emoji: '🌖' },
+		{ max: 23.993_61, phase: 'last-quarter', name: 'Quarto Minguante', emoji: '🌗' },
+		{ max: 27.684_93, phase: 'waning-crescent', name: 'Lua Minguante', emoji: '🌘' },
+		{ max: 29.530_59, phase: 'new', name: 'Lua Nova', emoji: '🌑' },
 	]
 
 	for (const phaseData of phases) {
@@ -82,7 +82,7 @@ function getMoonPhaseFromAge(age: number): { phase: MoonPhase; phaseName: string
 		phase: 'new',
 		phaseName: 'Lua Nova',
 		phaseEmoji: '🌑',
-		phaseDescription: PHASE_DESCRIPTIONS['new'],
+		phaseDescription: PHASE_DESCRIPTIONS.new,
 	}
 }
 
@@ -90,7 +90,7 @@ function getMoonPhaseFromAge(age: number): { phase: MoonPhase; phaseName: string
  * Calcula a iluminação da lua (0-100%)
  */
 function calculateIllumination(age: number): number {
-	const SYNODIC_MONTH = 29.53058867
+	const SYNODIC_MONTH = 29.530_588_67
 	const phase = (age / SYNODIC_MONTH) * 2 * Math.PI
 	const illumination = (1 - Math.cos(phase)) / 2
 	return Math.round(illumination * 100)
@@ -100,13 +100,13 @@ function calculateIllumination(age: number): number {
  * Encontra a próxima fase lunar
  */
 function getNextPhase(currentAge: number, _currentPhase: MoonPhase): { phase: MoonPhase; phaseName: string; date: Date } {
-	const SYNODIC_MONTH = 29.53058867
-	const phaseTargets: Array<{ age: number; phase: MoonPhase; name: string }> = [
+	const SYNODIC_MONTH = 29.530_588_67
+	const phaseTargets: { age: number; phase: MoonPhase; name: string }[] = [
 		{ age: 0, phase: 'new', name: 'Lua Nova' },
-		{ age: 7.38265, phase: 'first-quarter', name: 'Quarto Crescente' },
-		{ age: 14.76530, phase: 'full', name: 'Lua Cheia' },
-		{ age: 22.14795, phase: 'last-quarter', name: 'Quarto Minguante' },
-		{ age: 29.53059, phase: 'new', name: 'Lua Nova' },
+		{ age: 7.382_65, phase: 'first-quarter', name: 'Quarto Crescente' },
+		{ age: 14.7653, phase: 'full', name: 'Lua Cheia' },
+		{ age: 22.147_95, phase: 'last-quarter', name: 'Quarto Minguante' },
+		{ age: 29.530_59, phase: 'new', name: 'Lua Nova' },
 	]
 
 	// Encontrar próxima fase
@@ -180,12 +180,12 @@ export function formatLunarDate(date: Date): string {
  * Usa astronomy-engine para cálculos astronômicos exatos baseados em dados JPL
  * Retorna as 4 fases principais: Nova, Crescente, Cheia, Minguante
  */
-export function getNextMoonPhases(count: number = 8, startDate: Date = new Date()): Array<{
+export function getNextMoonPhases(count = 8, startDate: Date = new Date()): {
 	phase: MoonPhase
 	phaseName: string
 	date: Date
-}> {
-	const phases: Array<{ phase: MoonPhase; phaseName: string; date: Date }> = []
+}[] {
+	const phases: { phase: MoonPhase; phaseName: string; date: Date }[] = []
 
 	// Mapeamento de quarter para nossos tipos
 	const quarterMap: Record<number, { phase: MoonPhase; name: string }> = {
@@ -202,7 +202,7 @@ export function getNextMoonPhases(count: number = 8, startDate: Date = new Date(
 		// SearchMoonQuarter encontra a próxima fase lunar principal
 		const moonQuarter = Astronomy.SearchMoonQuarter(searchTime)
 
-		if (!moonQuarter) break
+		if (!moonQuarter) {break}
 
 		const quarterInfo = quarterMap[moonQuarter.quarter]!
 

@@ -1,11 +1,11 @@
 'use client'
 
 import { Icon } from '@iconify/react'
+import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { cn } from '@workspace/ui/lib/utils'
 
-export interface CartasHeroSectionProps {
+export type CartasHeroSectionProps = {
 	title: string
 	subtitle: string
 	description: string
@@ -76,30 +76,6 @@ const COLOR_CLASSES = {
 	},
 } as const
 
-/**
- * Seção Hero Mística para páginas de Cartas - Organismo
- *
- * Seção imersiva no topo das páginas de cartas com visual de portal
- * cósmico. Inclui:
- * - Círculos concêntricos girando (mandala cósmica)
- * - Partículas flutuantes místicas
- * - Símbolos esotéricos customizáveis
- * - Gradientes pulsantes
- * - Título com efeito glow
- * - Breadcrumb para navegação
- *
- * @example
- * ```tsx
- * <CartasHeroSection
- *   title="Arcanos Maiores"
- *   subtitle="22 Caminhos da Jornada do Louco"
- *   description="Os Arcanos Maiores são os grandes mistérios..."
- *   iconMain="lucide:crown"
- *   colorScheme="violet"
- *   ...
- * />
- * ```
- */
 export function CartasHeroSection({
 	title,
 	subtitle,
@@ -113,8 +89,8 @@ export function CartasHeroSection({
 	breadcrumbCurrent,
 	colorScheme,
 }: CartasHeroSectionProps) {
-	const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; duration: string }>>(
-		[]
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string }[]>(
+		[],
 	)
 
 	const colors = COLOR_CLASSES[colorScheme]
@@ -126,7 +102,7 @@ export function CartasHeroSection({
 				top: `${Math.random() * 100}%`,
 				delay: `${Math.random() * 5}s`,
 				duration: `${10 + Math.random() * 10}s`,
-			}))
+			})),
 		)
 	}, [])
 
@@ -134,63 +110,58 @@ export function CartasHeroSection({
 		<div
 			className={cn(
 				'relative overflow-hidden rounded-2xl border-2 bg-gradient-to-br backdrop-blur-sm p-12 mb-8',
-				colors.container
+				colors.container,
 			)}
 		>
-			{/* Fundo místico */}
 			<div className="absolute inset-0 pointer-events-none overflow-hidden">
-				{/* Nebulosa */}
 				<div className={cn('absolute inset-0 bg-gradient-radial to-transparent', colors.nebula)} />
 
-				{/* Mandala cósmica central */}
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 					<div
 						className={cn(
 							'absolute size-[600px] rounded-full border animate-spin-slow [animation-duration:70s]',
-							colors.circles[0]
+							colors.circles[0],
 						)}
 					/>
 					<div
 						className={cn(
 							'absolute size-[500px] rounded-full border animate-spin-slow [animation-duration:60s] [animation-direction:reverse]',
-							colors.circles[1]
+							colors.circles[1],
 						)}
 					/>
 					<div
 						className={cn(
 							'absolute size-[400px] rounded-full border-2 animate-spin-slow [animation-duration:50s]',
-							colors.circles[2]
+							colors.circles[2],
 						)}
 					/>
 					<div
 						className={cn(
 							'absolute size-[300px] rounded-full border animate-spin-slow [animation-duration:40s] [animation-direction:reverse]',
-							colors.circles[3]
+							colors.circles[3],
 						)}
 					/>
 					<div
 						className={cn(
 							'absolute size-[200px] rounded-full border-2 animate-spin-slow [animation-duration:30s]',
-							colors.circles[4]
+							colors.circles[4],
 						)}
 					/>
 				</div>
 
-				{/* Energia pulsante */}
 				<div
 					className={cn(
 						'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] bg-gradient-to-br to-transparent rounded-full blur-3xl animate-pulse [animation-duration:4s]',
-						colors.energy1
+						colors.energy1,
 					)}
 				/>
 				<div
 					className={cn(
 						'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[350px] bg-gradient-to-tl to-transparent rounded-full blur-2xl animate-pulse [animation-duration:3s] [animation-delay:1s]',
-						colors.energy2
+						colors.energy2,
 					)}
 				/>
 
-				{/* Partículas místicas */}
 				{particles.map((particle, i) => (
 					<div
 						key={i}
@@ -204,7 +175,6 @@ export function CartasHeroSection({
 					/>
 				))}
 
-				{/* Símbolos esotéricos */}
 				<div className="absolute top-10 right-20 opacity-5 animate-spin-slow [animation-duration:100s]">
 					<Icon icon={symbolIcon1} className={cn('size-24', colors.symbols[0])} />
 				</div>
@@ -219,9 +189,7 @@ export function CartasHeroSection({
 				</div>
 			</div>
 
-			{/* Conteúdo */}
 			<div className="relative z-10 text-center space-y-6 max-w-3xl mx-auto">
-				{/* Breadcrumb */}
 				{breadcrumbParent && (
 					<div className="flex items-center justify-center gap-2 text-sm animate-in fade-in duration-1000">
 						<Link
@@ -235,7 +203,6 @@ export function CartasHeroSection({
 					</div>
 				)}
 
-				{/* Ícone místico principal */}
 				<div className="flex items-center justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
 					<div className="relative inline-flex items-center justify-center">
 						<div className="absolute size-24 animate-spin-slow [animation-duration:15s]">
@@ -247,34 +214,30 @@ export function CartasHeroSection({
 					</div>
 				</div>
 
-				{/* Título místico */}
 				<h1
 					className={cn(
 						'text-5xl md:text-6xl font-bold bg-gradient-to-r bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-in fade-in slide-in-from-bottom-4 duration-1000',
-						colors.gradient
+						colors.gradient,
 					)}
 				>
 					{title}
 				</h1>
 
-				{/* Subtítulo */}
 				<div className="flex items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150">
 					<Icon icon="lucide:sparkles" className={cn('size-6', colors.subtitle)} />
 					<p className={cn('text-lg font-light tracking-wide', colors.text)}>{subtitle}</p>
 					<Icon icon="lucide:sparkles" className={cn('size-6', colors.subtitle)} />
 				</div>
 
-				{/* Descrição */}
 				<p
 					className={cn(
 						'text-lg leading-relaxed max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300',
-						colors.description
+						colors.description,
 					)}
 				>
 					{description}
 				</p>
 
-				{/* Divider místico */}
 				<div className="flex items-center justify-center gap-4 pt-4 animate-in fade-in duration-1000 delay-500">
 					<div className={cn('h-px w-24 bg-gradient-to-r from-transparent to-transparent', colors.divider)} />
 					<Icon icon="lucide:sparkles" className={cn('size-4', colors.dividerIcon)} />

@@ -41,9 +41,7 @@ const buttonVariants = cva(
 	},
 )
 
-export interface ButtonProps
-	extends React.ComponentProps<'button'>,
-	VariantProps<typeof buttonVariants> {
+export type ButtonProps = {
 	/**
    * Render as child element using Radix Slot
    * @default false
@@ -61,7 +59,7 @@ export interface ButtonProps
    * If not provided, original children will be shown
    */
 	loadingText?: React.ReactNode
-}
+} & React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 	(

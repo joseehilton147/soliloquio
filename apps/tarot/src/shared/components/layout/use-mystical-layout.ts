@@ -1,3 +1,4 @@
+'use client'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -43,13 +44,13 @@ export function useMysticalLayout() {
 			}
 		}
 
-		window.addEventListener('keydown', handleGlobalSearchShortcut)
-		return () => window.removeEventListener('keydown', handleGlobalSearchShortcut)
+		globalThis.addEventListener('keydown', handleGlobalSearchShortcut)
+		return () => { globalThis.removeEventListener('keydown', handleGlobalSearchShortcut) }
 	}, [])
 
 	// Handlers do modal de busca
-	const closeSearchModal = (): void => setIsSearchModalOpen(false)
-	const openSearchModal = (): void => setIsSearchModalOpen(true)
+	const closeSearchModal = (): void => { setIsSearchModalOpen(false) }
+	const openSearchModal = (): void => { setIsSearchModalOpen(true) }
 
 	return {
 		// Estado

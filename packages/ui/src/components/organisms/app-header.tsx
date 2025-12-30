@@ -7,7 +7,7 @@ import { Logo, type LogoProps } from '../atoms/logo'
 import { AppSwitcher, type AppItem } from '../molecules/app-switcher'
 import { CurrentAppBadge } from '../molecules/current-app-badge'
 
-export interface AppHeaderProps {
+export type AppHeaderProps = {
 	/**
    * Configuração do logo
    */

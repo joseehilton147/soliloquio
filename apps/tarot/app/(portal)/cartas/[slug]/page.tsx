@@ -1,19 +1,19 @@
 'use client'
 
+import { Icon } from '@iconify/react'
 import type { ReadingType } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, CardBadge, type BreadcrumbItem } from '@workspace/ui'
-import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { use } from 'react'
 
-import { trpc } from '@/lib/trpc'
 import { ReflectionMessage } from './components'
 
-interface PageProps {
+import { trpc } from '@/lib/trpc'
+
+type PageProps = {
 	params: Promise<{ slug: string }>;
 }
-
 
 export default function CartaDetailPage({ params }: PageProps) {
 	const { slug } = use(params)
@@ -43,11 +43,11 @@ export default function CartaDetailPage({ params }: PageProps) {
 	}
 
 	const readingTypeLabels: Record<string, string> = {
-		'general': 'Leitura Geral',
+		general: 'Leitura Geral',
 		'love-relationship': 'Amor e Relacionamentos',
 		'career-money': 'Carreira e Dinheiro',
 		'personal-spiritual': 'Pessoal e Espiritual',
-		'inverted': 'Invertida'
+		inverted: 'Invertida',
 	}
 
 	const breadcrumbItems: BreadcrumbItem[] = [
@@ -191,31 +191,33 @@ export default function CartaDetailPage({ params }: PageProps) {
 						<h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 							Tipos de Leitura
 						</h2>
-						{card.typesOfReading.length > 0 ? (
-							<div className="grid gap-4">
-								{card.typesOfReading.map((reading: any) => (
-									<div
-										key={reading.id}
-										className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 hover:shadow-lg hover:border-purple-500/20 transition-all"
-									>
-										<h3 className="font-semibold text-lg flex items-center gap-2">
-											<span className="size-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600" />
-											{readingTypeLabels[reading.type] || reading.type}
-										</h3>
+						{card.typesOfReading.length > 0
+							? (
+								<div className="grid gap-4">
+									{card.typesOfReading.map((reading: any) => (
 										<div
-											className="mt-3 prose prose-sm dark:prose-invert max-w-none prose-p:text-foreground prose-p:leading-relaxed"
-											dangerouslySetInnerHTML={{ __html: reading.read }}
-										/>
-									</div>
-								))}
-							</div>
-						) : (
-							<div className="rounded-lg border border-border/40 bg-muted/20 p-6 text-center">
-								<p className="text-sm text-muted-foreground">
-									Nenhum tipo de leitura cadastrado para esta carta
-								</p>
-							</div>
-						)}
+											key={reading.id}
+											className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 hover:shadow-lg hover:border-purple-500/20 transition-all"
+										>
+											<h3 className="font-semibold text-lg flex items-center gap-2">
+												<span className="size-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600" />
+												{readingTypeLabels[reading.type] || reading.type}
+											</h3>
+											<div
+												className="mt-3 prose prose-sm dark:prose-invert max-w-none prose-p:text-foreground prose-p:leading-relaxed"
+												dangerouslySetInnerHTML={{ __html: reading.read }}
+											/>
+										</div>
+									))}
+								</div>
+							)
+							: (
+								<div className="rounded-lg border border-border/40 bg-muted/20 p-6 text-center">
+									<p className="text-sm text-muted-foreground">
+										Nenhum tipo de leitura cadastrado para esta carta
+									</p>
+								</div>
+							)}
 					</div>
 
 					{/* Mensagem para Refletir */}

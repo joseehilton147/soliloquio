@@ -1,6 +1,6 @@
 import { Icon, type IconifyIcon } from '@iconify/react'
 
-export interface PageHeaderProps {
+export type PageHeaderProps = {
 	/**
 	 * Ícone do Iconify a ser exibido
 	 */

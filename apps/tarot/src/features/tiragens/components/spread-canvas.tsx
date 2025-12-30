@@ -1,71 +1,20 @@
 'use client'
 
-/**
- * SpreadCanvas - Canvas Místico de Visualização de Tiragens
- *
- * Componente visual que renderiza as posições das cartas em uma tiragem,
- * com efeitos místicos, conexões energéticas e interatividade.
- *
- * Design Atômico: Organismo
- */
-
 import { Icon } from '@iconify/react'
 import type { TarotSpread } from '@workspace/core/tarot'
+import { cn } from '@workspace/ui/lib/utils'
 import React, { useState } from 'react'
 
-import { cn } from '@workspace/ui/lib/utils'
-
-export interface SpreadCanvasProps {
-	/** Tiragem a ser visualizada */
+export type SpreadCanvasProps = {
 	spread: TarotSpread
-
-	/** Modo de visualização */
 	mode?: 'preview' | 'interactive' | 'reading'
-
-	/** Mostrar números das posições */
 	showNumbers?: boolean
-
-	/** Mostrar conexões místicas entre cartas */
 	showConnections?: boolean
-
-	/** Posição selecionada (para modo interativo) */
 	selectedPosition?: string
-
-	/** Callback quando posição é clicada */
 	onPositionClick?: (positionId: string) => void
-
-	/** Classes CSS adicionais */
 	className?: string
 }
 
-/**
- * SpreadCanvas - Organismo
- *
- * Canvas místico que renderiza visualmente as posições de uma tiragem de tarot.
- *
- * **Features:**
- * - Renderização responsiva baseada em coordenadas (x, y) em %
- * - Suporte a rotação de cartas
- * - Conexões místicas entre posições (linhas energéticas)
- * - Efeitos hover e interatividade
- * - Tooltips com descrições das posições
- * - Modo preview, interativo ou leitura
- *
- * **Características Místicas:**
- * - Aura pulsante nas cartas
- * - Linhas de conexão energética com gradientes
- * - Animações suaves de entrada
- * - Glow effect em posições especiais
- *
- * @example
- * <SpreadCanvas
- *   spread={CRUZ_CELTA}
- *   mode="interactive"
- *   showNumbers
- *   showConnections
- *   onPositionClick={(id) => console.log('Clicked:', id)}
- * />
- */
 export function SpreadCanvas({
 	spread,
 	mode = 'preview',
@@ -77,28 +26,23 @@ export function SpreadCanvas({
 }: SpreadCanvasProps) {
 	const [hoveredPosition, setHoveredPosition] = useState<string | null>(null)
 
-	/**
-	 * Renderiza as conexões místicas entre posições
-	 */
 	const renderConnections = () => {
-		if (!showConnections) return null
+		if (!showConnections) {return null}
 
 		const connections: React.ReactElement[] = []
 
 		spread.positions.forEach((position) => {
-			if (!position.connectedTo) return
+			if (!position.connectedTo) {return}
 
 			position.connectedTo.forEach((targetId) => {
 				const target = spread.positions.find((p) => p.id === targetId)
-				if (!target) return
+				if (!target) {return}
 
-				// Calcular coordenadas das linhas
 				const x1 = position.x
 				const y1 = position.y
 				const x2 = target.x
 				const y2 = target.y
 
-				// ID único para o gradiente desta conexão
 				const gradientId = `connection-${position.id}-${targetId}`
 
 				connections.push(
@@ -136,15 +80,11 @@ export function SpreadCanvas({
 		return <div className="absolute inset-0">{connections}</div>
 	}
 
-	/**
-	 * Renderiza uma posição de carta individual
-	 */
 	const renderPosition = (position: typeof spread.positions[0]) => {
 		const isSelected = selectedPosition === position.id
 		const isHovered = hoveredPosition === position.id
 		const isInteractive = mode === 'interactive' || mode === 'reading'
 
-		// Classes de ênfase
 		const emphasisClasses = {
 			center: 'ring-4 ring-purple-500/50 scale-110',
 			top: 'ring-2 ring-violet-500/40',
@@ -163,11 +103,10 @@ export function SpreadCanvas({
 					top: `${position.y}%`,
 					transform: 'translate(-50%, -50%)',
 				}}
-				onMouseEnter={() => setHoveredPosition(position.id)}
-				onMouseLeave={() => setHoveredPosition(null)}
+				onMouseEnter={() => { setHoveredPosition(position.id) }}
+				onMouseLeave={() => { setHoveredPosition(null) }}
 				onClick={() => isInteractive && onPositionClick?.(position.id)}
 			>
-				{/* Aura Mística */}
 				{(isHovered || isSelected) && (
 					<div
 						className="absolute inset-0 -m-4 rounded-full bg-gradient-to-br from-purple-500/20 via-violet-500/15 to-indigo-500/20 blur-xl animate-pulse pointer-events-none"
@@ -175,7 +114,6 @@ export function SpreadCanvas({
 					/>
 				)}
 
-				{/* Carta (Placeholder visual) */}
 				<div
 					className={cn(
 						'relative w-20 h-28 rounded-lg border-2 border-purple-500/30 bg-gradient-to-br from-purple-950/50 via-violet-950/50 to-indigo-950/50 backdrop-blur-sm',
@@ -189,32 +127,26 @@ export function SpreadCanvas({
 						transform: position.rotation ? `rotate(${position.rotation}deg)` : undefined,
 					}}
 				>
-					{/* Número da Posição */}
 					{showNumbers && (
 						<div className="absolute -top-2 -left-2 size-6 rounded-full bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
 							{position.order}
 						</div>
 					)}
 
-					{/* Ícone Central */}
 					<Icon icon="game-icons:card-random" className="size-8 text-purple-300/50" />
 
-					{/* Label da Posição */}
 					<span className="text-[10px] text-center text-purple-200/70 font-medium px-1 leading-tight">
 						{position.label.split(' ').slice(0, 2).join(' ')}
 					</span>
 
-					{/* Glow effect para posições especiais */}
 					{position.emphasis === 'center' && (
 						<div className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-500/10 via-violet-500/10 to-transparent pointer-events-none" />
 					)}
 				</div>
 
-				{/* Tooltip com Descrição */}
 				{isHovered && (
 					<div className="absolute top-full mt-3 left-1/2 -translate-x-1/2 z-10 min-w-[200px] max-w-[280px] animate-in fade-in slide-in-from-top-2 duration-200">
 						<div className="relative rounded-xl p-3 bg-gradient-to-br from-purple-950/98 via-violet-950/98 to-indigo-950/98 backdrop-blur-xl border border-purple-500/30 shadow-2xl shadow-purple-500/30">
-							{/* Seta indicadora */}
 							<div className="absolute bottom-full left-1/2 -translate-x-1/2 border-8 border-transparent border-b-purple-500/30" />
 
 							<div className="space-y-1.5">
@@ -241,12 +173,9 @@ export function SpreadCanvas({
 				className,
 			)}
 		>
-			{/* Background Místico */}
 			<div className="absolute inset-0 pointer-events-none">
-				{/* Nebulosa sutil */}
 				<div className="absolute inset-0 bg-gradient-radial from-purple-900/5 via-transparent to-transparent" />
 
-				{/* Partículas místicas (menos para não poluir) */}
 				{Array.from({ length: 8 }).map((_, i) => (
 					<div
 						key={i}
@@ -261,20 +190,16 @@ export function SpreadCanvas({
 				))}
 			</div>
 
-			{/* Conexões Energéticas */}
 			{renderConnections()}
 
-			{/* Posições das Cartas */}
 			<div className="relative size-full">{spread.positions.map(renderPosition)}</div>
 
-			{/* Info da Tiragem (canto superior) */}
 			<div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-950/80 backdrop-blur-sm border border-purple-500/30">
 				{spread.icon && <Icon icon={spread.icon} className="size-4 text-purple-400" />}
 				<span className="text-sm font-medium text-purple-200">{spread.name}</span>
 				<span className="text-xs text-purple-400/60">({spread.cardCount} cartas)</span>
 			</div>
 
-			{/* Dificuldade (canto superior direito) */}
 			{spread.difficulty && (
 				<div className="absolute top-4 right-4 flex items-center gap-1">
 					{Array.from({ length: 5 }).map((_, i) => (

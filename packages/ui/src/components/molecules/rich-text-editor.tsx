@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 import { cn } from '../../lib/utils'
 
-export interface RichTextEditorProps {
+export type RichTextEditorProps = {
 	value?: string
 	onChange?: (value: string) => void
 	placeholder?: string
@@ -125,7 +125,7 @@ export function RichTextEditor({
 	)
 }
 
-interface MenuBarProps {
+type MenuBarProps = {
 	editor: Editor
 	className?: string
 }
