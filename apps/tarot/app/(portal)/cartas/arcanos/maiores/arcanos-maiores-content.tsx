@@ -12,8 +12,8 @@ export function ArcanosMaioresContent() {
 
 	// Filtrar apenas Arcanos Maiores
 	const arcanosMaiores = data?.cards.filter(
-		(card: any) => card.cardType === 'Arcano Maior',
-	) || []
+		(card) => card.cardType === 'Arcano Maior',
+	) ?? []
 
 	return (
 		<>
@@ -42,7 +42,7 @@ export function ArcanosMaioresContent() {
 					</div>
 
 					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-						{arcanosMaiores.map((card: any) => (
+						{arcanosMaiores.map((card) => (
 							<Link
 								key={card.id}
 								href={`/cartas/${card.slug}`}
@@ -129,7 +129,7 @@ export function ArcanosMaioresContent() {
 									<div className="flex items-center gap-6 pt-3 text-xs text-muted-foreground border-t border-border/30">
 										<div className="flex items-center gap-1.5">
 											<div className="size-1.5 rounded-full bg-purple-500/70" />
-											<span className="font-medium">{card.verticalMeaning?.length || 0}</span>
+											<span className="font-medium">{Array.isArray(card.verticalMeaning) ? card.verticalMeaning.length : 0}</span>
 											<span>significados</span>
 										</div>
 										<div className="flex items-center gap-1.5">

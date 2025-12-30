@@ -49,7 +49,6 @@ export default [
 			// React
 			'react-hooks/exhaustive-deps': 'off',
 			'react/no-array-index-key': 'off',
-			'react/button-has-type': 'off',
 			'react/hook-use-state': 'off',
 			'react/no-object-type-as-default-prop': 'off',
 			'react/no-unknown-property': 'off',
@@ -66,7 +65,6 @@ export default [
 			'security/detect-object-injection': 'off',
 			// Outros
 			'max-lines-per-function': 'off',
-			'no-console': 'off',
 			// Erros adicionais
 			'sonarjs/pseudo-random': 'off',
 			'react/no-unescaped-entities': 'off',
@@ -74,15 +72,11 @@ export default [
 			'react-you-might-not-need-an-effect/no-adjust-state-on-prop-change': 'off',
 			'sonarjs/no-nested-functions': 'off',
 			'@typescript-eslint/no-redundant-type-constituents': 'off',
-			'@typescript-eslint/no-explicit-any': 'off',
+			// ✅ @typescript-eslint/no-explicit-any - REATIVADA (Fase 3)
 			// Mais erros para Fase 1.75
 			'@typescript-eslint/no-floating-promises': 'off',
 			'@stylistic/multiline-ternary': 'off',
-			'@typescript-eslint/no-unused-vars': 'off',
-			'sonarjs/unused-import': 'off',
-			'no-restricted-globals': 'off',
 			'react/jsx-handler-names': 'off',
-			'@typescript-eslint/no-empty-function': 'off',
 			'complexity': 'off',
 			'unicorn/no-nested-ternary': 'off',
 			'unicorn/import-style': 'off',
@@ -95,7 +89,6 @@ export default [
 				},
 			}],
 			'security/detect-non-literal-fs-filename': 'off',
-			'@typescript-eslint/prefer-optional-chain': 'off',
 			'sonarjs/assertions-in-tests': 'off',
 		},
 	},

@@ -1,36 +1,43 @@
 'use client'
 import { useEffect, useRef, useState, useCallback } from 'react'
 
-export type AutosaveOptions = {
+export type AutosaveOptions<T> = {
 	key: string // Chave única para identificar o draft (ex: 'carta-nova', 'carta-edit-123')
-	data: any // Dados do formulário
+	data: T // Dados do formulário (tipado)
 	interval?: number // Intervalo de auto-save em ms (padrão: 5000ms = 5s)
 	onSave?: () => void // Callback quando salvar
-	onRestore?: (data: any) => void // Callback quando restaurar
+	onRestore?: (data: T) => void // Callback quando restaurar (tipado)
 	enabled?: boolean // Se o auto-save está habilitado (padrão: true)
 }
 
-export type AutosaveReturn = {
+export type AutosaveReturn<T> = {
 	lastSaved: Date | null
 	hasDraft: boolean
 	clearDraft: () => void
 	saveDraft: () => void
-	restoreDraft: () => any | null
+	restoreDraft: () => T | null // Retorno tipado
 	isSaving: boolean
+}
+
+type StoredDraft<T> = {
+	data: T
+	timestamp: string
 }
 
 /**
  * Hook para auto-save de formulários usando localStorage
  * Salva automaticamente os dados a cada X segundos quando há mudanças
+ *
+ * @template T - Tipo dos dados do formulário
  */
-export function useAutosave({
+export function useAutosave<T>({
 	key,
 	data,
 	interval = 5000, // 5 segundos
 	onSave,
 	onRestore,
 	enabled = true,
-}: AutosaveOptions): AutosaveReturn {
+}: AutosaveOptions<T>): AutosaveReturn<T> {
 	const [lastSaved, setLastSaved] = useState<Date | null>(null)
 	const [hasDraft, setHasDraft] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
@@ -47,7 +54,7 @@ export function useAutosave({
 		const savedDraft = localStorage.getItem(storageKey)
 		if (savedDraft) {
 			setHasDraft(true)
-			const parsed = JSON.parse(savedDraft)
+			const parsed = JSON.parse(savedDraft) as StoredDraft<T>
 			setLastSaved(parsed.timestamp ? new Date(parsed.timestamp) : null)
 		}
 	}, [storageKey, enabled])
@@ -58,7 +65,7 @@ export function useAutosave({
 
 		try {
 			setIsSaving(true)
-			const draft = {
+			const draft: StoredDraft<T> = {
 				data,
 				timestamp: new Date().toISOString(),
 			}
@@ -85,12 +92,12 @@ export function useAutosave({
 	}, [storageKey])
 
 	// Restaura o draft
-	const restoreDraft = useCallback(() => {
+	const restoreDraft = useCallback((): T | null => {
 		try {
 			const savedDraft = localStorage.getItem(storageKey)
 			if (!savedDraft) {return null}
 
-			const parsed = JSON.parse(savedDraft)
+			const parsed = JSON.parse(savedDraft) as StoredDraft<T>
 			onRestore?.(parsed.data)
 			return parsed.data
 		} catch (error) {
@@ -136,8 +143,8 @@ export function useAutosave({
 			saveDraft()
 		}
 
-		window.addEventListener('beforeunload', handleBeforeUnload)
-		return () => { window.removeEventListener('beforeunload', handleBeforeUnload) }
+		globalThis.addEventListener('beforeunload', handleBeforeUnload)
+		return () => { globalThis.removeEventListener('beforeunload', handleBeforeUnload) }
 	}, [enabled, saveDraft])
 
 	return {

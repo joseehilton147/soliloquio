@@ -1,14 +1,12 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import type { ReadingType } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, CardBadge, type BreadcrumbItem } from '@workspace/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 import { use } from 'react'
 
-import { ReflectionMessage } from './components'
-
+import { ReflectionMessage } from '@/features/cartas'
 import { trpc } from '@/lib/trpc'
 
 type PageProps = {
@@ -194,7 +192,7 @@ export default function CartaDetailPage({ params }: PageProps) {
 						{card.typesOfReading.length > 0
 							? (
 								<div className="grid gap-4">
-									{card.typesOfReading.map((reading: any) => (
+									{card.typesOfReading.map((reading) => (
 										<div
 											key={reading.id}
 											className="rounded-lg border border-border/40 bg-gradient-to-br from-background to-muted/20 p-6 hover:shadow-lg hover:border-purple-500/20 transition-all"

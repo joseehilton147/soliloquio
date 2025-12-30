@@ -1,7 +1,6 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import type { TarotCard } from '@workspace/core/tarot'
 import { MysticalLoading, MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -27,7 +26,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 	})
 
 	const handleDelete = async () => {
-		if (!deck || !confirm(`Tem certeza que deseja excluir o baralho "${deck.name}"? Esta ação não pode ser desfeita.`)) {
+		if (!deck || !globalThis.confirm(`Tem certeza que deseja excluir o baralho "${deck.name}"? Esta ação não pode ser desfeita.`)) {
 			return
 		}
 
@@ -106,6 +105,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 						Editar
 					</Link>
 					<button
+						type="button"
 						onClick={handleDelete}
 						disabled={isDeleting}
 						className="inline-flex items-center gap-2 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm font-medium text-destructive hover:bg-destructive/20 transition-all disabled:opacity-50"
@@ -152,7 +152,7 @@ export default function BaralhoDetailPage({ params }: PageProps) {
 					)
 					: (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-							{deck.cards.map((card: any) => (
+							{deck.cards.map((card) => (
 								<Link
 									key={card.id}
 									href={`/cartas/${card.slug}`}

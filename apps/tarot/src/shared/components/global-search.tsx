@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useCallback } from 'react'
 
-import { trpc } from '../../lib/trpc'
+import { trpc, type TarotCardFromRouter } from '../../lib/trpc'
 
 import { SearchFieldBadge } from './search-field-badge'
 
@@ -46,7 +46,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 		enabled: debouncedQuery.length > 0,
 	})
 
-	const filterCards = useCallback((cards: any[] | undefined) => {
+	const filterCards = useCallback((cards: TarotCardFromRouter[] | undefined) => {
 		if (!cards) {return []}
 
 		const searchTerm = query.toLowerCase().trim()
@@ -211,6 +211,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 							/>
 							{query && (
 								<button
+									type="button"
 									onClick={() => {
 										setQuery('')
 										setDebouncedQuery('')
@@ -307,13 +308,7 @@ export function GlobalSearch({ open, onClose }: GlobalSearchProps) {
 																				: 'bg-gradient-to-br from-indigo-500 to-purple-600 group-hover:shadow-indigo-500/50',
 																		)}
 																	>
-																		{result.imageUrl === null || result.imageUrl === undefined
-																			? (
-																				<Icon icon="lucide:image" className="size-6 sm:size-8 text-white/50" />
-																			)
-																			: (
-																				<Icon icon="lucide:sparkles" className="size-6 sm:size-8 text-white" />
-																			)}
+																		<Icon icon="lucide:image" className="size-6 sm:size-8 text-white/50" />
 																	</div>
 																)}
 														</div>
