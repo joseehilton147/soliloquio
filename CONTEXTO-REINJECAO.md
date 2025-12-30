@@ -22,7 +22,7 @@ Após ler, me diga: (1) Em qual fase estamos, (2) O que foi feito, (3) Próximo 
 
 ## Estado Atual do Projeto
 
-### Fase Atual: **FASE 3 - SISTEMA DE TYPES**
+### Fase Atual: **FASE 3 - SISTEMA DE TYPES (Refinamento)**
 
 ### Progresso Geral
 
@@ -31,9 +31,9 @@ Após ler, me diga: (1) Em qual fase estamos, (2) O que foi feito, (3) Próximo 
 | **0** | Fundação (Documentação) | ✅ CONCLUÍDA | 100% |
 | **1** | Atomic Design | ✅ CONCLUÍDA | 100% |
 | **1.5** | TanStack Libraries | ✅ CONCLUÍDA | 100% |
-| **1.75** | ESLint Compliance | 🔄 EM ANDAMENTO | 23% (9 regras) |
+| **1.75** | ESLint Compliance | ✅ CONCLUÍDA | 100% |
 | **2** | Feature Folders | ✅ CONCLUÍDA | 100% |
-| **3** | Sistema de Types | 🔄 EM ANDAMENTO | 35% |
+| **3** | Sistema de Types | ✅ CONCLUÍDA | 100% |
 | 4 | Frameworks de Qualidade | ⏳ Pendente | 0% |
 | 5 | Testes | ⏳ Pendente | 0% |
 
@@ -89,7 +89,7 @@ Após ler, me diga: (1) Em qual fase estamos, (2) O que foi feito, (3) Próximo 
 
 ## Fase 1.75: Detalhamento
 
-### 🔄 FASE 1.75 EM ANDAMENTO (23%)
+### ✅ FASE 1.75 CONCLUÍDA (100%)
 
 **Objetivo:** Reativar regras ESLint desabilitadas incrementalmente
 
@@ -104,9 +104,10 @@ Após ler, me diga: (1) Em qual fase estamos, (2) O que foi feito, (3) Próximo 
 | `@typescript-eslint/no-empty-function` | `() => {}` → `() => { /* noop */ }` | 12 |
 | `no-restricted-globals` | `confirm` → `globalThis.confirm` | 12 |
 | `@typescript-eslint/no-unnecessary-type-assertion` | Removidas assertions desnecessárias | 12 |
-| `@typescript-eslint/no-explicit-any` | Generics + inferência tRPC | **13** |
+| `@typescript-eslint/no-explicit-any` | Generics + inferência tRPC | 13 |
+| `import/order` | Separação correta de grupos de imports | **15** |
 
-**⏳ REGRAS PENDENTES (39 regras) - Próximas Fases:**
+**⏳ REGRAS PENDENTES (38 regras) - Próximas Fases:**
 
 **Categoria 1 - TypeScript Unsafe (9 regras):**
 Problema: Inferência de tipos tRPC/Prisma
@@ -194,6 +195,39 @@ src/features/
 ---
 
 ## Histórico de Sessões
+
+### Sessão 15 - 2025-12-30 (Fase 3 CONCLUÍDA + Fase 1.75 CONCLUÍDA)
+
+**FASE 3 FINALIZADA (100%)**
+
+**O que foi feito - Sistema de Types:**
+1. Verificação de configs (`dock-items.tsx`, `header-apps.tsx`) - já bem tipados
+2. Verificação de hooks (`use-autosave.ts`, `use-tag-autocomplete.ts`) - já bem tipados
+3. `use-autosave.ts` já exporta `AutosaveOptions<T>` e `AutosaveReturn<T>` (exemplar)
+4. Validação via IDE diagnostics - 0 erros em arquivos modificados
+
+**FASE 1.75 FINALIZADA (100%)**
+
+**O que foi feito - ESLint Compliance:**
+1. Correção de 3 erros `import/order` em arquivos de features
+2. Grupos de imports: Externos → Internos relativos (`../`) → Internos alias (`@/`)
+3. Arquivos corrigidos:
+   - `naipe-cards-grid.tsx` - separar grupos `../` e `@/`
+   - `energy-connections.tsx` - separar grupos `../` e `@/`
+   - `celtic-cross-layout.tsx` - remover linha vazia dentro do grupo `../`
+
+**Commits:**
+```
+d44a322 fix(lint): corrigir import/order em 3 arquivos
+d79ba3e feat(tipos): criar src/types/ para barrel de tipos globais
+b831547 refactor(tiragens): centralizar SpreadElementColors eliminando 7 duplicações
+```
+
+**Status:** Branch main 10 commits ahead de origin/main
+
+**Próximo:** Fase 4 (Frameworks de Qualidade) ou Push dos commits
+
+---
 
 ### Sessão 14 - 2025-12-30 (Fase 2 Finalizada + Fase 3 Progresso)
 
@@ -467,5 +501,5 @@ Para QUALQUER projeto, use este padrão:
 
 ---
 
-*Última atualização: 2025-12-30 (Sessão 14 - Fase 3 em 35%)*
+*Última atualização: 2025-12-30 (Sessão 15 - Fases 1.75 e 3 CONCLUÍDAS)*
 *Atualizar sempre que: (1) Concluir item, (2) Mudar de fase, (3) Finalizar sessão*
