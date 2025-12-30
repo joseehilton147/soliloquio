@@ -81,9 +81,16 @@ Verificar em `packages/ui/`:
 | **P0** | `@apps/docs/REFACTORING-ROADMAP.md` | Estrutura de features |
 
 **Pontos críticos:**
-- Cada feature tem: components/, domain/, hooks/
-- Barrel exports em index.ts
-- Types co-localizados em domain/types.ts
+- Cada feature tem: `components/`, `domain/`
+- Barrel exports em `index.ts`
+- Types co-localizados em `domain/[feature].types.ts`
+
+**Features existentes (5):**
+- `arcanos/` - Arcanos Maiores/Menores
+- `baralhos/` - Gestão de decks (CRUD)
+- `cartas/` - Cartas individuais
+- `naipes/` - Copas, Ouros, Espadas, Paus
+- `tiragens/` - Spreads (Cruz Celta, Sim/Não, etc)
 
 ---
 
@@ -94,12 +101,14 @@ Verificar em `packages/ui/`:
 | **P0** | `@apps/docs/REFACTORING-ROADMAP.md` | Seção Sistema de Types |
 
 **Pontos críticos:**
-- **Domínios**: arcanos/, naipes/, tiragens/, shared/
+- **Domínios**: arcanos/, baralhos/, cartas/, naipes/, tiragens/
+- **Tipos centralizados**: `src/types/index.ts` (barrel)
 - **Nomenclatura**: kebab-case arquivos, PascalCase interfaces
 - **Anti-patterns críticos**:
   - ❌ Re-export entre domínios (BLOQUEADOR)
   - ❌ `any` no código (CRÍTICO)
   - ❌ JSDoc óbvio (threshold <15%)
+  - ❌ Tipos duplicados (usar SpreadElementColors centralizado)
 - **shared/** apenas para types usados em 3+ domínios
 
 ---
@@ -345,7 +354,7 @@ A qualidade não é destino, é jornada. Como ensina Allan Kardec: "Fora da cari
 
 ---
 
-*Versão do prompt*: 1.0
-*Última atualização*: 2025-12-29
+*Versão do prompt*: 1.1
+*Última atualização*: 2025-12-30
 *Compatível com*: MCP Context7
 *Adaptado de*: frontend-apps/tomador v2.3

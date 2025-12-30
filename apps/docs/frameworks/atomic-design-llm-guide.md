@@ -22,18 +22,51 @@
 - ✅ TypeScript Strict
 
 **Hierarquia Atomic:**
+
 ```
-apps/tarot/src/components/
-├── atoms/           # Básicos, sem dependências custom
-├── molecules/       # Composição de 2-3 atoms
-│   ├── ui/          # Genérico
-│   └── tarot/       # Domain-specific
-├── organisms/       # Seções complexas
-│   ├── ui/          # Genérico (Drawer, Modal)
-│   └── tarot/       # Domain-specific
-└── templates/       # Layouts completos + global state
-    └── tarot/
+apps/tarot/src/
+├── components/              # Componentes genéricos Atomic
+│   ├── molecules/
+│   │   └── tarot/
+│   │       └── tiragens-tabs/
+│   └── templates/
+│       ├── providers/
+│       └── tarot/layout/
+│
+├── features/                # Domain-specific (Feature Folders)
+│   ├── arcanos/
+│   │   ├── components/      # Organisms domain-specific
+│   │   └── domain/          # Types + constants
+│   ├── baralhos/
+│   │   ├── components/
+│   │   └── domain/
+│   ├── cartas/
+│   │   ├── components/
+│   │   └── domain/
+│   ├── naipes/
+│   │   ├── components/      # 15 componentes Atomic
+│   │   └── domain/
+│   └── tiragens/
+│       ├── components/      # 19 componentes organizados
+│       │   ├── page/        # Hero, CTA, etc.
+│       │   ├── spread/
+│       │   │   ├── cards/   # CardBack, CardFront, CosmicCard
+│       │   │   ├── effects/ # CosmicBackground, EnergyConnections
+│       │   │   ├── guides/  # CelticCrossGuide, etc.
+│       │   │   └── layouts/ # CelticCrossLayout
+│       │   └── guides/
+│       └── domain/
+│
+├── shared/                  # Compartilhados entre features
+│   ├── components/
+│   │   └── layout/          # MysticalLayout
+│   └── constants/           # ElementColors, etc.
+│
+└── types/                   # Barrel de tipos globais
+    └── index.ts
 ```
+
+**Princípio:** Componentes genéricos em `src/components/`, domain-specific em `src/features/[feature]/components/`.
 
 ---
 
@@ -381,20 +414,22 @@ find src/components/templates -name "*.tsx" -not -name "*.test.tsx" 2>/dev/null 
 ### Hybrid Structure (Solilóquio)
 
 ```
-src/components/
-├── atoms/                    # Sempre genérico
-├── molecules/
-│   ├── ui/                   # Genérico
-│   └── tarot/                # Domain tarot
-├── organisms/
-│   ├── ui/                   # Genérico (Drawer, Modal)
-│   └── tarot/                # Domain tarot
-│       ├── arcanos/          # Sub-feature
-│       ├── naipes/           # Sub-feature
-│       └── tiragens/         # Sub-feature
-└── templates/
-    └── tarot/
+src/
+├── components/               # Genéricos (poucos)
+│   ├── molecules/tarot/      # Tiragens-tabs
+│   └── templates/            # Providers, TarotLayout
+│
+├── features/                 # Domain-specific (principal)
+│   ├── arcanos/components/   # ArcanoPortalCard, HeroSection
+│   ├── baralhos/components/  # DeckCard, HeroSection
+│   ├── cartas/components/    # ReflectionMessage
+│   ├── naipes/components/    # 15 componentes (NaipeCard, etc)
+│   └── tiragens/components/  # 19 componentes organizados
+│
+└── shared/components/        # Entre features (GlobalSearch, etc)
 ```
+
+**Decisão arquitetural:** Componentes domain-specific vivem DENTRO de suas features, não em `src/components/organisms/tarot/`.
 
 ### Regras de Nomenclatura
 
@@ -489,6 +524,6 @@ Violações de hierarquia são como desrespeitar a ordem natural. A harmonia do 
 
 ---
 
-*Framework v1.0 - Baseado em Brad Frost Atomic Design*
+*Framework v1.1 - Baseado em Brad Frost Atomic Design*
 *Adaptado de frontend-apps/tomador*
-*Última atualização: 2025-12-29*
+*Última atualização: 2025-12-30*

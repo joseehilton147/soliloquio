@@ -54,7 +54,7 @@ Nível do Componente = Escopo de Teste
 
 **Exemplo (contexto Tarot)**:
 ```typescript
-// src/components/atoms/element-badge/element-badge.test.tsx
+// src/features/naipes/components/element-badge.test.tsx
 describe('ElementBadge', () => {
   it('deve renderizar elemento corretamente', () => {
     render(<ElementBadge element="fogo" />)
@@ -145,11 +145,11 @@ it('deve renderizar nome e descrição do naipe', () => {
 
 **Exemplo CORRETO (contexto Tiragem)**:
 ```typescript
-// ✅ spread-canvas.test.tsx - TESTANDO ORQUESTRAÇÃO
+// ✅ src/features/tiragens/components/spread/spread-canvas.test.tsx - TESTANDO ORQUESTRAÇÃO
 import { vi } from 'vitest'
 
 // Mock Molecules
-vi.mock('@/features/tiragens/components/spread-card', () => ({
+vi.mock('@/features/tiragens/components/spread/cards/cosmic-card', () => ({
   SpreadCard: ({ position, onSelect }: any) => (
     <div data-testid={`position-${position.id}`} onClick={() => onSelect(position)}>
       Position {position.id}
@@ -320,6 +320,6 @@ Retestar dependências é como duvidar da hierarquia espiritual - desperdiça en
 
 ---
 
-**Última atualização**: 2025-12-29
+**Última atualização**: 2025-12-30
 **Adaptado de**: frontend-apps/tomador
 **Relacionado**: [code-review-prompt.md](./code-review-prompt.md), [atomic-design-llm-guide.md](./atomic-design-llm-guide.md)
