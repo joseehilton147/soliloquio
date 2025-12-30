@@ -171,11 +171,11 @@ Ver detalhes em `apps/tarot/REVISAO_EM_ANDAMENTO.md`
 
 ---
 
-### Fase 1.5: Bibliotecas TanStack (Em Andamento)
+### Fase 1.5: Bibliotecas TanStack
 
 **Escopo**: Instalar e implementar bibliotecas TanStack úteis ao projeto
 
-**Status**: 🔄 EM ANDAMENTO - 2025-12-29
+**Status**: ✅ CONCLUÍDA - 2025-12-30
 
 **Análise completa:** `apps/docs/brainstorm/tanstack-libraries-analysis.md`
 
@@ -198,23 +198,84 @@ Ver detalhes em `apps/tarot/REVISAO_EM_ANDAMENTO.md`
 **TanStack Form - Formulários:**
 | Formulário | Arquivo | Status |
 |------------|---------|--------|
-| Novo Baralho | `app/(portal)/baralhos/novo/page.tsx` | ⏳ Pendente |
-| Editar Baralho | `app/(portal)/baralhos/[slug]/editar/page.tsx` | ⏳ Pendente |
-| Nova Carta | `app/(portal)/cartas/nova/page.tsx` | ⏳ Pendente |
-| Editar Carta | `app/(portal)/cartas/[slug]/editar/page.tsx` | ⏳ Pendente |
+| Novo Baralho | `app/(portal)/baralhos/novo/page.tsx` | ✅ (já usava) |
+| Editar Baralho | `app/(portal)/baralhos/[slug]/editar/page.tsx` | ✅ (já usava) |
+| Nova Carta | `app/(portal)/cartas/nova/page.tsx` | ✅ Migrado (~15 useState → 1 useForm) |
+| Editar Carta | `app/(portal)/cartas/[slug]/editar/page.tsx` | ✅ Migrado (~15 useState → 1 useForm) |
 
 **Bibliotecas NÃO recomendadas:**
 - ❌ TanStack Table - Sem tabelas no projeto (UI é card-based)
 - ❌ TanStack Router - Next.js App Router já resolve
 - ❌ TanStack Virtual - Sem listas longas que precisem virtualização
 
-**Próximo passo**: Refatorar formulários com TanStack Form
+**Dependências**: Fase 1 ✅
+
+---
+
+### Fase 1.75: ESLint Compliance (Paralelo)
+
+**Escopo**: Reativar regras ESLint desabilitadas incrementalmente
+
+**Status**: ⏳ PENDENTE (pode ser executada em paralelo)
+
+**Contexto**: Na Sessão 10, foram criados overrides temporários para permitir commits.
+Total de ~1.294 erros suprimidos que precisam ser corrigidos.
+
+**Overrides Temporários por Package:**
+
+| Package | Arquivo | Erros Suprimidos |
+|---------|---------|------------------|
+| `@workspace/api` | `packages/api/eslint.config.js` | ~186 erros (tRPC/Prisma) |
+| `@workspace/ui` | `packages/ui/eslint.config.js` | ~157 erros (componentes UI) |
+| `tarot` | `apps/tarot/eslint.config.js` | ~951 erros (domínio tarot) |
+
+**Categorias de Regras Desabilitadas:**
+
+1. **TypeScript Unsafe** (~400 erros):
+   - `@typescript-eslint/no-unsafe-assignment`
+   - `@typescript-eslint/no-unsafe-member-access`
+   - `@typescript-eslint/no-unsafe-call`
+   - `@typescript-eslint/no-unsafe-return`
+   - `@typescript-eslint/no-unsafe-argument`
+
+2. **SonarJS** (~200 erros):
+   - `sonarjs/no-duplicate-string`
+   - `sonarjs/prefer-read-only-props`
+   - `sonarjs/function-return-type`
+   - `sonarjs/no-nested-conditional`
+
+3. **React/Hooks** (~150 erros):
+   - `react-hooks/exhaustive-deps`
+   - `react/no-array-index-key`
+   - `react/button-has-type`
+   - `react/hook-use-state`
+
+4. **JSX-A11y** (~100 erros):
+   - `jsx-a11y/click-events-have-key-events`
+   - `jsx-a11y/no-static-element-interactions`
+
+5. **Unicorn** (~100 erros):
+   - `unicorn/consistent-function-scoping`
+   - `unicorn/prevent-abbreviations`
+
+**Estratégia de Correção:**
+1. Reativar 1 regra por vez
+2. Executar `pnpm lint` para ver erros
+3. Corrigir erros (ou justificar disable inline)
+4. Commitar mudança
+5. Repetir
+
+**Bloqueadores técnicos**: Nenhum
+
+**Dependências**: Nenhuma (paralelo)
 
 ---
 
 ### Fase 2: Feature Folders Refinados
 
 **Escopo**: Organizar features com estrutura consistente
+
+**Status**: 🔄 EM ANDAMENTO - 2025-12-30 (10%)
 
 **Estrutura alvo para cada feature:**
 ```
@@ -233,10 +294,28 @@ src/features/[feature]/
 └── index.ts             # Barrel export
 ```
 
-**Features existentes:**
-- [ ] `arcanos/` - Reorganizar
-- [ ] `naipes/` - Reorganizar
-- [ ] `tiragens/` - Reorganizar
+**Features existentes (análise da Sessão 11):**
+- [x] `arcanos/` - ✅ Completo (domain + components)
+- [x] `naipes/` - ✅ Completo (15 componentes Atomic Design)
+- [ ] `tiragens/` - ⚠️ Parcial (consolidar 15 componentes de `app/` para `src/features/`)
+
+**Features a criar:**
+- [ ] `baralhos/` - Gestão de decks (CRUD)
+- [ ] `cartas/` - Cartas individuais (CRUD)
+
+**Componentes a consolidar em tiragens:**
+1. `app/(portal)/tiragens/components/` → `src/features/tiragens/components/page/`
+   - tiragem-category-portal-card.tsx
+   - tiragens-custom-cta.tsx
+   - tiragens-hero-section.tsx
+   - tiragens-learning-path.tsx
+
+2. `app/(portal)/tiragens/[slug]/components/` → `src/features/tiragens/components/spread/`
+   - cards/ (card-back, card-front, card-tooltip, cosmic-card)
+   - effects/ (cosmic-background, energy-connections)
+   - layouts/ (celtic-cross-layout)
+   - guides/ (celtic-cross-guide, universe-advice-guide, yes-no-guide)
+   - tiragem-client.tsx
 
 **Bloqueadores técnicos**: Nenhum
 
@@ -451,6 +530,23 @@ component-name/
 
 ## Registro de Progresso
 
+### [2025-12-30] Sessão 11 - Fase 2 Feature Folders (Início)
+
+**FASE 2 INICIADA (10%)**
+
+- ✅ Exploração completa da estrutura `apps/tarot/` com agente Explore
+- ✅ Mapeamento de 3 domínios existentes em `src/features/`:
+  - `arcanos/` - Completo (DDD: domain + components)
+  - `naipes/` - Completo (15 componentes Atomic Design)
+  - `tiragens/` - Parcial (componentes espalhados em `app/`)
+- ✅ Identificação de 15 componentes a consolidar em tiragens
+- ✅ Planejamento de novas features (baralhos, cartas)
+- ✅ Atualização dos arquivos de tracking (CONTEXTO-REINJECAO.md, REFACTORING-ROADMAP.md)
+
+**Próximo:** Consolidar componentes de tiragens em `src/features/tiragens/`
+
+---
+
 ### [2025-12-30] Sessão 10 - ESLint Compliance + TanStack Form Completo
 
 **FASE 1.5 CONCLUÍDA (100%) + Preparação Fase 1.75**
@@ -575,5 +671,5 @@ component-name/
 
 ---
 
-*Última atualização: 2025-12-29*
-*Versão: 1.0*
+*Última atualização: 2025-12-30 (Sessão 11)*
+*Versão: 1.1*

@@ -23,14 +23,12 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { CosmicCard } from './cards'
-import { CelticCrossGuide } from './celtic-cross-guide'
 import { CosmicBackground, EnergyConnections } from './effects'
+import { CelticCrossGuide, UniverseAdviceGuide, YesNoGuide } from './guides'
 import { calculateContainerDimensions, recalculatePositions, CelticCrossLayout } from './layouts'
-import { UniverseAdviceGuide } from './universe-advice-guide'
-import { YesNoGuide } from './yes-no-guide'
 
 import { getCategoryById } from '@/features/tiragens'
-import { getCategoryElement, getCategoryColors, normalizeElementName } from '@/shared/constants/element-colors'
+import { getCategoryElement, getCategoryColors } from '@/shared/constants/element-colors'
 import type { CategoryType } from '@/shared/constants/element-colors'
 
 /**

@@ -3,10 +3,7 @@
 import { Icon } from '@iconify/react'
 import { cn } from '@workspace/ui/lib/utils'
 
-type ReflectionMessageProps = {
-	message: string
-	className?: string
-}
+import type { ReflectionMessageProps } from '../domain'
 
 /**
  * Componente ReflectionMessage - Mensagem Introspectiva
@@ -160,8 +157,3 @@ export function ReflectionMessage({ message, className }: ReflectionMessageProps
 		</div>
 	)
 }
-
-// CSS adicional necessário em tailwind.config (se ainda não existir):
-// Animation: pulse-slow
-// Adicionar em theme.extend.animation:
-// 'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'

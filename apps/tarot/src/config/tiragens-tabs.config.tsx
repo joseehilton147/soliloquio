@@ -49,13 +49,14 @@ const ELEMENT_ICONS = {
 export const TIRAGENS_TABS_CONFIG: MysticalTabItem[] = ALL_CATEGORIES.map((category) => ({
 	id: category.id,
 	label: category.name,
-	icon: ELEMENT_ICONS[category.element as keyof typeof ELEMENT_ICONS],
+	icon: ELEMENT_ICONS[category.element],
 	count: category.spreads.length,
 	renderTab: ({ item, isActive, onClick }) => {
-		const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
+		const colors = ELEMENT_COLORS[category.element]
 
 		return (
 			<button
+				type="button"
 				key={item.id}
 				onClick={onClick}
 				className={cn(
@@ -137,7 +138,7 @@ export function getTiragemTabSubtitle(activeTab: string) {
 	const category = ALL_CATEGORIES.find((cat) => cat.id === activeTab)
 	if (!category) {return null}
 
-	const colors = ELEMENT_COLORS[category.element as keyof typeof ELEMENT_COLORS]
+	const colors = ELEMENT_COLORS[category.element]
 
 	return (
 		<>

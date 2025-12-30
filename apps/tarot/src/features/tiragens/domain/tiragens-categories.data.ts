@@ -1,4 +1,4 @@
-import type { TiragemCategoryData } from './components'
+import type { TiragemCategoryData } from './tiragens.types'
 
 import {
 	ALL_SPREADS,

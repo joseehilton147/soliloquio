@@ -1,8 +1,7 @@
 import { MysticalBreadcrumb, type BreadcrumbItem } from '@workspace/ui'
 
-import { TiragensHeroSection, TiragensLearningPath } from './components'
-
 import { TarotTiragensTabs } from '@/components/molecules/tarot/tiragens-tabs'
+import { TiragensHeroSection, TiragensLearningPath } from '@/features/tiragens'
 
 /**
  * Página das Tiragens de Tarot

@@ -118,7 +118,7 @@ export function CelticCrossLayout({
 						colors={colors}
 						isSelected={selectedPosition === pos1.id}
 						isFlipped={flippedCards.has(pos1.id)}
-						onToggle={() => {}} // Controlado pelo onClick do wrapper
+						onToggle={() => { /* noop - controlado pelo wrapper */ }}
 					/>
 
 					{/* Indicador sutil */}
@@ -163,7 +163,7 @@ export function CelticCrossLayout({
 							colors={colors}
 							isSelected={selectedPosition === pos2.id}
 							isFlipped={isCard2Flipped}
-							onToggle={() => {}} // Controlado pelo onClick do wrapper
+							onToggle={() => { /* noop - controlado pelo wrapper */ }}
 						/>
 					</div>
 

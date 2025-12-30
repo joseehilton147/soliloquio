@@ -50,7 +50,7 @@ export function NaipePageHero({
 	}, [])
 
 	return (
-		<div className={cn('relative overflow-hidden rounded-2xl border-2 bg-gradient-to-br backdrop-blur-sm p-12 mb-8', colors.border, `from-${colors.primary}-950/40 via-${colors.secondary}-950/30 to-${colors.tertiary}-950/40`)}>
+		<div className={cn('relative overflow-hidden rounded-2xl border-2 bg-gradient-to-br backdrop-blur-sm p-12 mb-8', colors.border, `from-${colors.color}-950/40 via-${colors.secondary}-950/30 to-${colors.tertiary}-950/40`)}>
 			<div className="absolute inset-0 pointer-events-none overflow-hidden">
 				<div className={cn('absolute inset-0 bg-gradient-radial to-transparent', colors.nebula)} />
 

@@ -1,24 +1,11 @@
 'use client'
 
 import { Icon } from '@iconify/react'
-import type { TarotSpread } from '@workspace/core/tarot'
 import { cn } from '@workspace/ui/lib/utils'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-export type TiragemCategoryData = {
-	id: string
-	name: string
-	subtitle: string
-	description: string[]
-	quote: string
-	icon: string
-	decorativeIcon: string
-	element: 'water' | 'fire' | 'earth' | 'air' | 'spirit'
-	color: 'blue' | 'red' | 'amber' | 'slate' | 'purple'
-	spreads: TarotSpread[]
-	mysticalSymbol: string
-}
+import type { TiragemCategoryData } from '../../domain/tiragens.types'
 
 type TiragemCategoryPortalCardProps = {
 	category: TiragemCategoryData

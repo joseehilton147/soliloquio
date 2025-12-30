@@ -6,3 +6,4 @@
  */
 
 export * from './tiragens-categories.data'
+export type { TiragemCategoryData } from './tiragens.types'

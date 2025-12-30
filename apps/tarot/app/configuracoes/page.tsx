@@ -94,6 +94,7 @@ export default function ConfiguracoesPage() {
 
 								return (
 									<button
+										type="button"
 										key={option.value}
 										onClick={() => { handleVisibilityChange(option.value) }}
 										className={cn(

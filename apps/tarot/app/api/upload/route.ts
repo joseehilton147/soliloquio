@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
 		await writeFile(filePath, buffer)
 
 		// Deletar imagem antiga se existir e for diferente
-		if (oldImageUrl && oldImageUrl.startsWith('/images/cartas/')) {
+		if (oldImageUrl?.startsWith('/images/cartas/')) {
 			try {
 				const oldFileName = oldImageUrl.replace('/images/cartas/', '')
 				const oldFilePath = join(uploadDirectory, oldFileName)
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 				// Verificar se arquivo existe antes de deletar
 				if (existsSync(oldFilePath)) {
 					await unlink(oldFilePath)
-					console.log(`[Upload] Imagem antiga deletada: ${oldImageUrl}`)
+					console.info(`[Upload] Imagem antiga deletada: ${oldImageUrl}`)
 				}
 			} catch (deleteError) {
 				// Log do erro mas não falha o upload

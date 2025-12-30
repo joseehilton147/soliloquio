@@ -16,7 +16,7 @@ type MysticalLayoutProps = {
 	children: React.ReactNode
 }
 
-export function MysticalLayout({ children }: MysticalLayoutProps): JSX.Element {
+export function MysticalLayout({ children }: MysticalLayoutProps) {
 	const { shouldShowMysticalBackground, dockSettings, isSearchModalOpen, closeSearchModal, openSearchModal } =
 		useMysticalLayout()
 

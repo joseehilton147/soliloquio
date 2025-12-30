@@ -2,9 +2,8 @@
 
 import { MysticalTabs } from '@workspace/ui'
 
-import { TiragemCategoryPortalCard } from '@/app/(portal)/tiragens/components'
 import { TIRAGENS_TABS_CONFIG, getTiragemTabSubtitle } from '@/config/tiragens-tabs.config'
-import { ALL_CATEGORIES } from '@/features/tiragens'
+import { ALL_CATEGORIES, TiragemCategoryPortalCard } from '@/features/tiragens'
 
 export function TarotTiragensTabs() {
 	return (
