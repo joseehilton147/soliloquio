@@ -9,9 +9,9 @@
 
 import type { TarotSpread } from '@workspace/core/tarot'
 
-import type { Element } from '@/shared/constants/element-colors'
-
 import type { SpreadElementColors } from '../../../domain/tiragens.types'
+
+import type { Element } from '@/shared/constants/element-colors'
 
 /**
  * Props do componente EnergyConnections

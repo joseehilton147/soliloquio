@@ -4,7 +4,6 @@ import type { TarotSpread } from '@workspace/core/tarot'
 import * as React from 'react'
 
 import type { SpreadElementColors } from '../../../domain/tiragens.types'
-
 import { CardBack } from '../cards/card-back'
 import { CardFront } from '../cards/card-front'
 

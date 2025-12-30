@@ -6,9 +6,9 @@ import { cn } from '@workspace/ui/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import type { NaipeColorScheme } from '@/shared/constants/element-colors'
-
 import type { NaipeCardData } from '../domain/naipes.types'
+
+import type { NaipeColorScheme } from '@/shared/constants/element-colors'
 
 export type NaipeCardsGridProps = {
 	cards: NaipeCardData[]
