@@ -6,6 +6,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const nextConfig: NextConfig = {
 	transpilePackages: ['@workspace/ui', '@workspace/core', '@workspace/api'],
+	// NOTA Workers: serverExternalPackages abaixo vale para build Node (dev/CI).
+	// No Worker (workerd, via `opennextjs-cloudflare build`) não há TCP nem FS
+	// gravável — ver app/api/trpc/[trpc]/route.ts (Prisma TCP direto) e
+	// app/api/upload/route.ts (node:fs) para os pontos de quebra documentados.
 	serverExternalPackages: ['@prisma/client', '@workspace/database'],
 
 	// Configure Turbopack aliases (Turbopack is now stable in Next.js 15)

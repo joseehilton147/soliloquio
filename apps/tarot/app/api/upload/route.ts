@@ -5,6 +5,19 @@ import { join } from 'node:path'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
+	// Cloudflare Workers não tem disco gravável: o runtime workerd rejeita
+	// escrita via node:fs (mkdir/writeFile/unlink lançam EROFS) e não há
+	// filesystem persistente entre requests. Uploads em produção exigem object
+	// storage (binding R2_BUCKET — ver wrangler.toml, seção r2_buckets).
+	// Sem bucket configurado, falhar explícito (501) em vez de crash.
+	// Em dev local (NODE_ENV=development) mantém o comportamento atual em disco.
+	if (process.env.NODE_ENV !== 'development' && !process.env.R2_BUCKET) {
+		return NextResponse.json(
+			{ error: 'upload indisponível nesta build' },
+			{ status: 501 },
+		)
+	}
+
 	try {
 		const formData = await request.formData()
 		const file = formData.get('file') as File

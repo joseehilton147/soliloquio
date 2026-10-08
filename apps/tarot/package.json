@@ -5,7 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3002",
-    "build": "next build",
+    "build": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start --port 3002",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -36,12 +39,14 @@
     "superjson": "^2.2.5"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.9",
     "@types/node": "^20.19.9",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "@workspace/eslint-config": "workspace:^",
     "@workspace/typescript-config": "workspace:*",
     "tailwindcss": "4.1.11",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.148.0"
   }
 }

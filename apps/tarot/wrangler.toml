@@ -1,0 +1,26 @@
+# Cloudflare Workers — app tarot (Next.js via @opennextjs/cloudflare)
+# Deploy: Root directory = apps/tarot | Build = `pnpm run build` | Deploy = `npx wrangler deploy`
+# Gerado por `opennextjs-cloudflare build` -> worker em .open-next/worker.js (ver `main` abaixo).
+# Conforme https://developers.cloudflare.com/workers/framework-guides/web-apps/opennext/
+
+name = "soliloquio"
+main = ".open-next/worker.js"
+# Manter >= 2024-09-23 (requisito do flag nodejs_compat). Atualizar para a data
+# de hoje ao mexer neste arquivo.
+compatibility_date = "2026-10-08"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[observability]
+enabled = true
+
+# Uploads (R2) — AINDA NÃO ATIVO.
+# Quando o bucket existir, des-comentar e criar via `npx wrangler r2 bucket create <nome>`:
+# [[r2_buckets]]
+# binding = "R2_BUCKET"
+# bucket_name = "<nome-do-bucket>"
+# O handler `app/api/upload/route.ts` responde 501 enquanto R2_BUCKET não estiver
+# configurado (em vez de tentar escrita em disco, que não existe em Workers).
