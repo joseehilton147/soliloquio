@@ -1,8 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@source "../../../apps/**/*.{ts,tsx}";
-@source "../../../components/**/*.{ts,tsx}";
+@source "../../../../apps/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
 @custom-variant dark (&:is(.dark *));
@@ -14,9 +14,9 @@
  */
 :root {
   /* Fontes Místicas - Configuradas via apps/tarot/config/fonts.config.ts */
-  --font-display: var(--font-cinzel);
-  --font-body: var(--font-philosopher);
-  --font-accent: var(--font-playfair);
+  --font-display: var(--font-eb-garamond);
+  --font-body: var(--font-lora);
+  --font-accent: var(--font-cinzel);
 
   /* Dark mode permanente - cores místicas */
   --background: oklch(0.145 0 0);

@@ -3,17 +3,21 @@
 import { Icon } from '@iconify/react'
 import { SacredEyeLogo } from '@workspace/ui'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function TarotHomePage() {
-	const [particles] = useState<{ left: string; top: string; delay: string; duration: string }[]>(() =>
-		Array.from({ length: 15 }).map(() => ({
-			left: `${Math.random() * 100}%`,
-			top: `${Math.random() * 100}%`,
-			delay: `${Math.random() * 5}s`,
-			duration: `${15 + Math.random() * 15}s`,
-		})),
-	)
+	const [particles, setParticles] = useState<{ left: string; top: string; delay: string; duration: string }[]>([])
+
+	useEffect(() => {
+		setParticles(
+			Array.from({ length: 15 }).map(() => ({
+				left: `${Math.random() * 100}%`,
+				top: `${Math.random() * 100}%`,
+				delay: `${Math.random() * 5}s`,
+				duration: `${15 + Math.random() * 15}s`,
+			})),
+		)
+	}, [])
 
 	return (
 		<div className="relative min-h-screen flex flex-col items-center overflow-x-hidden bg-gradient-to-b from-background via-background to-purple-950/10">
